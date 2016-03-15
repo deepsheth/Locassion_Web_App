@@ -42,7 +42,7 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-    <script src="./js/script.js"></script>
+    <script src="/js/script.js"></script>
 
 </head>
 
@@ -58,7 +58,7 @@
 
             <!-- Dropdown Structure -->
             <ul id='acct-settings' class='dropdown-content'>
-                <li><a href="/webpages/events_hosting.php">Events Created</a></li>
+                <li><a href="/webpages/events_dashboard.php">Events Created</a></li>
                 <li><a href="#!">Upcoming Events</a></li>
                 <li><a href="#!">Events History</a></li>
                 <li class="divider"></li>
@@ -109,7 +109,7 @@
                             <br> <i class="material-icons tiny grey-text text-lighten-1">access_time</i> 7:00PM - 8:00PM
                             <br>  <i class="material-icons tiny grey-text text-lighten-1">place</i> Psi Upsilon
                         </p>
-                        <a class="secondary-content chip"><i class="material-icons">group</i>2</a>
+                        <a class="secondary-content chip" title="Attendees"><i class="material-icons">group</i>2</a>
                     </li>
                     <li class="collection-item avatar">
                         <i class="material-icons circle blue">group</i>
@@ -118,7 +118,7 @@
                             <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 7:00AM - 12:00PM
                             <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> Steel Stacks
                         </p>
-                        <a href="#" class="secondary-content chip"><i class="material-icons">group</i>15</a>
+                        <a href="#" class="secondary-content chip" title="Attendees"><i class="material-icons">group</i>15</a>
                     </li>
                     <li class="collection-item avatar">
                         <i class="material-icons circle light-green darken-2">group</i>
@@ -127,7 +127,7 @@
                             <br> <i class="material-icons tiny grey-text text-lighten-1">access_time</i>6:00PM - 8:00PM
                             <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> Zollner Arts Center
                         </p>
-                        <a href="#" class="secondary-content chip"><i class="material-icons">public</i>69</a>
+                        <a href="#" class="secondary-content chip" title="Attendees"><i class="material-icons">public</i>69</a>
                     </li>
                     <li class="collection-item avatar">
                         <i class="material-icons circle red darken-2">play_arrow</i>
@@ -136,7 +136,16 @@
                             <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 10:00PM - 1:00AM
                             <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> 413 E Fifth
                         </p>
-                        <a href="#!" class="secondary-content chip"><i class="material-icons">public</i>185</a>
+                        <a href="#!" class="secondary-content chip" title="Attendees"><i class="material-icons">public</i>185</a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle red darken-2">play_arrow</i>
+                        <span class="title grey-text text-darken-3">Party!!!!!</span>
+                        <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 18, 2016
+                            <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 10:00PM - 1:00AM
+                            <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> 413 E Fifth
+                        </p>
+                        <a href="#!" class="secondary-content chip" title="Attendees"><i class="material-icons">public</i>185</a>
                     </li>
                     <a href="#!" class="collection-item">See More</a>
                 </ul>
@@ -144,39 +153,54 @@
 
             <div class="col s5 offset-s2">
                 <h3 class="grey-text text-darken-2"><span class="title blue-text">45</span> Events Attended</h3>
-                <ul class="collection">
+                <ul class="collection z-depth-1 grey-text text-darken-2">
                     <li class="collection-item avatar">
-                        <img src="images/yuna.jpg" alt="" class="circle">
-                        <span class="title">Title</span>
-                        <p>First Line
-                            <br> Second Line
+                        <i class="material-icons circle light-green darken-1">group</i>
+                        <span class="title grey-text text-darken-3">FundRager</span>
+                        <p>
+                             <i class="material-icons tiny grey-text text-lighten-1">event</i> Jan. 1, 2016
+                            <br> <i class="material-icons tiny grey-text text-lighten-1">access_time</i> 7:00PM - 8:00PM
+                            <br>  <i class="material-icons tiny grey-text text-lighten-1">place</i> Psi Upsilon
                         </p>
-                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        <a class="secondary-content chip" title="Attendees"><i class="material-icons">group</i>2</a>
                     </li>
                     <li class="collection-item avatar">
-                        <i class="material-icons circle">folder</i>
-                        <span class="title">Title</span>
-                        <p>First Line
-                            <br> Second Line
+                        <i class="material-icons circle blue">group</i>
+                        <span class="title grey-text text-darken-3">Cars and Coffee</span>
+                        <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 5, 2016
+                            <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 7:00AM - 12:00PM
+                            <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> Steel Stacks
                         </p>
-                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        <a href="#" class="secondary-content chip" title="Attendees"><i class="material-icons">group</i>15</a>
                     </li>
                     <li class="collection-item avatar">
-                        <i class="material-icons circle green">insert_chart</i>
-                        <span class="title">Title</span>
-                        <p>First Line
-                            <br> Second Line
+                        <i class="material-icons circle light-green darken-2">group</i>
+                        <span class="title grey-text text-darken-3">DaceFest</span>
+                        <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 23, 2016
+                            <br> <i class="material-icons tiny grey-text text-lighten-1">access_time</i>6:00PM - 8:00PM
+                            <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> Zollner Arts Center
                         </p>
-                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        <a href="#" class="secondary-content chip" title="Attendees"><i class="material-icons">public</i>69</a>
                     </li>
                     <li class="collection-item avatar">
-                        <i class="material-icons circle red">play_arrow</i>
-                        <span class="title">Title</span>
-                        <p>First Line
-                            <br> Second Line
+                        <i class="material-icons circle red darken-2">play_arrow</i>
+                        <span class="title grey-text text-darken-3">Party!!!!!</span>
+                        <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 18, 2016
+                            <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 10:00PM - 1:00AM
+                            <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> 413 E Fifth
                         </p>
-                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        <a href="#!" class="secondary-content chip" title="Attendees"><i class="material-icons">public</i>185</a>
                     </li>
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle red darken-2">play_arrow</i>
+                        <span class="title grey-text text-darken-3">Party!!!!!</span>
+                        <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 18, 2016
+                            <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 10:00PM - 1:00AM
+                            <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> 413 E Fifth
+                        </p>
+                        <a href="#!" class="secondary-content chip" title="Attendees"><i class="material-icons">public</i>185</a>
+                    </li>
+                    <a href="#!" class="collection-item">See More</a>
                 </ul>
             </div>
         </div>

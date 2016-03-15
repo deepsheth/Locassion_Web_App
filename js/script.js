@@ -7,6 +7,20 @@ $(document).ready(function () {
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
+
+    var numberSelected = 0;
+    $('#friend-dashboard .friend-list-cards .card-panel').click(function () {
+        $(this).toggleClass('card-selected');
+        if ($(this).is('.card-selected')) {
+            numberSelected++;
+            $('.num-selected').text(numberSelected);
+        }
+        else {
+            numberSelected--;
+            $('.num-selected').text(numberSelected);
+        }
+    });
+
 });
 
 var map;
@@ -203,8 +217,8 @@ function generatePrivateEvents() {
         $('#event-panel').append(
 
             '<div class="row"><div class="col s12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title">' +
-            privateEventInfo[i].name + '<i class="material-icons right close">close</i></span><p>' +
-            privateEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2 ">info</i><i class="material-icons left grey-text text-darken-2" onclick="centerMap(' + privateEventInfo[i].longitude + ',' + privateEventInfo[i].latitude + ')">place</i><i class="material-icons left grey-text text-darken-2">share</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><p class="grey-text text-darken-1"><strong>Location: </strong>' +
+            privateEventInfo[i].name + '<i title="Close" class="material-icons right close">close</i></span><p>' +
+            privateEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2" title="Map Event\'s Location" onclick="centerMap(' + privateEventInfo[i].longitude + ',' + privateEventInfo[i].latitude + ')">place</i><i  title="Share Event" class="material-icons left grey-text text-darken-2">share</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><p class="grey-text text-darken-1"><strong>Location: </strong>' +
             privateEventInfo[i].locationDescription + '</p><div class="chip chip-margin-right">' +
             privateEventInfo[i].tag1 + '</div><div class="chip">' + privateEventInfo[i].tag2 +
             '</div></div></li></ul></div></div></div></div>'
@@ -296,5 +310,4 @@ function centerMap(latitude, longitude) {
 $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
-
 });

@@ -78,7 +78,7 @@ include('php/login.php');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&callback=initMap" async defer></script>
 
 
@@ -95,7 +95,7 @@ include('php/login.php');
                 echo('<a href="./webpages/create_event.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Create Event</a>');
 }
             else{
-                echo('<a href="#" class="btn waves-effect disabled">Create Event</a>');
+                echo('<a href="#" class="btn waves-effect disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
                 }
             ?>
             
@@ -108,11 +108,12 @@ include('php/login.php');
             }
             ?>
 
-                    <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
+                    <a class='dropdown-button btn z-depth-0 light-green darken-2 col s3' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
 
                     <!-- Dropdown Structure -->
                     <ul id='acct-settings' class='dropdown-content'>
-                        <li><a href="/webpages/events_hosting.php">Events Created</a></li>
+                        <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
+                        <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
                         <li><a href="#!">Upcoming Events</a></li>
                         <li><a href="#!">Events History</a></li>
                         <li class="divider"></li>
@@ -122,7 +123,7 @@ include('php/login.php');
                     <!-- Modal Structure -->
                     <form action="" method="post">
                         <div id="modal1" class="modal blue-grey-text text-darken-2">
-                            <div class="login-modal">
+                            <div class="modal-padding">
 
 
                                 <form>
@@ -166,7 +167,7 @@ include('php/login.php');
                                         <h4>Logged In!</h4>
                                         <h6>Account Settings</h6>
                                         <ul class="left">
-                                            <li><a href="/webpages/events_hosting.php">Events You Created</a></li>
+                                            <li><a href="/webpages/events_dashboard.php">Events You Created</a></li>
                                             <li><a href="#">Friends</a></li>
                                             <li><a href="#">Event History</a></li>
                                             <li><a href="/webpages/change_pass.php">Update Password</a></li>
@@ -190,13 +191,13 @@ include('php/login.php');
             <div id="map"></div>
             <div id="side-bar" class="grey darken-3">
 
-                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()">my_location</i>Events Nearby</h5>
+                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Events Nearby</h5>
                 <div class="row">
                     <div class="col s12">
                         <ul class="tabs">
                             <?php
                             if(!isset($_SESSION['token'])){
-                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3" onclick="">Private</a></li>');
+                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in." onclick="">Private</a></li>');
                                 echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generatePublicEvents()">Public</a></li>');
                             }
                             else{
