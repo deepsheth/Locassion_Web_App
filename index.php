@@ -108,7 +108,7 @@ include('php/login.php');
             }
             ?>
 
-                        <a class='dropdown-button btn z-depth-0 light-green darken-2 col s3' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
+                        <a class='dropdown-button btn z-depth-0 light-green darken-2 col s3' href='#' data-activates='acct-settings' data-alignment='right' data-hover='true' data-constrainwidth='false'><i class="material-icons">settings</i></a>
 
                         <!-- Dropdown Structure -->
                         <ul id='acct-settings' class='dropdown-content'>
