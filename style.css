@@ -45,7 +45,7 @@ header ul {
 }
 
 #map {
-    height: 96%;
+    height: 95%;
     width: 70%;
     display: inline-block;
 }
@@ -157,7 +157,7 @@ footer a {
 }
 
 #home footer a {
-    margin-left: 1em;
+    height: auto;
     text-align: center;
     line-height: 2em;
 }

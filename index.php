@@ -84,7 +84,7 @@ include('php/login.php');
 
     </head>
 
-    <body id="home">
+    <body id="home" class="grey darken-3">
         <header class="light-green darken-2 white-text">
 
             <h1><a href="/" class="white-text">Loccasion</a></h1>
@@ -98,8 +98,8 @@ include('php/login.php');
                 echo('<a href="#" class="btn waves-effect disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
                 }
             ?>
-            
-            <?php
+
+                    <?php
             if(isset($_SESSION['token'])){
                 echo('<button data-target="modal2" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Profile</button>');
             }
@@ -108,81 +108,81 @@ include('php/login.php');
             }
             ?>
 
-                    <a class='dropdown-button btn z-depth-0 light-green darken-2 col s3' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
+                        <a class='dropdown-button btn z-depth-0 light-green darken-2 col s3' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
 
-                    <!-- Dropdown Structure -->
-                    <ul id='acct-settings' class='dropdown-content'>
-                        <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
-                        <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                        <li><a href="#!">Upcoming Events</a></li>
-                        <li><a href="#!">Events History</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">Log Out</a></li>
-                    </ul>
+                        <!-- Dropdown Structure -->
+                        <ul id='acct-settings' class='dropdown-content'>
+                            <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
+                            <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
+                            <li><a href="#!">Upcoming Events</a></li>
+                            <li><a href="#!">Events History</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#!">Log Out</a></li>
+                        </ul>
 
-                    <!-- Modal Structure -->
-                    <form action="" method="post">
-                        <div id="modal1" class="modal blue-grey-text text-darken-2">
-                            <div class="modal-padding">
+                        <!-- Modal Structure -->
+                        <form action="" method="post">
+                            <div id="modal1" class="modal blue-grey-text text-darken-2">
+                                <div class="modal-padding">
 
 
-                                <form>
-                                    <div class="row">
-                                        <h3>Login</h3>
-                                        <br>
-                                        <div class="input-field">
-                                            <i class="material-icons prefix ">account_circle</i>
-                                            <input id="icon_username" name="email" type="text">
-                                            <label for="icon_username">Email</label>
-                                        </div>
-                                        <div class="input-field">
-                                            <i class="material-icons prefix">https</i>
-                                            <input id="icon_password" name="password" type="password">
-                                            <label for="icon_password">Password</label>
-                                        </div>
-                                        
-                                        <?php 
+                                    <form>
+                                        <div class="row">
+                                            <h3>Login</h3>
+                                            <br>
+                                            <div class="input-field">
+                                                <i class="material-icons prefix ">account_circle</i>
+                                                <input id="icon_username" name="email" type="text">
+                                                <label for="icon_username">Email</label>
+                                            </div>
+                                            <div class="input-field">
+                                                <i class="material-icons prefix">https</i>
+                                                <input id="icon_password" name="password" type="password">
+                                                <label for="icon_password">Password</label>
+                                            </div>
+
+                                            <?php 
                                         echo('<p class="red-text">');
                                         echo($error);
                                         echo ('</p>');
                                         ?>
-                                    </div>
-                                </form>
+                                        </div>
+                                    </form>
 
 
+                                </div>
+                                <div class="modal-footer blue-grey lighten-5">
+                                    <a href="/webpages/sign_up.html" class="left modal-action modal-close waves-effect waves-blue btn-flat">Sign Up</a>
+                                    <strong><input name="submit" type="submit" value="login" class="modal-action modal-close waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
+                                </div>
                             </div>
-                            <div class="modal-footer blue-grey lighten-5">
-                                <a href="/webpages/sign_up.html" class="left modal-action modal-close waves-effect waves-blue btn-flat">Sign Up</a>
-                                <strong><input name="submit" type="submit" value="login" class="modal-action modal-close waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
+                        </form>
+                        <form action="" method="post">
+                            <div id="modal2" class="modal blue-grey-text darken-4-text">
+                                <div class="modal-padding">
+
+
+                                    <form>
+                                        <div class="row">
+                                            <h4>Logged In!</h4>
+                                            <h6>Account Settings</h6>
+                                            <ul class="left">
+                                                <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
+                                                <li><a href="/webpages/friends_dashboard.php">Manage Friends</a></li>
+                                                <li><a href="/webpages/change_pass.php">Update Password</a></li>
+                                            </ul>
+
+                                            <?php echo("Current Token: ".$_SESSION['token']);?>
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                    <form action="" method="post">
-                        <div id="modal2" class="modal blue-grey-text darken-4-text">
-                            <div class="modal-padding">
-
-
-                                <form>
-                                    <div class="row">
-                                        <h4>Logged In!</h4>
-                                        <h6>Account Settings</h6>
-                                        <ul class="left">
-                                            <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
-                                            <li><a href="/webpages/friends_dashboard.php">Manage Friends</a></li>
-                                            <li><a href="/webpages/change_pass.php">Update Password</a></li>
-                                        </ul>
-
-                                        <?php echo("Current Token: ".$_SESSION['token']);?>
-                                    </div>
-                                </form>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
-                            </div>
-                        </div>
-                    </form>
+                        </form>
             </ul>
         </header>
         <div id="main-container">
@@ -249,15 +249,14 @@ include('php/login.php');
 
             <footer>
                 <div class="footer-copyright">
-                    <div class="container">
-                        <small> <b>
-             <a class="blue-grey-text" href="#!">© 2015 LeavittInnovations.</a>
-            
-            <a class="right blue-grey-text" href="./webpages/tos.html" target="_blank">Terms of Service</a>
-            <a class="right blue-grey-text" href="./webpages/privacy.html" target="_blank">Privacy Policy</a>
-            <a class="right blue-grey-text" href="./webpages/faq.html" target="_blank">FAQ</a>
-            </b></small>
-                    </div>
+                    <small> <b>
+                                 <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="#!">© 2015 LeavittInnovations.</a>
+                                
+                                <a class="right white-text btn-flat" href="/webpages/tos.html" target="_blank">Terms of Service</a>
+                                <a class="right white-text btn-flat" href="/webpages/privacy.html" target="_blank">Privacy Policy</a>
+                                <a class="right white-text btn-flat" href="/webpages/faq.html" target="_blank">FAQ</a>
+                                </b>
+                    </small>
                 </div>
             </footer>
 
