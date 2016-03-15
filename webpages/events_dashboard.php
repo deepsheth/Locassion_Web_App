@@ -57,13 +57,14 @@
             <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
 
             <!-- Dropdown Structure -->
-            <ul id='acct-settings' class='dropdown-content'>
-                <li><a href="/webpages/events_dashboard.php">Events Created</a></li>
-                <li><a href="#!">Upcoming Events</a></li>
-                <li><a href="#!">Events History</a></li>
-                <li class="divider"></li>
-                <li><a href="#!">Log Out</a></li>
-            </ul>
+                    <ul id='acct-settings' class='dropdown-content'>
+                        <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
+                        <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
+                        <li><a href="#!">Upcoming Events</a></li>
+                        <li><a href="#!">Events History</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!">Log Out</a></li>
+                    </ul>
 
             <form action="" method="post">
                 <div id="modal2" class="modal blue-grey-text darken-4-text">

@@ -159,7 +159,7 @@ include('php/login.php');
                     </form>
                     <form action="" method="post">
                         <div id="modal2" class="modal blue-grey-text darken-4-text">
-                            <div class="login-modal">
+                            <div class="modal-padding">
 
 
                                 <form>
