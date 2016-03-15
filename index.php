@@ -167,9 +167,8 @@ include('php/login.php');
                                         <h4>Logged In!</h4>
                                         <h6>Account Settings</h6>
                                         <ul class="left">
-                                            <li><a href="/webpages/events_dashboard.php">Events You Created</a></li>
-                                            <li><a href="#">Friends</a></li>
-                                            <li><a href="#">Event History</a></li>
+                                            <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
+                                            <li><a href="/webpages/friends_dashboard.php">Manage Friends</a></li>
                                             <li><a href="/webpages/change_pass.php">Update Password</a></li>
                                         </ul>
 
