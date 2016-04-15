@@ -147,7 +147,7 @@ function initMap() {
 
     for (var i = 0; i < privateEventInfo.length; i++) {
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(privateEventInfo[i].longitude, privateEventInfo[i].latitude),
+            position: new google.maps.LatLng(privateEventInfo[i].latitude, privateEventInfo[i].longitude),
             map: map,
             icon: iconBase + 'private_event_marker.png'
 
@@ -167,7 +167,7 @@ function initMap() {
 
     for (var i = 0; i < publicEventInfo.length; i++) {
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(publicEventInfo[i].longitude, publicEventInfo[i].latitude),
+            position: new google.maps.LatLng(publicEventInfo[i].latitude, publicEventInfo[i].longitude),
             map: map,
             icon: iconBase + 'public_event_marker.png'
 
