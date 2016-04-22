@@ -1,3 +1,33 @@
+<?php
+session_start(); // Starting Session
+$error=' '; // Variable To Store Error Message
+if (isset($_POST['submit'])) {
+    if (empty($_POST['email'])) {
+        $error = "please enter the friend's email";
+    }
+    else
+    {
+        $url = 'https://meet-up-1097.appspot.com/?command=getID&args='.$_POST['email'].'&token='.$_SESSION['token'];
+        if (strpos(get_headers($url)[0],'200') != false){
+            $jsonResponse = json_decode(file_get_contents($url),true);
+        }
+        else{
+            print_r(get_headers($url));
+        }
+        $friendID = $jsonResponse['userid'];
+        $url = 'https://meet-up-1097.appspot.com/?command=addFriend&args='.$friendID.'&token='.$_SESSION['token'];
+        if (strpos(get_headers($url)[0],'200') != false){
+            $jsonResponse = json_decode(file_get_contents($url),true);
+            $error = "friend added!";
+        }
+        else{
+            print_r(get_headers($url));
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -52,7 +82,8 @@
         <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
         <ul class="inline">
 
-            <a href="./webpages/create_event.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Add Friend</a>
+            <!--<a href="./webpages/create_event.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Add Friend</a>-->
+            <button data-target="modal1" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Add Friend</button>
 
             <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
 
@@ -66,6 +97,36 @@
                         <li><a href="#!">Log Out</a></li>
                     </ul>
         </ul>
+        <form action="" method="post">
+            <div id="modal1" class="modal blue-grey-text text-darken-2">
+                <div class="modal-padding">
+
+
+                    <form>
+                        <div class="row">
+                            <h3>Add Friend</h3>
+                            <br>
+                            <div class="input-field">
+                                <i class="material-icons prefix ">account_circle</i>
+                                <input id="icon_username" name="email" type="text">
+                                <label for="icon_username">Email</label>
+                            </div>
+
+                            <?php 
+                        echo('<p class="red-text">');
+                        echo($error);
+                        echo ('</p>');
+                        ?>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="modal-footer blue-grey lighten-5">
+                    <strong><input name="submit" type="submit" value="add" class="modal-action modal-close waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
+                </div>
+            </div>
+        </form>
     </header>
     <div class="container">
 
@@ -336,6 +397,7 @@
                 </div>
             </div>
         </div>
+
 
 
     </div>
