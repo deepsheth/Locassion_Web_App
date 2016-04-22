@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
 	else
 	{
 		$url = 'https://meet-up-1097.appspot.com/?command=connect&args='.$_POST['email'].';'.$_POST['password'].'&token=';
-		if (strpos(get_headers($url)[0],'200') !== false){
+		if (strpos(get_headers($url)[0],'200') != false){
 			$jsonResponse = json_decode(file_get_contents($url),true);
 			$_SESSION['token'] = $jsonResponse['token'];
 		}
