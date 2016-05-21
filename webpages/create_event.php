@@ -18,7 +18,7 @@
 	================================================== -->
         <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Raleway:600|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../css/jquery.timepicker.css">
         <link rel="stylesheet" href="../style.css">
 
@@ -99,7 +99,7 @@
                                 <div class="row">
                                     <div class="input-field">
                                         <i class="material-icons left prefix">schedule</i>
-                                        <input value="5:00pm" id="start_time" class="ui-timepicker-input" type="text" placeholder="Start Time" name="start_time" required>
+                                        <input value="5:00pm" id="start_time2" class="ui-timepicker-input" type="text" placeholder="Start Time" name="start_time" required>
                                     </div>
                                     <div class="input-field">
                                         <i class="material-icons left prefix white-text">keyboard_arrow_right</i>
@@ -109,10 +109,12 @@
                             </div>
 
                             <div class="col s4">
+<!--
                                 <p>
                                     <input type="checkbox" class="filled-in" id="chk_all_day" checked="checked" name="all_day" />
                                     <label for="chk_all_day">All Day Event</label>
                                 </p>
+-->
                                 <p class="checkbox-align">
                                     <i class="material-icons left prefix">group</i>
                                     <input name="eventType" type="radio" id="private_true" />

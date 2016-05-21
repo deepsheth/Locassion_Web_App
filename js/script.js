@@ -122,7 +122,7 @@ function initMap() {
             }
         ]
     }
-]
+];
 
     var map_options = {
         styles: style
@@ -145,6 +145,7 @@ function initMap() {
         maxWidth: 250
     });
 
+    //`
     for (var i = 0; i < privateEventInfo.length; i++) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(privateEventInfo[i].latitude, privateEventInfo[i].longitude),
@@ -152,19 +153,19 @@ function initMap() {
             icon: iconBase + 'private_event_marker.png'
 
         });
-
-        if (logged_in)
-            generatePrivateEvents();
+        
+        generatePrivateEvents();
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
-                var contentString = '<h6><big><strong>' + privateEventInfo[i].name + '</strong></big></h6><strong>Time: </strong>' + privateEventInfo[i].time + "</br>" + privateEventInfo[i].description + "</br></br><strong>Location: </strong>" + privateEventInfo[i].locationDescription + '';
+                var contentString = '<div class="row"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title">' + privateEventInfo[i].name + '</span><p class="insert">Time: ' + privateEventInfo[i].time + "</br>" + privateEventInfo[i].description + "</br></br><strong>Location: </strong>" + privateEventInfo[i].locationDescription + '</p></div><div class="card-action white center"><a href="/webpages/sign_up.html" class="blue-text title btn btn-flat white waves-effect waves-white">Event Page</a></div></div></div></div>';
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
             }
         })(marker, i));
     }
 
+    
     for (var i = 0; i < publicEventInfo.length; i++) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(publicEventInfo[i].latitude, publicEventInfo[i].longitude),
@@ -173,16 +174,16 @@ function initMap() {
 
         });
 
-        if (!logged_in) {
-            generatePublicEvents();
-        }
-
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
                 infowindow.setContent(publicEventInfo[i].name);
                 infowindow.open(map, marker);
             }
         })(marker, i));
+    }
+    
+    if (!logged_in) {
+        generatePublicEvents();
     }
 }
 
@@ -216,10 +217,10 @@ function generatePrivateEvents() {
 
         $('#event-panel').append(
 
-            '<div class="row"><div class="col s12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title">' +
-            privateEventInfo[i].name + '<i title="Close" class="material-icons right close">close</i></span><p>' +
+            '<div class="row"><div class="col s12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' +
+            privateEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></span><div class="grey-text text-darken-2"><i class="material-icons left">trending_up</i>Popular Event</div><div class="grey-text text-darken-1"><strong>Host:</strong> Prof. Spear</div><div class="grey-text text-darken-1"><i  title="Time" class="material-icons left">access_time</i>Tomorrow</div><p>' +
             privateEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2" title="Map Event\'s Location" onclick="centerMap(' + privateEventInfo[i].longitude + ',' + privateEventInfo[i].latitude + ')">place</i><i  title="Share Event" class="material-icons left grey-text text-darken-2">share</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><p class="grey-text text-darken-1"><strong>Location: </strong>' +
-            privateEventInfo[i].locationDescription + '</p><div class="chip chip-margin-right">' +
+            privateEventInfo[i].locationDescription + ' </p><div class="friends-attending red-text text-lighten-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle red lighten-1 num-count white-text">+3</span></div></div><div class="chip chip-margin-right">' +
             privateEventInfo[i].tag1 + '</div><div class="chip">' + privateEventInfo[i].tag2 +
             '</div></div></li></ul></div></div></div></div>'
         );
@@ -230,16 +231,28 @@ function generatePrivateEvents() {
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
 
-    $("#event-panel .collapsible a").click(function () {
+    // Delete Card
+    $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
         deleteCard(this);
     });
+    
+    // Going Card
+    $("#event-panel .collapsible a:nth-of-type(2)").click(function () {
+        //Replaces Dismiss Button
+//        var currentElement = $(this).parentsUntil($(".card-action"));
+//        $(currentElement).find("a:nth-of-type(1)").replaceWith("<a href=\"\" class=\"right blue-text waves-effect waves-white\"><i class=\"material-icons\">save</i></a>");
+        
+        var currentElement = $(this).parentsUntil($(".card-action"));
+        $(currentElement).find("a:nth-of-type(1)").replaceWith("");
+        $(this).replaceWith("<span class=\"green-text right\">GOING! <i class=\"material-icons right\">check_circle</i></span>");
+    });
+    
 
     $("#event-panel .close").click(function () {
         deleteCard(this);
     });
 
     function deleteCard(currentElement) {
-        console.log("yas");
         console.log(this);
         $(currentElement).parentsUntil($("#event-panel")).slideUp("fast", function () {
             $(currentElement).remove();
@@ -254,9 +267,15 @@ function generatePublicEvents() {
 
     if (!logged_in) {
         $('#event-panel').append(
-            '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Check out Private Events.</span><p class="insert">Create an account to see which events your friends are attending and hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.html" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
+            '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Respond to events.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events your friends are attending and hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.html" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
         );
     }
+    else if (publicEventInfo.length == 0) {
+        $('#event-panel').append(
+            '<div class="row"><div class="col 12"><div class="card  grey lighten-3"><div class="card-content"><span class="card-title">😞 No public events found!</span><p class="insert grey-text text-darken-2">Try changing the map radius and other search filters.</p></div></div></div></div>'
+        );
+    }
+     	
 
     for (var i = 0; i < publicEventInfo.length; i++) {
         $('#event-panel').append(
@@ -285,7 +304,7 @@ function clearEvents() {
 }
 
 function toastGoing(cardIndex) {
-    Materialize.toast('Going to event ' + cardIndex, 4000)
+    Materialize.toast('Going to event ' + cardIndex, 4000);
 }
 
 function toastDismiss(cardIndex) {

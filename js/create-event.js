@@ -18,16 +18,22 @@ $(document).ready(function () {
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 5, // Creates a dropdown of 5 years to control year
         formatSubmit: 'yyyy-mm-dd',
-        hiddenName: true //submits formatSubmit in POST
+        hiddenName: true, //submits formatSubmit in POST
+        closeOnSelect: true
     });
 
+    // Disables dates passed
     var startDatePicker = $('#start_date').pickadate().pickadate('picker');
     startDatePicker.set({
         'min': true
     });
 
+    $('#end_date').pickadate().pickadate('picker').set({
+        'min': true,
+    });
+
     startDate = startDatePicker.get('select', 'yyyy-mm-dd');
-    
+
     // Time picker has 15 minute intervals
     $('#start_time').timepicker({
         'step': 30
@@ -67,7 +73,7 @@ $(document).ready(function () {
 
     // Validates form to begin with
     validate();
-    
+
     $("input").change(function () {
         $('#error-checking .insert').text(" ");
         validate();
@@ -88,34 +94,32 @@ function validate() {
         });
         $('#error-checking .insert').append("<p>Please shorten event title. <b>" + $('#event_title').val().length + "/" + TITLE_LENGTH + " </b>characters used. </p> <br>");
     }
-    //});
 
-    /* if ($('#chk_all_day').is(':checked')) {
-         $('#start_time').prop('disabled', true);
-         $('#end_time').prop('disabled', true);
-     }*/
     var endDatePicker = $('#end_date').pickadate().pickadate('picker');
     endDate = endDatePicker.get('select', 'yyyy-mm-dd');
     startDate = $('#start_date').pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
 
-    if ($('#start_date').pickadate().pickadate('picker').get('select') != null)
+    if ($('#start_date').pickadate().pickadate('picker').get('select') != null) {
+        var begDate = $('#start_date').pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+
         endDatePicker.set({
-            'min': $('#start_date').pickadate().pickadate('picker').get('select', 'yyyy-mm-dd')
+            'min': new Date(begDate.substr(0, 4) + "," + begDate.substr(5, 2) + "," + begDate.substr(8, 2))
         });
+    }
 
 
     //$('#chk_all_day').change(function () {
-    if ($('#chk_all_day').is(':checked')) {
-        $('#start_time').prop('disabled', true);
-        $('#end_time').prop('disabled', true);
-        $('#start_time').timepicker('setTime', new Date("01 January 1970 00:00:00"));
-        $('#end_time').timepicker('setTime', new Date("01 January 1970 23:59:00"))
-        isAllDay = true;
-    } else {
-        $('#start_time').prop('disabled', false);
-        $('#end_time').prop('disabled', false);
-        isAllDay = false;
-    }
+    //    if ($('#chk_all_day').is(':checked')) {
+    //        $('#start_time').prop('disabled', true);
+    //        $('#end_time').prop('disabled', true);
+    //        $('#start_time').timepicker('setTime', new Date("01 January 1970 00:00:00"));
+    //        $('#end_time').timepicker('setTime', new Date("01 January 1970 23:59:00"))
+    //        isAllDay = true;
+    //    } else {
+    //        $('#start_time').prop('disabled', false);
+    //        $('#end_time').prop('disabled', false);
+    //        isAllDay = false;
+    //    }
 
     if ($('#private_true').is(':checked')) {
         isPrivate = true;

@@ -17,9 +17,12 @@ header {
 
 h1 {
     display: inline;
-    font-family: Dosis;
     font-size: 2.5em;
     letter-spacing: 1px;
+}
+
+h1 a {
+    font-family: Dosis !important;
 }
 
 #home h1 {
@@ -29,6 +32,22 @@ h1 {
 #home header {
     -webkit-box-shadow: 0 3px 10px 0 rgba(255, 255, 255, .75);
     box-shadow: 0 3px 10px 0 rgba(255, 255, 255, .75);
+}
+
+a,
+input,
+button,
+.btn {
+    font-family: "Raleway", "Roboto";
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+.card-title {
+    font-family: "Rubik", "Roboto";
 }
 
 header ul {
@@ -83,6 +102,20 @@ h3 {
     padding: 3em 3em 1em 3em;
 }
 
+.card .card-content {
+    padding-top: 1.5em;
+}
+
+.card .card-content p {
+    padding-top: 1em;
+}
+
+.card .card-title {
+    margin-top: 1em;
+    font-size: 1.85em;
+    line-height: 1.2em !important;
+}
+
 .title {
     padding-bottom: 1em;
     font-weight: bold;
@@ -92,6 +125,32 @@ h3 {
     background: #2196F3;
     color: #FFF;
 }
+
+.friends-attending {
+    font-family: "Raleway", "Roboto";
+    padding: 0 1em;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.friends-attending img {
+    margin: .25em .6em;
+}
+
+.attendees-preview {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.num-count {
+    display: inline-block;
+    font-weight: bold;
+    font-family: "Roboto";
+    padding-left: .6em;
+    line-height: 2.25em;
+}
+
 
 /* label focus color */
 
@@ -138,9 +197,8 @@ i.add-cursor:hover {
     padding: .5rem 1rem 1.5rem;
 }
 
-#side-bar .collapsible i:hover,
-#side-bar .collapsible a:hover {
-    color: #424242 !important;
+#side-bar .collapsible i:hover {
+    opacity: .8;
 }
 
 footer {
@@ -160,6 +218,14 @@ footer a {
     height: auto;
     text-align: center;
     line-height: 2em;
+}
+
+.user-thumb {
+    width: 2.45em;
+    height: 2.45em;
+    padding-top: .1em;
+    margin: 0 .5em;
+    vertical-align: bottom;
 }
 
 .pad-up {
@@ -213,7 +279,6 @@ p.reading {
     border: none;
     box-shadow: none;
     height: auto;
-    font-family: Dosis;
 }
 
 #create-event #event-title i {
@@ -284,25 +349,31 @@ p.reading {
 .checkbox-align {
     padding-left: 1em;
 }
+
+
 /* Calendar picker */
 
 .picker__weekday-display {
-    background-color: #33691E;
+    background-color: #bf360c;
 }
 
 .picker__box {
-    border-color: #33691E;
+    border: 5px solid  #bf360c;
 }
 
 .picker__date-display,
 .picker--focused .picker__day--selected {
-    background-color: #689F38;
+    background-color: #d84315;
 }
 
 .picker__day.picker__day--today,
 .picker__today,
 .picker__close {
-    color: #689F38;
+    color: #d84315;
+}
+
+.picker__nav--prev:hover, button.picker__today:focus, .picker__day--selected, button.picker__clear:focus, button.picker__close:focus {
+    background: #ff9e80;
 }
 
 #friend-dashboard .friend-list-cards .card-panel {

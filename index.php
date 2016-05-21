@@ -18,7 +18,7 @@ include('php/login.php');
 	================================================== -->
         <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Raleway:600|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
         <!--    <link rel="stylesheet" href="cobblestone.css">-->
         <link rel="stylesheet" href="/style.css">
 
@@ -106,21 +106,21 @@ include('php/login.php');
 
                     <?php
             if(isset($_SESSION['token'])){
-                echo('<button data-target="modal2" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Profile</button>');
+                echo('<button data-target="modal2" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Profile</button><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle"><a class="dropdown-button btn z-depth-0 light-green darken-2 col s3" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons">settings</i></a>');
             }
             else{
-                echo('<button data-target="modal1" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Login</button>');
+                echo('<button data-target="modal1" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Login</button>
+                
+                ');
             }
             ?>
-
-                        <a class='dropdown-button btn z-depth-0 light-green darken-2 col s3' href='#' data-activates='acct-settings' data-alignment='right' data-hover='true' data-constrainwidth='false'><i class="material-icons">settings</i></a>
 
                         <!-- Dropdown Structure -->
                         <ul id='acct-settings' class='dropdown-content'>
                             <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
                             <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                            <li><a href="#!">Upcoming Events</a></li>
                             <li><a href="#!">Events History</a></li>
+                            <li><a href="#!">Account Settings</a></li>
                             <li class="divider"></li>
                             <li><a href="#!">Log Out</a></li>
                         </ul>
@@ -195,18 +195,18 @@ include('php/login.php');
             <div id="map"></div>
             <div id="side-bar" class="grey darken-3">
 
-                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Events Nearby</h5>
+                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Discover Events Nearby</h5>
                 <div class="row">
                     <div class="col s12">
                         <ul class="tabs">
                             <?php
                             if(!isset($_SESSION['token'])){
-                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in." onclick="">Private</a></li>');
-                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generatePublicEvents()">Public</a></li>');
+                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generatePublicEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in." onclick="">Responses</a></li>');
                             }
                             else{
-                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generatePrivateEvents()">Private</a></li>');
-                                echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generatePublicEvents()">Public</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generatePrivateEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generatePublicEvents()"> Responses</a></li>');
                             }
                             ?>
                         </ul>
