@@ -49,4 +49,8 @@ if (isset($_POST['logout'])){
 	$_SESSION = array();
 	session_destroy();
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a

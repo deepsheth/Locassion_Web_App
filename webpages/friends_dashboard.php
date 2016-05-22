@@ -417,4 +417,8 @@ if (isset($_POST['submit'])) {
 
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a

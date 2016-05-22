@@ -18,7 +18,11 @@ include('php/login.php');
 	================================================== -->
         <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<<<<<<< HEAD
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+=======
+        <link href='https://fonts.googleapis.com/css?family=Raleway:600|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
         <!--    <link rel="stylesheet" href="cobblestone.css">-->
         <link rel="stylesheet" href="/style.css">
 
@@ -49,7 +53,11 @@ include('php/login.php');
             //Private Events
             var privateEventInfo = <?php
             if(isset($_SESSION['token'])){
+<<<<<<< HEAD
                 $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEvents&args=40.606709;-75.375634;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token='.$_SESSION['token'];
+=======
+                $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token='.$_SESSION['token'];
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 
                 if (strpos(get_headers($url)[0],'200') != false){
                     $jsonResponse = json_decode(file_get_contents($url),true);
@@ -58,13 +66,27 @@ include('php/login.php');
                     echo(file_get_contents($url).';//');
                     //echo('//'.$url);
                 }
+<<<<<<< HEAD
+=======
+                else{
+                    file_get_contents('https://meet-up-1097.appspot.com/?command=log&args=HEADERS ERROR - '.get_headers($url).'&token=none');
+                }
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
             }
             ?>
             '';
             //Public Events
+<<<<<<< HEAD
             var publicEventInfo = <?php
             //if(isset($_SESSION['token'])){
                 $url = 'https://meet-up-1097.appspot.com/?command=getPublicEvents&args=40.606709;-75.375634;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
+=======
+            // -75.375634
+            // 40.606709
+            var publicEventInfo = <?php
+            //if(isset($_SESSION['token'])){
+                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
                 if (strpos(get_headers($url)[0],'200') != false){
                     $jsonResponse = json_decode(file_get_contents($url),true);
                     $formattedIDs = implode(':',$jsonResponse['events']);
@@ -79,7 +101,11 @@ include('php/login.php');
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <script src="/js/script.js"></script>
+<<<<<<< HEAD
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&callback=initMap" async defer></script>
+=======
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 
 
     </head>
@@ -101,6 +127,7 @@ include('php/login.php');
 
                     <?php
             if(isset($_SESSION['token'])){
+<<<<<<< HEAD
                 echo('<button data-target="modal2" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Profile</button>');
             }
             else{
@@ -118,6 +145,25 @@ include('php/login.php');
                             <li><a href="#!">Events History</a></li>
                             <li class="divider"></li>
                             <li><a href="#!">Log Out</a></li>
+=======
+                echo('<button data-target="modal2" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Profile</button><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle"><a class="dropdown-button btn z-depth-0 light-green darken-2 col s3" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons">settings</i></a>');
+            }
+            else{
+                echo('<button data-target="modal1" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Login</button>
+                
+                ');
+            }
+            ?>
+
+                        <!-- Dropdown Structure -->
+                        <ul id='acct-settings' class='dropdown-content'>
+                            <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
+                            <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
+                            <li><a href="/webpages/events_hist.php">Event History</a></li>
+                            <li><a href="#!">Account Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#!" type="submit" value="logout">Log Out</a></li>
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
                         </ul>
 
                         <!-- Modal Structure -->
@@ -190,18 +236,31 @@ include('php/login.php');
             <div id="map"></div>
             <div id="side-bar" class="grey darken-3">
 
+<<<<<<< HEAD
                 <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Events Nearby</h5>
+=======
+                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Discover Events Nearby</h5>
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
                 <div class="row">
                     <div class="col s12">
                         <ul class="tabs">
                             <?php
                             if(!isset($_SESSION['token'])){
+<<<<<<< HEAD
                                 echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in." onclick="">Private</a></li>');
                                 echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generatePublicEvents()">Public</a></li>');
                             }
                             else{
                                 echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generatePrivateEvents()">Private</a></li>');
                                 echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generatePublicEvents()">Public</a></li>');
+=======
+                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generatePublicEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in." onclick="">Responses</a></li>');
+                            }
+                            else{
+                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generatePrivateEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generatePublicEvents()"> Responses</a></li>');
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
                             }
                             ?>
                         </ul>

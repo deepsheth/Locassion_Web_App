@@ -17,11 +17,21 @@ header {
 
 h1 {
     display: inline;
+<<<<<<< HEAD
     font-family: Dosis;
+=======
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
     font-size: 2.5em;
     letter-spacing: 1px;
 }
 
+<<<<<<< HEAD
+=======
+h1 a {
+    font-family: Dosis !important;
+}
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 #home h1 {
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.30);
 }
@@ -31,6 +41,25 @@ h1 {
     box-shadow: 0 3px 10px 0 rgba(255, 255, 255, .75);
 }
 
+<<<<<<< HEAD
+=======
+a,
+input,
+button,
+.btn {
+    font-family: "Raleway", "Roboto";
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+.card-title {
+    font-family: "Rubik", "Roboto";
+}
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 header ul {
     float: right;
     margin-top: .25em;
@@ -50,6 +79,31 @@ header ul {
     display: inline-block;
 }
 
+<<<<<<< HEAD
+=======
+#event-dashboard #map {
+    width: 45%;
+    display: inline-block;
+    height: 40em;
+}
+
+#event-details #map {
+    width: 45%;
+    display: inline-block;
+    height: 20em;
+}
+
+#event-dashboard .collection {
+    margin-left: 4em;
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    height: 40em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 #side-bar {
     display: inline;
     position: absolute;
@@ -79,10 +133,34 @@ h3 {
     max-width: 25em;
 }
 
+<<<<<<< HEAD
+=======
+.modal-large {
+    width: 85%;
+}
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 .modal-padding {
     padding: 3em 3em 1em 3em;
 }
 
+<<<<<<< HEAD
+=======
+.card .card-content {
+    padding-top: 1.5em;
+}
+
+.card .card-content p {
+    padding-top: 1em;
+}
+
+.card .card-title {
+    margin-top: 1em;
+    font-size: 1.85em;
+    line-height: 1.2em !important;
+}
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 .title {
     padding-bottom: 1em;
     font-weight: bold;
@@ -93,6 +171,40 @@ h3 {
     color: #FFF;
 }
 
+<<<<<<< HEAD
+=======
+.inverted-footer {
+    margin: 0 -2em -2em -2em;
+    padding: 2em;
+}
+
+.friends-attending {
+    font-family: "Raleway", "Roboto";
+    padding: 0 1em;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.friends-attending img {
+    margin: .25em .6em;
+}
+
+.attendees-preview {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.num-count {
+    display: inline-block;
+    font-weight: bold;
+    font-family: "Roboto";
+    padding-left: .6em;
+    line-height: 2.25em;
+}
+
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 /* label focus color */
 
 #create-event .input-field input[type=text]:focus + label {
@@ -138,9 +250,14 @@ i.add-cursor:hover {
     padding: .5rem 1rem 1.5rem;
 }
 
+<<<<<<< HEAD
 #side-bar .collapsible i:hover,
 #side-bar .collapsible a:hover {
     color: #424242 !important;
+=======
+#side-bar .collapsible i:hover {
+    opacity: .8;
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 }
 
 footer {
@@ -162,6 +279,23 @@ footer a {
     line-height: 2em;
 }
 
+<<<<<<< HEAD
+=======
+.user-thumb {
+    width: 2.45em;
+    height: 2.45em;
+    padding-top: .1em;
+    margin: 0 .5em;
+    vertical-align: bottom;
+}
+
+.user-thumb-large {
+    width: 3em;
+    height: 3em;
+    margin: 0 1.25em 1.25em 0;
+}
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 .pad-up {
     margin-top: 2.5em;
     margin-bottom: 2.5em;
@@ -171,6 +305,15 @@ footer a {
     margin-right: 1em;
 }
 
+<<<<<<< HEAD
+=======
+.collection .collection-item.avatar .secondary-content {
+    position: unset;
+    top: 0;
+    right: 0;
+}
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 p.reading {
     line-height: 1.75em;
 }
@@ -213,7 +356,10 @@ p.reading {
     border: none;
     box-shadow: none;
     height: auto;
+<<<<<<< HEAD
     font-family: Dosis;
+=======
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 }
 
 #create-event #event-title i {
@@ -261,6 +407,10 @@ p.reading {
 .collection .collection-item.avatar {
     padding-top: 1.75em;
     padding-bottom: 1.75em;
+<<<<<<< HEAD
+=======
+    margin: 0.25em 1.25em;
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 }
 
 .collection-item:hover {
@@ -284,6 +434,7 @@ p.reading {
 .checkbox-align {
     padding-left: 1em;
 }
+<<<<<<< HEAD
 /* Calendar picker */
 
 .picker__weekday-display {
@@ -292,17 +443,46 @@ p.reading {
 
 .picker__box {
     border-color: #33691E;
+=======
+
+
+/* Calendar picker */
+
+.picker__weekday-display {
+    background-color: #bf360c;
+}
+
+.picker__box {
+    border: 5px solid #bf360c;
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 }
 
 .picker__date-display,
 .picker--focused .picker__day--selected {
+<<<<<<< HEAD
     background-color: #689F38;
+=======
+    background-color: #d84315;
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 }
 
 .picker__day.picker__day--today,
 .picker__today,
 .picker__close {
+<<<<<<< HEAD
     color: #689F38;
+=======
+    color: #d84315;
+}
+
+.picker__nav--prev:hover,
+.picker__nav--next:hover,
+button.picker__today:focus,
+.picker__day--selected,
+button.picker__clear:focus,
+button.picker__close:focus {
+    background: #ff9e80;
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 }
 
 #friend-dashboard .friend-list-cards .card-panel {
@@ -335,4 +515,69 @@ p.reading {
     right: 2em;
     width: 18em;
     display: none;
+<<<<<<< HEAD
+=======
+}
+
+.hero {
+    margin-top: 3em;
+    max-height: 20em;
+    height: auto;
+    overflow: hidden;
+    -webkit-border-radius: 8px 8px 8px 8px;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.hero img {
+    width: 100%;
+}
+
+.user-pic-large {
+    max-height: 3em;
+    height: auto;
+    width: 5%;
+    max-width: 1em;
+}
+
+.style-tab {
+    -webkit-border-radius: 8px 8px 8px 8px;
+    border-radius: 8px 8px 8px 8px;
+    padding: .5em 0;
+}
+
+.style-tab i {
+    padding: .25em;
+    border: .25em solid #FFF;
+}
+
+#event-details .title {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 0;
+}
+
+.info-bar {
+    padding: 1em;
+    margin: 3em 0;
+}
+
+.info-bar .attendees-preview {
+    padding-bottom: 0em;
+}
+
+.info-bar h2 {
+    margin-top: .5rem;
+}
+
+.info-bar span {
+    letter-spacing: 1.2px;
+}
+
+.blue-glow {
+    text-shadow: 0 0 10px #B9D6F3;
+}
+
+#event-details .card-panel {
+    padding: 1.5em 2.5em;
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 }

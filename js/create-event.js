@@ -18,16 +18,33 @@ $(document).ready(function () {
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 5, // Creates a dropdown of 5 years to control year
         formatSubmit: 'yyyy-mm-dd',
+<<<<<<< HEAD
         hiddenName: true //submits formatSubmit in POST
     });
 
+=======
+        hiddenName: true, //submits formatSubmit in POST
+        closeOnSelect: true
+    });
+
+    // Disables dates passed
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
     var startDatePicker = $('#start_date').pickadate().pickadate('picker');
     startDatePicker.set({
         'min': true
     });
 
+<<<<<<< HEAD
     startDate = startDatePicker.get('select', 'yyyy-mm-dd');
     
+=======
+    $('#end_date').pickadate().pickadate('picker').set({
+        'min': true,
+    });
+
+    startDate = startDatePicker.get('select', 'yyyy-mm-dd');
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
     // Time picker has 15 minute intervals
     $('#start_time').timepicker({
         'step': 30
@@ -67,13 +84,30 @@ $(document).ready(function () {
 
     // Validates form to begin with
     validate();
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
     $("input").change(function () {
         $('#error-checking .insert').text(" ");
         validate();
     });
+<<<<<<< HEAD
 
 
+=======
+    
+    $('.modal-trigger').leanModal();
+
+
+    var count2 = 0;
+    $('#invite_modal .card-panel').click(function () {
+        count2 = selectCard(this, count2);
+    });
+    
+    
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 });
 
 function validate() {
@@ -88,16 +122,21 @@ function validate() {
         });
         $('#error-checking .insert').append("<p>Please shorten event title. <b>" + $('#event_title').val().length + "/" + TITLE_LENGTH + " </b>characters used. </p> <br>");
     }
+<<<<<<< HEAD
     //});
 
     /* if ($('#chk_all_day').is(':checked')) {
          $('#start_time').prop('disabled', true);
          $('#end_time').prop('disabled', true);
      }*/
+=======
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
     var endDatePicker = $('#end_date').pickadate().pickadate('picker');
     endDate = endDatePicker.get('select', 'yyyy-mm-dd');
     startDate = $('#start_date').pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
 
+<<<<<<< HEAD
     if ($('#start_date').pickadate().pickadate('picker').get('select') != null)
         endDatePicker.set({
             'min': $('#start_date').pickadate().pickadate('picker').get('select', 'yyyy-mm-dd')
@@ -116,6 +155,29 @@ function validate() {
         $('#end_time').prop('disabled', false);
         isAllDay = false;
     }
+=======
+    if ($('#start_date').pickadate().pickadate('picker').get('select') != null) {
+        var begDate = $('#start_date').pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+
+        endDatePicker.set({
+            'min': new Date(begDate.substr(0, 4) + "," + begDate.substr(5, 2) + "," + begDate.substr(8, 2))
+        });
+    }
+
+
+    //$('#chk_all_day').change(function () {
+    //    if ($('#chk_all_day').is(':checked')) {
+    //        $('#start_time').prop('disabled', true);
+    //        $('#end_time').prop('disabled', true);
+    //        $('#start_time').timepicker('setTime', new Date("01 January 1970 00:00:00"));
+    //        $('#end_time').timepicker('setTime', new Date("01 January 1970 23:59:00"))
+    //        isAllDay = true;
+    //    } else {
+    //        $('#start_time').prop('disabled', false);
+    //        $('#end_time').prop('disabled', false);
+    //        isAllDay = false;
+    //    }
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 
     if ($('#private_true').is(':checked')) {
         isPrivate = true;
@@ -261,6 +323,23 @@ function initMap() {
 
 }
 
+<<<<<<< HEAD
+=======
+function selectCard(card, numberSelected) {
+    $(card).toggleClass('card-selected');
+
+    if ($(card).is('.card-selected')) {
+        numberSelected++;
+        $('.num-selected').text(numberSelected);
+    } else {
+        numberSelected--;
+        $('.num-selected').text(numberSelected);
+    }
+    return numberSelected;
+}
+
+
+>>>>>>> e72ed424937a216092b98142c502acf4016b321a
 function custom() {
     eventTitle = $('#event_title').val();
     locationDetails = $('#location_details').val();
