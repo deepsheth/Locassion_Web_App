@@ -40,7 +40,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <script src="../js/jquery.timepicker.min.js"></script>
         <script src="../js/create-event.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&libraries=places&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&libraries=places&callback=initMap" async defer></script>
 
 
     </head>
@@ -51,14 +51,32 @@
             <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
             <ul class="inline">
 
+                <a data-target="confirm_prompt" class="waves-effect waves-light white blue-text btn modal-trigger col offset-s4">Events Dashboard</a>
+
+                <div id="confirm_prompt" class="modal modal-fixed-footer">
+                    <div class="modal-content black-text">
+                        <div class="modal-padding center">
+                            <h3>Are you sure?</h3>
+                            <p>Everything you have filled in on this page will be discarded.</p>
+                        </div>
+                    </div>
+                        <div class="modal-footer blue-grey lighten-5">
+                            <a href="/webpages/events_dashboard.php" class="left modal-action modal-close waves-effect waves-blue btn-flat right deep-orange-text text-lighten-1">Yes</a><a href="#" class="left modal-action modal-close waves-effect waves-blue btn-flat left">Cancel</a>
+                        </div>
+                </div>
+
+                <img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle">
                 <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
+
 
                 <!-- Dropdown Structure -->
                 <ul id='acct-settings' class='dropdown-content'>
+                    <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
+                    <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
+                    <li><a href="#!">Events History</a></li>
                     <li><a href="#!">Account Settings</a></li>
-                    <li><a href="#!">Upcoming Events</a></li>
                     <li class="divider"></li>
-                    <li><a href="#!">Log Out</a></li>
+                    <li><a href="#!" type="submit" value="logout">Log Out</a></li>
                 </ul>
             </ul>
         </header>
@@ -109,7 +127,7 @@
                             </div>
 
                             <div class="col s4">
-<!--
+                                <!--
                                 <p>
                                     <input type="checkbox" class="filled-in" id="chk_all_day" checked="checked" name="all_day" />
                                     <label for="chk_all_day">All Day Event</label>
@@ -183,46 +201,337 @@
                                 <label for="event_details">Event Details</label>
                             </div>
                         </div>
+                        <div class="section">
 
 
-                        <br>
-                        <h5>Send Out Invites</h5>
-                        <div class="row">
-                            <div id="select-groups" class="input-field col s6">
-                                <select multiple>
-                                    <option value="" disabled selected>Select Friend Groups</option>
-                                    <option value="1">Best Friends</option>
-                                    <option value="2">Family</option>
-                                    <option value="3">Hometown Fam</option>
-                                </select>
-                                <label>Group Invite</label>
+                            <div class="row">
+                                <!-- Modal Trigger -->
+                                <a data-target="invite_modal" class="waves-effect waves-light blue btn modal-trigger col offset-s4">Send Out Invites</a>
                             </div>
 
-                            <div id="select-individuals" class="input-field col s12 m6">
-                                <select class="icons" multiple>
-                                    <option value="" disabled selected>Tell some more people</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/38.jpg" class="circle">Adam Knuckey</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/39.jpg" class="circle">Deep Sheth</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/40.jpg" class="circle">Luke Dittman</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/3.jpg" class="circle">Corey Caplan</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/4.jpg" class="circle">Johnny</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/5.jpg" class="circle">JOHN CENA</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/8.jpg" class="circle">Another homie</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/7.jpg" class="circle">Another One</option>
-                                    <option value="" data-icon="http://api.randomuser.me/portraits/thumb/women/6.jpg" class="circle">ANOTHER ONE</option>
-                                </select>
-                                <label>Individual Invite</label>
+                            <!-- Modal Structure -->
+                            <div id="invite_modal" class="modal modal-large modal-fixed-footer">
+                                <div class="modal-content">
+                                    <div class="modal-padding">
+                                        <h4 class="center">Share your event.</h4>
+
+                                        <div class="row">
+                                            <div class="col m3">
+                                                <h5 class="center">Friend Groups</h5>
+
+                                                <div class="row">
+
+                                                    <div class="card-panel  z-depth-1">
+                                                        <div class="valign-wrapper">
+                                                            <div class="col s5">
+                                                                <img src="https://github.com/identicons/john.png" alt="" class="circle responsive-img">
+                                                                <!-- notice the "circle" class -->
+                                                            </div>
+                                                            <div class="col s7">
+                                                                <span class="title">Deep Sheth</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="card-panel  z-depth-1">
+                                                        <div class="valign-wrapper">
+                                                            <div class="col s5">
+                                                                <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                                                <!-- notice the "circle" class -->
+                                                            </div>
+                                                            <div class="col s7">
+                                                                <span class="title">Adam Knuckey</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="card-panel  z-depth-1">
+                                                        <div class="valign-wrapper">
+                                                            <div class="col s5">
+                                                                <img src="https://github.com/identicons/sam.png" alt="" class="circle responsive-img">
+                                                                <!-- notice the "circle" class -->
+                                                            </div>
+                                                            <div class="col s7">
+                                                                <span class="title">Corey Caplan</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col m8 offset-m1">
+                                                <h5 class="center">Individual</h5>
+                                                <div class="row">
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/john.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Deep Sheth</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Adam Knuckey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/sam.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Corey Caplan</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/john.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Deep Sheth</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Adam Knuckey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/sam.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Corey Caplan</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/john.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Deep Sheth</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Adam Knuckey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/sam.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Corey Caplan</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/john.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Deep Sheth</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Adam Knuckey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/sam.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Corey Caplan</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/john.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Deep Sheth</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Adam Knuckey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/sam.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Corey Caplan</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/john.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Deep Sheth</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Adam Knuckey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <div class="card-panel  z-depth-1">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s5">
+                                                                    <img src="https://github.com/identicons/sam.png" alt="" class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s7">
+                                                                    <span class="title">Corey Caplan</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">
+                                        <In></In>Invite!</a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat left">Cancel</a>
+                                </div>
                             </div>
 
                         </div>
 
 
-                        <button class="btn waves-effect waves-light blue" type="submit" name="action" onclick="custom()">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
+                        <div class="blue inverted-footer">
+                            <button class="btn waves-effect waves-light btn btn-flat white" type="submit" name="action" onclick="custom()">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
 
-                        <div id="submission">
+                            <div id="submission">
 
+                            </div>
                         </div>
                     </form>
 

@@ -6,7 +6,7 @@
     <!-- Basic Page Needs
 	================================================== -->
     <meta charset="utf-8">
-    <title>Loccasion | Events Dashboard</title>
+    <title>Loccasion | Events History</title>
     <meta name="description" content="Loccasion: Web App">
     <meta name="author" content="Deep Sheth">
 
@@ -56,7 +56,7 @@
 
 
             <a href="/webpages/create_event.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Create Event</a>
-            <a href="/webpages/events_hist.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Events Attended</a>
+            <a href="/webpages/events_dashboard.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Events Hosted</a>
 
             <img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle">
             <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
@@ -105,7 +105,7 @@
 
         <div class="row">
 
-            <h3 class="grey-text text-darken-2"><span class="title blue-text">7</span> Events Hosted</h3>
+            <h3 class="grey-text text-darken-2"><span class="title blue-text">45</span> Events Attended</h3>
         </div>
         <div id="map"></div>
         <script>

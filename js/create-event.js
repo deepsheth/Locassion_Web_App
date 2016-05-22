@@ -78,8 +78,16 @@ $(document).ready(function () {
         $('#error-checking .insert').text(" ");
         validate();
     });
+    
+    $('.modal-trigger').leanModal();
 
 
+    var count2 = 0;
+    $('#invite_modal .card-panel').click(function () {
+        count2 = selectCard(this, count2);
+    });
+    
+    
 });
 
 function validate() {
@@ -264,6 +272,20 @@ function initMap() {
        );*/
 
 }
+
+function selectCard(card, numberSelected) {
+    $(card).toggleClass('card-selected');
+
+    if ($(card).is('.card-selected')) {
+        numberSelected++;
+        $('.num-selected').text(numberSelected);
+    } else {
+        numberSelected--;
+        $('.num-selected').text(numberSelected);
+    }
+    return numberSelected;
+}
+
 
 function custom() {
     eventTitle = $('#event_title').val();

@@ -84,7 +84,7 @@ include('php/login.php');
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <script src="/js/script.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
 
 
     </head>
@@ -117,12 +117,12 @@ include('php/login.php');
 
                         <!-- Dropdown Structure -->
                         <ul id='acct-settings' class='dropdown-content'>
-                            <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
+                            <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
                             <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                            <li><a href="#!">Events History</a></li>
+                            <li><a href="/webpages/events_hist.php">Event History</a></li>
                             <li><a href="#!">Account Settings</a></li>
                             <li class="divider"></li>
-                            <li><a href="#!">Log Out</a></li>
+                            <li><a href="#!" type="submit" value="logout">Log Out</a></li>
                         </ul>
 
                         <!-- Modal Structure -->

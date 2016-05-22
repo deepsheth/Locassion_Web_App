@@ -8,20 +8,31 @@ $(document).ready(function () {
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
 
-    var numberSelected = 0;
+    var count1 = 0;
     $('#friend-dashboard .friend-list-cards .card-panel').click(function () {
-        $(this).toggleClass('card-selected');
-        if ($(this).is('.card-selected')) {
-            numberSelected++;
-            $('.num-selected').text(numberSelected);
-        }
-        else {
-            numberSelected--;
-            $('.num-selected').text(numberSelected);
-        }
+        count1 = selectCard(this, count1);
+    });
+    
+    var count2 = 0;
+    $('#invite_modal .card-panel').click(function () {
+        console.log("??");
+        count2 = selectCard(this, count2);
     });
 
 });
+
+function selectCard(card, numberSelected) {
+    $(card).toggleClass('card-selected');
+
+    if ($(card).is('.card-selected')) {
+        numberSelected++;
+        $('.num-selected').text(numberSelected);
+    } else {
+        numberSelected--;
+        $('.num-selected').text(numberSelected);
+    }
+    return numberSelected;
+}
 
 var map;
 var publicEventInfo;
@@ -153,7 +164,7 @@ function initMap() {
             icon: iconBase + 'private_event_marker.png'
 
         });
-        
+
         generatePrivateEvents();
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
@@ -165,7 +176,7 @@ function initMap() {
         })(marker, i));
     }
 
-    
+
     for (var i = 0; i < publicEventInfo.length; i++) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(publicEventInfo[i].latitude, publicEventInfo[i].longitude),
@@ -181,7 +192,7 @@ function initMap() {
             }
         })(marker, i));
     }
-    
+
     if (!logged_in) {
         generatePublicEvents();
     }
@@ -218,7 +229,7 @@ function generatePrivateEvents() {
         $('#event-panel').append(
 
             '<div class="row"><div class="col s12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' +
-            privateEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></span><div class="grey-text text-darken-2"><i class="material-icons left">trending_up</i>Popular Event</div><div class="grey-text text-darken-1"><strong>Host:</strong> Prof. Spear</div><div class="grey-text text-darken-1"><i  title="Time" class="material-icons left">access_time</i>Tomorrow</div><p>' +
+            privateEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></span><div class="deep-orange-text text-darken-2"><i class="material-icons left">trending_up</i>Popular Event</div><div class="grey-text text-darken-1"><strong>Host:</strong> Prof. Spear</div><div class="grey-text text-darken-1"><i  title="Time" class="material-icons left">access_time</i>Tomorrow</div><p>' +
             privateEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2" title="Map Event\'s Location" onclick="centerMap(' + privateEventInfo[i].longitude + ',' + privateEventInfo[i].latitude + ')">place</i><i  title="Share Event" class="material-icons left grey-text text-darken-2">share</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><p class="grey-text text-darken-1"><strong>Location: </strong>' +
             privateEventInfo[i].locationDescription + ' </p><div class="friends-attending red-text text-lighten-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle red lighten-1 num-count white-text">+3</span></div></div><div class="chip chip-margin-right">' +
             privateEventInfo[i].tag1 + '</div><div class="chip">' + privateEventInfo[i].tag2 +
@@ -235,18 +246,18 @@ function generatePrivateEvents() {
     $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
         deleteCard(this);
     });
-    
+
     // Going Card
     $("#event-panel .collapsible a:nth-of-type(2)").click(function () {
         //Replaces Dismiss Button
-//        var currentElement = $(this).parentsUntil($(".card-action"));
-//        $(currentElement).find("a:nth-of-type(1)").replaceWith("<a href=\"\" class=\"right blue-text waves-effect waves-white\"><i class=\"material-icons\">save</i></a>");
-        
+        //        var currentElement = $(this).parentsUntil($(".card-action"));
+        //        $(currentElement).find("a:nth-of-type(1)").replaceWith("<a href=\"\" class=\"right blue-text waves-effect waves-white\"><i class=\"material-icons\">save</i></a>");
+
         var currentElement = $(this).parentsUntil($(".card-action"));
         $(currentElement).find("a:nth-of-type(1)").replaceWith("");
         $(this).replaceWith("<span class=\"green-text right\">GOING! <i class=\"material-icons right\">check_circle</i></span>");
     });
-    
+
 
     $("#event-panel .close").click(function () {
         deleteCard(this);
@@ -269,13 +280,12 @@ function generatePublicEvents() {
         $('#event-panel').append(
             '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Respond to events.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events your friends are attending and hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.html" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
         );
-    }
-    else if (publicEventInfo.length == 0) {
+    } else if (publicEventInfo.length == 0) {
         $('#event-panel').append(
             '<div class="row"><div class="col 12"><div class="card  grey lighten-3"><div class="card-content"><span class="card-title">😞 No public events found!</span><p class="insert grey-text text-darken-2">Try changing the map radius and other search filters.</p></div></div></div></div>'
         );
     }
-     	
+
 
     for (var i = 0; i < publicEventInfo.length; i++) {
         $('#event-panel').append(
@@ -325,6 +335,8 @@ function centerMap(latitude, longitude) {
     map.setZoom(18);
 
 }
+
+
 
 $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
