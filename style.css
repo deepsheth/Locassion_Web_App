@@ -50,6 +50,16 @@ h6,
     font-family: "Rubik", "Roboto";
 }
 
+::selection {
+    background: #b71c1c;
+    color: #FFF;
+}
+
+::-moz-selection {
+    background: #b71c1c;
+    color: #FFF;
+}
+
 header ul {
     float: right;
     margin-top: .25em;
@@ -130,14 +140,17 @@ h3 {
 
 .card .card-content {
     padding-top: 1.5em;
+    line-height: 1.6;
 }
 
 .card .card-content p {
     padding-top: 1em;
+    
 }
 
 .card .card-title {
-    margin-top: 1em;
+    margin-bottom: 10px;
+    padding-left: 0;
     font-size: 1.85em;
     line-height: 1.2em !important;
 }
@@ -159,14 +172,15 @@ h3 {
 
 .friends-attending {
     font-family: "Raleway", "Roboto";
-    padding: 0 1em;
+    padding: 1em 2.35em 0;
+    margin: 0 -1.35em 1em;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
 
 .friends-attending img {
-    margin: .25em .6em;
+    margin: .25em 1.2em 0 0;
 }
 
 .attendees-preview {
@@ -202,6 +216,10 @@ i.material-icons.prefix.active,
 .input-field .prefix.active,
 input[type="password"]:focus:not([readonly]) + label {
     color: #2196F3;
+}
+
+.icons-inline {
+    font-size: 22px;
 }
 
 i.add-cursor:hover {
@@ -292,6 +310,12 @@ p.reading {
 .add-cursor,
 .close {
     cursor: pointer;
+}
+
+#event-panel .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 #create-event h2 {

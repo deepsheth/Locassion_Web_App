@@ -24,7 +24,7 @@ include('php/login.php');
 
         <!-- Favicons
 	================================================== -->
-        <link rel="icon" href="" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
 
         <!-- Mobile Specific Metas
 	================================================== -->
@@ -49,7 +49,7 @@ include('php/login.php');
             //Private Events
             var privateEventInfo = <?php
             if(isset($_SESSION['token'])){
-                $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token='.$_SESSION['token'];
+                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token='.$_SESSION['token'];
 
                 if (strpos(get_headers($url)[0],'200') != false){
                     $jsonResponse = json_decode(file_get_contents($url),true);
@@ -69,7 +69,7 @@ include('php/login.php');
             // 40.606709
             var publicEventInfo = <?php
             //if(isset($_SESSION['token'])){
-                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
+                $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
                 if (strpos(get_headers($url)[0],'200') != false){
                     $jsonResponse = json_decode(file_get_contents($url),true);
                     $formattedIDs = implode(':',$jsonResponse['events']);
@@ -80,6 +80,7 @@ include('php/login.php');
             //}
             ?>
             '';
+            
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -195,18 +196,18 @@ include('php/login.php');
             <div id="map"></div>
             <div id="side-bar" class="grey darken-3">
 
-                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Discover Events Nearby</h5>
+                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
                 <div class="row">
                     <div class="col s12">
                         <ul class="tabs">
                             <?php
                             if(!isset($_SESSION['token'])){
-                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generatePublicEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in." onclick="">Responses</a></li>');
+                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generateAllEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Upcoming</a></li>');
                             }
                             else{
-                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generatePrivateEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generatePublicEvents()"> Responses</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generateAllEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
                             }
                             ?>
                         </ul>

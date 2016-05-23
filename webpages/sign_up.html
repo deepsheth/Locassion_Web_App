@@ -24,7 +24,7 @@
 
         <!-- Favicons
 	================================================== -->
-        <link rel="icon" href="" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
 
         <!-- Mobile Specific Metas
 	================================================== -->
