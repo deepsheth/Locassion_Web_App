@@ -86,7 +86,7 @@ header ul {
 }
 
 #event-details #map {
-    width: 45%;
+    width: 100%;
     display: inline-block;
     height: 20em;
 }
@@ -267,6 +267,23 @@ footer a {
     height: auto;
     text-align: center;
     line-height: 2em;
+}
+
+.row {
+    width: 100%;
+    text-align: center;
+}
+
+.info-card {
+    display: inline-block;
+    width: 47%;
+    margin: auto;
+    border: 25px;
+    min-width: 300px;
+}
+
+.info-card .col.s6 {
+    width: 100%;
 }
 
 .user-thumb {

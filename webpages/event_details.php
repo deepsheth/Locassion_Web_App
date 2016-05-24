@@ -412,44 +412,47 @@
 
 
         <div class="row">
-            <div id="map"></div>
-            <script>
-                function initMap() {
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        center: {
-                            lat: 40.605,
-                            lng: -75.375
-                        },
-                        zoom: 13
-                    });
+            <div class="info-card">
+                <div id="map"></div>
+                <script>
+                    function initMap() {
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            center: {
+                                lat: 40.605,
+                                lng: -75.375
+                            },
+                            zoom: 13
+                        });
 
-                    new google.maps.Marker({
-                        position: new google.maps.LatLng(eventDetails[0].latitude, eventDetails[0].longitude),
-                        map: map,
-                        icon: '/img/public_event_marker.png'
+                        new google.maps.Marker({
+                            position: new google.maps.LatLng(eventDetails[0].latitude, eventDetails[0].longitude),
+                            map: map,
+                            icon: '/img/public_event_marker.png'
 
-                    });
-                }
-            </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&callback=initMap" async defer></script>
+                        });
+                    }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&callback=initMap" async defer></script>
+            </div>
+            <div class="info-card">
+                <div class="card-panel z-depth-1 col s6 right light-green-text text-lighten-5 light-green darken-2">
 
-            <div class="card-panel z-depth-1 col s6 right light-green-text text-lighten-5 light-green darken-2">
+                    <h5 class="center white-text dyn_event-location">Location</h5>
+                    <h6 class="center white-text dyn_event-time">Time</h6>
+                    <br>
 
-                <h5 class="center white-text dyn_event-location">Location</h5>
-                <h6 class="center white-text dyn_event-time">Time</h6>
-                <br>
+                    <div class="divider light-green darken-1"></div>
+                    <p><strong>Details:</strong></p>
+                    <p class="dyn_event-desc">Event Description</p>
 
-                <div class="divider light-green darken-1"></div>
-                <p><strong>Details:</strong></p>
-                <p class="dyn_event-desc">Event Description</p>
+                    <div class="divider light-green darken-1"></div>
+                    <p>
+                        <span class="chip light-green light-green-text text-darken-4 dyn_tag1">Tag1</span>
+                        <span class="chip light-green light-green-text text-darken-4 dyn_tag2">Tag2</span>
 
-                <div class="divider light-green darken-1"></div>
-                <p>
-                    <span class="chip light-green light-green-text text-darken-4 dyn_tag1">Tag1</span>
-                    <span class="chip light-green light-green-text text-darken-4 dyn_tag2">Tag2</span>
-
-                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lehigh Holi 2016&dates=20160127T224000Z/20160320T221500Z&details=For+details,+link+here:+http://www.example.com&location=Lehigh University, Bethlehem, PA&sf=true&output=xml#eventpage_6" target="_blank" class="btn btn-flat right light-green lighten-2  dyn_gcal-export">Export</a>
-                </p>
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lehigh Holi 2016&dates=20160127T224000Z/20160320T221500Z&details=For+details,+link+here:+http://www.example.com&location=Lehigh University, Bethlehem, PA&sf=true&output=xml#eventpage_6" target="_blank" class="btn btn-flat right light-green lighten-2  dyn_gcal-export">Export</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
