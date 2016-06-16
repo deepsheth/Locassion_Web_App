@@ -278,7 +278,7 @@ function generatePublicEvents() {
 
     if (!logged_in) {
         $('#event-panel').append(
-            '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.html" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
+            '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
         );
     } else if (publicEventInfo.length == 0) {
         $('#event-panel').append(
