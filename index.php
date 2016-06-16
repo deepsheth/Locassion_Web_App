@@ -85,8 +85,8 @@ include('php/login.php');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
+        <script src="/js/script.js"></script>
 
 
     </head>
@@ -208,7 +208,7 @@ include('php/login.php');
                             }
                             else{
                                 echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generateAllEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
                             }
                             ?>
                         </ul>
