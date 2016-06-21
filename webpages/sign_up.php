@@ -81,10 +81,6 @@ include('../php/signUp.php');
                             <label for="icon_email">Email</label>
                         </div>
                         
-                        <!-- fake fields bypass browser autocomplete -->
-                        <input style="display:none" type="text"/>
-                        <input style="display:none" type="password"/>
-                        
                         <div class="input-field">
                             <i class="material-icons prefix blue-grey-text">map</i>
                             <input id="icon_location" name="location" type="text">
@@ -98,6 +94,10 @@ include('../php/signUp.php');
                         </div>
 
                         <div class="g-recaptcha" data-sitekey="6LdgoxoTAAAAACxM_ZGsn3e7SJicMsHR5jC4xML5"></div>
+                        
+                        <!-- fake fields bypass browser autocomplete -->
+                        <input style="visibility:hidden; height: 0px" type="password"/>
+                        
                         <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="signup"><i class="material-icons right">send</i>Submit</button>
                     </form>
                 </div>

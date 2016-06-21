@@ -13,7 +13,10 @@ if (isset($_POST['submit'])) {
 			$_SESSION['token'] = $jsonResponse['token'];
 		}
 		else{
-			print_r(get_headers($url));
+            echo ('<p class="orange-text"> Something went horribly wrong! :( Try again.</p>');
+            echo ('<p class="orange-text text-lighten-2"> <strong> For our fellow hard-working devs: </br> </strong>');
+            print_r(get_headers($url));
+            echo ("</p>");
 		}
 		
 

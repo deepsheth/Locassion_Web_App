@@ -64,13 +64,26 @@ include('../php/login.php');
         <div class="container">
             <div class="row">
                 <div class="col s7">
-
                     <img src="/img/logo_large_white2.png" alt="">
                 </div>
                 <div class="col s5 white z-depth-2">
                     <form action="/" method="post">
                         
-                        <h3>Login</h3>
+                        
+                        <?php
+                            if (isset($_SESSION['userID'])) {
+                                echo ("
+                                    <h3 class='light-green-text text-darken-2'>Account Created!</h3>
+                                    <p class='grey-text center'>Last step, please log in.</p>
+                                ");
+                            }
+                            else {
+                                echo ("<h3>Please Login</h3>");
+                            }
+                        ?>
+                       
+                        
+                        
                         <br>
                         <div class="input-field">
                             <i class="material-icons prefix ">account_circle</i>
@@ -83,7 +96,6 @@ include('../php/login.php');
                             <label for="icon_password">Password</label>
                         </div>
 
-                        <div class="g-recaptcha" data-sitekey="6LdgoxoTAAAAACxM_ZGsn3e7SJicMsHR5jC4xML5"></div>
                         <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
                     </form>
                 </div>
