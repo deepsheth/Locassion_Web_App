@@ -216,9 +216,29 @@ function geoLocator() {
 
             map.setZoom(15);
             map.setCenter(pos);
+            
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(pos.lat, pos.lng),
+                map: map,
+                icon: '/img/pin_current_location.png'
+
+            });
+            
+            var contentString = '<div class="row"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><p><strong class="center">Current Location </p></strong><a class="blue-text title btn-flat white waves-effect waves-white" onclick="geoLocator()">Relocate</a></div></div></div></div>';
+            
+            var infowindow = new google.maps.InfoWindow({
+                maxWidth: 250,
+                content: contentString
+            });
+            
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+
 
         });
     } else {
+        console.log("Location not found!");
         Materialize.toast('Sorry, we could not find your location. Try using another browser.', 3000, 'rounded')
     }
 }
@@ -291,7 +311,7 @@ function generatePublicEvents() {
         $('#event-panel').append(
 
             '<div class="row"><div class="col s12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><div class="card-title col m11"><a href="/webpages/event_details.php?eventid=' + publicEventInfo[i].eventid + '">' +
-            publicEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div class="light-green-text text-darken-2"><i class="material-icons icons-inline left">public</i>Public Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time + '</div><span class="add-cursor" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + publicEventInfo[i].locationDescription + '</span><p>' + publicEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2" title="Map Event\'s Location" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
+            publicEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>Public Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time + '</div><span class="add-cursor" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + publicEventInfo[i].locationDescription + '</span><p>' + publicEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2" title="Map Event\'s Location" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
             publicEventInfo[i].tag1 + '</div><div class="chip">' + publicEventInfo[i].tag2 +
             '</div></div></li></ul></div></div></div></div>'
 
@@ -313,6 +333,11 @@ function generateAllEvents() {
 
 function generateUpcomingEvents() {
     clearEvents();
+    
+    $('#event-panel').append(
+        '<div class="row"><div class="col 12"><div class="card  grey lighten-3"><div class="card-content"><span class="card-title">😞 No Upcoming Events!</span><p class="insert grey-text text-darken-2">This is hard coded! Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
+    );
+    
 }
 
 function generateEventDetails(event) {

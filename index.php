@@ -101,19 +101,19 @@ include('php/login.php');
 
                 <?php
             if(isset($_SESSION['token'])){
-                echo('<a href="./webpages/create_event.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Create Event</a>');
+                echo('<a href="./webpages/create_event.php" class="waves-effect white blue-text btn">Create Event</a>');
 }
             else{
-                echo('<a href="#" class="btn waves-effect disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
+                echo('<a href="#" class="waves-effect waves-yellow white blue-text btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
                 }
             ?>
 
                     <?php
             if(isset($_SESSION['token'])){
-                echo('<button data-target="modal2" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Profile</button><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle"><a class="dropdown-button btn z-depth-0 light-green darken-2 col s3" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons">settings</i></a>');
+                echo('<button data-target="modal2" class="waves-effect white grey-text btn modal-trigger">Profile</button><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle"><a class="dropdown-button btn z-depth-0 light-green darken-2 col s3" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons">settings</i></a>');
             }
             else{
-                echo('<button data-target="modal1" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Login</button>
+                echo('<button data-target="modal1" class="waves-effect white blue-text btn modal-trigger">Login</button>
                 
                 ');
             }
@@ -126,7 +126,9 @@ include('php/login.php');
                             <li><a href="/webpages/events_hist.php">Event History</a></li>
                             <li><a href="#!">Account Settings</a></li>
                             <li class="divider"></li>
-                            <li><a href="#!" type="submit" value="logout">Log Out</a></li>
+                            <form action="" method="post">
+                                <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
+                            </form>
                         </ul>
 
                         <!-- Modal Structure -->
@@ -179,9 +181,8 @@ include('php/login.php');
                                                 <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
                                                 <li><a href="/webpages/friends_dashboard.php">Manage Friends</a></li>
                                                 <li><a href="/webpages/change_pass.php">Update Password</a></li>
+                                                <li><?php echo("Current Token: ".$_SESSION['token']);?></li>
                                             </ul>
-
-                                            <?php echo("Current Token: ".$_SESSION['token']);?>
                                         </div>
                                     </form>
 
@@ -206,7 +207,7 @@ include('php/login.php');
                             <?php
                             if(!isset($_SESSION['token'])){
                                 echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generateAllEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 disabled"><a class="disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Upcoming</a></li>');
+                                echo('<li class="tab col s3 disabled"><a class="waves-effect waves-yellow disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Upcoming</a></li>');
                             }
                             else{
                                 echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generateAllEvents()">Discover</a></li>');
