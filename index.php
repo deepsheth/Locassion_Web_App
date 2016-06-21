@@ -70,6 +70,8 @@ include('php/login.php');
             var publicEventInfo = <?php
             //if(isset($_SESSION['token'])){
                 $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
+//                print_r(get_headers($url));
+                
                 if (strpos(get_headers($url)[0],'200') != false){
                     $jsonResponse = json_decode(file_get_contents($url),true);
                     $formattedIDs = implode(':',$jsonResponse['events']);
@@ -85,8 +87,8 @@ include('php/login.php');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
+        <script src="/js/script.js"></script>
 
 
     </head>
@@ -159,7 +161,7 @@ include('php/login.php');
 
                                 </div>
                                 <div class="modal-footer blue-grey lighten-5">
-                                    <a href="/webpages/sign_up.html" class="left modal-action modal-close waves-effect waves-blue btn-flat">Sign Up</a>
+                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat">Sign Up</a>
                                     <strong><input name="submit" type="submit" value="login" class="modal-action modal-close waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
                                 </div>
                             </div>
@@ -208,7 +210,7 @@ include('php/login.php');
                             }
                             else{
                                 echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generateAllEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 "><a href="#" class="blue-text" href="#" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
                             }
                             ?>
                         </ul>
