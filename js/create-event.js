@@ -316,21 +316,24 @@ function custom() {
     console.log("Groups Invited: " + groupInvites);
     console.log("Individual Invites: " + individualInvites);
 
-    var http = new XMLHttpRequest();
-    var url = "../php/eventCreation.php";
-    var params = "event_title=" + eventTitle + "&private=" + isPrivate + "&allDay=" + isAllDay + "&start_date=" + startDate + "&end_date=" + endDate + "&startTime=" + startTime + "&endTime=" + endTime + "&longitude=" + address_coordinates.longitude + "&latitude=" + address_coordinates.latitude + "&event_details=" + eventDetails + "&tag1=" + tags[0] + "&tag2=" + tags[1] + "&location_details=" + locationDetails; //leaving out invites for now
-    params = params.replace(" ", "%20");
-    console.log(params);
-    http.open("POST", url, true);
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//    var http = new XMLHttpRequest();
+//    var url = "../php/eventCreation.php";
+//    var params = "event_title=" + eventTitle + "&private=" + isPrivate + "&allDay=" + isAllDay + "&start_date=" + startDate + "&end_date=" + endDate + "&startTime=" + startTime + "&endTime=" + endTime + "&longitude=" + address_coordinates.longitude + "&latitude=" + address_coordinates.latitude + "&event_details=" + eventDetails + "&tag1=" + tags[0] + "&tag2=" + tags[1] + "&location_details=" + locationDetails; //leaving out invites for now
+//    params = params.replace(" ", "%20");
+//    console.log(params);
+//    http.open("POST", url, true);
+//    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     //http.setRequestHeader("Content-length",params.length);
     //http.setRequestHeader("Connection","close");
-    http.onreadystatechange = function () {
-        if (http.readyState == 4 && http.status == 200) {
-            alert(http.responseText);
-        }
-    }
-    http.send(params);
+//    http.onreadystatechange = function () {
+//        if (http.readyState == 4 && http.status == 200) {
+//            alert(http.responseText);
+//        }
+//        else {
+//            alert(http.responseText);
+//        }
+//    }
+//    http.send(params);
 
     post();
 }

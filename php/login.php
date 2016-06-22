@@ -13,10 +13,12 @@ if (isset($_POST['submit'])) {
 			$_SESSION['token'] = $jsonResponse['token'];
 		}
 		else{
-            echo ('<p class="orange-text"> Something went horribly wrong! :( Try again.</p>');
-            echo ('<p class="orange-text text-lighten-2"> <strong> For our fellow hard-working devs: </br> </strong>');
-            print_r(get_headers($url));
-            echo ("</p>");
+//            echo ('<p class="orange-text"> Something went horribly wrong! :( Try again.</p>');
+//            echo ('<p class="orange-text text-lighten-2"> <strong> For our fellow hard-working devs: </br> </strong>');
+//            print_r(get_headers($url));
+//            echo ("</p>");
+            header("location: /webpages/log_in.php/?error");
+            exit();
 		}
 		
 

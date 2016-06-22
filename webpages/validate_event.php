@@ -2,7 +2,7 @@
     <div class="col s12">
         <div class="card blue-grey darken-3">
             <div class="card-content white-text">
-                <span class="card-title">Form Successfully Submitted.</span>
+                <span class="card-title">Form Submitted.</span>
                 <h5><?php echo $_POST["event_title"]; ?></h5>
                 <p>
                 <strong>Private:</strong> <?php echo $_POST["is_private"]; ?>
@@ -27,7 +27,5 @@
 
 
 
-<?php $_POST["event_title"]; ?>
-    <?php  $_POST["start_date"]; ?>
-        <?php $_POST["end_date"]; ?>
+
            

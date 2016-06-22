@@ -45,7 +45,7 @@ include('../php/login.php');
     <body id="sign-up">
         <header class="light-green darken-2 white-text">
 
-            <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
+            <h1><a href="/index.php" class="white-text">Loccasion</a></h1>
             <ul class="inline">
 
                 <a href="/webpages/change_pass.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Change Password</a>
@@ -80,6 +80,9 @@ include('../php/login.php');
                             else {
                                 echo ("<h3>Please Login</h3>");
                             }
+                            
+                            if (isset($_GET['error'])) echo ("<p class='red-text center'>Invalid username or password.</p>");
+                            
                         ?>
                        
                         
@@ -94,7 +97,10 @@ include('../php/login.php');
                             <i class="material-icons prefix">https</i>
                             <input id="icon_password" name="password" type="password">
                             <label for="icon_password">Password</label>
+                            <a href="/webpages/change_pass.php" class="right">Forgot Password?</a>
                         </div>
+                        
+
 
                         <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
                     </form>
@@ -106,7 +112,7 @@ include('../php/login.php');
             <div class="footer-copyright">
                 <div class="container">
 
-                    <a class="blue-grey-text" href="#!">© 2015 LeavittInnovations.</a>
+                    <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
                     <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
                     <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
                     <a class="right blue-grey-text" href="./faq.html">FAQ</a>

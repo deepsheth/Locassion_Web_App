@@ -67,22 +67,8 @@ include('php/login.php');
             //Public Events
             // -75.375634
             // 40.606709
-            var publicEventInfo = <?php
-            //if(isset($_SESSION['token'])){
-                $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
-//                print_r(get_headers($url));
-                
-                if (strpos(get_headers($url)[0],'200') != false){
-                    $jsonResponse = json_decode(file_get_contents($url),true);
-                    $formattedIDs = implode(':',$jsonResponse['events']);
-                    $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
-                    //.$_SESSION['token'];
-                    echo(file_get_contents($url).';//');
-                    //echo('//'.$url);
-                }
-            //}
-            ?>
-            '';
+           
+            
             
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -149,14 +135,8 @@ include('php/login.php');
                                             <div class="input-field">
                                                 <i class="material-icons prefix">https</i>
                                                 <input id="icon_password" name="password" type="password">
-                                                <label for="icon_password">Password</label>
                                             </div>
-
-                                            <?php 
-                                        echo('<p class="red-text">');
-                                        echo($error);
-                                        echo ('</p>');
-                                        ?>
+                                            
                                         </div>
                                     </form>
 
@@ -164,7 +144,7 @@ include('php/login.php');
                                 </div>
                                 <div class="modal-footer blue-grey lighten-5">
                                     <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat">Sign Up</a>
-                                    <strong><input name="submit" type="submit" value="login" class="modal-action modal-close waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
+                                    <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
                                 </div>
                             </div>
                         </form>
