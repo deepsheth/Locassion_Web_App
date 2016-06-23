@@ -15,7 +15,6 @@ $(document).ready(function () {
 
     var count2 = 0;
     $('#invite_modal .card-panel').click(function () {
-        console.log("??");
         count2 = selectCard(this, count2);
     });
 
@@ -167,7 +166,7 @@ function initMap() {
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            console.log(publicEventInfo[i].eventid);
+//            console.log(publicEventInfo[i].eventid);
             return function () {
                 var contentString = '<div class="row"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + publicEventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + publicEventInfo[i].time + "</br><strong>Location: </strong>" + publicEventInfo[i].locationDescription + "</br></br>" + publicEventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + publicEventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
                 infowindow.setContent(contentString);
@@ -382,6 +381,12 @@ function centerMap(latitude, longitude) {
 
 }
 
+function logOut() {
+    $.post('/php/login.php', {
+        logout: true
+    });
+    window.location.replace("/");
+}
 
 $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

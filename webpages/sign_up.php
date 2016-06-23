@@ -48,8 +48,8 @@ include('../php/signUp.php');
             <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
             <ul class="inline">
 
-                <a href="/webpages/change_pass.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Change Password</a>
-                <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
+                <a href="/webpages/log_in.php" class="btn waves-effect lighten-3 blue-text white">Login</a>
+                <a href="/webpages/change_pass.php" class="btn waves-effect lighten-3 blue-text white">Forgot Password</a>
 
                 <!-- Dropdown Structure -->
                 <ul id='acct-settings' class='dropdown-content'>

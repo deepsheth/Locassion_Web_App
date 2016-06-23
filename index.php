@@ -67,14 +67,31 @@ include('php/login.php');
             //Public Events
             // -75.375634
             // 40.606709
+
+            var publicEventInfo = <?php
+            //if(isset($_SESSION['token'])){
+            $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
+            //                print_r(get_headers($url));
+
+            if (strpos(get_headers($url)[0],'200') != false){
+                $jsonResponse = json_decode(file_get_contents($url),true);
+                $formattedIDs = implode(':',$jsonResponse['events']);
+                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
+                //.$_SESSION['token'];
+                echo(file_get_contents($url).';//');
+                //echo('//'.$url);
+            }
+            //}
+            ?>
+            '';
            
             
             
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
         <script src="/js/script.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
 
 
     </head>
@@ -94,28 +111,38 @@ include('php/login.php');
                 }
             ?>
 
-                    <?php
-            if(isset($_SESSION['token'])){
-                echo('<button data-target="modal2" class="waves-effect white grey-text btn modal-trigger">Profile</button><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle"><a class="dropdown-button btn z-depth-0 light-green darken-2 col s3" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons">settings</i></a>');
-            }
-            else{
-                echo('<button data-target="modal1" class="waves-effect white blue-text btn modal-trigger">Login</button>
-                
-                ');
-            }
-            ?>
+            <?php
+                if(isset($_SESSION['token'])){
+                    echo('
+                        <a class="dropdown-button btn btn-flat white grey-text col s3" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
+                            <i class="material-icons">account_circle</i>
+                        </a>
+                        <img class="user-thumb circle" src="https://pbs.twimg.com/profile_images/447774892520251392/B_5g0wKw_400x400.png" alt="" class="circle">
+
+                        
 
                         <!-- Dropdown Structure -->
-                        <ul id='acct-settings' class='dropdown-content'>
+                        <ul id="acct-settings" class="dropdown-content">
                             <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
                             <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
                             <li><a href="/webpages/events_hist.php">Event History</a></li>
                             <li><a href="#!">Account Settings</a></li>
                             <li class="divider"></li>
-                            <form action="" method="post">
-                                <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
-                            </form>
+                                <form action="" method="post">
+                                    <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
+                                </form> 
+<!--                           <li><a onclick="logOut()">Logout</a></li>-->
                         </ul>
+                        
+                        ');
+                }
+                else{
+                    echo('<button data-target="modal1" class="waves-effect white blue-text btn modal-trigger">Login</button>
+
+                    ');
+                }
+            ?>
+
 
                         <!-- Modal Structure -->
                         <form action="" method="post">
@@ -145,31 +172,6 @@ include('php/login.php');
                                 <div class="modal-footer blue-grey lighten-5">
                                     <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat">Sign Up</a>
                                     <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
-                                </div>
-                            </div>
-                        </form>
-                        <form action="" method="post">
-                            <div id="modal2" class="modal blue-grey-text darken-4-text">
-                                <div class="modal-padding">
-
-
-                                    <form>
-                                        <div class="row">
-                                            <h4>Logged In!</h4>
-                                            <h6>Account Settings</h6>
-                                            <ul class="left">
-                                                <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
-                                                <li><a href="/webpages/friends_dashboard.php">Manage Friends</a></li>
-                                                <li><a href="/webpages/change_pass.php">Update Password</a></li>
-                                                <li><?php echo("Current Token: ".$_SESSION['token']);?></li>
-                                            </ul>
-                                        </div>
-                                    </form>
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
                                 </div>
                             </div>
                         </form>

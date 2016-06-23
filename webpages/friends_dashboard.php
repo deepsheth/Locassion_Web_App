@@ -82,26 +82,17 @@ if (isset($_POST['submit'])) {
         <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
         <ul class="inline">
 
-            <!--<a href="./webpages/create_event.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Add Friend</a>-->
-            <button data-target="modal1" class="btn modal-trigger light-green lighten-3 light-green-text text-darken-4">Add Friend</button>
+            <button data-target="modal1" class="btn modal-trigger white blue-text">Add Friend</button>
 
-            <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
-
-            <!-- Dropdown Structure -->
-                    <ul id='acct-settings' class='dropdown-content'>
-                        <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
-                        <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                        <li><a href="#!">Upcoming Events</a></li>
-                        <li><a href="#!">Events History</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">Log Out</a></li>
-                    </ul>
+            <?php
+            define('__ROOT__', dirname(dirname(__FILE__)));
+            include_once(__ROOT__.'/templates/header-menu.php'); 
+            ?>
+            
         </ul>
         <form action="" method="post">
             <div id="modal1" class="modal blue-grey-text text-darken-2">
                 <div class="modal-padding">
-
-
                     <form>
                         <div class="row">
                             <h3>Add Friend</h3>
@@ -119,8 +110,6 @@ if (isset($_POST['submit'])) {
                         ?>
                         </div>
                     </form>
-
-
                 </div>
                 <div class="modal-footer blue-grey lighten-5">
                     <strong><input name="submit" type="submit" value="add" class="modal-action modal-close waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>

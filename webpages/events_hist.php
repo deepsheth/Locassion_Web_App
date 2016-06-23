@@ -55,22 +55,13 @@
         <ul class="inline">
 
 
-            <a href="/webpages/create_event.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Create Event</a>
-            <a href="/webpages/events_dashboard.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Events Hosted</a>
+            <a href="/webpages/create_event.php" class="btn waves-effect white blue-text">Create Event</a>
+            <a href="/webpages/events_dashboard.php" class="btn waves-effect white blue-text">Events Hosted</a>
 
-            <img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle">
-            <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
-
-
-            <!-- Dropdown Structure -->
-            <ul id='acct-settings' class='dropdown-content'>
-                <li><a href="/webpages/events_dashboard.php">Events Dashboard</a></li>
-                <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                <li><a href="#!">Events History</a></li>
-                <li><a href="#!">Account Settings</a></li>
-                <li class="divider"></li>
-                <li><a href="#!" type="submit" value="logout">Log Out</a></li>
-            </ul>
+            <?php
+            define('__ROOT__', dirname(dirname(__FILE__)));
+            include_once(__ROOT__.'/templates/header-menu.php'); 
+            ?>
 
             <form action="" method="post">
                 <div id="modal2" class="modal blue-grey-text darken-4-text">

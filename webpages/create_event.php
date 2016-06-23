@@ -65,19 +65,12 @@
                         </div>
                 </div>
 
-                <img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle">
-                <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
-
-
-                <!-- Dropdown Structure -->
-                <ul id='acct-settings' class='dropdown-content'>
-                    <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
-                    <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                    <li><a href="#!">Events History</a></li>
-                    <li><a href="#!">Account Settings</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#!" type="submit" value="logout">Log Out</a></li>
-                </ul>
+               <?php
+                define('__ROOT__', dirname(dirname(__FILE__)));
+                include_once(__ROOT__.'/templates/header-menu.php'); 
+                ?>
+                
+                
             </ul>
         </header>
 
