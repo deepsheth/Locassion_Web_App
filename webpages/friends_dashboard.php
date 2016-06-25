@@ -77,10 +77,11 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body id="friend-dashboard">
-    <header class="light-green darken-2 white-text">
+    <header class="light-green darken-2 white-text row">
 
-        <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
-        <ul class="inline">
+        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+        <ul class="col s12 m8 l10">
+            <div class="flex-container">
 
             <button data-target="modal1" class="btn modal-trigger white blue-text">Add Friend</button>
 
@@ -89,6 +90,7 @@ if (isset($_POST['submit'])) {
             include_once(__ROOT__.'/templates/header-menu.php'); 
             ?>
             
+            </div>
         </ul>
         <form action="" method="post">
             <div id="modal1" class="modal blue-grey-text text-darken-2">

@@ -49,10 +49,12 @@
 </head>
 
 <body id="event-dashboard">
-    <header class="light-green darken-2 white-text">
+    <header class="light-green darken-2 white-text row">
 
-        <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
-        <ul class="inline">
+        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+        <ul >
+            <ul class="col s12 m8 l10">
+                <div class="flex-container">
 
 
             <a href="/webpages/create_event.php" class="btn waves-effect white blue-text">Create Event</a>
@@ -90,6 +92,7 @@
                     </div>
                 </div>
             </form>
+                </div>
         </ul>
     </header>
     <div class="container">

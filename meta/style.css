@@ -55,8 +55,13 @@ h2, h3, h4, h5 {
     background: #FFF;
 }
 
-.w-hover:hover a {
+a:hover .btn.white-text {
+    background: #fff;
     color: #039be5 !important;
+}
+
+.btn.white-text:focus {
+    background: #3E7CE0;
 }
 
 .bg-brush-pattern {

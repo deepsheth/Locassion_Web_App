@@ -59,12 +59,13 @@
             ?>
         '';
     </script>
-    <header class="light-green darken-2 white-text">
+    <header class="light-green darken-2 white-text row">
 
-        <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
-        <ul class="inline">
+        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+        <ul class="col s12 m8 l10">
+            <div class="flex-container">
 
-            <a class="waves-effect waves-light white blue-text btn modal-trigger col offset-s4" href="/webpages/events_dashboard.php">Events Dashboard</a>
+            <a class="waves-effect waves-light white blue-text btn modal-trigger " href="/webpages/events_dashboard.php">Events Dashboard</a>
 
 
 
@@ -81,6 +82,7 @@
                 <li class="divider"></li>
                 <li><a href="#!" type="submit" value="logout">Log Out</a></li>
             </ul>
+            </div>
         </ul>
     </header>
 

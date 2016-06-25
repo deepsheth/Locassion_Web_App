@@ -46,12 +46,14 @@
     </head>
 
     <body id="create-event">
-        <header class="light-green darken-2 white-text">
+        <header class="light-green darken-2 white-text row">
 
-            <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
-            <ul class="inline">
+            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+            
+            <ul class="col s12 m8 l10">
+                <div class="flex-container">
 
-                <a data-target="confirm_prompt" class="waves-effect waves-light white blue-text btn modal-trigger col offset-s4">Events Dashboard</a>
+                <a data-target="confirm_prompt" class="waves-effect waves-light white blue-text btn modal-trigger ">Events Dashboard</a>
 
                 <div id="confirm_prompt" class="modal modal-fixed-footer">
                     <div class="modal-content black-text">
@@ -70,7 +72,7 @@
                     include_once(__ROOT__.'/templates/header-menu.php'); 
                 ?>
                 
-                
+                </div>
             </ul>
         </header>
 
@@ -199,7 +201,7 @@
 
                             <div class="row">
                                 <!-- Modal Trigger -->
-                                <a data-target="invite_modal" class="waves-effect waves-light blue btn modal-trigger col offset-s4">Send Out Invites</a>
+                                <a data-target="invite_modal" class="waves-effect waves-light blue btn modal-trigger ">Send Out Invites</a>
                             </div>
 
                             <!-- Modal Structure -->

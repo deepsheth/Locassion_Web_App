@@ -99,11 +99,13 @@ include('php/login.php');
     </head>
 
     <body id="home" class="blue-grey darken-4">
-        <header class="light-green darken-2 white-text">
+        <header class="light-green darken-2 white-text row">
 
-            <h1><a href="/" class="white-text">Loccasion</a></h1>
-            <ul class="inline">
-
+           
+            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+            
+            <ul class="col s12 m8 l10">
+               <div class="flex-container">
                 <?php
             if(isset($_SESSION['token'])){
                 echo('<a href="./webpages/create_event.php" class="waves-effect white blue-text btn">Create Event</a>');
@@ -112,11 +114,11 @@ include('php/login.php');
                 echo('<a href="#" class="waves-effect waves-yellow white blue-text btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
                 }
             ?>
-
+                
             <?php
                 if(isset($_SESSION['token'])){
                     echo('
-                        <a class="dropdown-button btn btn-flat white grey-text col s3" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
+                        <a class="dropdown-button btn btn-flat white grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
                             <i class="material-icons">account_circle</i>
                         </a>
                         <img class="user-thumb circle" src="https://pbs.twimg.com/profile_images/447774892520251392/B_5g0wKw_400x400.png" alt="" class="circle">
@@ -177,12 +179,28 @@ include('php/login.php');
                                 </div>
                             </div>
                         </form>
+                </div>
             </ul>
         </header>
         <div id="main-container">
 
-            <div id="map"></div>
-            <div id="side-bar" class="blue-grey darken-3">
+            <div class="row">
+                <div class="map-container col m6 l8 hide-on-small-only">
+                <div id="map"></div>
+                    <footer>
+                        <div class="footer-copyright">
+                            <small> <b>
+                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="#!">© 2015 LeavittInnovations.</a>
+
+                                <a class="right white-text btn-flat" href="/webpages/tos.html" target="_blank">Terms of Service</a>
+                                <a class="right white-text btn-flat" href="/webpages/privacy.html" target="_blank">Privacy Policy</a>
+                                <a class="right white-text btn-flat" href="/webpages/faq.html" target="_blank">FAQ</a>
+                                </b>
+                            </small>
+                        </div>
+                    </footer>
+                </div>
+                <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
                 <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
                 <div class="row">
@@ -203,6 +221,8 @@ include('php/login.php');
                 </div>
                 <div id="event-panel"></div>
             </div>
+            </div>
+            
             <!-- 
 
             <div class="row">
@@ -241,18 +261,7 @@ include('php/login.php');
            
           -->
 
-            <footer>
-                <div class="footer-copyright">
-                    <small> <b>
-                                 <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="#!">© 2015 LeavittInnovations.</a>
-                                
-                                <a class="right white-text btn-flat" href="/webpages/tos.html" target="_blank">Terms of Service</a>
-                                <a class="right white-text btn-flat" href="/webpages/privacy.html" target="_blank">Privacy Policy</a>
-                                <a class="right white-text btn-flat" href="/webpages/faq.html" target="_blank">FAQ</a>
-                                </b>
-                    </small>
-                </div>
-            </footer>
+            
 
         </div>
 

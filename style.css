@@ -6,9 +6,13 @@ body {
 }
 
 header {
-    height: 10%;
-    padding: 1.15em 6em;
     min-height: 5em;
+    padding: 0em 6em;
+}
+
+header.row, header.row .col {
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .dropdown-content li > a {
@@ -16,9 +20,10 @@ header {
 }
 
 h1 {
-    display: inline;
     font-size: 2.5em;
+    margin: 0;
     letter-spacing: 1px;
+    padding-top: 0.375em !important;
 }
 
 h1 a {
@@ -42,18 +47,22 @@ h6,
 }
 
 ::selection {
-    background: #b71c1c;
-    color: #FFF;
+    background: rgba(183, 28, 28, .85);
+    color: rgba(255,255,255, .9);
 }
 
 ::-moz-selection {
-    background: #b71c1c;
-    color: #FFF;
+    background: rgba(183, 28, 28, .85);
+    color: rgba(255,255,255, .9);
+}
+
+.light-green.darken-2, .primary-green {
+    background: #48A64C !important;
 }
 
 header ul {
-    float: right;
-    margin-top: .25em;
+    display: inline-block;
+    
 }
 
 .large-icon {
@@ -64,10 +73,20 @@ header ul {
     height: 90%;
 }
 
+#main-container > .row {
+    margin: 0;
+}
+
+#main-container > .row > .map-container {
+    padding: 0;    
+    height: calc(90vh - 1.5em);
+}
+
+.map-container {
+    height: 90vh;
+}
 #map {
-    height: 95%;
-    width: 70%;
-    display: inline-block;
+    height: inherit;
 }
 
 #event-dashboard #map {
@@ -95,7 +114,6 @@ header ul {
 #side-bar {
     display: inline;
     position: absolute;
-    width: 30%;
     height: 90%;
     overflow-y: scroll;
 }
@@ -127,6 +145,10 @@ h3 {
 
 .modal-padding {
     padding: 3em 3em 1em 3em;
+}
+
+.card {
+    overflow: auto;
 }
 
 .card .card-content {
@@ -250,8 +272,9 @@ footer a {
 }
 
 #home footer {
-    width: 70%;
     padding: 0em;
+    max-height: 1.5em;
+    overflow: auto;
 }
 
 #home footer a {
@@ -544,4 +567,17 @@ button.picker__close:focus {
 
 #event-details .card-panel {
     padding: 1.5em 2.5em;
+}
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    /* This aligns items to the end line on main-axis */
+    justify-content: flex-end;
+    
+    margin: .85em auto;
+}
+
+.flex-container > * {
+    margin: .35em .5em;
 }

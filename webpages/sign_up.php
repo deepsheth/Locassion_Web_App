@@ -43,10 +43,10 @@ include('../php/signUp.php');
     </head>
 
     <body id="sign-up">
-        <header class="light-green darken-2 white-text">
+        <header class="light-green darken-2 white-text row">
 
-            <h1><a href="../index.php" class="white-text">Loccasion</a></h1>
-            <ul class="inline">
+            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+            <ul >
 
                 <a href="/webpages/log_in.php" class="btn waves-effect lighten-3 blue-text white">Login</a>
                 <a href="/webpages/change_pass.php" class="btn waves-effect lighten-3 blue-text white">Forgot Password</a>
