@@ -98,7 +98,7 @@ include('php/login.php');
 
     </head>
 
-    <body id="home" class="grey darken-3">
+    <body id="home" class="blue-grey darken-4">
         <header class="light-green darken-2 white-text">
 
             <h1><a href="/" class="white-text">Loccasion</a></h1>
@@ -182,7 +182,7 @@ include('php/login.php');
         <div id="main-container">
 
             <div id="map"></div>
-            <div id="side-bar" class="grey darken-3">
+            <div id="side-bar" class="blue-grey darken-3">
 
                 <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
                 <div class="row">
