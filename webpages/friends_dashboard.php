@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
         <ul class="col s12 m8 l10">
             <div class="flex-container">
 
-            <button data-target="modal1" class="btn modal-trigger white blue-text">Add Friend</button>
+            <button data-target="modal-small" class="btn modal-trigger white blue-text">Add Friend</button>
 
             <?php
             define('__ROOT__', dirname(dirname(__FILE__)));
@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
             </div>
         </ul>
         <form action="" method="post">
-            <div id="modal1" class="modal blue-grey-text text-darken-2">
+            <div id="modal-small" class="modal blue-grey-text text-darken-2">
                 <div class="modal-padding">
                     <form>
                         <div class="row">

@@ -33,6 +33,11 @@
 ================================================== -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.modal-trigger').leanModal();
+        });
+    </script>
 
 
 </head>
@@ -48,8 +53,8 @@
                 <div class="logo"></div>
                 <h1 class="fancy">Loccasion</h1>
             </div>
-            <div class="tagline">Socially Plan Events</div>
-            <button class="btn btn-flat btn-small green-text text-darken-4 w-hover">Sign Up</button>
+            <div class="tagline fancy">Socially Plan Events</div>
+            <a href="/"><button class="btn btn-flat btn-small green-text text-darken-4 w-hover">Sign Up</button></a>
 
         </header>
 
@@ -90,27 +95,71 @@
         <div class="bg-blue">
             <div class="container">
                 <div class="row">
-                    <h3 class="white-text">Cross Platform</h3>
-                    <h3 class="fancy white-text">Web AND Mobile</h3>
-
+                    <div class="row">
+                        <h3 class="col s12 m6 white-text">Cross Platform</h3>
+                        <h3 class="col s12 m6  right-align fancy right-ribbon">Web AND Mobile</h3>
+                    </div>
                     <div class="grid-panel">
                         <div class="panel-item">
                             <img src="/img/macbook.svg" alt="">
-                            <a href="/index.php"><button class="btn btn-large btn-flat white-text">Launch Web App</button></a>
+                            <a href="/index.php">
+                                <button class="btn btn-large btn-flat white-text">Launch Web App</button>
+                            </a>
                         </div>
 
                         <div class="panel-item">
                             <img src="/img/smartphone.svg" alt="">
-                            <a href=""><img src="/img/google-play-badge.png" alt=""></a>
+                            <a href="" data-target="modal-small" class=" modal-trigger"><img src="/img/google-play-badge.png" alt=""></a>
                         </div>
 
                         <div class="panel-item">
                             <img src="/img/iphone.svg" alt="">
-                            <a href=""><img src="/img/app-store-badge.svg" alt=""></a>
+                            <a href="" data-target="modal-small" class=" modal-trigger"><img src="/img/app-store-badge.svg" alt=""></a>
+                        </div>
+
+                        <div id="modal-small" class="modal white-text blue-grey darken-4">
+                            <form>
+                                <div class="modal-padding">
+                                    <div class="row">
+                                        <h3>Coming Soon!</h3>
+
+                                        <div class="row">
+                                            <p>Our app is under development and should be releasing within the next few weeks! Drop us your email address to get an update when our app is available for download! :)</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field">
+                                                <i class="material-icons prefix ">account_circle</i>
+                                                <input id="icon_username" name="email" type="text" required>
+                                                <label for="icon_username">Email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer blue">
+                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat blue-grey-text text-lighten-2">Cancel</a>
+                                    <strong><input name="submit" type="submit" value="Subscribe" class="modal-action waves-effect waves-blue btn-flat white-text"></strong>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
                 </div>
+            </div>
+        </div>
+        <div class="about-us-bg">
+        </div>
+        <div class="row blue-grey darken-3">
+            <div class="container">
+                <div class="row">
+                    <h4 class="fancy right-ribbon">Simple</h4>
+                    <h4 class="fancy right-ribbon center-align">Beautiful</h4>
+                    <h4 class="fancy right-ribbon right-align">Social</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container">
+                <h3 class="center"><a href="team.html">Meet the Team</a></h3>
             </div>
         </div>
     </div>
@@ -120,10 +169,10 @@
             <div class="container">
 
                 <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
+                <a class="right blue-grey-text" href="http://www.flaticon.com/packs/technology-elements" target="_blank">Icon Credits</a>
                 <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
                 <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
                 <a class="right blue-grey-text" href="./faq.html">FAQ</a>
-                <a class="right blue-grey-text" href="http://www.flaticon.com/packs/technology-elements">Icon Credits</a>
             </div>
         </div>
     </footer>

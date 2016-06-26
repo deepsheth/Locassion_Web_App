@@ -461,11 +461,11 @@
                     <h6 class="center white-text dyn_event-time">Time</h6>
                     <br>
 
-                    <div class="divider light-green darken-1"></div>
+                    <div class="divider green lighten-1"></div>
                     <p><strong>Details:</strong></p>
                     <p class="dyn_event-desc">Event Description</p>
 
-                    <div class="divider light-green darken-1"></div>
+                    <div class="divider green lighten-1"></div>
                     <p>
                         <span class="chip green lighten-1 green-text text-lighten-4 dyn_tag1">Tag1</span>
                         <span class="chip green lighten-1 green-text text-lighten-4 dyn_tag2">Tag2</span>

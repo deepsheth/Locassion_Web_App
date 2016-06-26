@@ -26,12 +26,12 @@ h1.fancy {
     vertical-align: top;
 }
 
+.fancy {
+    font-family: 'Bad Script', cursive;
+}
 h2, h3, h4, h5 {
     font-family: Raleway, sans-serif;
     color: #039be5;
-}
-.subtitle {
-    font-family: 'Bad Script', cursive;
 }
 
 .logo {
@@ -47,7 +47,6 @@ h2, h3, h4, h5 {
     display: block;
     font-size: 2em;
     letter-spacing: 2px;
-    font-family: "bad script", cursive;
     padding-bottom: 1.68rem;
 }
 
@@ -101,6 +100,7 @@ a:hover .btn.white-text {
 
 
 .grid-panel {
+    font-weight: bold;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -111,9 +111,21 @@ a:hover .btn.white-text {
 }
 
 .panel-item img {
-    width: 9em;
+    width: 10em;
     display: block;
-    margin: 2em auto;
+    margin: 4em auto;
+}
+
+#team .panel-item img {
+    width: 13.5em;
+}
+
+#team .panel-item {
+    margin: 3em 0;
+}
+
+#team .panel-item * {
+    margin: 15px;
 }
 
 ::-moz-selection { /* Code for Firefox */
@@ -146,4 +158,27 @@ strong {
     background: url('/img/Android_Hand.jpg') no-repeat left -10%;
     min-height: 40em;
     background-size: cover;
+}
+
+.right-ribbon {
+    font-size: 4em;
+    letter-spacing: 5px;
+    color: rgba(255,255,225, .15);
+}
+
+.modal {
+    width: 30em;
+}
+.modal-padding {
+    padding: 3em 3em 1em 3em;
+}
+
+.about-us-bg {
+    background: url('/img/laptop.jpg');
+    background-size: cover;
+    height: 100vh;
+}
+
+footer a {
+    margin-left: 1em;
 }

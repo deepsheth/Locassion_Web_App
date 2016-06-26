@@ -356,9 +356,7 @@ function generateEventDetails(event) {
     var date = moment(event.time);
     
     var picker = $('.dyn_event-time').pickadate().pickadate('picker');
-    
     picker.set('highlight', date.toDate());
-//    picker.set('highlight', [2015, 3, 20]);
     
     
     moment.locale('en', {

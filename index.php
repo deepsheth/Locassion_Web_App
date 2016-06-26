@@ -90,7 +90,7 @@ include('php/login.php');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">moment.format();</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">();</script>
         <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
 
@@ -140,7 +140,7 @@ include('php/login.php');
                         ');
                 }
                 else{
-                    echo('<button data-target="modal1" class="waves-effect white blue-text btn modal-trigger">Login</button>
+                    echo('<button data-target="modal-small" class="waves-effect white blue-text btn modal-trigger">Login</button>
 
                     ');
                 }
@@ -149,7 +149,7 @@ include('php/login.php');
 
                         <!-- Modal Structure -->
                         <form action="" method="post">
-                            <div id="modal1" class="modal blue-grey-text text-darken-2">
+                            <div id="modal-small" class="modal blue-grey-text text-darken-2">
                                 <div class="modal-padding">
 
 
@@ -186,7 +186,7 @@ include('php/login.php');
                     <footer>
                         <div class="footer-copyright">
                             <small> <b>
-                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="#!">© 2015-2016 LeavittInnovations.</a>
+                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="/meta/index.html">© 2015-2016 LeavittInnovations.</a>
 
                                 <a class="right white-text btn-flat" href="/webpages/tos.html" target="_blank">Terms of Service</a>
                                 <a class="right white-text btn-flat" href="/webpages/privacy.html" target="_blank">Privacy Policy</a>
