@@ -90,8 +90,7 @@ include('php/login.php');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-        <script>moment().format(); </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">moment.format();</script>
         <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
 
@@ -160,22 +159,19 @@ include('php/login.php');
                                             <br>
                                             <div class="input-field">
                                                 <i class="material-icons prefix ">account_circle</i>
-                                                <input id="icon_username" name="email" type="text">
+                                                <input id="icon_username" name="email" type="text" required>
                                                 <label for="icon_username">Email</label>
                                             </div>
                                             <div class="input-field">
                                                 <i class="material-icons prefix">https</i>
-                                                <input id="icon_password" name="password" type="password">
+                                                <input id="icon_password" name="password" type="password" required>
                                             </div>
-                                            
                                         </div>
                                     </form>
-
-
                                 </div>
-                                <div class="modal-footer blue-grey lighten-5">
-                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat">Sign Up</a>
-                                    <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
+                                <div class="modal-footer blue-grey lighten-2">
+                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat blue-grey-text text-darken-2">Sign Up</a>
+                                    <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat white-text"></strong>
                                 </div>
                             </div>
                         </form>
@@ -190,7 +186,7 @@ include('php/login.php');
                     <footer>
                         <div class="footer-copyright">
                             <small> <b>
-                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="#!">© 2015 LeavittInnovations.</a>
+                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="#!">© 2015-2016 LeavittInnovations.</a>
 
                                 <a class="right white-text btn-flat" href="/webpages/tos.html" target="_blank">Terms of Service</a>
                                 <a class="right white-text btn-flat" href="/webpages/privacy.html" target="_blank">Privacy Policy</a>

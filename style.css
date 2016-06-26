@@ -507,13 +507,21 @@ button.picker__close:focus {
     display: none;
 }
 
+.no-mar {
+    margin: 0;
+}
+
+.no-pad {
+    padding: 0;
+}
+
 .hero {
-    margin-top: 3em;
     max-height: 20em;
     height: auto;
     overflow: hidden;
-    -webkit-border-radius: 8px 8px 8px 8px;
-    border-radius: 8px 8px 8px 8px;
+    border: .3em solid #37474F;
+    -webkit-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0;
 }
 
 .hero img {
@@ -528,14 +536,15 @@ button.picker__close:focus {
 }
 
 .style-tab {
-    -webkit-border-radius: 8px 8px 8px 8px;
-    border-radius: 8px 8px 8px 8px;
-    padding: .5em 0;
+    -webkit-border-radius: 0 0 2px 2px;
+    border-radius: 0 0 2px 2px;
+    padding: 1.75em 0;
 }
 
 .style-tab i {
     padding: .25em;
-    border: .25em solid #FFF;
+    border: .15em solid #FFF;
+    margin-top: .15em;
 }
 
 #event-details .title {

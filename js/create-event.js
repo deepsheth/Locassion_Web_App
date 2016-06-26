@@ -22,7 +22,7 @@ $(document).ready(function () {
         closeOnSelect: true
     });
 
-    // Disables dates passed
+    // Disables dates prior to today
     var startDatePicker = $('#start_date').pickadate().pickadate('picker');
     startDatePicker.set({
         'min': true
@@ -62,7 +62,7 @@ $(document).ready(function () {
     });
 
     // Prevents submission of form
-    $("form").submit(function (e) {
+    $("#event-container form").submit(function (e) {
         e.preventDefault();
     });
 

@@ -152,56 +152,60 @@ function initMap() {
 
     geoLocator();
 
-    var iconBase = './img/';
-
     var infowindow = new google.maps.InfoWindow({
         maxWidth: 250
     });
 
 
+    genMapPublicEvents(infowindow);
+    generatePublicEvents();
+    
+    genMapPrivateEvents(infowindow);
+    generatePrivateEvents();
+    
+
+
+}
+
+function genMapPublicEvents(infowindow) {
     for (var i = 0; i < publicEventInfo.length; i++) {
 
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(publicEventInfo[i].latitude, publicEventInfo[i].longitude),
             map: map,
-            icon: iconBase + 'public_event_marker.png'
+            icon: '/img/' + 'public_event_marker.png'
 
         });
-            
-        
+
+
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
-//            console.log(publicEventInfo[i].eventid);
+            //            console.log(publicEventInfo[i].eventid);
             return function () {
-                var contentString = '<div class="row"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + publicEventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + publicEventInfo[i].time + "</br><strong>Location: </strong>" + publicEventInfo[i].locationDescription + "</br></br>" + publicEventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + publicEventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
+                var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + publicEventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + publicEventInfo[i].time + "</br><strong>Location: </strong>" + publicEventInfo[i].locationDescription + "</br></br>" + publicEventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + publicEventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
             }
         })(marker, i));
     }
+}
 
-
+function genMapPrivateEvents(infowindow) {
     for (var i = 0; i < privateEventInfo.length; i++) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(privateEventInfo[i].latitude, privateEventInfo[i].longitude),
             map: map,
-            icon: iconBase + 'private_event_marker.png'
+            icon: '/img/' + 'private_event_marker.png'
 
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
-                var contentString = '<div class="row"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + privateEventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + privateEventInfo[i].time + "</br><strong>Location: </strong>" + privateEventInfo[i].locationDescription + "</br></br>" + privateEventInfo[i].description + '</p></div><div class="card-action white center"><a href="/webpages/event_details.php?eventid="' + privateEventInfo[i].eventid + ' class="blue-text title btn-flat white waves-effect waves-white">Event Page</a></div></div></div></div>';
+                var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + privateEventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + privateEventInfo[i].time + "</br><strong>Location: </strong>" + privateEventInfo[i].locationDescription + "</br></br>" + privateEventInfo[i].description + '</p></div><div class="card-action white center"><a href="/webpages/event_details.php?eventid="' + privateEventInfo[i].eventid + ' class="blue-text title btn-flat white waves-effect waves-white">Event Page</a></div></div></div></div>';
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
             }
         })(marker, i));
     }
-
-
-    // Initially displays all events
-    generatePublicEvents();
-    generatePrivateEvents();
-
 }
 
 function geoLocator() {
@@ -254,7 +258,7 @@ function generatePrivateEvents() {
         $('#event-panel').append(
 
             '<div class="row"><div class="col s12"><div class="card grey lighten-4 hoverable"><div class="card-content grey-text text-darken-2"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + privateEventInfo[i].eventid + '">' +
-            privateEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + privateEventInfo[i].time + '</div><span class="add-cursor" onclick="centerMap(' + privateEventInfo[i].latitude + ',' + privateEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + privateEventInfo[i].locationDescription + '</span><p>' + privateEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2" title="Map Event\'s Location" onclick="centerMap(' + privateEventInfo[i].latitude + ',' + privateEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
+            privateEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + privateEventInfo[i].time + '</div><span class="add-cursor" onclick="centerMap(' + privateEventInfo[i].latitude + ',' + privateEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + privateEventInfo[i].locationDescription + '</span><p>' + privateEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2 hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + privateEventInfo[i].latitude + ',' + privateEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
             privateEventInfo[i].tag1 + '</div><div class="chip">' + privateEventInfo[i].tag2 +
             '</div></div></li></ul></div></div></div></div>'
 
@@ -318,7 +322,7 @@ function generatePublicEvents() {
         
         $('#event-panel').append(
             '<div class="row"><div class="col s12"><div class="card grey lighten-4 hoverable"><div class="card-content grey-text text-darken-2"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + publicEventInfo[i].eventid + '">' +
-            publicEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>Public Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + publicEventInfo[i].locationDescription + '</span><p>' + publicEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2" title="Map Event\'s Location" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
+            publicEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>Public Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + publicEventInfo[i].locationDescription + '</span><p>' + publicEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
             publicEventInfo[i].tag1 + '</div><div class="chip">' + publicEventInfo[i].tag2 +
             '</div></div></li></ul></div></div></div></div>'
 
@@ -348,10 +352,30 @@ function generateUpcomingEvents() {
 }
 
 function generateEventDetails(event) {
+
+    var date = moment(event.time);
+    
+    var picker = $('.dyn_event-time').pickadate().pickadate('picker');
+    
+    picker.set('highlight', date.toDate());
+//    picker.set('highlight', [2015, 3, 20]);
+    
+    
+    moment.locale('en', {
+        calendar : {
+            lastDay : '[Yesterday at] LT',
+            sameDay : '[Today at] LT',
+            nextDay : '[Tomorrow at] LT',
+            lastWeek : '[last] dddd [at] LT',
+            nextWeek : 'dddd [at] LT',
+            sameElse : 'MMMM Do YYYY'
+        }
+    });
+    
     $('.dyn_event-name').text(event.name);
     $('.dyn_host-name').text(event.hostname);
     $('.dyn_event-location').text(event.locationDescription);
-    $('.dyn_event-time').text(event.time + " -- " + event.endDate);
+    $('.dyn_event-time').text(moment(event.time, "YYYY-MM-DD HH:mm:ss a").calendar());
     $('.dyn_event-desc').text(event.description);
     $('.dyn_tag1').text(event.tag1);
     $('.dyn_tag2').text(event.tag2);

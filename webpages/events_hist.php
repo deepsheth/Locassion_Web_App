@@ -52,47 +52,47 @@
     <header class="light-green darken-2 white-text row">
 
         <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
-        <ul >
-            <ul class="col s12 m8 l10">
-                <div class="flex-container">
+
+        <ul class="col s12 m8 l10">
+            <div class="flex-container">
 
 
-            <a href="/webpages/create_event.php" class="btn waves-effect white blue-text">Create Event</a>
-            <a href="/webpages/events_dashboard.php" class="btn waves-effect white blue-text">Events Hosted</a>
+                <a href="/webpages/create_event.php" class="btn waves-effect white blue-text">Create Event</a>
+                <a href="/webpages/events_dashboard.php" class="btn waves-effect white blue-text">Events Hosted</a>
 
-            <?php
+                <?php
             define('__ROOT__', dirname(dirname(__FILE__)));
             include_once(__ROOT__.'/templates/header-menu.php'); 
             ?>
 
-            <form action="" method="post">
-                <div id="modal2" class="modal blue-grey-text darken-4-text">
-                    <div class="login-modal">
+                    <form action="" method="post">
+                        <div id="modal2" class="modal blue-grey-text darken-4-text">
+                            <div class="login-modal">
 
 
-                        <form>
-                            <div class="row">
-                                <h4>Logged In!</h4>
-                                <h6>Account Settings</h6>
-                                <ul class="left">
-                                    <li><a href="/webpages/events_hosting.html">Events You Created</a></li>
-                                    <li><a href="#">Friends</a></li>
-                                    <li><a href="#">Event History</a></li>
-                                    <li><a href="/webpages/change_pass.html">Update Password</a></li>
-                                </ul>
+                                <form>
+                                    <div class="row">
+                                        <h4>Logged In!</h4>
+                                        <h6>Account Settings</h6>
+                                        <ul class="left">
+                                            <li><a href="/webpages/events_hosting.html">Events You Created</a></li>
+                                            <li><a href="#">Friends</a></li>
+                                            <li><a href="#">Event History</a></li>
+                                            <li><a href="/webpages/change_pass.html">Update Password</a></li>
+                                        </ul>
 
-                                <?php echo("Current Token: ".$_SESSION['token']);?>
+                                        <?php echo("Current Token: ".$_SESSION['token']);?>
+                                    </div>
+                                </form>
+
+
                             </div>
-                        </form>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
-                    </div>
-                </div>
-            </form>
-                </div>
+                            <div class="modal-footer">
+                                <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
+                            </div>
+                        </div>
+                    </form>
+            </div>
         </ul>
     </header>
     <div class="container">
@@ -181,7 +181,7 @@
         <div class="footer-copyright">
             <div class="container">
 
-                <a class="blue-grey-text" href="#!">© 2015 LeavittInnovations.</a>
+                <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
                 <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
                 <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
                 <a class="right blue-grey-text" href="./faq.html">FAQ</a>

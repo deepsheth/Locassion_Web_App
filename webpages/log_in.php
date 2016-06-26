@@ -1,8 +1,8 @@
 <?php
 include('../php/login.php');
 ?>
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html>
 
     <head>
 
@@ -46,30 +46,23 @@ include('../php/login.php');
         <header class="light-green darken-2 white-text row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
-            <ul >
-
-                <a href="/webpages/change_pass.php" class="btn waves-effect light-green lighten-3 light-green-text text-darken-4">Change Password</a>
-                <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
-
-                <!-- Dropdown Structure -->
-                <ul id='acct-settings' class='dropdown-content'>
-                    <li><a href="#!">Account Settings</a></li>
-                    <li><a href="#!">Upcoming Events</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#!">Log Out</a></li>
-                </ul>
+            <ul class="col s12 m8 l10">
+                <div class="flex-container">
+                    <a href="/webpages/change_pass.php" class="btn waves-effect white blue-text">Reset Password</a>
+                    <a href="/webpages/sign_up.php" class="btn waves-effect white blue-text">Sign Up</a>
+                </div>
             </ul>
         </header>
 
         <div class="container">
             <div class="row">
-                <div class="col s7">
+                <div class="col hide-on-small-only m4 l5 center">
                     <img src="/img/logo_large_white2.png" alt="">
                 </div>
-                <div class="col s5 white z-depth-2">
+                <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
                     <form action="/" method="post">
-                        
-                        
+
+
                         <?php
                             if (isset($_SESSION['userID'])) {
                                 echo ("
@@ -84,25 +77,25 @@ include('../php/login.php');
                             if (isset($_GET['error'])) echo ("<p class='red-text center'>Invalid username or password.</p>");
                             
                         ?>
-                       
-                        
-                        
-                        <br>
-                        <div class="input-field">
-                            <i class="material-icons prefix ">account_circle</i>
-                            <input id="icon_username" name="email" type="text">
-                            <label for="icon_username">Email</label>
-                        </div>
-                        <div class="input-field">
-                            <i class="material-icons prefix">https</i>
-                            <input id="icon_password" name="password" type="password">
-                            <label for="icon_password">Password</label>
-                            <a href="/webpages/change_pass.php" class="right">Forgot Password?</a>
-                        </div>
-                        
 
 
-                        <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
+
+                            <br>
+                            <div class="input-field">
+                                <i class="material-icons prefix ">account_circle</i>
+                                <input id="icon_username" name="email" type="text">
+                                <label for="icon_username">Email</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">https</i>
+                                <input id="icon_password" name="password" type="password">
+                                <label for="icon_password">Password</label>
+                                <a href="/webpages/change_pass.php" class="right">Forgot Password?</a>
+                            </div>
+
+
+
+                            <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
                     </form>
                 </div>
             </div>
@@ -121,4 +114,4 @@ include('../php/login.php');
         </footer>
     </body>
 
-</html>
+    </html>

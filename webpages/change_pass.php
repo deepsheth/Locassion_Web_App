@@ -64,11 +64,11 @@
 
         <div class="container">
             <div class="row">
-                <div class="col s7">
+                <div class="col hide-on-small-only m4 l5 center">
 
                     <img src="/img/logo_large_white2.png" alt="">
                 </div>
-                <div class="col s5 white z-depth-2">
+                <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
                    <form>
                    <h3 class="blue-grey-text text-darken-2">Change Password</h3>
                     <div class="input-field">
@@ -102,7 +102,7 @@
             <div class="footer-copyright">
                 <div class="container">
 
-                    <a class="blue-grey-text" href="#!">© 2015 LeavittInnovations.</a>
+                    <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
                     <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
                     <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
                     <a class="right blue-grey-text" href="./faq.html">FAQ</a>

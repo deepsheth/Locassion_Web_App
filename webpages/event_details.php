@@ -43,6 +43,7 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">();</script>
     <script src="/js/script.js"></script>
 
 
@@ -65,44 +66,61 @@
         <ul class="col s12 m8 l10">
             <div class="flex-container">
 
-            <a class="waves-effect waves-light white blue-text btn modal-trigger " href="/webpages/events_dashboard.php">Events Dashboard</a>
+                <a class="waves-effect waves-light white blue-text btn modal-trigger " href="/webpages/events_dashboard.php">Events Dashboard</a>
 
 
 
-            <img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt="" class="circle">
-            <a class='dropdown-button btn z-depth-0 light-green darken-2' href='#' data-activates='acct-settings'><i class="material-icons">settings</i></a>
+                <a class="dropdown-button btn btn-flat white grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
+                    <i class="material-icons">account_circle</i>
+                </a>
+                <img class="user-thumb circle" src="https://pbs.twimg.com/profile_images/447774892520251392/B_5g0wKw_400x400.png" alt="" class="circle">
 
 
-            <!-- Dropdown Structure -->
-            <ul id='acct-settings' class='dropdown-content'>
-                <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
-                <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                <li><a href="#!">Events History</a></li>
-                <li><a href="#!">Account Settings</a></li>
-                <li class="divider"></li>
-                <li><a href="#!" type="submit" value="logout">Log Out</a></li>
-            </ul>
+
+                <!-- Dropdown Structure -->
+                <ul id="acct-settings" class="dropdown-content">
+                    <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
+                    <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
+                    <li><a href="/webpages/events_hist.php">Event History</a></li>
+                    <li><a href="#!">Account Settings</a></li>
+                    <li class="divider"></li>
+                    <form action="" method="post">
+                        <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
+                    </form>
+                </ul>
+
             </div>
         </ul>
     </header>
 
+    <div class="blue-grey darken-2">
+        <div class="container">
+            <div class="row no-mar white-text style-tab">
+                <div class="col m5" title="Event Title">
+                    <h3 class="dyn_event-name">Event Name</h3>
+                </div>
+            </div>
+            
+            <div class="no-mar row">
+                <div class="hero">
+                    <img src="https://scontent-lga3-1.xx.fbcdn.net/t31.0-8/12967903_572392099590789_4390675073749666913_o.jpg" alt="">
+                </div>
+            </div>
+            <div class="row center white-text style-tab">
+                <div class="col m5" title="Event Title">
+                    <h5 class="dyn_event-time add-cursor">Date</h5>
+                </div>
+                <div class="col s1">
+                    <i class="material-icons blue white-text circle" title="Public Event">public</i>
+                </div>
+                <div class="col s5" title="Host Name">
+                    <h5>Hosted by <a href="#" class="dyn_host-name">Host Name</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <div class="row">
-            <div class="hero">
-                <img src="https://scontent-lga3-1.xx.fbcdn.net/t31.0-8/12967903_572392099590789_4390675073749666913_o.jpg" alt="">
-            </div>
-        </div>
-        <div class="row center grey lighten-3 grey-text text-darken-2 style-tab">
-            <div class="col m5" title="Event Title">
-                <h5 class="dyn_event-name">Event Name</h5>
-            </div>
-            <div class="col s1">
-                <i class="material-icons blue white-text circle" title="Public Event">public</i>
-            </div>
-            <div class="col s5" title="Host Name">
-                <h5>Hosted by <a href="#" class="dyn_host-name">Host Name</a></h5>
-            </div>
-        </div>
         <div class="row lighten-4 info-bar">
             <div class="col m3 info-panel-left center">
                 <p class="title">You plan on</p>
@@ -449,10 +467,10 @@
 
                     <div class="divider light-green darken-1"></div>
                     <p>
-                        <span class="chip light-green light-green-text text-darken-4 dyn_tag1">Tag1</span>
-                        <span class="chip light-green light-green-text text-darken-4 dyn_tag2">Tag2</span>
+                        <span class="chip green lighten-1 green-text text-lighten-4 dyn_tag1">Tag1</span>
+                        <span class="chip green lighten-1 green-text text-lighten-4 dyn_tag2">Tag2</span>
 
-                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lehigh Holi 2016&dates=20160127T224000Z/20160320T221500Z&details=For+details,+link+here:+http://www.example.com&location=Lehigh University, Bethlehem, PA&sf=true&output=xml#eventpage_6" target="_blank" class="btn btn-flat right light-green lighten-2  dyn_gcal-export">Export</a>
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Lehigh Holi 2016&dates=20160127T224000Z/20160320T221500Z&details=For+details,+link+here:+http://www.example.com&location=Lehigh University, Bethlehem, PA&sf=true&output=xml#eventpage_6" target="_blank" class="btn btn-flat right green lighten-1 green-text text-lighten-4 dyn_gcal-export">Export</a>
                     </p>
                 </div>
             </div>
@@ -476,7 +494,7 @@
             </div>
             <div class="footer-copyright">
 
-                <a class="blue-grey-text" href="#!">© 2015 LeavittInnovations.</a>
+                <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
                 <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
                 <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
                 <a class="right blue-grey-text" href="./faq.html">FAQ</a>
