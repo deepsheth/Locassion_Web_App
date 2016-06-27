@@ -597,20 +597,15 @@ button.picker__close:focus {
 }
 
 @media only screen and (max-width:600px) {
-    #home h1 a.white-text {
+    #home h1 {
         display: block;
-        margin-left: 4%;
+        text-align: center;
     }
-    .flex-container a.waves-effect.waves-yellow.white.blue-text.btn.disabled.tooltipped {
-        display: block;
-        margin-left: 0;
-        margin-right: auto;
+    
+    .flex-container {
+        justify-content: center;
     }
-    .flex-container button.waves-effect.white.blue-text.btn.modal-trigger {
-        display: block;
-        margin-left: 34px;
-        margin-right: auto;
-    }
+    
     .flex-container img.user-thumb.circle {
         display: block;
         margin-left: -10px;
@@ -621,8 +616,4 @@ button.picker__close:focus {
         margin-left: 10px;
         margin-right: auto;
     }
-    .flex-container a.waves-effect.white.blue-text.btn {
-        display: block;
-        margin-left: 0;
-        margin-right: auto;
-    }
+    
