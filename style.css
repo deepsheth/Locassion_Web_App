@@ -590,3 +590,38 @@ button.picker__close:focus {
 .flex-container > * {
     margin: .35em .5em;
 }
+
+@media only screen and (max-width:600px) {
+    #home h1 a.white-text {
+        display: block;
+        margin-left: 4%;
+    }
+
+    .flex-container a.waves-effect.waves-yellow.white.blue-text.btn.disabled.tooltipped {
+        display: block;
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    .flex-container button.waves-effect.white.blue-text.btn.modal-trigger {
+        display: block;
+        margin-left: 34px;
+        margin-right: auto;
+    }
+
+    .flex-container img.user-thumb.circle {
+        display: block;
+        margin-left: -10px;
+        margin-right: auto;
+    }
+    .flex-container a.dropdown-button.btn.btn-flat.white.grey-text {
+        display: block;
+        margin-left: 10px;
+        margin-right: auto;
+    }
+    .flex-container a.waves-effect.white.blue-text.btn {
+        display: block;
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
