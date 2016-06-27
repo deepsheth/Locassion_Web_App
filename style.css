@@ -1,4 +1,4 @@
-html,
+    html,
 body {
     height: 100%;
     margin: 0;
@@ -10,7 +10,8 @@ header {
     padding: 0em 6em;
 }
 
-header.row, header.row .col {
+header.row,
+header.row .col {
     margin-bottom: 0;
     margin-top: 0;
 }
@@ -48,21 +49,35 @@ h6,
 
 ::selection {
     background: rgba(183, 28, 28, .85);
-    color: rgba(255,255,255, .9);
+    color: rgba(255, 255, 255, .9);
 }
 
 ::-moz-selection {
     background: rgba(183, 28, 28, .85);
-    color: rgba(255,255,255, .9);
+    color: rgba(255, 255, 255, .9);
 }
 
-.light-green.darken-2, .primary-green {
+.light-green.darken-2,
+
+.primary-green {
     background: #48A64C !important;
+}
+
+.bold-blue {
+    background: #4687F2;
+    padding-bottom: 4em;
+}
+
+.bg {
+    min-height: 90vh;    
+}
+
+.bg .container > .row{
+    margin-bottom: 0;
 }
 
 header ul {
     display: inline-block;
-    
 }
 
 .large-icon {
@@ -78,13 +93,14 @@ header ul {
 }
 
 #main-container > .row > .map-container {
-    padding: 0;    
+    padding: 0;
     height: calc(90vh - 1.5em);
 }
 
 .map-container {
     height: 90vh;
 }
+
 #map {
     height: inherit;
 }
@@ -158,7 +174,6 @@ h3 {
 
 .card .card-content p {
     padding-top: 1em;
-    
 }
 
 .card .card-title {
@@ -390,25 +405,30 @@ p.reading {
     display: inline-block;
 }
 
-#sign-up header,
+
 #event-dashboard header,
 #friend-dashboard header {
     margin-bottom: 5em;
 }
 
-#sign-up {
+#registration .container {
+    padding-top: 5em;
+}
+/*
+#registration {
     background: #4687F2;
 }
+*/
 
-#sign-up form {
+#registration form {
     padding: 2em 3em 3em;
 }
 
-#sign-up form .input-field {
+#registration form .input-field {
     margin: 2em 0;
 }
 
-#sign-up form button {
+#registration form button {
     margin: 2em 0 0;
 }
 
@@ -583,7 +603,6 @@ button.picker__close:focus {
     flex-flow: row wrap;
     /* This aligns items to the end line on main-axis */
     justify-content: flex-end;
-    
     margin: .85em auto;
 }
 
@@ -591,37 +610,29 @@ button.picker__close:focus {
     margin: .35em .5em;
 }
 
-@media only screen and (max-width:600px) {
-    #home h1 a.white-text {
-        display: block;
-        margin-left: 4%;
-    }
-
-    .flex-container a.waves-effect.waves-yellow.white.blue-text.btn.disabled.tooltipped {
-        display: block;
-        margin-left: 0;
-        margin-right: auto;
-    }
-
-    .flex-container button.waves-effect.white.blue-text.btn.modal-trigger {
-        display: block;
-        margin-left: 34px;
-        margin-right: auto;
-    }
-
-    .flex-container img.user-thumb.circle {
-        display: block;
-        margin-left: -10px;
-        margin-right: auto;
-    }
-    .flex-container a.dropdown-button.btn.btn-flat.white.grey-text {
-        display: block;
-        margin-left: 10px;
-        margin-right: auto;
-    }
-    .flex-container a.waves-effect.white.blue-text.btn {
-        display: block;
-        margin-left: 0;
-        margin-right: auto;
-    }
+.progress {
+    bottom: 4px;
+    margin: 0 0 -4px 0;
 }
+
+@media only screen and (max-width:600px) {
+    header {
+        font-size: .9em;
+    }
+    
+    h1 {
+        display: block;
+        text-align: center;
+    }
+    
+    .flex-container {
+        justify-content: center;
+    }
+    
+    #side-bar {
+        position: initial;
+    }
+    
+    .btn-wide {
+        height: auto;
+    }

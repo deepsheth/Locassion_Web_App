@@ -2,8 +2,9 @@
 include('php/login.php');
 
 ?>
+
     <!DOCTYPE html>
-    <html>
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 
     <head>
 
@@ -29,6 +30,11 @@ include('php/login.php');
         <!-- Mobile Specific Metas
 	================================================== -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- MSC
+    ================================================== -->
+        <meta property="og:image" content="/img/website_preview.jpg" />
+
 
         <!-- Analytics
 	================================================== -->
@@ -84,15 +90,12 @@ include('php/login.php');
             //}
             ?>
             '';
-           
-            
-            
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">();</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
         <script src="/js/script.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&&callback=initMap" async defer></script>
 
 
     </head>
@@ -100,21 +103,21 @@ include('php/login.php');
     <body id="home" class="blue-grey darken-4">
         <header class="light-green darken-2 white-text row">
 
-           
+
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
-            
+
             <ul class="col s12 m8 l10">
-               <div class="flex-container">
-                <?php
+                <div class="flex-container">
+                    <?php
             if(isset($_SESSION['token'])){
-                echo('<a href="./webpages/create_event.php" class="waves-effect white blue-text btn">Create Event</a>');
+                echo('<a href="./webpages/create_event.php" class="waves-effect white blue-text btn btn-wide">Create Event</a>');
 }
             else{
                 echo('<a href="#" class="waves-effect waves-yellow white blue-text btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
                 }
             ?>
-                
-            <?php
+
+                        <?php
                 if(isset($_SESSION['token'])){
                     echo('
                         <a class="dropdown-button btn btn-flat white grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
@@ -147,13 +150,10 @@ include('php/login.php');
             ?>
 
 
-                        <!-- Modal Structure -->
-                        <form action="" method="post">
-                            <div id="modal-small" class="modal blue-grey-text text-darken-2">
-                                <div class="modal-padding">
-
-
-                                    <form>
+                            <!-- Modal Structure -->
+                            <form action="" method="post">
+                                <div id="modal-small" class="modal blue-grey-text text-darken-2">
+                                    <div class="modal-padding">
                                         <div class="row">
                                             <h3>Login</h3>
                                             <br>
@@ -167,22 +167,26 @@ include('php/login.php');
                                                 <input id="icon_password" name="password" type="password" required>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
+                                        <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
+                                        <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
+                                    </div>
                                 </div>
-                                <div class="modal-footer blue-grey lighten-2">
-                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat blue-grey-text text-darken-2">Sign Up</a>
-                                    <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat white-text"></strong>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
                 </div>
             </ul>
         </header>
         <div id="main-container">
 
+
+
             <div class="row">
                 <div class="map-container col m6 l8 hide-on-small-only">
-                <div id="map"></div>
+                    <div class="progress primary-green">
+                        <div class="determinate green darken-4"></div>
+                    </div>
+                    <div id="map"></div>
                     <footer>
                         <div class="footer-copyright">
                             <small> <b>
@@ -198,11 +202,11 @@ include('php/login.php');
                 </div>
                 <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
-                <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <?php
+                    <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <?php
                             if(!isset($_SESSION['token'])){
                                 echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generateAllEvents()">Discover</a></li>');
                                 echo('<li class="tab col s3 disabled"><a class="waves-effect waves-yellow disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Upcoming</a></li>');
@@ -212,13 +216,13 @@ include('php/login.php');
                                 echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
                             }
                             ?>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
+                    <div id="event-panel"></div>
                 </div>
-                <div id="event-panel"></div>
             </div>
-            </div>
-            
+
             <!-- 
 
             <div class="row">
@@ -257,7 +261,7 @@ include('php/login.php');
            
           -->
 
-            
+
 
         </div>
 
