@@ -93,8 +93,8 @@ include('../php/signUp.php');
                         
                         <div class="input-field">
                             <i class="material-icons prefix blue-grey-text">map</i>
-                            <input id="icon_location" name="location" type="text">
-                            <label for="icon_location">Default Zipcode</label>
+                            <input id="icon_location" name="location" type="number"  min="10000" max="99999" class="validate">
+                            <label for="icon_location">Default Zipcode (optional)</label>
                         </div>
                        
                         <div class="input-field">
@@ -102,8 +102,6 @@ include('../php/signUp.php');
                             <input id="icon_password" name="password" type="password" required>
                             <label for="icon_password">Password</label>
                         </div>
-
-                        <div class="g-recaptcha" data-sitekey="6LdgoxoTAAAAACxM_ZGsn3e7SJicMsHR5jC4xML5"></div>
                         
                         <!-- fake fields bypass browser autocomplete -->
                         <input style="visibility:hidden; height: 0px" type="password"/>

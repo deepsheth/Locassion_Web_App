@@ -590,3 +590,8 @@ button.picker__close:focus {
 .flex-container > * {
     margin: .35em .5em;
 }
+
+.progress {
+    bottom: 4px;
+    margin: 0 0 -4px 0;
+}

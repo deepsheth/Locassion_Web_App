@@ -2,8 +2,9 @@
 include('php/login.php');
 
 ?>
-    <!DOCTYPE html>
-    <html>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 
     <head>
 
@@ -29,6 +30,11 @@ include('php/login.php');
         <!-- Mobile Specific Metas
 	================================================== -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+        <!-- MSC
+    ================================================== -->
+        <meta property="og:image" content="/img/website_preview.jpg" />
+
 
         <!-- Analytics
 	================================================== -->
@@ -90,9 +96,9 @@ include('php/login.php');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js">();</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
         <script src="/js/script.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&signed_in=true&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&&callback=initMap" async defer></script>
 
 
     </head>
@@ -169,9 +175,9 @@ include('php/login.php');
                                         </div>
                                     </form>
                                 </div>
-                                <div class="modal-footer blue-grey lighten-2">
-                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat blue-grey-text text-darken-2">Sign Up</a>
-                                    <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat white-text"></strong>
+                                <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
+                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
+                                    <strong><a name="submit" type="submit" class="modal-action waves-effect waves-blue btn-flat blue-text">Login</a></strong>
                                 </div>
                             </div>
                         </form>
@@ -179,9 +185,14 @@ include('php/login.php');
             </ul>
         </header>
         <div id="main-container">
-
+            
+            
+            
             <div class="row">
                 <div class="map-container col m6 l8 hide-on-small-only">
+                    <div class="progress primary-green">
+                        <div class="determinate green darken-4"></div>
+                    </div>
                 <div id="map"></div>
                     <footer>
                         <div class="footer-copyright">
