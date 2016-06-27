@@ -42,7 +42,7 @@ include('../php/login.php');
 
     </head>
 
-    <body id="sign-up">
+    <body id="registration">
         <header class="light-green darken-2 white-text row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
@@ -54,16 +54,17 @@ include('../php/login.php');
             </ul>
         </header>
 
-        <div class="container">
-            <div class="row">
-                <div class="col hide-on-small-only m4 l5 center">
-                    <img src="/img/logo_large_white2.png" alt="">
-                </div>
-                <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
-                    <form action="/" method="post">
+        <div class="bold-blue bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col hide-on-small-only m4 l5 center">
+                        <img src="/img/logo_large_white2.png" alt="">
+                    </div>
+                    <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
+                        <form action="/" method="post">
 
 
-                        <?php
+                            <?php
                             if (isset($_SESSION['userID'])) {
                                 echo ("
                                     <h3 class='light-green-text text-darken-2'>Account Created!</h3>
@@ -80,38 +81,35 @@ include('../php/login.php');
 
 
 
-                            <br>
-                            <div class="input-field">
-                                <i class="material-icons prefix ">account_circle</i>
-                                <input id="icon_username" name="email" type="text">
-                                <label for="icon_username">Email</label>
-                            </div>
-                            <div class="input-field">
-                                <i class="material-icons prefix">https</i>
-                                <input id="icon_password" name="password" type="password">
-                                <label for="icon_password">Password</label>
-                                <a href="/webpages/change_pass.php" class="right">Forgot Password?</a>
-                            </div>
+                                <br>
+                                <div class="input-field">
+                                    <i class="material-icons prefix ">account_circle</i>
+                                    <input id="icon_username" name="email" type="text">
+                                    <label for="icon_username">Email</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="material-icons prefix">https</i>
+                                    <input id="icon_password" name="password" type="password">
+                                    <label for="icon_password">Password</label>
+                                    <a href="/webpages/change_pass.php" class="right">Forgot Password?</a>
+                                </div>
 
 
 
-                            <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
-                    </form>
+                                <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <footer class="grey lighten-3 grey-text">
-            <div class="footer-copyright">
-                <div class="container">
+     
+        <?php
+        define('__ROOT__', dirname(dirname(__FILE__)));
+        include_once(__ROOT__.'/templates/simple-footer.php'); 
+        ?>
 
-                    <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
-                    <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
-                    <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
-                    <a class="right blue-grey-text" href="./faq.html">FAQ</a>
-                </div>
-            </div>
-        </footer>
+   
     </body>
 
     </html>

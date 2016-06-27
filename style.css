@@ -58,8 +58,22 @@ h6,
 }
 
 .light-green.darken-2,
+
 .primary-green {
     background: #48A64C !important;
+}
+
+.bold-blue {
+    background: #4687F2;
+    padding-bottom: 4em;
+}
+
+.bg {
+    min-height: 90vh;    
+}
+
+.bg .container > .row{
+    margin-bottom: 0;
 }
 
 header ul {
@@ -391,25 +405,30 @@ p.reading {
     display: inline-block;
 }
 
-#sign-up header,
+
 #event-dashboard header,
 #friend-dashboard header {
     margin-bottom: 5em;
 }
 
-#sign-up {
+#registration .container {
+    padding-top: 5em;
+}
+/*
+#registration {
     background: #4687F2;
 }
+*/
 
-#sign-up form {
+#registration form {
     padding: 2em 3em 3em;
 }
 
-#sign-up form .input-field {
+#registration form .input-field {
     margin: 2em 0;
 }
 
-#sign-up form button {
+#registration form button {
     margin: 2em 0 0;
 }
 

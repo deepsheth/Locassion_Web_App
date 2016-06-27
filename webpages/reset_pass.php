@@ -34,12 +34,11 @@
 ================================================== -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
 
 
     </head>
 
-    <body id="sign-up">
+    <body id="registration">
         <header class="light-green darken-2 white-text row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
@@ -63,6 +62,33 @@
         <div class="container">
             <div class="row">
                
+               
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                <!--               DELETE PAGE (USE RESETPASSWORD.PHP ISNTEAD) -->
+                
                 <div class="col hide-on-small-only m4 l5 center">
                     <img src="/img/logo_large_white2.png" alt="">
                 </div>
