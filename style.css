@@ -597,7 +597,11 @@ button.picker__close:focus {
 }
 
 @media only screen and (max-width:600px) {
-    #home h1 {
+    header {
+        font-size: .9em;
+    }
+    
+    h1 {
         display: block;
         text-align: center;
     }
@@ -606,14 +610,10 @@ button.picker__close:focus {
         justify-content: center;
     }
     
-    .flex-container img.user-thumb.circle {
-        display: block;
-        margin-left: -10px;
-        margin-right: auto;
-    }
-    .flex-container a.dropdown-button.btn.btn-flat.white.grey-text {
-        display: block;
-        margin-left: 10px;
-        margin-right: auto;
+    #side-bar {
+        position: initial;
     }
     
+    .btn-wide {
+        height: auto;
+    }

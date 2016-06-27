@@ -110,7 +110,7 @@ include('php/login.php');
                 <div class="flex-container">
                     <?php
             if(isset($_SESSION['token'])){
-                echo('<a href="./webpages/create_event.php" class="waves-effect white blue-text btn">Create Event</a>');
+                echo('<a href="./webpages/create_event.php" class="waves-effect white blue-text btn btn-wide">Create Event</a>');
 }
             else{
                 echo('<a href="#" class="waves-effect waves-yellow white blue-text btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');

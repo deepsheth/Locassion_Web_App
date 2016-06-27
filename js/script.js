@@ -139,7 +139,7 @@ function initMap() {
     }
 ];
 
-    $('.determinate').width('40%');
+    $('.determinate').width('35%');
     
     var map_options = {
         styles: style
@@ -154,6 +154,7 @@ function initMap() {
         styles: style
     });
 
+    $('.determinate').width('50%');
     geoLocator();
 
     var infowindow = new google.maps.InfoWindow({
