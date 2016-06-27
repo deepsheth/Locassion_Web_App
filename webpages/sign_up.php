@@ -49,7 +49,7 @@ include('../php/signUp.php');
             <ul class="col s12 m8 l10">
                 <div class="flex-container">
 
-                    <a href="/webpages/change_pass.php" class="btn waves-effect lighten-3 blue-text white">Forgot Password</a>
+                    <a href="/webpages/reset_pass_email.php" class="btn waves-effect lighten-3 blue-text white">Forgot Password</a>
                     <a href="/webpages/log_in.php" class="btn waves-effect lighten-3 blue-text white">Login</a>
 
                     <!-- Dropdown Structure -->

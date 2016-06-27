@@ -48,7 +48,7 @@ include('../php/login.php');
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
             <ul class="col s12 m8 l10">
                 <div class="flex-container">
-                    <a href="/webpages/change_pass.php" class="btn waves-effect white blue-text">Reset Password</a>
+                    <a href="/webpages/reset_pass_email.php" class="btn waves-effect white blue-text">Reset Password</a>
                     <a href="/webpages/sign_up.php" class="btn waves-effect white blue-text">Sign Up</a>
                 </div>
             </ul>
@@ -76,10 +76,9 @@ include('../php/login.php');
                             }
                             
                             if (isset($_GET['error'])) echo ("<p class='red-text center'>Invalid username or password.</p>");
+                            else if (isset($_GET['newpass'])) echo ("<strong><p class='green-text center'>Yay, last step! Please login with your new password. </p></strong>");
                             
-                        ?>
-
-
+                            ?>
 
                                 <br>
                                 <div class="input-field">

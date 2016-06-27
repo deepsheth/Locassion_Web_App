@@ -162,9 +162,10 @@ include('php/login.php');
                                                 <input id="icon_username" name="email" type="text" required>
                                                 <label for="icon_username">Email</label>
                                             </div>
-                                            <div class="input-field">
+                                            <div class="input-field center">
                                                 <i class="material-icons prefix">https</i>
                                                 <input id="icon_password" name="password" type="password" required>
+                                            <small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small>
                                             </div>
                                         </div>
                                     </div>
