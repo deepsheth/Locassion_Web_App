@@ -1,10 +1,16 @@
 <?php
 
 $error = "";
-
+var_dump($_POST);
+if (isset($_POST['email'])){
+    $response = file_get_contents("https://meet-up-1097.appspot.com/?command=resetPassword&args=".$_POST['email']."&token=none");
+    $error = "Please check you email and open the password reset link to continue.";
+}
 if (isset($_POST['submit'])) {
     if (isset($_GET['userid']) and isset($_GET['token']) and $_POST['password'] == $_POST['password2']){
+        //echo("https://meet-up-1097.appspot.com/?command=newPassword&args=".$_GET['userid'].";".$_GET['token'].";".$_POST['password']."&token=none");
         $response = file_get_contents("https://meet-up-1097.appspot.com/?command=newPassword&args=".$_GET['userid'].";".$_GET['token'].";".$_POST['password']."&token=none");
+        //echo("Response: ".$response);
     }
     else if ($_POST['password'] != $_POST['password2']){
         $error = "Passwords don't match!";
