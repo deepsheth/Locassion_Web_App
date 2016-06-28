@@ -61,43 +61,43 @@ if (!isset($_SESSION['token'])) {
 
             //NOTE: You will need to change it so that longitude and latitude are taken from the browser instead of hard coded
             //Private Events
-            var privateEventInfo = <?php
-            if(isset($_SESSION['token'])){
-                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2020-11-13%2016:00:00;:::&token='.$_SESSION['token'];
-
-                if (strpos(get_headers($url)[0],'200') != false){
-                    $jsonResponse = json_decode(file_get_contents($url),true);
-                    $formattedIDs = implode(':',$jsonResponse['events']);
-                    $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEventInfo&args='.$formattedIDs.'&token='.$_SESSION['token'];
-                    echo(file_get_contents($url).';//');
-                    //echo('//'.$url);
-                }
-                else{
-                    file_get_contents('https://meet-up-1097.appspot.com/?command=log&args=HEADERS ERROR - '.get_headers($url).'&token=none');
-                }
-            }
-            ?>
-            '';
-            //Public Events
-            // -75.375634
-            // 40.606709
-
-            var publicEventInfo = <?php
-            //if(isset($_SESSION['token'])){
-            $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
-            //                print_r(get_headers($url));
-
-            if (strpos(get_headers($url)[0],'200') != false){
-                $jsonResponse = json_decode(file_get_contents($url),true);
-                $formattedIDs = implode(':',$jsonResponse['events']);
-                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
-                //.$_SESSION['token'];
-                echo(file_get_contents($url).';//');
-                //echo('//'.$url);
-            }
-            //}
-            ?>
-            '';
+//            var privateEventInfo = <?php
+//            if(isset($_SESSION['token'])){
+//                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2020-11-13%2016:00:00;:::&token='.$_SESSION['token'];
+//
+//                if (strpos(get_headers($url)[0],'200') != false){
+//                    $jsonResponse = json_decode(file_get_contents($url),true);
+//                    $formattedIDs = implode(':',$jsonResponse['events']);
+//                    $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEventInfo&args='.$formattedIDs.'&token='.$_SESSION['token'];
+//                    echo(file_get_contents($url).';//');
+//                    //echo('//'.$url);
+//                }
+//                else{
+//                    file_get_contents('https://meet-up-1097.appspot.com/?command=log&args=HEADERS ERROR - '.get_headers($url).'&token=none');
+//                }
+//            }
+//            ?>
+//            '';
+//            //Public Events
+//            // -75.375634
+//            // 40.606709
+//
+//            var publicEventInfo = <?php
+//            //if(isset($_SESSION['token'])){
+//            $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
+//            //                print_r(get_headers($url));
+//
+//            if (strpos(get_headers($url)[0],'200') != false){
+//                $jsonResponse = json_decode(file_get_contents($url),true);
+//                $formattedIDs = implode(':',$jsonResponse['events']);
+//                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
+//                //.$_SESSION['token'];
+//                echo(file_get_contents($url).';//');
+//                //echo('//'.$url);
+//            }
+//            //}
+//            ?>
+//            '';
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -156,38 +156,35 @@ if (!isset($_SESSION['token'])) {
             ?>
 
 
-                            <!-- Modal Structure -->
-                            <form action="" method="post">
-                                <div id="modal-small" class="modal blue-grey-text text-darken-2">
-                                    <div class="modal-padding">
-                                        <div class="row">
-                                            <h3>Login</h3>
-                                            <br>
-                                            <div class="input-field">
-                                                <i class="material-icons prefix ">account_circle</i>
-                                                <input id="icon_username" name="email" type="text" required>
-                                                <label for="icon_username">Email</label>
-                                            </div>
-                                            <div class="input-field center">
-                                                <i class="material-icons prefix">https</i>
-                                                <input id="icon_password" name="password" type="password" required>
-                                            <small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small>
-                                            </div>
-                                        </div>
+                    <!-- Login Popup -->
+                    <form action="" method="post">
+                        <div id="modal-small" class="modal blue-grey-text text-darken-2">
+                            <div class="modal-padding">
+                                <div class="row">
+                                    <h3>Login</h3>
+                                    <br>
+                                    <div class="input-field">
+                                        <i class="material-icons prefix ">account_circle</i>
+                                        <input id="icon_username" name="email" type="text" required>
+                                        <label for="icon_username">Email</label>
                                     </div>
-                                    <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
-                                        <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
-                                        <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
+                                    <div class="input-field center">
+                                        <i class="material-icons prefix">https</i>
+                                        <input id="icon_password" name="password" type="password" required>
+                                    <small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
+                                <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
+                                <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </ul>
         </header>
         <div id="main-container">
-
-
-
             <div class="row">
                 <div class="map-container col m6 l8 hide-on-small-only">
                     <div class="progress primary-green">
@@ -215,11 +212,11 @@ if (!isset($_SESSION['token'])) {
                             <ul class="tabs">
                                 <?php
                             if(!isset($_SESSION['token'])){
-                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="generateAllEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents()">Discover</a></li>');
                                 echo('<li class="tab col s3 disabled"><a class="waves-effect waves-yellow disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Upcoming</a></li>');
                             }
                             else{
-                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="generateAllEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents()">Discover</a></li>');
                                 echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
                             }
                             ?>
@@ -229,50 +226,6 @@ if (!isset($_SESSION['token'])) {
                     <div id="event-panel"></div>
                 </div>
             </div>
-
-            <!-- 
-
-            <div class="row">
-                <div class="col s12">
-                    <div class="card light-blue darken-3">
-                        <div class="card-content white-text">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                        </div>
-
-                        <div class="card-action light-blue darken-2">
-                            <ul class="collapsible" data-collapsible="accordion">
-                                <li>
-                                    <div class="collapsible-header light-blue darken-2">
-                                        <a href="#" class="orange-text" onclick="Materialize.toast('I am a toast', 4000)">Going</a>
-                                        <a href="#" class="orange-text">Not Going</a>
-                                        <i class="material-icons right">keyboard_arrow_down</i>
-                                    </div>
-                                    <div class="collapsible-body white-text">
-                                        <p>Lorem ipsum dolor sit amet.</p>
-                                        <div class="chip">
-                                            Tag
-                                            <i class="material-icons">close</i>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
-
-           
-          -->
-
-
-
-        </div>
-
-
     </body>
-
     </html>

@@ -34,13 +34,34 @@ var filters = {
 
 $(document).ready(function () {
 
-
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
 
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
+
+
+    // Delete Card
+    $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
+        deleteCard(this);
+    });
+
+    // Going Card
+    $("#event-panel .collapsible a:nth-of-type(2)").click(function () {
+        //Replaces Dismiss Button
+        //        var currentElement = $(this).parentsUntil($(".card-action"));
+        //        $(currentElement).find("a:nth-of-type(1)").replaceWith("<a href=\"\" class=\"right blue-text waves-effect waves-white\"><i class=\"material-icons\">save</i></a>");
+
+        var currentElement = $(this).parentsUntil($(".card-action"));
+        $(currentElement).find("a:nth-of-type(1)").replaceWith("");
+        $(this).replaceWith("<span class=\"green-text right\">GOING! <i class=\"material-icons right\">check_circle</i></span>");
+    });
+
+
+    $("#event-panel .close").click(function () {
+        deleteCard(this);
+    });
 
     var count1 = 0;
     $('#friend-dashboard .friend-list-cards .card-panel').click(function () {
@@ -70,13 +91,17 @@ function selectCard(card, numberSelected) {
 var map;
 var publicEventInfo;
 var privateEventInfo;
-var isPrivateTabActive = 0;
 var markers = [];
 var numEvents = 0;
 
 function initMap() {
 
-    $('.determinate').width('10%');
+
+    // Gets all events
+    getEvents(filters);
+
+
+    $('.determinate').width('30%');
 
     // Blue Gray Theme
     var style = [
@@ -172,7 +197,7 @@ function initMap() {
     }
 ];
 
-    $('.determinate').width('35%');
+    $('.determinate').width('40%');
 
     var map_options = {
         styles: style
@@ -186,33 +211,22 @@ function initMap() {
         zoom: 16,
         styles: style
     });
-    
-    $('.determinate').width('50%');
+
+    $('.determinate').width('55%');
     geoLocator();
 
-    var infowindow = new google.maps.InfoWindow({
-        maxWidth: 250
-    });
-
-    $('.determinate').width('70%');
-
-    genMapPublicEvents(infowindow);
-    generatePublicEvents();
+    
 
     $('.determinate').width('85%');
-
-    genMapPrivateEvents(infowindow);
-    generatePrivateEvents();
-
 
     var options = {
         imagePath: '/img/markers/m'
     };
 
     // Markers are no longer put on map, until MarkerClusterer is called since map: map property of markers is removed
-    var markerCluster = new MarkerClusterer(map, markers, options);
-    
-    
+    var markerCluster = new MarkerClusterer(map, window.markers, options);
+
+
     google.maps.event.addListenerOnce(map, 'idle', function () {
 
         $('.determinate').width('100%');
@@ -220,7 +234,7 @@ function initMap() {
             $('.determinate').fadeOut(350);
         }, 350);
 
-        
+
     });
 
 }
@@ -305,125 +319,111 @@ function geoLocator() {
     }
 }
 
-function getPublicEvents(filters) {
-    console.table(filters);
+function getEvents() {
 
-    $.get('/php/getEvents.php', {
-        lat: filters.pos.lat,
-        lng: filters.pos.lng,
-        radius: filters.radius,
-        start_year: filters.date_start.year,
-        start_month: filters.date_start.month,
-        start_day: filters.date_start.day,
-        start_hour: filters.time_start.hour,
-        start_min: filters.time_start.minute,
-        start_sec: filters.time_start.seconds,
-        end_year: filters.date_end.year,
-        end_month: filters.date_end.month,
-        end_day: filters.date_end.day,
-        end_hour: filters.time_end.hour,
-        end_min: filters.time_end.minute,
-        end_sec: filters.time_end.seconds
-    }, function (data) {
-        alert("Data Loaded: " + data);
+    var events = {
+        publicEvents: function () {
+            return $.getJSON('/php/getPublicEvents.php', {
+                lat: filters.pos.lat,
+                lng: filters.pos.lng,
+                radius: filters.radius,
+                start_year: filters.date_start.year,
+                start_month: filters.date_start.month,
+                start_day: filters.date_start.day,
+                start_hour: filters.time_start.hour,
+                start_min: filters.time_start.minute,
+                start_sec: filters.time_start.seconds,
+                end_year: filters.date_end.year,
+                end_month: filters.date_end.month,
+                end_day: filters.date_end.day,
+                end_hour: filters.time_end.hour,
+                end_min: filters.time_end.minute,
+                end_sec: filters.time_end.seconds
+            }).then(function (data) {
+                return data;
+            });
+        },
+        privateEvents: function () {
+            return $.getJSON('/php/getPrivateEvents.php', {
+                lat: filters.pos.lat,
+                lng: filters.pos.lng,
+                radius: filters.radius,
+                start_year: filters.date_start.year,
+                start_month: filters.date_start.month,
+                start_day: filters.date_start.day,
+                start_hour: filters.time_start.hour,
+                start_min: filters.time_start.minute,
+                start_sec: filters.time_start.seconds,
+                end_year: filters.date_end.year,
+                end_month: filters.date_end.month,
+                end_day: filters.date_end.day,
+                end_hour: filters.time_end.hour,
+                end_min: filters.time_end.minute,
+                end_sec: filters.time_end.seconds
+            }).then(function (data) {
+                return data;
+            });
+        }
+    };
+
+    events.publicEvents().done(function (eventInfo) {
+        genEvents(eventInfo, "public");
+    });
+    events.privateEvents().done(function (eventInfo) {
+        genEvents(eventInfo, "private");
     });
 
 }
 
-function generatePrivateEvents() {
-
-    for (var i = 0; i < privateEventInfo.length; i++) {
-        // Dynamically generates PRIVATE card content
-
-        $('#event-panel').append(
-            '<div class="row"><div class="col s12"><div class="card white hoverable" index=' + numEvents + '+><div class="card-contentblue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + privateEventInfo[i].eventid + '">' +
-            privateEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + privateEventInfo[i].time + '</div><span class="add-cursor" onclick="centerMap(' + privateEventInfo[i].latitude + ',' + privateEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + privateEventInfo[i].locationDescription + '</span><p>' + privateEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2 hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + privateEventInfo[i].latitude + ',' + privateEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66780?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66740?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
-            privateEventInfo[i].tag1 + '</div><div class="chip">' + privateEventInfo[i].tag2 +
-            '</div></div></li></ul></div></div></div></div>'
-
-        );
-
-        numEvents++;
-
-    }
-
-    $('.collapsible').collapsible({
-        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
-
-    // Delete Card
-    $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
-        deleteCard(this);
-    });
-
-    // Going Card
-    $("#event-panel .collapsible a:nth-of-type(2)").click(function () {
-        //Replaces Dismiss Button
-        //        var currentElement = $(this).parentsUntil($(".card-action"));
-        //        $(currentElement).find("a:nth-of-type(1)").replaceWith("<a href=\"\" class=\"right blue-text waves-effect waves-white\"><i class=\"material-icons\">save</i></a>");
-
-        var currentElement = $(this).parentsUntil($(".card-action"));
-        $(currentElement).find("a:nth-of-type(1)").replaceWith("");
-        $(this).replaceWith("<span class=\"green-text right\">GOING! <i class=\"material-icons right\">check_circle</i></span>");
-    });
-
-
-    $("#event-panel .close").click(function () {
-        deleteCard(this);
-    });
-
-    function deleteCard(currentElement) {
-        console.log(this);
-        $(currentElement).parentsUntil($("#event-panel")).slideUp("fast", function () {
-            $(currentElement).remove();
-        });
-    }
+function genEvents(eventInfo, type) {
+    genCards(eventInfo, type);
+    genMarkers(eventInfo, type);
 }
 
-function generatePublicEvents() {
-
-    // Dynamically generates PUBLIC card content
-
-
-
+function genCards(eventInfo, type) {
     if (!logged_in) {
         $('#event-panel').append(
             '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
         );
-    } else if (publicEventInfo.length == 0) {
+    } else if (eventInfo.length == 0) {
         $('#event-panel').append(
-            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No Public Events!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
+            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No ' + type.toUpperCase + ' Events!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
         );
     }
 
-
-
-    for (var i = 0; i < publicEventInfo.length; i++) {
-        publicEventInfo[i].time = moment(publicEventInfo[i].time, "YYYY-MM-DD HH:mm:ss");
-
-        
+    for (var i = 0; i < eventInfo.length; i++) {
+        eventInfo[i].time = moment(eventInfo[i].time, "YYYY-MM-DD HH:mm:ss");
         $('#event-panel').append(
-            '<div class="row"><div class="col s12"><div class="card white hoverable" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + '\'public\'' + ' )"><div class="card-content blue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + publicEventInfo[i].eventid + '">' +
-            publicEventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>Public Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + publicEventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + publicEventInfo[i].locationDescription + '</span><p>' + publicEventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + publicEventInfo[i].latitude + ',' + publicEventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' +
-            publicEventInfo[i].tag1 + '</div><div class="chip">' + publicEventInfo[i].tag2 +
-            '</div></div></li></ul></div></div></div></div>'
-
+            '<div class="row"><div class="col s12"><div class="card white hoverable" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + '\'public\'' + ' )"><div class="card-content blue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>Public Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</span><p>' + eventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' + eventInfo[i].tag1 + '</div><div class="chip">' + eventInfo[i].tag2 + '</div></div></li></ul></div></div></div></div>'
         );
-
         numEvents++;
-
     }
-
-    $('.collapsible').collapsible({
-        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
-
 }
 
-function generateAllEvents() {
-    clearEvents();
-    generatePublicEvents();
-    generatePrivateEvents();
+function genMarkers(eventInfo, type) {
+    for (var i = 0; i < eventInfo.length; i++) {
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(eventInfo[i].latitude, eventInfo[i].longitude),
+            icon: markerIcons(type),
+            map: map
+        });
+
+        window.markers.push(marker);
+
+        var infowindow = new google.maps.InfoWindow({
+            maxWidth: 250
+        });
+        
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo[i].time + "</br><strong>Location: </strong>" + eventInfo[i].locationDescription + "</br></br>" + eventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+    }
+
 }
 
 function generateUpcomingEvents() {
@@ -467,9 +467,15 @@ function generateEventDetails(event) {
 
 
 function clearEvents() {
-    isPrivateTabActive++;
     $('#event-panel').children().remove();
 
+}
+
+function deleteCard(currentElement) {
+    console.log(this);
+    $(currentElement).parentsUntil($("#event-panel")).slideUp("fast", function () {
+        $(currentElement).remove();
+    });
 }
 
 function toastGoing(cardIndex) {
@@ -478,11 +484,6 @@ function toastGoing(cardIndex) {
 
 function toastDismiss(cardIndex) {
     Materialize.toast('NOT going to event ' + cardIndex, 4000);
-
-    // Checks if private or public is open
-    //if (isPrivateTabActive) {
-    //    $("#event-panel").children()[cardIndex].remove();
-    //}
 }
 
 function centerMap(latitude, longitude) {
@@ -503,42 +504,30 @@ function restore_marker(index, type) {
 }
 
 function markerIcons(type) {
-    
+
     var iconBase = "/img/markers/";
-    
+
     switch (type) {
-        case 'public':
-            return {  url: iconBase + 'public_event_marker.png' };
-        case 'private':
-            return { url:  iconBase + 'private_event_marker.png' };
-        case 'highlight':
-            return {url : iconBase + 'gold_event_marker.png' };
-        default:
-            return { url: iconBase + 'gold_event_marker.png' };
+    case 'public':
+        return {
+            url: iconBase + 'public_event_marker.png'
+        };
+    case 'private':
+        return {
+            url: iconBase + 'private_event_marker.png'
+        };
+    case 'highlight':
+        return {
+            url: iconBase + 'gold_event_marker.png'
+        };
+    default:
+        return {
+            url: iconBase + 'gold_event_marker.png'
+        };
     }
 }
 
-function publicIcon() {
-    return {
-        url: '/img/public_event_marker.png'
-    };
-}
-
-function privateIcon() {
-    return {
-        url: '/img/private_event_marker.png'
-    };
-}
-
-function highlightIcon() {
-    return {
-        url: '/img/gold_event_marker.png'
-    };
-}
-
-
 function logOut() {
-
     $.post('/php/login.php', {
         logout: "logout"
     }, function (data) {
