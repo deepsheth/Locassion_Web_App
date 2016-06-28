@@ -212,74 +212,14 @@ function initMap() {
         styles: style
     });
 
-    $('.determinate').width('55%');
     geoLocator();
 
-    
+    $('.determinate').width('70%');
+
 
     $('.determinate').width('85%');
 
-    var options = {
-        imagePath: '/img/markers/m'
-    };
 
-    // Markers are no longer put on map, until MarkerClusterer is called since map: map property of markers is removed
-    var markerCluster = new MarkerClusterer(map, window.markers, options);
-
-
-    google.maps.event.addListenerOnce(map, 'idle', function () {
-
-        $('.determinate').width('100%');
-        setTimeout(function () {
-            $('.determinate').fadeOut(350);
-        }, 350);
-
-
-    });
-
-}
-
-function genMapPublicEvents(infowindow) {
-    for (var i = 0; i < publicEventInfo.length; i++) {
-
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(publicEventInfo[i].latitude, publicEventInfo[i].longitude),
-            icon: markerIcons("public")
-
-        });
-
-        markers.push(marker);
-
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            //            console.log(publicEventInfo[i].eventid);
-            return function () {
-                var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + publicEventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + publicEventInfo[i].time + "</br><strong>Location: </strong>" + publicEventInfo[i].locationDescription + "</br></br>" + publicEventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + publicEventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
-                infowindow.setContent(contentString);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-    }
-}
-
-function genMapPrivateEvents(infowindow) {
-    for (var i = 0; i < privateEventInfo.length; i++) {
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(privateEventInfo[i].latitude, privateEventInfo[i].longitude),
-            map: map,
-            icon: markerIcons("private")
-
-        });
-
-        markers.push(marker);
-
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + privateEventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + privateEventInfo[i].time + "</br><strong>Location: </strong>" + privateEventInfo[i].locationDescription + "</br></br>" + privateEventInfo[i].description + '</p></div><div class="card-action white center"><a href="/webpages/event_details.php?eventid="' + privateEventInfo[i].eventid + ' class="blue-text title btn-flat white waves-effect waves-white">Event Page</a></div></div></div></div>';
-                infowindow.setContent(contentString);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-    }
 }
 
 function geoLocator() {
@@ -366,12 +306,35 @@ function getEvents() {
         }
     };
 
+    // Promises
     events.publicEvents().done(function (eventInfo) {
         genEvents(eventInfo, "public");
     });
     events.privateEvents().done(function (eventInfo) {
         genEvents(eventInfo, "private");
+
     });
+
+    // Once first two async functions are called, markers will be generated
+    $.when(events.publicEvents(), events.privateEvents()).done(function () {
+        genClusters();
+    });
+
+}
+
+function genClusters() {
+    // Markers are no longer put on map, until MarkerClusterer is called since map: map property of markers is removed
+
+    $('.determinate').width('100%');
+
+    var options = {
+        imagePath: '/img/markers/m'
+    };
+    var markerCluster = new MarkerClusterer(map, markers, options);
+
+    setTimeout(function () {
+        $('.determinate').fadeOut(350);
+    }, 350);
 
 }
 
@@ -405,16 +368,16 @@ function genMarkers(eventInfo, type) {
 
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(eventInfo[i].latitude, eventInfo[i].longitude),
-            icon: markerIcons(type),
-            map: map
+            icon: markerIcons(type)
+
         });
 
-        window.markers.push(marker);
+        markers.push(marker);
 
         var infowindow = new google.maps.InfoWindow({
             maxWidth: 250
         });
-        
+
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
                 var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo[i].time + "</br><strong>Location: </strong>" + eventInfo[i].locationDescription + "</br></br>" + eventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
@@ -496,11 +459,11 @@ function centerMap(latitude, longitude) {
 }
 
 function highlight_marker(index) {
-    window.markers[index].setIcon(markerIcons('highlight'));
+    markers[index].setIcon(markerIcons('highlight'));
 }
 
 function restore_marker(index, type) {
-    window.markers[index].setIcon(markerIcons(type));
+    markers[index].setIcon(markerIcons(type));
 }
 
 function markerIcons(type) {
