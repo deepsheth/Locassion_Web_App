@@ -46,14 +46,14 @@
     </head>
 
     <body id="create-event">
-        <header class="light-green darken-2 white-text row">
+        <header class="primary-green row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
             
             <ul class="col s12 m8 l10">
                 <div class="flex-container">
 
-                <a data-target="confirm_prompt" class="waves-effect waves-light white blue-text btn modal-trigger ">Events Dashboard</a>
+                <a data-target="confirm_prompt" class="waves-effect waves-light btn modal-trigger ">Events Dashboard</a>
 
                 <div id="confirm_prompt" class="modal modal-fixed-footer">
                     <div class="modal-content black-text">

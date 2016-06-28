@@ -414,6 +414,15 @@ p.reading {
 #registration .container {
     padding-top: 5em;
 }
+
+#registration form {
+    color: #607D8B;
+}
+
+#registration form h2,h3,h4,h5 {
+    color: #455A64;
+}
+
 /*
 #registration {
     background: #4687F2;
@@ -604,6 +613,11 @@ button.picker__close:focus {
     /* This aligns items to the end line on main-axis */
     justify-content: flex-end;
     margin: .85em auto;
+}
+
+.flex-container .btn {
+    background: #FFFFFF;
+    color: #2196F3;
 }
 
 .flex-container > * {

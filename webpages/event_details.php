@@ -66,7 +66,7 @@
         <ul class="col s12 m8 l10">
             <div class="flex-container">
 
-                <a class="waves-effect waves-light white blue-text btn modal-trigger " href="/webpages/events_dashboard.php">Events Dashboard</a>
+                <a class="waves-effect waves-light btn modal-trigger " href="/webpages/events_dashboard.php">Events Dashboard</a>
 
 
 

@@ -77,13 +77,13 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body id="friend-dashboard">
-    <header class="light-green darken-2 white-text row">
+    <header class="light-green darken-2 row">
 
         <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
         <ul class="col s12 m8 l10">
             <div class="flex-container">
 
-            <button data-target="modal-small" class="btn modal-trigger white blue-text">Add Friend</button>
+            <button data-target="modal-small" class="btn modal-trigger">Add Friend</button>
 
             <?php
             define('__ROOT__', dirname(dirname(__FILE__)));

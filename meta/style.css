@@ -174,7 +174,7 @@ strong {
 }
 
 .about-us-bg {
-    background: url('/img/laptop.jpg');
+    background: url('/img/laptop.jpg') no-repeat top center;
     background-size: cover;
     height: 100vh;
 }
