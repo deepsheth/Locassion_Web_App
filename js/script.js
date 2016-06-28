@@ -93,12 +93,13 @@ var publicEventInfo;
 var privateEventInfo;
 var markers = [];
 var numEvents = 0;
+var markerCluster;
 
 function initMap() {
 
 
     // Gets all events
-    getEvents(filters);
+    getEvents();
 
 
     $('.determinate').width('30%');
@@ -219,7 +220,16 @@ function initMap() {
 
     $('.determinate').width('85%');
 
+    //    google.maps.event.addListener(map, 'idle', reRender);
 
+}
+
+function reRender() {
+    filters.pos.lat = (map.getBounds().getNorthEast().lat() + map.getBounds().getSouthWest().lat()) / 2;
+    filters.pos.lng = (map.getBounds().getNorthEast().lng() + map.getBounds().getSouthWest().lng()) / 2;
+
+    markerCluster.clearMarkers();
+    getEvents();
 }
 
 function geoLocator() {
@@ -312,13 +322,19 @@ function getEvents() {
     });
     events.privateEvents().done(function (eventInfo) {
         genEvents(eventInfo, "private");
-
     });
 
-    // Once first two async functions are called, markers will be generated
-    $.when(events.publicEvents(), events.privateEvents()).done(function () {
-        genClusters();
-    });
+    if (logged_in) {
+        // Once first two async functions are called, markers will be generated
+        $.when(events.publicEvents(), events.privateEvents()).done(function () {
+            genClusters();
+        });
+    }
+    else {
+        $.when(events.publicEvents()).done(function () {
+            genClusters();
+        });
+    }
 
 }
 
@@ -330,7 +346,8 @@ function genClusters() {
     var options = {
         imagePath: '/img/markers/m'
     };
-    var markerCluster = new MarkerClusterer(map, markers, options);
+    markerCluster = new MarkerClusterer(map, markers, options);
+
 
     setTimeout(function () {
         $('.determinate').fadeOut(350);
