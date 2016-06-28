@@ -495,11 +495,11 @@ function centerMap(latitude, longitude) {
 }
 
 function highlight_marker(index) {
-    markers[index].setIcon(markerIcons('highlight'));
+    window.markers[index].setIcon(markerIcons('highlight'));
 }
 
 function restore_marker(index, type) {
-    markers[index].setIcon(markerIcons(type));
+    window.markers[index].setIcon(markerIcons(type));
 }
 
 function markerIcons(type) {
