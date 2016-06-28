@@ -43,13 +43,13 @@ include('../php/login.php');
     </head>
 
     <body id="registration">
-        <header class="light-green darken-2 white-text row">
+        <header class="primary-green row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
             <ul class="col s12 m8 l10">
                 <div class="flex-container">
-                    <a href="/webpages/reset_pass_email.php" class="btn waves-effect white blue-text">Reset Password</a>
-                    <a href="/webpages/sign_up.php" class="btn waves-effect white blue-text">Sign Up</a>
+                    <a href="/webpages/reset_pass_email.php" class="btn waves-effect">Reset Password</a>
+                    <a href="/webpages/sign_up.php" class="btn waves-effect">Sign Up</a>
                 </div>
             </ul>
         </header>
@@ -68,7 +68,7 @@ include('../php/login.php');
                             if (isset($_SESSION['userID'])) {
                                 echo ("
                                     <h3 class='light-green-text text-darken-2'>Account Created!</h3>
-                                    <p class='grey-text center'>Last step, please log in.</p>
+                                    <p class='center'>Last step, please log in.</p>
                                 ");
                             }
                             else {
@@ -95,7 +95,7 @@ include('../php/login.php');
 
 
 
-                                <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
+                                <button class="waves-effect waves-light primary-green btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
                         </form>
                     </div>
                 </div>

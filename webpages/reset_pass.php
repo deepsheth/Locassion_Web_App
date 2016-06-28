@@ -80,19 +80,7 @@ else{
         <header class="light-green darken-2 white-text row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
-            <ul class="col s12 m8 l10">
-                <div class="flex-container">
-                    <a href="/webpages/log_in.php" class="btn waves-effect lighten-3 blue-text white">Login</a>
-
-                    <!-- Dropdown Structure -->
-                    <ul id='acct-settings' class='dropdown-content'>
-                        <li><a href="#!">Account Settings</a></li>
-                        <li><a href="#!">Upcoming Events</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">Log Out</a></li>
-                    </ul>
-                </div>
-            </ul>
+            
         </header>
 
         <div class="bold-blue bg">
@@ -112,20 +100,20 @@ else{
                     if ($error == "" and !isset($_POST['submit'])){
                         echo('
                         <form action="" method="post">
-                        <h3 class="blue-grey-text text-darken-2">Reset Password</h3>
+                        <h3>Reset Password</h3>
 
                         <!-- fake fields bypass browser autocomplete -->
                         <input style="visibility:hidden; height: 0px" type="password" />
 
 
                         <div class="input-field">
-                            <i class="material-icons prefix blue-grey-text">fiber_new</i>
+                            <i class="material-icons prefix">fiber_new</i>
                             <input id="icon_password" name="password" type="password" required>
                             <label for="icon_password">New Password</label>
                         </div>
 
                         <div class="input-field">
-                            <i class="material-icons prefix blue-grey-text">fiber_new</i>
+                            <i class="material-icons prefix">fiber_new</i>
                             <input id="icon_passwordnew2" name="password2" type="password" required>
                             <label for="icon_passwordnew2">Re-type New Password</label>
                         </div>
@@ -133,7 +121,7 @@ else{
                         <!-- fake fields bypass browser autocomplete -->
                         <input style="visibility:hidden; height: 0px" type="password" />
 
-                        <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
+                        <button class="waves-effect waves-light primary-green btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
                         </form>
                         
                         ');

@@ -63,7 +63,7 @@ if (!isset($_SESSION['token'])) {
             //Private Events
             var privateEventInfo = <?php
             if(isset($_SESSION['token'])){
-                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token='.$_SESSION['token'];
+                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2020-11-13%2016:00:00;:::&token='.$_SESSION['token'];
 
                 if (strpos(get_headers($url)[0],'200') != false){
                     $jsonResponse = json_decode(file_get_contents($url),true);
@@ -102,6 +102,7 @@ if (!isset($_SESSION['token'])) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+        <script src="/js/markerclusterer.js"></script>
         <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&&callback=initMap" async defer></script>
 
@@ -109,7 +110,7 @@ if (!isset($_SESSION['token'])) {
     </head>
 
     <body id="home" class="blue-grey darken-4">
-        <header class="light-green darken-2 white-text row">
+        <header class="primary-green row">
 
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
@@ -118,17 +119,17 @@ if (!isset($_SESSION['token'])) {
                 <div class="flex-container">
                     <?php
             if(isset($_SESSION['token'])){
-                echo('<a href="./webpages/create_event.php" class="waves-effect white blue-text btn btn-wide">Create Event</a>');
+                echo('<a href="./webpages/create_event.php" class="waves-effect btn btn-wide">Create Event</a>');
 }
             else{
-                echo('<a href="#" class="waves-effect waves-yellow white blue-text btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
+                echo('<a href="#" class="waves-effect waves-yellow btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
                 }
             ?>
 
                         <?php
                 if(isset($_SESSION['token'])){
                     echo('
-                        <a class="dropdown-button btn btn-flat white grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
+                        <a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
                             <i class="material-icons">account_circle</i>
                         </a>
                         <img class="user-thumb circle" src="https://pbs.twimg.com/profile_images/447774892520251392/B_5g0wKw_400x400.png" alt="" class="circle">
@@ -141,17 +142,14 @@ if (!isset($_SESSION['token'])) {
                             <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
                             <li><a href="/webpages/events_hist.php">Event History</a></li>
                             <li><a href="#!">Account Settings</a></li>
-                            <li class="divider"></li>
-                                <form action="" method="post">
-                                    <input name="logout" type="submit" value="logout" class=" modal-action modal-close waves-effect waves-blue btn-flat">
-                                </form> 
-<!--                           <li><a onclick="logOut()">Logout</a></li>-->
+                            <li class="divider"></li>                               
+                            <li><a onclick="logOut()">Logout</a></li>
                         </ul>
                         
                         ');
                 }
                 else{
-                    echo('<button data-target="modal-small" class="waves-effect white blue-text btn modal-trigger">Login</button>
+                    echo('<button data-target="modal-small" class="waves-effect btn modal-trigger">Login</button>
 
                     ');
                 }

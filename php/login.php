@@ -1,5 +1,6 @@
 <?php
 session_start(); // Starting Session
+    
 $error=' '; // Variable To Store Error Message
 if (isset($_POST['submit'])) {
 	if (empty($_POST['email']) || empty($_POST['password'])) {
@@ -52,6 +53,9 @@ if (isset($_POST['submit'])) {
 }
 if (isset($_POST['logout'])){
 	$_SESSION = array();
+    session_unset();
 	session_destroy();
 }
+    
 ?>
+

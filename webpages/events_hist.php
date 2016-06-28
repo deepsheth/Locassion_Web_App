@@ -57,8 +57,8 @@
             <div class="flex-container">
 
 
-                <a href="/webpages/create_event.php" class="btn waves-effect white blue-text">Create Event</a>
-                <a href="/webpages/events_dashboard.php" class="btn waves-effect white blue-text">Events Hosted</a>
+                <a href="/webpages/create_event.php" class="btn waves-effect">Create Event</a>
+                <a href="/webpages/events_dashboard.php" class="btn waves-effect white">Events Hosted</a>
 
                 <?php
             define('__ROOT__', dirname(dirname(__FILE__)));
