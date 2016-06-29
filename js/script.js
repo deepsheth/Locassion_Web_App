@@ -303,6 +303,16 @@ console.log(filters.pos.lat + ";" + filters.pos.lng + ";" + filters.radius + ";"
     $('#preloader-indef').fadeIn(350);
     
     // Promises
+    
+    
+    // ADDITIONAL NETWORK CALL
+    // ADDITIONAL NETWORK CALL
+    // ADDITIONAL NETWORK CALL
+    // ADDITIONAL NETWORK CALL
+    // ADDITIONAL NETWORK CALL
+    // ADDITIONAL NETWORK CALL
+    // ADDITIONAL NETWORK CALL
+    
     events.publicEvents().done(function (eventInfo) {
         genEvents(eventInfo, "public");
     });
