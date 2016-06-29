@@ -217,6 +217,8 @@ function geoLocator() {
 
             filters.pos.lat = position.coords.latitude;
             filters.pos.lng = position.coords.longitude;
+            
+//            console.log("lat: " + filters.pos.lat);
 
             map.setZoom(15);
             map.setCenter(filters.pos);
@@ -249,6 +251,8 @@ function geoLocator() {
 
 function getEvents() {
 
+console.log(filters.pos.lat + ";" + filters.pos.lng + ";" + filters.radius + ";" + filters.date_start.year + "-" + filters.date_start.month + "-" + filters.date_start.day + ":" + filters.time_start.hour + ":" + filters.time_start.minute + ":" + filters.time_start.seconds + ";" + filters.date_end.year + ";" + filters.date_end.month + ";" + filters.date_end.day + ";" + filters.time_end.hour + ";" + filters.time_end.minute + ";" + filters.time_end.seconds);
+
     var events = {
         publicEvents: function () {
             return $.getJSON('/php/getPublicEvents.php', {
@@ -267,7 +271,6 @@ function getEvents() {
                 end_hour: filters.time_end.hour,
                 end_min: filters.time_end.minute,
                 end_sec: filters.time_end.seconds,
-                filters: JSON.stringify(filters)
             }).then(function (data) {
                 return data;
             });
