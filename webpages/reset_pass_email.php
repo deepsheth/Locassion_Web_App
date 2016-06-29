@@ -45,7 +45,6 @@
         <ul class="col s12 m8 l10">
             <div class="flex-container">
 
-                <a href="/webpages/change_pass.php" class="btn waves-effect">Forgot Password</a>
                 <a href="/webpages/log_in.php" class="btn waves-effect">Login</a>
 
                 <!-- Dropdown Structure -->
@@ -72,7 +71,7 @@
                 <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
                     <form action="./reset_pass.php" method="post">
                         <h3 class="">Reset Password</h3>
-                        <p>What's the email you registered with?</p>
+                        <p class="center">What's the email you registered with?</p>
                         <div class="input-field">
                             <i class="material-icons prefix">fiber_new</i>
                             <input id="email" name="email" type="text" required>

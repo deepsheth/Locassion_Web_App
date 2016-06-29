@@ -41,28 +41,6 @@ $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
 
-
-    // Delete Card
-    $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
-        deleteCard(this);
-    });
-
-    // Going Card
-    $("#event-panel .collapsible a:nth-of-type(2)").click(function () {
-        //Replaces Dismiss Button
-        //        var currentElement = $(this).parentsUntil($(".card-action"));
-        //        $(currentElement).find("a:nth-of-type(1)").replaceWith("<a href=\"\" class=\"right blue-text waves-effect waves-white\"><i class=\"material-icons\">save</i></a>");
-
-        var currentElement = $(this).parentsUntil($(".card-action"));
-        $(currentElement).find("a:nth-of-type(1)").replaceWith("");
-        $(this).replaceWith("<span class=\"green-text right\">GOING! <i class=\"material-icons right\">check_circle</i></span>");
-    });
-
-
-    $("#event-panel .close").click(function () {
-        deleteCard(this);
-    });
-
     var count1 = 0;
     $('#friend-dashboard .friend-list-cards .card-panel').click(function () {
         count1 = selectCard(this, count1);
@@ -102,7 +80,7 @@ function initMap() {
     getEvents();
 
 
-    $('.determinate').width('30%');
+    $('.determinate').width('10%');
 
     // Blue Gray Theme
     var style = [
@@ -288,7 +266,8 @@ function getEvents() {
                 end_day: filters.date_end.day,
                 end_hour: filters.time_end.hour,
                 end_min: filters.time_end.minute,
-                end_sec: filters.time_end.seconds
+                end_sec: filters.time_end.seconds,
+                filters: JSON.stringify(filters)
             }).then(function (data) {
                 return data;
             });
@@ -316,6 +295,10 @@ function getEvents() {
         }
     };
 
+    
+    clearEvents();
+    $('#preloader-indef').fadeIn(350);
+    
     // Promises
     events.publicEvents().done(function (eventInfo) {
         genEvents(eventInfo, "public");
@@ -328,11 +311,13 @@ function getEvents() {
         // Once first two async functions are called, markers will be generated
         $.when(events.publicEvents(), events.privateEvents()).done(function () {
             genClusters();
+            genHandlers();
         });
     }
     else {
         $.when(events.publicEvents()).done(function () {
             genClusters();
+            genHandlers();
         });
     }
 
@@ -355,6 +340,33 @@ function genClusters() {
 
 }
 
+function genHandlers() {
+    
+    $('#preloader-indef').fadeOut(350);
+    
+    // Delete Card
+    $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
+        deleteCard(this);
+    });
+
+    // Going Card
+    $("#event-panel .collapsible a:nth-of-type(2)").click(function () {
+        //Replaces Dismiss Button
+        //        var currentElement = $(this).parentsUntil($(".card-action"));
+        //        $(currentElement).find("a:nth-of-type(1)").replaceWith("<a href=\"\" class=\"right blue-text waves-effect waves-white\"><i class=\"material-icons\">save</i></a>");
+
+        var currentElement = $(this).parentsUntil($(".card-action"));
+        $(currentElement).find("a:nth-of-type(1)").replaceWith("");
+        $(this).replaceWith("<span class=\"green-text right\">GOING! <i class=\"material-icons right\">check_circle</i></span>");
+    });
+
+
+    $("#event-panel .close").click(function () {
+        deleteCard(this);
+    });
+}
+
+// Runs for each type of event (public/private events)
 function genEvents(eventInfo, type) {
     genCards(eventInfo, type);
     genMarkers(eventInfo, type);
@@ -374,7 +386,7 @@ function genCards(eventInfo, type) {
     for (var i = 0; i < eventInfo.length; i++) {
         eventInfo[i].time = moment(eventInfo[i].time, "YYYY-MM-DD HH:mm:ss");
         $('#event-panel').append(
-            '<div class="row"><div class="col s12"><div class="card white hoverable" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + '\'public\'' + ' )"><div class="card-content blue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>Public Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</span><p>' + eventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' + eventInfo[i].tag1 + '</div><div class="chip">' + eventInfo[i].tag2 + '</div></div></li></ul></div></div></div></div>'
+            '<div class="row"><div class="col s12"><div class="card white hoverable" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + '\'public\'' + ' )"><div class="card-content blue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>'+ type.toUpperCase() +' Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</span><p>' + eventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' + eventInfo[i].tag1 + '</div><div class="chip">' + eventInfo[i].tag2 + '</div></div></li></ul></div></div></div></div>'
         );
         numEvents++;
     }

@@ -57,47 +57,49 @@ if (!isset($_SESSION['token'])) {
                 } else {
                     echo('false;');
                 }
-            ?>
+                ?>
+
+
 
             //NOTE: You will need to change it so that longitude and latitude are taken from the browser instead of hard coded
             //Private Events
-//            var privateEventInfo = <?php
-//            if(isset($_SESSION['token'])){
-//                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2020-11-13%2016:00:00;:::&token='.$_SESSION['token'];
-//
-//                if (strpos(get_headers($url)[0],'200') != false){
-//                    $jsonResponse = json_decode(file_get_contents($url),true);
-//                    $formattedIDs = implode(':',$jsonResponse['events']);
-//                    $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEventInfo&args='.$formattedIDs.'&token='.$_SESSION['token'];
-//                    echo(file_get_contents($url).';//');
-//                    //echo('//'.$url);
-//                }
-//                else{
-//                    file_get_contents('https://meet-up-1097.appspot.com/?command=log&args=HEADERS ERROR - '.get_headers($url).'&token=none');
-//                }
-//            }
-//            ?>
-//            '';
-//            //Public Events
-//            // -75.375634
-//            // 40.606709
-//
-//            var publicEventInfo = <?php
-//            //if(isset($_SESSION['token'])){
-//            $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
-//            //                print_r(get_headers($url));
-//
-//            if (strpos(get_headers($url)[0],'200') != false){
-//                $jsonResponse = json_decode(file_get_contents($url),true);
-//                $formattedIDs = implode(':',$jsonResponse['events']);
-//                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
-//                //.$_SESSION['token'];
-//                echo(file_get_contents($url).';//');
-//                //echo('//'.$url);
-//            }
-//            //}
-//            ?>
-//            '';
+            //            var privateEventInfo = <?php
+            //            if(isset($_SESSION['token'])){
+            //                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2020-11-13%2016:00:00;:::&token='.$_SESSION['token'];
+            //
+            //                if (strpos(get_headers($url)[0],'200') != false){
+            //                    $jsonResponse = json_decode(file_get_contents($url),true);
+            //                    $formattedIDs = implode(':',$jsonResponse['events']);
+            //                    $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEventInfo&args='.$formattedIDs.'&token='.$_SESSION['token'];
+            //                    echo(file_get_contents($url).';//');
+            //                    //echo('//'.$url);
+            //                }
+            //                else{
+            //                    file_get_contents('https://meet-up-1097.appspot.com/?command=log&args=HEADERS ERROR - '.get_headers($url).'&token=none');
+            //                }
+            //            }
+            //            ?>
+            //            '';
+            //            //Public Events
+            //            // -75.375634
+            //            // 40.606709
+            //
+            //            var publicEventInfo = <?php
+            //            //if(isset($_SESSION['token'])){
+            //            $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
+            //            //                print_r(get_headers($url));
+            //
+            //            if (strpos(get_headers($url)[0],'200') != false){
+            //                $jsonResponse = json_decode(file_get_contents($url),true);
+            //                $formattedIDs = implode(':',$jsonResponse['events']);
+            //                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
+            //                //.$_SESSION['token'];
+            //                echo(file_get_contents($url).';//');
+            //                //echo('//'.$url);
+            //            }
+            //            //}
+            //            ?>
+            //            '';
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -156,40 +158,42 @@ if (!isset($_SESSION['token'])) {
             ?>
 
 
-                    <!-- Login Popup -->
-                    <form action="" method="post">
-                        <div id="modal-small" class="modal blue-grey-text text-darken-2">
-                            <div class="modal-padding">
-                                <div class="row">
-                                    <h3>Login</h3>
-                                    <br>
-                                    <div class="input-field">
-                                        <i class="material-icons prefix ">account_circle</i>
-                                        <input id="icon_username" name="email" type="text" required>
-                                        <label for="icon_username">Email</label>
+                            <!-- Login Popup -->
+                            <form action="" method="post">
+                                <div id="modal-small" class="modal blue-grey-text text-darken-2">
+                                    <div class="modal-padding">
+                                        <div class="row">
+                                            <h3>Login</h3>
+                                            <br>
+                                            <div class="input-field">
+                                                <i class="material-icons prefix ">account_circle</i>
+                                                <input id="icon_username" name="email" type="text" required>
+                                                <label for="icon_username">Email</label>
+                                            </div>
+                                            <div class="input-field center">
+                                                <i class="material-icons prefix">https</i>
+                                                <input id="icon_password" name="password" type="password" required>
+                                                <small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="input-field center">
-                                        <i class="material-icons prefix">https</i>
-                                        <input id="icon_password" name="password" type="password" required>
-                                    <small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small>
+                                    <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
+                                        <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
+                                        <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
-                                <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
-                                <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
-                            </div>
-                        </div>
-                    </form>
+                            </form>
                 </div>
             </ul>
         </header>
         <div id="main-container">
             <div class="row">
                 <div class="map-container col m6 l8 hide-on-small-only">
+<!--
                     <div class="progress primary-green">
-                        <div class="determinate green darken-4"></div>
+                        <div class="determinate green darken-3"></div>
                     </div>
+-->
                     <div id="map"></div>
                     <footer>
                         <div class="footer-copyright">
@@ -209,7 +213,11 @@ if (!isset($_SESSION['token'])) {
                     <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
                     <div class="row">
                         <div class="col s12">
+                                    <div id="preloader-indef" class="progress blue-grey darken-3">
+                                        <div class="indeterminate blue-grey"></div>
+                                    </div>
                             <ul class="tabs">
+
                                 <?php
                             if(!isset($_SESSION['token'])){
                                 echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents()">Discover</a></li>');
@@ -220,6 +228,7 @@ if (!isset($_SESSION['token'])) {
                                 echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
                             }
                             ?>
+
                             </ul>
                         </div>
                     </div>
@@ -228,4 +237,5 @@ if (!isset($_SESSION['token'])) {
             </div>
         </div>
     </body>
+
     </html>
