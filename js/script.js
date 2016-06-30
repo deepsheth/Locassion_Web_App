@@ -251,8 +251,6 @@ function geoLocator() {
 
 function getEvents() {
 
-console.log(filters.pos.lat + ";" + filters.pos.lng + ";" + filters.radius + ";" + filters.date_start.year + "-" + filters.date_start.month + "-" + filters.date_start.day + ":" + filters.time_start.hour + ":" + filters.time_start.minute + ":" + filters.time_start.seconds + ";" + filters.date_end.year + ";" + filters.date_end.month + ";" + filters.date_end.day + ";" + filters.time_end.hour + ";" + filters.time_end.minute + ";" + filters.time_end.seconds);
-
     var events = {
         publicEvents: function () {
             return $.getJSON('/php/getPublicEvents.php', {
@@ -313,27 +311,44 @@ console.log(filters.pos.lat + ";" + filters.pos.lng + ";" + filters.radius + ";"
     // ADDITIONAL NETWORK CALL
     // ADDITIONAL NETWORK CALL
     
-    events.publicEvents().done(function (eventInfo) {
-        genEvents(eventInfo, "public");
+    var promisePub = events.publicEvents().done(function (eventInfo) {
+        genEvents(eventInfo, "Public");
     });
-    events.privateEvents().done(function (eventInfo) {
-        genEvents(eventInfo, "private");
+    promisePub.fail(function() {
+        genCustCard("Sorry!", "We were unable to get the public events. Try refreshing the page or contact us.", "red darken-2");
+        $('#preloader-indef').fadeOut(350);
     });
-
+    
     if (logged_in) {
-        // Once first two async functions are called, markers will be generated
-        $.when(events.publicEvents(), events.privateEvents()).done(function () {
+        var promisePriv = events.privateEvents().done(function (eventInfo) {
+            genEvents(eventInfo, "Private");
+        });
+        
+        promisePriv.fail(function() {
+            genCustCard("Sorry!", "We were unable to get the private events. Try refreshing the page or contact us.", "red darken-2");
+            $('#preloader-indef').fadeOut(350);
+        });
+        
+        Promise.all([promisePub, promisePriv]).then(eventInfo => {
             genClusters();
             genHandlers();
+        }, function(reason) {
+            console.log(reason);
         });
     }
     else {
-        $.when(events.publicEvents()).done(function () {
+        promisePub.done(function () {
             genClusters();
             genHandlers();
         });
     }
 
+}
+
+function genCustCard(title, body, bgcolor) {
+    $('#event-panel').append(
+        '<div class="row"><div class="col 12"><div class="card ' + bgcolor + '"><div class="card-content white-text"><span class="card-title">'+ title +'</span><p class="insert">'+ body  +'</p></div></div></div></div>'
+    );
 }
 
 function genClusters() {
@@ -392,7 +407,7 @@ function genCards(eventInfo, type) {
         );
     } else if (eventInfo.length == 0) {
         $('#event-panel').append(
-            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No ' + type.toUpperCase + ' Events!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
+            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No ' + type + ' Events!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
         );
     }
 
@@ -512,7 +527,7 @@ function markerIcons(type) {
 
     var iconBase = "/img/markers/";
 
-    switch (type) {
+    switch (type.toLowerCase()) {
     case 'public':
         return {
             url: iconBase + 'public_event_marker.png'
