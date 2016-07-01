@@ -94,7 +94,7 @@ header ul {
 
 #main-container > .row > .map-container {
     padding: 0;
-    height: calc(90vh - 1.5em);
+    height: calc(87vh - 1.5em);
 }
 
 .map-container {

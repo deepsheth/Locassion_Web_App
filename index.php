@@ -221,11 +221,11 @@ if (!isset($_SESSION['token'])) {
                                 <?php
                             if(!isset($_SESSION['token'])){
                                 echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 disabled"><a class="waves-effect waves-yellow disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Upcoming</a></li>');
+                                echo('<li class="tab col s3 disabled"><a class="waves-effect waves-yellow disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
                             }
                             else{
                                 echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="generateUpcomingEvents()"> Upcoming</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
                             }
                             ?>
 
