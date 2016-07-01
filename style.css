@@ -620,6 +620,12 @@ button.picker__close:focus {
     color: #2196F3;
 }
 
+header .hamburger-menu {
+    margin: 1em 0em 1.5em !important;
+    background: #FFFFFF;
+    color: #2196F3;
+}
+
 .flex-container > * {
     margin: .35em .5em;
 }

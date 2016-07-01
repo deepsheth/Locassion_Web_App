@@ -114,11 +114,21 @@ if (!isset($_SESSION['token'])) {
     <body id="home" class="blue-grey darken-4">
         <header class="primary-green row">
 
+            <ul class="side-nav" id="mobile-menu">
+                <li><a href="sass.html">View Map</a></li>
+                <li><a href="badges.html">Create Event</a></li>
+                <li><a href="mobile.html">Login</a></li>
+                <li class="divider"></li>                               
+                <li><a href="mobile.html">Download App</a></li>
+            </ul>
 
+            
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
+            <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
+            
             <ul class="col s12 m8 l10">
-                <div class="flex-container">
+                <div class="flex-container hide-on-small-only">
                     <?php
             if(isset($_SESSION['token'])){
                 echo('<a href="./webpages/create_event.php" class="waves-effect btn btn-wide">Create Event</a>');
@@ -188,7 +198,21 @@ if (!isset($_SESSION['token'])) {
         </header>
         <div id="main-container">
             <div class="row">
-                <div class="map-container col m6 l8 hide-on-small-only">
+                <div class="col m6 l8 hide-on-small-only">
+               <div id="filters">
+                    <h5 class="col s2">Events this: </h5>
+                   <div class="col s12 l2">
+                       <a href="" class="chip">Week</a>
+                       <a href="" class="chip">Weekend</a>
+                       <a href="" class="chip">Month</a>
+                   </div>
+                   <i class="material-icons">date_range</i>
+                   <label>Radius</label>
+                   <input type="range" id="test5" min="0" max="100" />
+               </div>
+           
+            
+                <div class="map-container">
 <!--
                     <div class="progress primary-green">
                         <div class="determinate green darken-3"></div>
@@ -208,6 +232,7 @@ if (!isset($_SESSION['token'])) {
                         </div>
                     </footer>
                 </div>
+            </div>
                 <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
                     <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
