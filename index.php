@@ -118,15 +118,15 @@ if (!isset($_SESSION['token'])) {
                 <li><a href="sass.html">View Map</a></li>
                 <li><a href="badges.html">Create Event</a></li>
                 <li><a href="mobile.html">Login</a></li>
-                <li class="divider"></li>                               
+                <li class="divider"></li>
                 <li><a href="mobile.html">Download App</a></li>
             </ul>
 
-            
+
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
             <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
-            
+
             <ul class="col s12 m8 l10">
                 <div class="flex-container hide-on-small-only">
                     <?php
@@ -198,30 +198,41 @@ if (!isset($_SESSION['token'])) {
         </header>
         <div id="main-container">
             <div class="row">
-                <div class="col m6 l8 hide-on-small-only">
-               <div id="filters">
-                    <h5 class="col s2">Events this: </h5>
-                   <div class="col s12 l2">
-                       <a href="" class="chip">Week</a>
-                       <a href="" class="chip">Weekend</a>
-                       <a href="" class="chip">Month</a>
-                   </div>
-                   <i class="material-icons">date_range</i>
-                   <label>Radius</label>
-                   <input type="range" id="test5" min="0" max="100" />
-               </div>
-           
-            
-                <div class="map-container">
-<!--
+                <div id="map-panel" class="col m6 l8 hide-on-small-only">
+                    <div id="filters" class="flex-container">
+<!--                        <h5>Filters</h5>-->
+                        <h6>Events this</h6>
+                        <div>
+                            <a href="" class="chip">Week</a>
+                            <a href="" class="chip">Weekend</a>
+                            <a href="" class="chip">Month</a>
+                        </div>
+                        <!--                   <input type="date" class="datepicker"><i class="material-icons">date_range</i>-->
+                        <p class="range-field">
+                            <input type="range" id="test5" min="1" max="15" />
+                        </p>
+                        <p>
+                            <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
+                            <label for="public_box">Public</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" class="filled-in" id="private_box" checked="checked" />
+                            <label for="private_box">Private</label>
+                        </p>
+                        <a href="/" class="waves-effect waves-blue btn-flat blue-grey-text text-lighten-4"><i class="left material-icons">refresh</i>Update Map</a>
+                    </div>
+
+
+                    <div class="map-container">
+                        <!--
                     <div class="progress primary-green">
                         <div class="determinate green darken-3"></div>
                     </div>
 -->
-                    <div id="map"></div>
-                    <footer>
-                        <div class="footer-copyright">
-                            <small> <b>
+                        <div id="map"></div>
+                        <footer>
+                            <div class="footer-copyright">
+                                <small> <b>
                                 <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="/meta/index.html">© 2015-2016 LeavittInnovations.</a>
 
                                 <a class="right white-text btn-flat" href="/webpages/tos.html" target="_blank">Terms of Service</a>
@@ -229,18 +240,18 @@ if (!isset($_SESSION['token'])) {
                                 <a class="right white-text btn-flat" href="/webpages/faq.html" target="_blank">FAQ</a>
                                 </b>
                             </small>
-                        </div>
-                    </footer>
+                            </div>
+                        </footer>
+                    </div>
                 </div>
-            </div>
                 <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
                     <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
                     <div class="row">
                         <div class="col s12">
-                                    <div id="preloader-indef" class="progress blue-grey darken-3">
-                                        <div class="indeterminate blue-grey"></div>
-                                    </div>
+                            <div id="preloader-indef" class="progress blue-grey darken-3">
+                                <div class="indeterminate blue-grey"></div>
+                            </div>
                             <ul class="tabs">
 
                                 <?php
