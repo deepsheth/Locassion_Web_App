@@ -26,7 +26,7 @@ if (!isset($_SESSION['token'])) {
         <!-- CSS
 	================================================== -->
         <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <link href='https://fonts.googleapis.com/css?family=Raleway:600|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
         <!--    <link rel="stylesheet" href="cobblestone.css">-->
         <link rel="stylesheet" href="/style.css">
@@ -41,7 +41,7 @@ if (!isset($_SESSION['token'])) {
 
         <!-- MSC
     ================================================== -->
-        <meta property="og:image" content="/img/website_preview.jpg" />
+        <meta property="og:image" content="http://adamknuckey.com/img/website_preview.jpg" />
 
 
         <!-- Analytics
@@ -59,47 +59,6 @@ if (!isset($_SESSION['token'])) {
                 }
                 ?>
 
-
-
-            //NOTE: You will need to change it so that longitude and latitude are taken from the browser instead of hard coded
-            //Private Events
-            //            var privateEventInfo = <?php
-            //            if(isset($_SESSION['token'])){
-            //                $url = 'https://meet-up-1097.appspot.com/?command=privateEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2020-11-13%2016:00:00;:::&token='.$_SESSION['token'];
-            //
-            //                if (strpos(get_headers($url)[0],'200') != false){
-            //                    $jsonResponse = json_decode(file_get_contents($url),true);
-            //                    $formattedIDs = implode(':',$jsonResponse['events']);
-            //                    $url = 'https://meet-up-1097.appspot.com/?command=getPrivateEventInfo&args='.$formattedIDs.'&token='.$_SESSION['token'];
-            //                    echo(file_get_contents($url).';//');
-            //                    //echo('//'.$url);
-            //                }
-            //                else{
-            //                    file_get_contents('https://meet-up-1097.appspot.com/?command=log&args=HEADERS ERROR - '.get_headers($url).'&token=none');
-            //                }
-            //            }
-            //            ?>
-            //            '';
-            //            //Public Events
-            //            // -75.375634
-            //            // 40.606709
-            //
-            //            var publicEventInfo = <?php
-            //            //if(isset($_SESSION['token'])){
-            //            $url = 'https://meet-up-1097.appspot.com/?command=publicEvents&args=-75.375634;40.606709;2;2014-11-13%2016:00:00;2016-11-13%2016:00:00;:::&token=';//.$_SESSION['token'];
-            //            //                print_r(get_headers($url));
-            //
-            //            if (strpos(get_headers($url)[0],'200') != false){
-            //                $jsonResponse = json_decode(file_get_contents($url),true);
-            //                $formattedIDs = implode(':',$jsonResponse['events']);
-            //                $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
-            //                //.$_SESSION['token'];
-            //                echo(file_get_contents($url).';//');
-            //                //echo('//'.$url);
-            //            }
-            //            //}
-            //            ?>
-            //            '';
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -114,6 +73,8 @@ if (!isset($_SESSION['token'])) {
     <body id="home" class="blue-grey darken-4">
         <header class="primary-green row">
 
+            <!-- Navigation Drawer
+        ================================================== -->
             <ul class="side-nav" id="mobile-menu">
                 <li><a href="sass.html">View Map</a></li>
                 <li><a href="badges.html">Create Event</a></li>
@@ -121,95 +82,97 @@ if (!isset($_SESSION['token'])) {
                 <li class="divider"></li>
                 <li><a href="mobile.html">Download App</a></li>
             </ul>
+            <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
-            <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
-
+            <!-- Menu Buttons
+        ================================================== -->
             <ul class="col s12 m8 l10">
                 <div class="flex-container hide-on-small-only">
-                    <?php
-            if(isset($_SESSION['token'])){
-                echo('<a href="./webpages/create_event.php" class="waves-effect btn btn-wide">Create Event</a>');
+                <?php
+                    if(isset($_SESSION['token'])){
+                    echo('<a href="./webpages/create_event.php" class="waves-effect btn btn-wide">Create Event</a>');
 }
-            else{
-                echo('<a href="#" class="waves-effect waves-yellow btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
-                }
-            ?>
+                    else{
+                        echo('<a href="#" class="waves-effect waves-yellow btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
+                    }
 
-                        <?php
-                if(isset($_SESSION['token'])){
-                    echo('
-                        <a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
-                            <i class="material-icons">account_circle</i>
-                        </a>
-                        <img class="user-thumb circle" src="https://pbs.twimg.com/profile_images/447774892520251392/B_5g0wKw_400x400.png" alt="" class="circle">
+                    if(isset($_SESSION['token'])){
+                        echo('
+                            <a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false">
+                                <i class="material-icons">account_circle</i>
+                            </a>
+                            <img class="user-thumb circle" src="https://pbs.twimg.com/profile_images/447774892520251392/B_5g0wKw_400x400.png" alt="" class="circle">
 
-                        
+                            <!-- Dropdown Structure -->
+                            <ul id="acct-settings" class="dropdown-content">
+                                <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
+                                <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
+                                <li><a href="/webpages/events_hist.php">Event History</a></li>
+                                <li><a href="#!">Account Settings</a></li>
+                                <li class="divider"></li>                               
+                                <li><a onclick="logOut()">Logout</a></li>
+                            </ul>
 
-                        <!-- Dropdown Structure -->
-                        <ul id="acct-settings" class="dropdown-content">
-                            <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
-                            <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-                            <li><a href="/webpages/events_hist.php">Event History</a></li>
-                            <li><a href="#!">Account Settings</a></li>
-                            <li class="divider"></li>                               
-                            <li><a onclick="logOut()">Logout</a></li>
-                        </ul>
-                        
                         ');
-                }
-                else{
-                    echo('<button data-target="modal-small" class="waves-effect btn modal-trigger">Login</button>
-
-                    ');
-                }
+                    }
+                    else{
+                        echo('<button data-target="modal-small" class="waves-effect btn btn-flat modal-trigger">Login</button>');
+                        echo('<a href="/webpages/sign_up.php"><button class="waves-effect waves-blue btn">Sign Up</button></a>');
+                    }
             ?>
 
 
-                            <!-- Login Popup -->
-                            <form action="" method="post">
-                                <div id="modal-small" class="modal blue-grey-text text-darken-2">
-                                    <div class="modal-padding">
-                                        <div class="row">
-                                            <h3>Login</h3>
-                                            <br>
-                                            <div class="input-field">
-                                                <i class="material-icons prefix ">account_circle</i>
-                                                <input id="icon_username" name="email" type="text" required>
-                                                <label for="icon_username">Email</label>
-                                            </div>
-                                            <div class="input-field center">
-                                                <i class="material-icons prefix">https</i>
-                                                <input id="icon_password" name="password" type="password" required>
-                                                <small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
-                                        <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
-                                        <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
-                                    </div>
-                                </div>
-                            </form>
+            <!-- Login Popup -->
+            <form action="" method="post">
+                <div id="modal-small" class="modal blue-grey-text text-darken-2">
+                    <div class="modal-padding">
+                        <div class="row">
+                            <h3>Login</h3>
+                            <br>
+                            <div class="input-field">
+                                <i class="material-icons prefix ">account_circle</i>
+                                <input id="icon_username" name="email" type="text" required>
+                                <label for="icon_username">Email</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">https</i>
+                                <input id="icon_password" name="password" type="password" required>
+                                <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
+                        <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
+                        <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
+                    </div>
                 </div>
-            </ul>
+            </form>
+        </div>
+    </ul>
         </header>
+            
+        
         <div id="main-container">
             <div class="row">
                 <div id="map-panel" class="col m6 l8 hide-on-small-only">
+
                     <div id="filters" class="flex-container">
-<!--                        <h5>Filters</h5>-->
+                        <!--                        <h5>Filters</h5>-->
+
+
                         <h6>Events this</h6>
                         <div>
                             <a href="" class="chip">Week</a>
                             <a href="" class="chip">Weekend</a>
                             <a href="" class="chip">Month</a>
                         </div>
+                        <input id="edit_location" type="text">
                         <!--                   <input type="date" class="datepicker"><i class="material-icons">date_range</i>-->
                         <p class="range-field">
-                            <input type="range" id="test5" min="1" max="15" />
+                            <input type="range" id="test5" min="1" max="15" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
                         </p>
                         <p>
                             <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
@@ -219,7 +182,38 @@ if (!isset($_SESSION['token'])) {
                             <input type="checkbox" class="filled-in" id="private_box" checked="checked" />
                             <label for="private_box">Private</label>
                         </p>
-                        <a href="/" class="waves-effect waves-blue btn-flat blue-grey-text text-lighten-4"><i class="left material-icons">refresh</i>Update Map</a>
+                        <a href="/" class="waves-effect waves-blue btn btn-flat refresh"><i class="material-icons">refresh</i></a>
+                        
+                        
+                    </div>
+
+                    <div id="filter-events" class="modal">
+                        <form action="" method="post">
+                            <div class="blue-grey-text text-darken-2">
+                                <div class="modal-padding center center-align">
+                                    <div class="row">
+                                        <h3>Filter Events</h3>
+                                        <br>
+                                        <div>
+                                            <a href="" class="chip">Week</a>
+                                            <a href="" class="chip">Weekend</a>
+                                            <a href="" class="chip">Month</a>
+                                        </div>
+                                    </div>
+                                    <p class="range-field">
+                                        <input type="range" id="test5" min="1" max="50" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
+                                    </p>
+                                    <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
+                                    <label for="public_box">Public</label>
+                                    <input type="checkbox" class="filled-in" id="private_box" checked="checked" />
+                                    <label for="private_box">Private</label>
+                                </div>
+                                <div class="modal-footer primary-green blue-grey-text text-darken-2">
+                                    <a class="left modal-action modal-close waves-effect waves-blue btn-flat ">Cancel</a>
+                                    <strong><input name="submit" type="submit" value="Filter" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
 
@@ -246,7 +240,7 @@ if (!isset($_SESSION['token'])) {
                 </div>
                 <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
-                    <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream</h5>
+                    <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream<i class="material-icons left add-cursor modal-trigger" data-target="filter-events" title="Filter Events">my_location</i></h5>
                     <div class="row">
                         <div class="col s12">
                             <div id="preloader-indef" class="progress blue-grey darken-3">

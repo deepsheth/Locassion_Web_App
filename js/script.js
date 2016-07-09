@@ -10,7 +10,7 @@ var filters = {
         lng: -75.375634
     },
     radius: 2,
-    date_start: moment("2015-01-01"),
+    date_start: moment("2015-01-01"), //UPDATE UPDATE UPDATE UPDATE -- REMOVE PARAMETERS
     date_end: moment().add(3, 'months')
 };
 
@@ -27,6 +27,40 @@ $(document).ready(function () {
 //        selectYears: 10 // Creates a dropdown of 15 years to control year
 //    });
 
+    $('#filters .chip').click(function(e) {
+        e.preventDefault();
+        var chips = $('#filters .chip');
+        chips.removeClass('active invert');
+        
+        if ($(this).text() == 'Weekend') {
+            filters.date_start = moment().day(5);
+            filters.date_end = moment().day(7);
+            
+        }
+        else {
+            filters.date_end = moment().add(1, $(this).text());
+        }
+        $(this).addClass('active invert');
+        
+        getEvents();
+        
+    });
+    
+    $('#filter-events').click(function(e) {
+        e.preventDefault();
+        
+    });
+    
+    $('#filters *').click(function() {
+       $('.refresh').addClass('active invert');
+    });
+    
+    $('.refresh').click(function(e) {
+        e.preventDefault();
+        $('.refresh').removeClass('active invert');
+    });
+
+    
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
 
@@ -189,6 +223,7 @@ function initMap() {
 
     //    google.maps.event.addListener(map, 'idle', reRender);
 
+
 }
 
 function reRender() {
@@ -222,7 +257,7 @@ function geoLocator() {
             var contentString = '<div class="row"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><p><strong class="center">Current Location </p></strong><a class="blue-text title btn-flat white waves-effect waves-white" onclick="geoLocator()">Relocate</a></div></div></div></div>';
 
             var infowindow = new google.maps.InfoWindow({
-                maxWidth: 250,
+                maxWidth: 150,
                 content: contentString
             });
 
@@ -324,10 +359,31 @@ function genClusters() {
 
     var options = {
         imagePath: '/img/markers/m',
-        maxZoom: 16
+        maxZoom: 16,
+        zoomOnClick: false
     };
     markerCluster = new MarkerClusterer(map, markers, options);
 
+    google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+        console.log(cluster);
+        var m = cluster.getMarkers();
+        var infoWindow = new google.maps.InfoWindow({
+            maxWidth: 300,
+        });
+        var eventTitle = [];
+
+        for (i = 0; i < m.length; i++) {
+            
+            eventTitle.push("<span class='add-cursor' onclick='centerMap(" + m[i].position.lat() + ", "+ m[i].position.lng() + ")'><strong>" + m[i].getTitle() + "</strong></span>" + '<br>');
+        }
+        if (map.getZoom() <= markerCluster.getMaxZoom()) {
+//            infoWindow.setContent('<div class="row customInfoWin"><div class="col 12"><div class="card"><div class="card-content blue-grey-text text-darken-2"><span class="card-title">'+ m.length +'</span><p class="insert">'+ eventTitle.join("") +'</p></div></div></div></div>');
+            infoWindow.setContent('<div class="row customInfoWin"><div class="col 12"><div class="card"><div class="card-content blue-grey-text text-darken-2"><span class="card-title">'+ m.length +' Events</span><p>'+ eventTitle.join("") +'</p></div></div></div></div>');
+//            infoWindow.setContent("<strong>" + m.length + " Events</strong><br>" + eventTitle.join(""));
+            infoWindow.setPosition(cluster.getCenter());
+            infoWindow.open(map);
+        } 
+    });
 
     setTimeout(function () {
         $('.determinate').fadeOut(350);
@@ -392,9 +448,15 @@ function genMarkers(eventInfo, type) {
 
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(eventInfo[i].latitude, eventInfo[i].longitude),
-            icon: markerIcons(type)
-
+            icon: markerIcons(type),
+            title: eventInfo[i].name
         });
+        
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
 
         markers.push(marker);
 
@@ -402,6 +464,62 @@ function genMarkers(eventInfo, type) {
             maxWidth: 250
         });
 
+
+        google.maps.event.addListener(map, 'click', function() {
+            infowindow.close();
+        });
+
+        google.maps.event.addListener(infowindow, 'domready', function() {
+
+            // Reference to the DIV that wraps the bottom of infowindow
+            var iwOuter = $('.gm-style-iw');
+
+            /* Since this div is in a position prior to .gm-div style-iw.
+     * We use jQuery and create a iwBackground variable,
+     * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+    */
+            var iwBackground = iwOuter.prev();
+
+            // Removes background shadow DIV
+            iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+            // Removes white background DIV
+            iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+            // Moves the infowindow 115px to the right.
+            iwOuter.parent().parent().css({left: '10px'});
+            // Moves the infowindow 115px to the right.
+            iwOuter.parent().parent().css({top: '60px'});
+
+            // Moves the shadow of the arrow 76px to the left margin.
+            iwBackground.children(':nth-child(1)').css({'display' : 'none'});
+            iwBackground.children(':nth-child(3)').css({'display' : 'none'});
+//
+////             Moves the arrow 76px to the left margin.
+//            iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 110px !important;'});
+//            iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'top: 308px !important;'});
+
+            // Changes the desired tail shadow color.
+//            iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
+
+            // Reference to the div that groups the close button elements.
+            var iwCloseBtn = iwOuter.next();
+
+            // Apply the desired effect to the close button
+            iwCloseBtn.css({opacity: '1', right: '55px', top: '23px', border: '0px solid #48b5e9', 'border-radius': '13px'});
+
+            // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+            if($('.iw-content').height() < 140){
+                $('.iw-bottom-gradient').css({display: 'none'});
+            }
+
+            // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+            iwCloseBtn.mouseout(function(){
+                $(this).css({opacity: '1'});
+            });
+        });
+
+        
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
                 var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo[i].time + "</br><strong>Location: </strong>" + eventInfo[i].locationDescription + "</br></br>" + eventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
@@ -457,6 +575,7 @@ function clearEvents() {
     if (typeof markerCluster !== 'undefined') {
             markerCluster.clearMarkers();
             markers = [];
+            numEvents = 0;
     }
     
     $('#event-panel').children().remove();
