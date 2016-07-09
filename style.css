@@ -92,13 +92,12 @@ header ul {
     margin: 0;
 }
 
-#main-container > .row > .map-container {
+#map-panel {
     padding: 0;
-    height: calc(90vh - 1.5em);
 }
 
 .map-container {
-    height: 90vh;
+    height: calc(87vh - 3.5em);
 }
 
 #map {
@@ -612,6 +611,7 @@ button.picker__close:focus {
     flex-flow: row wrap;
     /* This aligns items to the end line on main-axis */
     justify-content: flex-end;
+    align-items: center;
     margin: .85em auto;
 }
 
@@ -620,14 +620,89 @@ button.picker__close:focus {
     color: #2196F3;
 }
 
+header .hamburger-menu {
+    margin: 1em 0em 1.5em !important;
+    background: #FFFFFF;
+    color: #2196F3;
+}
+
 .flex-container > * {
     margin: .35em .5em;
 }
 
+/*
 .progress {
     bottom: 4px;
     margin: 0 0 -4px 0;
 }
+*/
+
+#filters {
+    justify-content: center;
+    margin: .3em auto;
+    height: 3em;
+}
+
+#filters * {
+    display: inline-block;
+    
+}
+
+#filters a, input[type="range"] + .thumb {
+    background-color: #37474F;
+}
+
+input[type="range"]:active::-moz-range-thumb {
+    background-color: #48A64C;    
+}
+
+input[type=range]:-moz-focusring {
+    outline: none;
+}
+
+input[type=range]::-moz-range-track {
+    background-color: #37474F;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    background: #37474F;
+}
+
+input[type=range]::-moz-range-thumb {
+    background: #344047;
+}
+
+input[type=range]::-ms-thumb {
+    background: #37474F;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    background: #344047;
+}
+
+input[type=range]:active::-webkit-slider-thumb {
+    background-color: #48A64C;  
+}
+
+#filters .chip {
+    background-color: #37474F;
+    line-height: 25px;
+    height: 25px;
+    font-size: 12px;
+}
+
+.filled-in[type="checkbox"]:checked + label::after {
+    background-color: #37474F;
+    border: 2px solid #37474F;
+}
+
+input[type="range"] {
+    width: 10em;
+    border: none;
+    margin: 0;
+}
+
+
 
 @media only screen and (max-width:600px) {
     header {

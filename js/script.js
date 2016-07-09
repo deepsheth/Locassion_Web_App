@@ -6,37 +6,26 @@
 
 var filters = {
     pos: {
-        lat: -75.375634,
-        lng: 40.606709
+        lat: 40.606709,
+        lng: -75.375634
     },
     radius: 2,
-    date_start: {
-        year: "2014",
-        month: "11",
-        day: "13"
-    },
-    date_end: {
-        year: "2020",
-        month: "11",
-        day: "13"
-    },
-    time_start: {
-        hour: "16",
-        minute: "00",
-        seconds: "00"
-    },
-    time_end: {
-        hour: "16",
-        minute: "00",
-        seconds: "00"
-    }
+    date_start: moment("2015-01-01"),
+    date_end: moment().add(3, 'months')
 };
 
 $(document).ready(function () {
 
+    $(".hamburger-menu").sideNav();
+    
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
+
+//    $('.datepicker').pickadate({
+//        selectMonths: true, // Creates a dropdown to control month
+//        selectYears: 10 // Creates a dropdown of 15 years to control year
+//    });
 
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
@@ -218,7 +207,7 @@ function geoLocator() {
             filters.pos.lat = position.coords.latitude;
             filters.pos.lng = position.coords.longitude;
             
-//            console.log("lat: " + filters.pos.lat);
+            console.log("lat: " + filters.pos.lat);
 
             map.setZoom(15);
             map.setCenter(filters.pos);
@@ -226,7 +215,7 @@ function geoLocator() {
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(filters.pos.lat, filters.pos.lng),
                 map: map,
-                icon: '/img/markers/pin_current_location.png'
+                icon: '/img/markers/pin_current_location_glow.png'
 
             });
 
@@ -257,18 +246,10 @@ function getEvents() {
                 lat: filters.pos.lat,
                 lng: filters.pos.lng,
                 radius: filters.radius,
-                start_year: filters.date_start.year,
-                start_month: filters.date_start.month,
-                start_day: filters.date_start.day,
-                start_hour: filters.time_start.hour,
-                start_min: filters.time_start.minute,
-                start_sec: filters.time_start.seconds,
-                end_year: filters.date_end.year,
-                end_month: filters.date_end.month,
-                end_day: filters.date_end.day,
-                end_hour: filters.time_end.hour,
-                end_min: filters.time_end.minute,
-                end_sec: filters.time_end.seconds,
+                start_date: filters.date_start.format("YYYY-MM-DD") ,
+                start_time: filters.date_start.format("HH:mm:ss"),
+                end_date: filters.date_end.format("YYYY-MM-DD"),
+                end_time: filters.date_end.format("HH:mm:ss")
             }).then(function (data) {
                 return data;
             });
@@ -278,18 +259,10 @@ function getEvents() {
                 lat: filters.pos.lat,
                 lng: filters.pos.lng,
                 radius: filters.radius,
-                start_year: filters.date_start.year,
-                start_month: filters.date_start.month,
-                start_day: filters.date_start.day,
-                start_hour: filters.time_start.hour,
-                start_min: filters.time_start.minute,
-                start_sec: filters.time_start.seconds,
-                end_year: filters.date_end.year,
-                end_month: filters.date_end.month,
-                end_day: filters.date_end.day,
-                end_hour: filters.time_end.hour,
-                end_min: filters.time_end.minute,
-                end_sec: filters.time_end.seconds
+                start_date: filters.date_start.format("YYYY-MM-DD") ,
+                start_time: filters.date_start.format("HH:mm:ss"),
+                end_date: filters.date_end.format("YYYY-MM-DD"),
+                end_time: filters.date_end.format("HH:mm:ss")
             }).then(function (data) {
                 return data;
             });
@@ -302,20 +275,12 @@ function getEvents() {
     
     // Promises
     
-    
-    // ADDITIONAL NETWORK CALL
-    // ADDITIONAL NETWORK CALL
-    // ADDITIONAL NETWORK CALL
-    // ADDITIONAL NETWORK CALL
-    // ADDITIONAL NETWORK CALL
-    // ADDITIONAL NETWORK CALL
-    // ADDITIONAL NETWORK CALL
-    
     var promisePub = events.publicEvents().done(function (eventInfo) {
         genEvents(eventInfo, "Public");
     });
-    promisePub.fail(function() {
-        genCustCard("Sorry!", "We were unable to get the public events. Try refreshing the page or contact us.", "red darken-2");
+    promisePub.fail(function(error) {
+        genCustCard("Sorry!", "We were unable to get the public events. Try refreshing the page or contact us. ", "red darken-2");
+        genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
         $('#preloader-indef').fadeOut(350);
     });
     
@@ -324,8 +289,9 @@ function getEvents() {
             genEvents(eventInfo, "Private");
         });
         
-        promisePriv.fail(function() {
-            genCustCard("Sorry!", "We were unable to get the private events. Try refreshing the page or contact us.", "red darken-2");
+        promisePriv.fail(function(error) {
+            genCustCard("Sorry!", "We were unable to get the private events. Try refreshing the page or contact us. ", "red darken-2");
+            genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
             $('#preloader-indef').fadeOut(350);
         });
         
@@ -358,7 +324,7 @@ function genClusters() {
 
     var options = {
         imagePath: '/img/markers/m',
-        maxZoom: 5
+        maxZoom: 16
     };
     markerCluster = new MarkerClusterer(map, markers, options);
 
@@ -447,7 +413,7 @@ function genMarkers(eventInfo, type) {
 
 }
 
-function generateUpcomingEvents() {
+function getAttendingEvents() {
     clearEvents();
 
     $('#event-panel').append(
@@ -488,6 +454,11 @@ function generateEventDetails(event) {
 
 
 function clearEvents() {
+    if (typeof markerCluster !== 'undefined') {
+            markerCluster.clearMarkers();
+            markers = [];
+    }
+    
     $('#event-panel').children().remove();
 
 }
