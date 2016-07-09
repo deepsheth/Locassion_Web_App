@@ -372,6 +372,7 @@ function genClusters() {
     google.maps.event.addListener(infoWindow, 'domready', function() {
         styleInfoWin(infoWindow);
     });
+    
     google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
         console.log(cluster);
         var m = cluster.getMarkers(); 
@@ -424,6 +425,7 @@ function genHandlers() {
 
 // Runs for each type of event (public/private events)
 function genEvents(eventInfo, type) {
+    eventInfo.reverse();
     genCards(eventInfo, type);
     genMarkers(eventInfo, type);
 }
@@ -469,9 +471,7 @@ function genMarkers(eventInfo, type) {
             maxWidth: 250
         });
 
-        google.maps.event.addListener(map, 'click', function() {
-            infowindow.close();
-        });
+
 
         google.maps.event.addListener(infowindow, 'domready', function() {
             styleInfoWin(infowindow);
@@ -490,6 +490,11 @@ function genMarkers(eventInfo, type) {
 }
 
 function styleInfoWin(infowindow) {
+    
+    google.maps.event.addListener(map, 'click', function() {
+        infowindow.close();
+    });
+
     // Reference to the DIV that wraps the bottom of infowindow
     var iwOuter = $('.gm-style-iw');
 

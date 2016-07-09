@@ -96,7 +96,7 @@ if (!isset($_SESSION['token'])) {
                     echo('<a href="./webpages/create_event.php" class="waves-effect btn btn-wide">Create Event</a>');
 }
                     else{
-                        echo('<a href="#" class="waves-effect waves-yellow btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
+                        echo('<a href="/webpages/sign_up.php" class="waves-effect waves-yellow btn disabled tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Create Event</a>');
                     }
 
                     if(isset($_SESSION['token'])){
@@ -129,22 +129,30 @@ if (!isset($_SESSION['token'])) {
             <form action="" method="post">
                 <div id="modal-small" class="modal blue-grey-text text-darken-2">
                     <div class="modal-padding">
-                        <div class="row">
-                            <h3>Login</h3>
-                            <br>
-                            <div class="input-field">
-                                <i class="material-icons prefix ">account_circle</i>
-                                <input id="icon_username" name="email" type="text" required>
-                                <label for="icon_username">Email</label>
+                        <h3>Login</h3>
+                        <br>
+                        <div class="input-field">
+                            <i class="material-icons prefix ">account_circle</i>
+                            <input id="icon_username" name="email" type="text" required>
+                            <label for="icon_username">Email</label>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">https</i>
+                            <input id="icon_password" name="password" type="password" required>
+                            <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div>
+                        </div>
+                        
+                        <div class="center-align">
+                            <div class="row">
+                                <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue darken-1 white-text">Login with Facebook</a>
                             </div>
-                            <div class="input-field">
-                                <i class="material-icons prefix">https</i>
-                                <input id="icon_password" name="password" type="password" required>
-                                <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div>
+                            <div class="row">
+                                <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
                             </div>
+                            <div class="row center"><small>We won't post anything without asking!</small></div>
                         </div>
                     </div>
-                    <div class="modal-footer blue-grey lighten-4 blue-grey-text text-darken-2">
+                    <div class="modal-footer grey lighten-2 blue-grey-text text-darken-2">
                         <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
                         <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
                     </div>
@@ -251,7 +259,7 @@ if (!isset($_SESSION['token'])) {
                                 <?php
                             if(!isset($_SESSION['token'])){
                                 echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 disabled"><a class="waves-effect waves-yellow disabled grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
+                                echo('<li class="tab col s3 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
                             }
                             else{
                                 echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents()">Discover</a></li>');
