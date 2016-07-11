@@ -112,7 +112,7 @@
                                 <div class="row">
                                     <div class="input-field">
                                         <i class="material-icons left prefix">schedule</i>
-                                        <input value="5:00pm" id="start_time2" class="ui-timepicker-input" type="text" placeholder="Start Time" name="start_time" required>
+                                        <input value="5:00pm" id="start_time" class="ui-timepicker-input" type="text" placeholder="Start Time" name="start_time" required>
                                     </div>
                                     <div class="input-field">
                                         <i class="material-icons left prefix white-text">keyboard_arrow_right</i>
@@ -130,7 +130,7 @@
 -->
                                 <p class="checkbox-align">
                                     <i class="material-icons left prefix">group</i>
-                                    <input name="eventType" type="radio" id="private_true" />
+                                    <input name="eventType" type="radio" id="private_true" checked/>
                                     <label for="private_true">Private</label>
                                 </p>
                                 <p class="checkbox-align">
@@ -520,7 +520,7 @@
 
 
                         <div class="blue inverted-footer">
-                            <button class="btn waves-effect waves-light btn btn-flat white" type="submit" name="action" onclick="custom()">Submit
+                            <button class="btn waves-effect waves-light btn btn-flat white" type="submit" name="action" onclick="eventCreation()">Submit
                                 <i class="material-icons right">send</i>
                             </button>
 

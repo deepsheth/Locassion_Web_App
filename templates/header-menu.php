@@ -31,9 +31,17 @@ if (session_status() == PHP_SESSION_NONE) {
         ');
     }
     else{
-        echo('</ul></header><div id="main-container" class="center"> <h3 class="red-text">This feature is only available for logged in users. </br>Sorry.</h3>
-            <div class="center">
-            <div class="row"><a href="/webpages/log_in.php" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a><a href="/webpages/sign_up.php" class="white-text"><button class="waves-effect blue btn btn-large col s1 offset-s2">Sign Up</button></a></div>
+        echo('</ul></header><div id="main-container" class="center"> 
+            <div class="container section">
+                <h3 class="red-text">This feature is only available for logged in users.</h3><h4>Sorry!</h4>
+            </div>
+            <div class="row center">
+                <div class="row">
+                    <a href="/webpages/sign_up.php" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a>
+                </div>
+                <div class="row">
+                    <a href="/webpages/log_in.php" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a>
+                </div>
             </div>
         </div>');
         exit();

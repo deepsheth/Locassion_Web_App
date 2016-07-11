@@ -107,6 +107,17 @@ include('../php/signUp.php');
 
                             <!-- fake fields bypass browser autocomplete -->
                             <input style="visibility:hidden; height: 0px" type="password" />
+                            
+                            <div class="center-align">
+                                <div class="row">
+                                    <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue darken-1 white-text">Login with Facebook</a>
+                                </div>
+                                <div class="row">
+                                    <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
+                                </div>
+                                <div class="row center"><small>We won't post anything without asking!</small></div>
+                            </div>
+                            
 
                             <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="signup"><i class="material-icons right">send</i>Submit</button>
                         </form>

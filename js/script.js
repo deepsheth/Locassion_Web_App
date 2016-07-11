@@ -471,12 +471,9 @@ function genMarkers(eventInfo, type) {
             maxWidth: 250
         });
 
-
-
         google.maps.event.addListener(infowindow, 'domready', function() {
             styleInfoWin(infowindow);
         });
-
         
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {

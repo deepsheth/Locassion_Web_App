@@ -177,7 +177,7 @@ if (!isset($_SESSION['token'])) {
                             <a href="" class="chip">Weekend</a>
                             <a href="" class="chip">Month</a>
                         </div>
-                        <input id="edit_location" type="text">
+                        <input id="edit_location" type="text" placeholder="18015" title="Zip Code" class="modal-trigger add-cursor" data-target="filter-events" readonly>
                         <!--                   <input type="date" class="datepicker"><i class="material-icons">date_range</i>-->
                         <p class="range-field">
                             <input type="range" id="test5" min="1" max="15" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
@@ -248,7 +248,7 @@ if (!isset($_SESSION['token'])) {
                 </div>
                 <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
-                    <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream<i class="material-icons left add-cursor modal-trigger" data-target="filter-events" title="Filter Events">my_location</i></h5>
+                    <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream<i class="material-icons left add-cursor modal-trigger" data-target="filter-events" title="Filter Events">filter_list</i></h5>
                     <div class="row">
                         <div class="col s12">
                             <div id="preloader-indef" class="progress blue-grey darken-3">
