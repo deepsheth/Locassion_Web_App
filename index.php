@@ -27,7 +27,7 @@ if (!isset($_SESSION['token'])) {
 	================================================== -->
         <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-        <link href='https://fonts.googleapis.com/css?family=Raleway:600|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Raleway:700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
         <!--    <link rel="stylesheet" href="cobblestone.css">-->
         <link rel="stylesheet" href="/style.css">
 
@@ -58,7 +58,6 @@ if (!isset($_SESSION['token'])) {
                     echo('false;');
                 }
                 ?>
-
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -91,7 +90,7 @@ if (!isset($_SESSION['token'])) {
         ================================================== -->
             <ul class="col s12 m8 l10">
                 <div class="flex-container hide-on-small-only">
-                <?php
+                    <?php
                     if(isset($_SESSION['token'])){
                     echo('<a href="./webpages/create_event.php" class="waves-effect btn btn-wide">Create Event</a>');
 }
@@ -125,44 +124,44 @@ if (!isset($_SESSION['token'])) {
             ?>
 
 
-            <!-- Login Popup -->
-            <form action="" method="post">
-                <div id="modal-small" class="modal blue-grey-text text-darken-2">
-                    <div class="modal-padding">
-                        <h3>Login</h3>
-                        <br>
-                        <div class="input-field">
-                            <i class="material-icons prefix ">account_circle</i>
-                            <input id="icon_username" name="email" type="text" required>
-                            <label for="icon_username">Email</label>
-                        </div>
-                        <div class="input-field">
-                            <i class="material-icons prefix">https</i>
-                            <input id="icon_password" name="password" type="password" required>
-                            <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div>
-                        </div>
-                        
-                        <div class="center-align">
-                            <div class="row">
-                                <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue darken-1 white-text">Login with Facebook</a>
+                        <!-- Login Popup -->
+                        <form action="" method="post">
+                            <div id="modal-small" class="modal blue-grey-text text-darken-2">
+                                <div class="modal-padding">
+                                    <h3>Login</h3>
+                                    <br>
+                                    <div class="input-field">
+                                        <i class="material-icons prefix ">account_circle</i>
+                                        <input id="icon_username" name="email" type="text" required>
+                                        <label for="icon_username">Email</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">https</i>
+                                        <input id="icon_password" name="password" type="password" required>
+                                        <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div>
+                                    </div>
+
+                                    <div class="center-align">
+                                        <div class="row">
+                                            <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue darken-1 white-text">Login with Facebook</a>
+                                        </div>
+                                        <div class="row">
+                                            <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
+                                        </div>
+                                        <div class="row center"><small>We won't post anything without asking!</small></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer grey lighten-2 blue-grey-text text-darken-2">
+                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
+                                    <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
+                                </div>
                             </div>
-                            <div class="row">
-                                <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
-                            </div>
-                            <div class="row center"><small>We won't post anything without asking!</small></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer grey lighten-2 blue-grey-text text-darken-2">
-                        <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
-                        <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
-                    </div>
+                        </form>
                 </div>
-            </form>
-        </div>
-    </ul>
+            </ul>
         </header>
-            
-        
+
+
         <div id="main-container">
             <div class="row">
                 <div id="map-panel" class="col m6 l8 hide-on-small-only">
@@ -191,8 +190,8 @@ if (!isset($_SESSION['token'])) {
                             <label for="private_box">Private</label>
                         </p>
                         <a href="/" class="waves-effect waves-blue btn btn-flat refresh"><i class="material-icons">refresh</i></a>
-                        
-                        
+
+
                     </div>
 
                     <div id="filter-events" class="modal">
@@ -270,7 +269,66 @@ if (!isset($_SESSION['token'])) {
                             </ul>
                         </div>
                     </div>
-                    <div id="event-panel"></div>
+                    <div id="event-panel">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="img-wrapper">
+                                        <img class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx" alt="">
+                                    </div>
+                                    <div class="card-content">
+                                        
+                                        <div class="row">
+                                            <div class="col s3 center-align">
+                                                <div class="">Sat</div>
+                                                <div class="">7</div>
+                                                <div class="">Jul</div>
+                                                <div class="">a month ago</div>
+                                            </div>
+                                            <div class="col s9">
+                                                <div class="card-title"><a href="">This is a New Card</a></div>
+                                                <div class=""><i  title="Location" class="material-icons icons-inline left">place</i>Psi Upsilon</div>
+                                                <div class=""><i title="Time" class="material-icons icons-inline left">access_time</i>Time</div>
+                                            </div>
+                                        </div>
+                                        <div class="row valign-wrapper">
+                                            <div class="col s2">
+                                                <img src="https://github.com/identicons/cena.png" alt="" class="user-thumb circle responsive-img">
+                                            </div>
+                                            
+                                            <div class="col s9">
+                                                <span>Meet Up hosted by <a href="#">Deep Sheth</a></span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row valign-wrapper">
+                                            <div class="col m8 flex-container">
+                                                <img src="https://github.com/identicons/bob.png" alt="" class="user-thumb circle responsive-img">
+                                                <img src="https://github.com/identicons/john.png" alt="" class="user-thumb circle responsive-img">
+                                                <img src="https://github.com/identicons/johnny.png" alt="" class="user-thumb circle responsive-img">
+                                            </div>
+                                            <div class="col m4">
+                                                <span>7 Friends <i class="material-icons icons-inline right">public</i></span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                           <div class="col s12">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, ne enim omnium accusamus eos, aeque dicunt verterem eam eu, pri oportere disputando in. Ei nonumy consul eum, nec ex tempor dolores, graece nostrum platonem id mei. Id vel omnis inermis omittantur. Mazim dolor eloquentiam ex ius, vel ad nulla noster putant. Ei cetero definiebas mei, est eu cibo munere putant, cum dico salutatus te.
+                                                Cu alia tantas tempor per. Quo te errem argumentum, cu per natum accusamus expetendis. Quas sadipscing mei in, dicat vitae maluisset qui at, graeci iracundia philosophia at sed. Cu sea simul delicata.
+                                            </p>
+                                               <a href="#" class="more center-align">More</a>
+                                           </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-action center-align">
+                                        <a href="#" class="">GO</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

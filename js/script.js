@@ -59,7 +59,6 @@ $(document).ready(function () {
         e.preventDefault();
         $('.refresh').removeClass('active invert');
     });
-
     
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
@@ -90,8 +89,6 @@ function selectCard(card, numberSelected) {
 }
 
 var map;
-var publicEventInfo;
-var privateEventInfo;
 var markers = [];
 var numEvents = 0;
 var markerCluster;
@@ -100,7 +97,7 @@ function initMap() {
 
 
     // Gets all events
-    getEvents();
+    // getEvents();
 
 
     $('.determinate').width('10%');
@@ -218,9 +215,6 @@ function initMap() {
 
     $('.determinate').width('70%');
 
-
-    $('.determinate').width('85%');
-
     //    google.maps.event.addListener(map, 'idle', reRender);
 
 
@@ -305,26 +299,32 @@ function getEvents() {
     };
 
     
-    clearEvents();
+
     $('#preloader-indef').fadeIn(350);
     
     // Promises
     
     var promisePub = events.publicEvents().done(function (eventInfo) {
+        clearEvents();
         genEvents(eventInfo, "Public");
     });
     promisePub.fail(function(error) {
+        clearEvents();
         genCustCard("Sorry!", "We were unable to get the public events. Try refreshing the page or contact us. ", "red darken-2");
         genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
         $('#preloader-indef').fadeOut(350);
     });
     
+    // clearEvents is inside the promise to prevent race conditions from not clearing the markers if the discover event button is spammed
     if (logged_in) {
         var promisePriv = events.privateEvents().done(function (eventInfo) {
+            clearEvents();
+            console.log(eventInfo);
             genEvents(eventInfo, "Private");
         });
         
         promisePriv.fail(function(error) {
+            clearEvents();
             genCustCard("Sorry!", "We were unable to get the private events. Try refreshing the page or contact us. ", "red darken-2");
             genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
             $('#preloader-indef').fadeOut(350);
@@ -332,7 +332,7 @@ function getEvents() {
         
         Promise.all([promisePub, promisePriv]).then(eventInfo => {
             genClusters();
-            genHandlers();
+            genDynHandlers();
         }, function(reason) {
             console.log(reason);
         });
@@ -340,7 +340,7 @@ function getEvents() {
     else {
         promisePub.done(function () {
             genClusters();
-            genHandlers();
+            genDynHandlers();
         });
     }
 
@@ -397,9 +397,14 @@ function genClusters() {
 
 }
 
-function genHandlers() {
+function genDynHandlers() {
     
     $('#preloader-indef').fadeOut(350);
+    
+    // Allow cards to open
+    $('.collapsible').collapsible({
+        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
     
     // Delete Card
     $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
@@ -569,12 +574,14 @@ function generateEventDetails(event) {
     });
 
     $('.dyn_event-name').text(event.name);
-    $('.dyn_host-name').text(event.hostname);
+    $('.dyn_host-name').text(event.hostName);
     $('.dyn_event-location').text(event.locationDescription);
     $('.dyn_event-time').text(moment(event.time, "YYYY-MM-DD HH:mm:ss a").calendar());
     $('.dyn_event-desc').text(event.description);
     $('.dyn_tag1').text(event.tag1);
     $('.dyn_tag2').text(event.tag2);
+    
+    if(event.private) $('.dyn_privacy').text("group");
 
     $('.dyn_gcal-export').attr("href", "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + event.name + "&dates=20160127T224000Z/20160320T221500Z&details=Location Details: " + event.locationDescription + " //  Event Details: " + event.description + "&location=" + event.latitude + ", " + event.longitude + "&sf=true&output=xml#eventpage_6");
 }
@@ -586,6 +593,9 @@ function clearEvents() {
             markers = [];
             numEvents = 0;
     }
+    
+    console.log("Num events: " + numEvents);
+    console.log("Marker cluster: " + markerCluster);
     
     $('#event-panel').children().remove();
 

@@ -1,4 +1,4 @@
-    html,
+html,
 body {
     height: 100%;
     margin: 0;
@@ -139,7 +139,7 @@ header ul {
 
 #side-bar .tabs .indicator {
     background: #2196F3;
-    height: 4px;
+    height: 0.375em;
 }
 
 .tabs {
@@ -164,15 +164,18 @@ h3 {
 
 .card {
     overflow: auto;
+    color: #78909C;
 }
+
 
 .card .card-content {
     padding-top: 1.5em;
     line-height: 1.6;
 }
 
-.card .card-content p {
-    padding-top: 1em;
+.card .img-wrapper {
+    overflow: hidden;
+    height: 10em;
 }
 
 .card .card-title {
@@ -185,6 +188,23 @@ h3 {
 .title {
     padding-bottom: 1em;
     font-weight: bold;
+}
+
+
+.card p {
+    max-height: 7em;
+    overflow: hidden;
+}
+
+.card .more {
+    padding: 1.15em 0 .35em;
+    position: relative;
+    bottom: 2.8em;
+    display: block;
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 63%, rgba(255,255,255,1) 66%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 63%,rgba(255,255,255,1) 66%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 63%,rgba(255,255,255,1) 66%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
 }
 
 .card-selected {
@@ -315,6 +335,11 @@ footer a {
     padding-top: .1em;
     margin: 0 .5em;
     vertical-align: bottom;
+}
+
+.user-thumb-med {
+    width: 3.5em;
+    height: 3.5em;
 }
 
 .user-thumb-large {

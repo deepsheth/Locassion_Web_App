@@ -93,7 +93,7 @@
         </ul>
     </header>
 
-    <div class="blue-grey darken-2">
+    <div class="grey lighten-3">
         <div class="container">
             <div class="row no-mar white-text style-tab">
                 <div class="col m5" title="Event Title">
@@ -111,7 +111,7 @@
                     <h5 class="dyn_event-time add-cursor">Date</h5>
                 </div>
                 <div class="col s1">
-                    <i class="material-icons blue white-text circle" title="Public Event">public</i>
+                    <i class="material-icons blue white-text circle dyn_privacy" title="Public Event">public</i>
                 </div>
                 <div class="col s5" title="Host Name">
                     <h5>Hosted by <a href="#" class="dyn_host-name">Host Name</a></h5>

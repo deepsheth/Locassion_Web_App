@@ -199,7 +199,7 @@ if (isset($_POST['submit'])) {
                         <div class="card-panel  z-depth-1">
                             <div class="valign-wrapper">
                                 <div class="col s5">
-                                    <img src="https://github.com/identicons/cena.png" alt="" class="circle responsive-img">
+                                    <img src="https://github.com/identicons/cena.png" alt="" class="user-thumb-med circle responsive-img">
                                     <!-- notice the "circle" class -->
                                 </div>
                                 <div class="col s7">
