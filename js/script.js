@@ -21,11 +21,40 @@ $(document).ready(function () {
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
-
-//    $('.datepicker').pickadate({
-//        selectMonths: true, // Creates a dropdown to control month
-//        selectYears: 10 // Creates a dropdown of 15 years to control year
-//    });
+    
+    $('#hidden').hide();
+    
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 10, // Creates a dropdown of 15 years to control year
+        clear: ''
+    });
+    
+    console.log("ready");
+    
+    $('.view-cal').click(function(event) {
+        var cal = $('.datepicker').pickadate().pickadate('picker');
+        cal.open();
+        cal.set('highlight', '2016-04-20', { format: 'yyyy-mm-dd' });
+        event.stopPropagation()
+    });
+    
+    $('.expand-fold').click(function() {
+        var $this = $(this);
+        // If closed, expand fold
+        var folded = $this.closest('.card').find('.fold-body');
+//        folded.stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('display', 'block');}
+        if ($this.text() == "More") {
+            $this.addClass('opened');
+            folded.stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('height', '')}});
+            $this.fadeOut(125, function() { $this.text("Less").fadeIn(125); });
+        }
+        else {
+            $this.removeClass('opened');
+            folded.stop(true,false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('height', '')}});
+            $this.fadeOut(125, function() { $this.text("More").fadeIn(125); });
+        }
+    });
 
     $('#filters .chip').click(function(e) {
         e.preventDefault();
@@ -655,6 +684,15 @@ function markerIcons(type) {
             url: iconBase + 'gold_event_marker.png'
         };
     }
+}
+
+function viewCal(event, date) {
+    var $input = $('.datepicker').pickadate();
+    var picker = $input.pickadate('picker');
+    console.log(date);
+    picker.set('select', date, { format: 'yyyy-mm-dd' });
+    picker.open();
+    event.stopPropagation();
 }
 
 function logOut() {

@@ -25,9 +25,9 @@ if (!isset($_SESSION['token'])) {
 
         <!-- CSS
 	================================================== -->
-        <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
+        <!--       Todo: combine Dosis and all fonts into one link (for all webpages!!!) -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-        <link href='https://fonts.googleapis.com/css?family=Raleway:700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis:700|Raleway:600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
         <!--    <link rel="stylesheet" href="cobblestone.css">-->
         <link rel="stylesheet" href="/style.css">
 
@@ -251,7 +251,7 @@ if (!isset($_SESSION['token'])) {
                     <div class="row">
                         <div class="col s12">
                             <div id="preloader-indef" class="progress blue-grey darken-3">
-                                <div class="indeterminate blue-grey"></div>
+                                <div class="indeterminate primary-green"></div>
                             </div>
                             <ul class="tabs">
 
@@ -270,6 +270,7 @@ if (!isset($_SESSION['token'])) {
                         </div>
                     </div>
                     <div id="event-panel">
+                        <input type="hidden" class="datepicker" id="hidden">
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
@@ -277,53 +278,59 @@ if (!isset($_SESSION['token'])) {
                                         <img class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx" alt="">
                                     </div>
                                     <div class="card-content">
-                                        
+
                                         <div class="row">
-                                            <div class="col s3 center-align">
+                                            <div class="col s3 center-align" onclick="viewCal(event,'2015-02-12')">
                                                 <div class="">Sat</div>
                                                 <div class="">7</div>
                                                 <div class="">Jul</div>
                                                 <div class="">a month ago</div>
                                             </div>
-                                            <div class="col s9">
+                                            <div class="col m9 l8 offset-l1">
                                                 <div class="card-title"><a href="">This is a New Card</a></div>
-                                                <div class=""><i  title="Location" class="material-icons icons-inline left">place</i>Psi Upsilon</div>
-                                                <div class=""><i title="Time" class="material-icons icons-inline left">access_time</i>Time</div>
+                                                <div class="icon-hoverable add-cursor"><i title="Location" class="material-icons icons-inline left">place</i>Psi Upsilon</div>
+                                                <div class="small-details">27 Memorial Dr.</div>
+                                                <div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>Time</div>
                                             </div>
                                         </div>
-                                        <div class="row valign-wrapper">
-                                            <div class="col s2">
-                                                <img src="https://github.com/identicons/cena.png" alt="" class="user-thumb circle responsive-img">
+
+                                        <div class="row row-tight">
+                                            <div class="row span-padded center">
+                                                <i title="Time" class="material-icons tiny">public</i>
+                                                <span>
+                                                    Public
+                                                </span>
+                                                <span>
+                                                    8 Friends Going
+                                                </span>
+                                                <span>
+                                                    13 Total
+                                                </span>
                                             </div>
-                                            
-                                            <div class="col s9">
-                                                <span>Meet Up hosted by <a href="#">Deep Sheth</a></span>
+                                            <div class="fold-body hidden">
+                                                <div class="row">
+                                                    <p class="col s12">
+                                                        Lorem ipsum dolor sit amet, ne enim omnium accusamus eos, aeque dicunt verterem eam eu, pri oportere disputando in. Ei nonumy consul eum, nec ex tempor dolores, graece nostrum platonem id mei. Id vel omnis inermis omittantur. Mazim dolor eloquentiam ex ius, vel ad nulla noster putant. Ei cetero definiebas mei, est eu cibo munere putant, cum dico salutatus te. Cu alia tantas tempor per. Quo te errem argumentum, cu per natum accusamus expetendis. Quas sadipscing mei in, dicat vitae maluisset qui at, graeci iracundia philosophia at sed. Cu sea simul delicata.
+                                                    </p>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="center-align">
+                                                        <a href="#" class="chip white"><img src="https://github.com/identicons/cena.png" alt="Contact Person">Deep Sheth</a> is hosting this meet up.
+                                                    </div>
+                                                </div>
+                                                <div class="row flex-container">
+                                                    <a href="#" class="chip white">Tag1</a>
+                                                    <a href="#" class="chip white">Tag2</a>
+                                                    <a href="#" class="chip white">Tag3</a>
+                                                    <a href="#" class="chip white">Tag4</a>
+                                                </div>
                                             </div>
+
                                         </div>
-                                        
-                                        <div class="row valign-wrapper">
-                                            <div class="col m8 flex-container">
-                                                <img src="https://github.com/identicons/bob.png" alt="" class="user-thumb circle responsive-img">
-                                                <img src="https://github.com/identicons/john.png" alt="" class="user-thumb circle responsive-img">
-                                                <img src="https://github.com/identicons/johnny.png" alt="" class="user-thumb circle responsive-img">
-                                            </div>
-                                            <div class="col m4">
-                                                <span>7 Friends <i class="material-icons icons-inline right">public</i></span>
-                                            </div>
+                                        <div class="card-action center-align">
+                                            <div><a href="#" class="expand-fold">More</a></div>
+                                            <a href="#" id="btn-go">GO</a>
                                         </div>
-                                        
-                                        <div class="row">
-                                           <div class="col s12">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, ne enim omnium accusamus eos, aeque dicunt verterem eam eu, pri oportere disputando in. Ei nonumy consul eum, nec ex tempor dolores, graece nostrum platonem id mei. Id vel omnis inermis omittantur. Mazim dolor eloquentiam ex ius, vel ad nulla noster putant. Ei cetero definiebas mei, est eu cibo munere putant, cum dico salutatus te.
-                                                Cu alia tantas tempor per. Quo te errem argumentum, cu per natum accusamus expetendis. Quas sadipscing mei in, dicat vitae maluisset qui at, graeci iracundia philosophia at sed. Cu sea simul delicata.
-                                            </p>
-                                               <a href="#" class="more center-align">More</a>
-                                           </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-action center-align">
-                                        <a href="#" class="">GO</a>
                                     </div>
                                 </div>
                             </div>
@@ -331,7 +338,6 @@ if (!isset($_SESSION['token'])) {
                     </div>
                 </div>
             </div>
-        </div>
     </body>
 
     </html>

@@ -32,10 +32,10 @@ h1 a {
 }
 
 a,
-input,
 button,
 .btn {
-    font-family: "Raleway", "Roboto";
+    font-family: "Raleway", "Roboto", sans-serif;
+    font-weight: 700;
 }
 
 h2,
@@ -48,13 +48,13 @@ h6,
 }
 
 ::selection {
-    background: rgba(183, 28, 28, .65);
-    color: rgba(255, 255, 255, .9);
+    color: rgb(69, 41, 0);
+    background: rgb(194, 218, 158);
 }
 
 ::-moz-selection {
-    background: rgba(183, 28, 28, .65);
-    color: rgba(255, 255, 255, .9);
+    color: rgb(69, 41, 0);
+    background: rgb(194, 218, 158);
 }
 
 .light-green.darken-2,
@@ -162,15 +162,13 @@ h3 {
     padding: 3em 3em 1em 3em;
 }
 
+.row-tight {
+    margin: 0;
+}
+
 .card {
     overflow: auto;
     color: #78909C;
-}
-
-
-.card .card-content {
-    padding-top: 1.5em;
-    line-height: 1.6;
 }
 
 .card .img-wrapper {
@@ -181,8 +179,8 @@ h3 {
 .card .card-title {
     margin-bottom: 10px;
     padding-left: 0;
-    font-size: 1.85em;
-    line-height: 1.2em !important;
+    font-size: 1.5em;
+    line-height: 1.3em !important;
 }
 
 .title {
@@ -190,21 +188,81 @@ h3 {
     font-weight: bold;
 }
 
+.icon-hoverable * {
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+}
+
+.icon-hoverable i {
+    width: 0;
+    opacity: 0;
+    margin: 0;
+}
+
+.icon-hoverable:hover i {
+    width: 22px;
+    margin-right: 10px;    
+    opacity: 1;
+}
+
+.span-padded span {
+    padding-right: 1.15em;
+}
+
+.span-padded i {
+    position: relative;
+    top: 3px;
+}
+.vertical-align {
+    vertical-align: middle;
+}
 
 .card p {
     max-height: 7em;
     overflow: hidden;
+    line-height: 1.75;
+}
+
+.card .flex-container {
+    justify-content: space-between;
+}
+
+.card .fold-body {
+
+}
+
+.hidden {
+    display: none;
+
+}
+/*
+.more-wrapper {
+    position: relative;
 }
 
 .card .more {
-    padding: 1.15em 0 .35em;
-    position: relative;
-    bottom: 2.8em;
-    display: block;
+    padding: 1.3em .75rem .35em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: inherit;
     background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 63%, rgba(255,255,255,1) 66%);
     background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 63%,rgba(255,255,255,1) 66%);
     background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 63%,rgba(255,255,255,1) 66%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+}
+*/
+
+#btn-go {
+    width: 65%;
+    border-radius: 3em;
+    border: 4px solid #2196F3;
+    color: #2196F3;
+    margin: auto;
+    padding: 1em;
+    display: block;
 }
 
 .card-selected {
@@ -289,14 +347,6 @@ i.add-cursor:hover {
     margin: 0;
 }
 
-#side-bar .collapsible p {
-    padding: .5rem 1rem 1.5rem;
-}
-
-#side-bar .collapsible i:hover {
-    opacity: .8;
-}
-
 footer {
     padding: 1.5em;
 }
@@ -338,8 +388,8 @@ footer a {
 }
 
 .user-thumb-med {
-    width: 3.5em;
-    height: 3.5em;
+    width: 3.25em;
+    height: 3.25em;
 }
 
 .user-thumb-large {
@@ -635,9 +685,13 @@ button.picker__close:focus {
     display: flex;
     flex-flow: row wrap;
     /* This aligns items to the end line on main-axis */
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     margin: .85em auto;
+}
+
+header .flex-container {
+    justify-content: flex-end;
 }
 
 .flex-container .btn {
@@ -661,7 +715,6 @@ header .hamburger-menu {
 }
 
 #filters {
-    justify-content: center;
     margin: .3em auto;
     height: 3em;
 }
