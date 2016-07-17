@@ -2,9 +2,9 @@
 require_once '../vendor/autoload.php';
 $redirectLink = 'http://www.adamknuckey.com/php/facebookLoginReturn.php'; //TODO - pass facebookLoginReturn.php a link to the page that the user came from originally, so it can redirect there after finishing. Smoother user experience
 
-if (!session_id()) {
-    session_start();
-}
+//if (!session_id()) {
+session_start();
+//}
 
 $fb = new Facebook\Facebook([
 'app_id' => '163412274075007',
