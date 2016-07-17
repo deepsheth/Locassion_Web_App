@@ -35,7 +35,6 @@ a,
 button,
 .btn {
     font-family: "Raleway", "Roboto", sans-serif;
-    font-weight: 700;
 }
 
 h2,
@@ -144,6 +143,7 @@ header ul {
 
 .tabs {
     overflow: hidden;
+    font-weight: 700;
 }
 
 h3 {
@@ -285,6 +285,10 @@ h3 {
     color: #48A64C;
 }
 
+.card a {
+    font-weight: 700;
+}
+
 .card .flex-container {
     justify-content: space-between;
 }
@@ -355,7 +359,6 @@ h3 {
 #main-container .btn-go:not(.dirty):hover, #main-container .btn-go.success {
     color: #FFF;
     background: #2196F3;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 #main-container .btn-go.failure {
@@ -810,6 +813,7 @@ header .flex-container {
 .flex-container .btn {
     background: #FFFFFF;
     color: #2196F3;
+    font-weight: 700;
 }
 
 header .hamburger-menu {

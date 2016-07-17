@@ -10,7 +10,7 @@ var filters = {
         lng: -75.375634
     },
     radius: 2,
-    date_start: moment(),
+    date_start: moment().subtract(1, 'year'),
     date_end: moment().add(3, 'months')
 };
 
@@ -337,7 +337,7 @@ function getEvents() {
     // clearEvents is inside the promise to prevent race conditions from not clearing the markers if the discover event button is spammed
     if (logged_in) {
         var promisePriv = events.privateEvents().done(function (eventInfo) {
-            clearEvents();
+//            clearEvents();
             genEvents(eventInfo, "Private");
         });
         
@@ -485,7 +485,7 @@ function genCards(eventInfo, type) {
             '</div>'+
             '<div class="card-content">'+
             '<div class="row">'+
-            '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'2015-02-12\')" title="'+ eventInfo[i].time.toString() +'">'+
+            '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\''+ eventInfo[i].time.valueOf() +'\')" title="'+ eventInfo[i].time.toString() +'">'+
             '<div class="day">'+ eventInfo[i].time.format("ddd") +'</div>'+
             '<div class="day-num">'+ eventInfo[i].time.format("D") +'</div>'+
             '<div class="month">'+ eventInfo[i].time.format("MMM") +'</div>'+
@@ -743,11 +743,13 @@ function markerIcons(type) {
     }
 }
 
+
+// Date is UNIX Timestamp in Milliseconds
 function viewCal(event, date) {
     var $input = $('.datepicker').pickadate();
     var picker = $input.pickadate('picker');
     console.log(date);
-    picker.set('select', date, { format: 'yyyy-mm-dd' });
+    picker.set('select', date);
     picker.open();
     event.stopPropagation();
 }
@@ -793,12 +795,12 @@ function btnRequestInit() {
             // Call server here
             
             setTimeout(function() {
-                $this.closest('.preloader-wrapper').fadeOut(100);
+                $this.closest('.preloader-wrapper').remove();
                 $this.fadeTo(100, 1);
-                $this.css('width', 'auto');
 
                 btnSuccessful($this);
 //                btnFailure($this);
+                $this.css('width', 'auto');
                 
             }, 500);
         }, 400);
