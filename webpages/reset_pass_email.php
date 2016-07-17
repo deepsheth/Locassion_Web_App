@@ -32,6 +32,22 @@
 
     <!-- Page Specific Styles and Scripts
 ================================================== -->
+     <script>
+        var logged_in = <?php
+                if (isset($_SESSION['token'])) {
+                    echo('true;');
+                } else {
+                    echo('false;');
+                }
+            ?>
+        var token = <?php
+                if (isset($_SESSION['token'])) {
+                    echo($_SESSION['token'].";");
+                } else {
+                    echo('"";');
+                }
+            ?>
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
