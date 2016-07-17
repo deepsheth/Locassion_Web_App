@@ -10,7 +10,6 @@ if (strpos(get_headers($url)[0],'200') != false){
     $formattedIDs = implode(':',$jsonResponse['events']);
     $url = 'https://meet-up-1097.appspot.com/?command=getPublicEventInfo&args='.$formattedIDs.'&token=';
     //.$_SESSION['token'];
-    
     echo(file_get_contents( $url) );
     //echo('//'.$url);
 }

@@ -83,7 +83,6 @@ if (!isset($_SESSION['token'])) {
             </ul>
             <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 
-
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
             <!-- Menu Buttons
@@ -232,6 +231,8 @@ if (!isset($_SESSION['token'])) {
 -->
                         <div id="map"></div>
                         <footer>
+<!--                           IMPORTANT -- TODO Prevent scrolling when calendar is open-->
+                            <input type="hidden" class="datepicker" id="hidden">
                             <div class="footer-copyright">
                                 <small> <b>
                                 <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="/meta/index.html">© 2015-2016 LeavittInnovations.</a>
@@ -269,8 +270,8 @@ if (!isset($_SESSION['token'])) {
                             </ul>
                         </div>
                     </div>
+                        
                     <div id="event-panel">
-                        <input type="hidden" class="datepicker" id="hidden">
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
@@ -307,17 +308,20 @@ if (!isset($_SESSION['token'])) {
                                                     13 Total
                                                 </span>
                                             </div>
+                                            
                                             <div class="fold-body hidden">
-                                                <div class="row">
+                                               
+                                                <div>
+                                                    <div class="center-align">
+                                                        <a href="#">Deep Sheth</a> created this meet up.
+                                                    </div>
+                                                </div>
+                                                <div class="row row-tight">
                                                     <p class="col s12">
                                                         Lorem ipsum dolor sit amet, ne enim omnium accusamus eos, aeque dicunt verterem eam eu, pri oportere disputando in. Ei nonumy consul eum, nec ex tempor dolores, graece nostrum platonem id mei. Id vel omnis inermis omittantur. Mazim dolor eloquentiam ex ius, vel ad nulla noster putant. Ei cetero definiebas mei, est eu cibo munere putant, cum dico salutatus te. Cu alia tantas tempor per. Quo te errem argumentum, cu per natum accusamus expetendis. Quas sadipscing mei in, dicat vitae maluisset qui at, graeci iracundia philosophia at sed. Cu sea simul delicata.
                                                     </p>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="center-align">
-                                                        <a href="#" class="chip"><img src="https://github.com/identicons/cena.png" alt="Contact Person">Deep Sheth</a> is hosting this meet up.
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="divider"></div>
                                                 <div class="row flex-container">
                                                     <a href="#" class="chip">Tag1</a>
@@ -329,13 +333,10 @@ if (!isset($_SESSION['token'])) {
 
                                         </div>
                                     </div>
-                                        <div class="card-action center-align expand-fold">
-                                            <div class="col s12 m6 pre-btn left-align"><a href="#" class="fold-label">More</a><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i></div>
-                                            <div class="col s12 m6 right right-align"><a href="#" id="btn-go" class="waves-effect waves-light">GO</a>
-                                            
-<!--                                            <div class="preloader-wrapper active"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>-->
-                                            </div>
-                                        </div>
+                                    <div class="card-action center-align expand-fold">
+                                        <div class="col s6 pre-btn left-align"><a href="#" class="fold-label">More</a><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i></div>
+                                        <div class="col s6 right right-align"><a href="#" class="btn-go waves-effect waves-light">GO</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
