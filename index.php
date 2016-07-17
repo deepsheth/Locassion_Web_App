@@ -250,7 +250,7 @@ if (!isset($_SESSION['token'])) {
                     <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream<i class="material-icons left add-cursor modal-trigger" data-target="filter-events" title="Filter Events">filter_list</i></h5>
                     <div class="row">
                         <div class="col s12">
-                            <div id="preloader-indef" class="progress blue-grey darken-3">
+                            <div id="preloader-indef" class="progress green lighten-3">
                                 <div class="indeterminate primary-green"></div>
                             </div>
                             <ul class="tabs">
@@ -280,11 +280,11 @@ if (!isset($_SESSION['token'])) {
                                     <div class="card-content">
 
                                         <div class="row">
-                                            <div class="col s3 center-align" onclick="viewCal(event,'2015-02-12')">
-                                                <div class="">Sat</div>
-                                                <div class="">7</div>
-                                                <div class="">Jul</div>
-                                                <div class="">a month ago</div>
+                                            <div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,'2015-02-12')">
+                                                <div class="day">Sat</div>
+                                                <div class="day-num">7</div>
+                                                <div class="month">Jul</div>
+                                                <div class="context">a month ago</div>
                                             </div>
                                             <div class="col m9 l8 offset-l1">
                                                 <div class="card-title"><a href="">This is a New Card</a></div>
@@ -315,29 +315,34 @@ if (!isset($_SESSION['token'])) {
                                                 </div>
                                                 <div class="row">
                                                     <div class="center-align">
-                                                        <a href="#" class="chip white"><img src="https://github.com/identicons/cena.png" alt="Contact Person">Deep Sheth</a> is hosting this meet up.
+                                                        <a href="#" class="chip"><img src="https://github.com/identicons/cena.png" alt="Contact Person">Deep Sheth</a> is hosting this meet up.
                                                     </div>
                                                 </div>
+                                                <div class="divider"></div>
                                                 <div class="row flex-container">
-                                                    <a href="#" class="chip white">Tag1</a>
-                                                    <a href="#" class="chip white">Tag2</a>
-                                                    <a href="#" class="chip white">Tag3</a>
-                                                    <a href="#" class="chip white">Tag4</a>
+                                                    <a href="#" class="chip">Tag1</a>
+                                                    <a href="#" class="chip">Tag2</a>
+                                                    <a href="#" class="chip">Tag3</a>
+                                                    <a href="#" class="chip">Tag4</a>
                                                 </div>
                                             </div>
 
                                         </div>
-                                        <div class="card-action center-align">
-                                            <div><a href="#" class="expand-fold">More</a></div>
-                                            <a href="#" id="btn-go">GO</a>
-                                        </div>
                                     </div>
+                                        <div class="card-action center-align expand-fold">
+                                            <div class="col s12 m6 pre-btn left-align"><a href="#" class="fold-label">More</a><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i></div>
+                                            <div class="col s12 m6 right right-align"><a href="#" id="btn-go" class="waves-effect waves-light">GO</a>
+                                            
+<!--                                            <div class="preloader-wrapper active"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>-->
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </body>
 
     </html>

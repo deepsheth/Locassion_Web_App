@@ -39,10 +39,30 @@ $(document).ready(function () {
         event.stopPropagation()
     });
     
-    $('.expand-fold').click(function() {
+    $('#btn-go').click(function(event) {
+        event.stopPropagation();
         var $this = $(this);
+        $this.text("");
+        $this.css('width', '3.5em');
+        
+
+            setTimeout(function() {
+                $this.before('<div class="preloader-wrapper active"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>');
+                $this.fadeTo(100, .1);
+//                $this.css('visibility', 'hidden');
+//                $this.css('opacity', '.5');
+            }, 400);
+        
+        btnSuccessful($this);
+        btnFailure($this);
+    });
+    
+    
+    $('.expand-fold').click(function() {
+        var $this = $(this).find('.fold-label');
         // If closed, expand fold
         var folded = $this.closest('.card').find('.fold-body');
+        
 //        folded.stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('display', 'block');}
         if ($this.text() == "More") {
             $this.addClass('opened');
@@ -693,6 +713,16 @@ function viewCal(event, date) {
     picker.set('select', date, { format: 'yyyy-mm-dd' });
     picker.open();
     event.stopPropagation();
+}
+
+function btnSuccessful(button) {
+    button.fadeIn();
+    button.closest('.preloader-wrapper').fadeOut();
+}
+
+function btnFailure(button) {
+    button.fadeIn();
+    button.closest('.preloader-wrapper').fadeOut();
 }
 
 function logOut() {
