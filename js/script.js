@@ -10,7 +10,7 @@ var filters = {
         lng: -75.375634
     },
     radius: 2,
-    date_start: moment("2015-01-01"), //UPDATE UPDATE UPDATE UPDATE -- REMOVE PARAMETERS
+    date_start: moment(),
     date_end: moment().add(3, 'months')
 };
 
@@ -256,8 +256,6 @@ function geoLocator() {
 
             filters.pos.lat = position.coords.latitude;
             filters.pos.lng = position.coords.longitude;
-            
-            console.log("lat: " + filters.pos.lat);
 
             map.setZoom(15);
             map.setCenter(filters.pos);
@@ -340,7 +338,6 @@ function getEvents() {
     if (logged_in) {
         var promisePriv = events.privateEvents().done(function (eventInfo) {
             clearEvents();
-            console.log(eventInfo);
             genEvents(eventInfo, "Private");
         });
         
@@ -395,7 +392,7 @@ function genClusters() {
     });
     
     google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
-        console.log(cluster);
+        
         var m = cluster.getMarkers(); 
         var eventTitle = [];
 
@@ -460,7 +457,7 @@ function genEvents(eventInfo, type) {
 }
 
 function genCards(eventInfo, type) {
-    console.log(type);
+    
     if (!logged_in) {
         $('#event-panel').append(
             '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
@@ -482,7 +479,7 @@ function genCards(eventInfo, type) {
         }
         
         var cardContent = '<div class="col s12">'+
-            '<div class="card" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + type + ' )">'+
+            '<div class="card" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', \'' + type + '\' )">'+
             '<div class="img-wrapper">'+
             '<img class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx" alt="">'+
             '</div>'+
@@ -501,17 +498,17 @@ function genCards(eventInfo, type) {
             '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>'+ eventInfo[i].time.format("h:mm A") +'</div>'+
             '</div>'+
             '</div>'+
-
-            '<div class="row row-tight">'+
-            '<div class="row span-padded center">'+ (type == "Public" ? '<i title="public" class="material-icons tiny">public</i><span>Public</span>' : '<i title="private" class="material-icons tiny">group</i><span>'+ type +'</span>') + '<span>'+
-            '8 Friends — 13 Total Going'+
-            '</span>'+
+            '<div class="row">'+
+            '<div class="center-align">'+
+            '<a href="#" class="grey-text">'+eventInfo[i].hostName+'</a> created this meet up.'+
             '</div>'+
+            '</div>'+
+            
             '<div class="fold-body hidden">'+
             '<div class="row row-tight">'+
-            '<div class="center-align">'+
-            '<a href="#">'+eventInfo[i].hostName+'</a> created this meet up.'+
-            '</div>'+
+            '<div class="span-padded center">'+ (type == "Public" ? '<i title="public" class="material-icons tiny">public</i><span>Public</span>' : '<i title="private" class="material-icons tiny">group</i><span>'+ type +'</span>') + '<span>'+
+            '8 Friends — 13 Total Going'+
+            '</span>'+
             '</div>'+
             '<div class="row row-tight">'+
             '<p class="col s12">'+
@@ -685,9 +682,6 @@ function clearEvents() {
             markers = [];
             numEvents = 0;
     }
-    
-    console.log("Num events: " + numEvents);
-    console.log("Marker cluster: " + markerCluster);
     
     $('#event-panel').children().remove();
 

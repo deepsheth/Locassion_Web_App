@@ -272,6 +272,7 @@ if (!isset($_SESSION['token'])) {
                     </div>
                         
                     <div id="event-panel">
+<!--
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">
@@ -340,6 +341,7 @@ if (!isset($_SESSION['token'])) {
                                 </div>
                             </div>
                         </div>
+-->
                     </div>
                 </div>
             </div>
