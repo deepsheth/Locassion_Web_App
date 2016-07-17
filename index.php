@@ -60,7 +60,7 @@ if (!isset($_SESSION['token'])) {
                 ?>
             var token = <?php
                 if (isset($_SESSION['token'])) {
-                    echo($_SESSION['token'].";");
+                    echo('"'.$_SESSION['token'].'";');
                 } else {
                     echo('"";');
                 }
