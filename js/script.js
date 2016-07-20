@@ -17,70 +17,51 @@ var filters = {
 $(document).ready(function () {
 
     $(".hamburger-menu").sideNav();
-    
+
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
-    
+
     $('#hidden').hide();
-    
+
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 10, // Creates a dropdown of 15 years to control year
         clear: ''
-    });    
-    
-//    $('.expand-fold').click(function() {
-//        var $this = $(this).find('.fold-label');
-//        // If closed, expand fold
-//        var folded = $this.closest('.card').find('.fold-body');
-//        
-////        folded.stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('display', 'block');}
-//        if ($this.text() == "More") {
-//            $this.addClass('opened');
-//            folded.stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('height', '')}});
-//            $this.fadeOut(125, function() { $this.text("Less").fadeIn(125); });
-//        }
-//        else {
-//            $this.removeClass('opened');
-//            folded.stop(true,false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('height', '')}});
-//            $this.fadeOut(125, function() { $this.text("More").fadeIn(125); });
-//        }
-//    });
+    });
 
-    $('#filters .chip').click(function(e) {
+    $('#filters .chip').click(function (e) {
         e.preventDefault();
         var chips = $('#filters .chip');
         chips.removeClass('active invert');
-        
+
         if ($(this).text() == 'Weekend') {
             filters.date_start = moment().day(5);
             filters.date_end = moment().day(7);
-            
-        }
-        else {
+
+        } else {
             filters.date_end = moment().add(1, $(this).text());
         }
         $(this).addClass('active invert');
-        
+
         getEvents();
-        
+
     });
-    
-    $('#filter-events').click(function(e) {
+
+    $('#filter-events').click(function (e) {
         e.preventDefault();
-        
+
     });
-    
-    $('#filters *').click(function() {
-       $('.refresh').addClass('active invert');
+
+    $('#filters *').click(function () {
+        $('.refresh').addClass('active invert');
     });
-    
-    $('.refresh').click(function(e) {
+
+    $('.refresh').click(function (e) {
         e.preventDefault();
         $('.refresh').removeClass('active invert');
     });
-    
+
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
 
@@ -118,7 +99,7 @@ function initMap() {
 
 
     // Gets all events
-     getEvents();
+    getEvents();
 
 
     $('.determinate').width('10%');
@@ -288,85 +269,157 @@ function geoLocator() {
 
 function getEvents() {
 
+    // REMEMBER LONGITUDE AND LATITUDE ARE REVERSED
+    var baseurl = "https://meet-up-1097.appspot.com/?command=";
+    var params = "" + filters.pos.lng + ";" + filters.pos.lat + ";" + filters.radius + ";" + filters.date_start.format("YYYY-MM-DD") + "%20" + filters.date_start.format("HH:mm:ss") + ";" + filters.date_end.format("YYYY-MM-DD") + "%" + filters.date_end.format("HH:mm:ss") + ";:::&token=";
+    //    console.log(url);
+
     var events = {
+        publicEventIDs: function () {
+            return $.ajax(baseurl + "publicEvents&args=" + params, {
+                dataType: 'json',
+                success: function (data) {
+                    events.pubIDs = data;
+                    return data;
+                },
+                error: function (e) {
+                    events.error(e, "ID of public");
+                }
+            });
+        },
         publicEvents: function () {
-            return $.getJSON('/php/getPublicEvents.php', {
-                lat: filters.pos.lat,
-                lng: filters.pos.lng,
-                radius: filters.radius,
-                start_date: filters.date_start.format("YYYY-MM-DD") ,
-                start_time: filters.date_start.format("HH:mm:ss"),
-                end_date: filters.date_end.format("YYYY-MM-DD"),
-                end_time: filters.date_end.format("HH:mm:ss")
-            }).then(function (data) {
-                return data;
+
+            var eventIDs = events.pubIDs.events.join(":");
+            return $.ajax(baseurl + "getPublicEventInfo&args=" + eventIDs + "&token=", {
+                dataType: 'json',
+                success: function (data) {
+                    return data;
+                },
+                error: function (e) {
+                    if (eventIDs == "") console.log("publicEventIDs must be called before publicEvents!");
+                    events.error(e, "public");
+                }
+            });
+        },
+        privateEventIDs: function () {
+            return $.ajax(baseurl + "privateEvents&args=" + params + ";:::&token=" + token, {
+                dataType: 'json',
+                success: function (data) {
+                    events.privIDs = data;
+                    return data;
+                },
+                error: function (e) {
+                    events.error(e, "ID of private");
+                }
             });
         },
         privateEvents: function () {
-            return $.getJSON('/php/getPrivateEvents.php', {
-                lat: filters.pos.lat,
-                lng: filters.pos.lng,
-                radius: filters.radius,
-                start_date: filters.date_start.format("YYYY-MM-DD") ,
-                start_time: filters.date_start.format("HH:mm:ss"),
-                end_date: filters.date_end.format("YYYY-MM-DD"),
-                end_time: filters.date_end.format("HH:mm:ss")
-            }).then(function (data) {
-                return data;
+            var eventIDs = events.privIDs.events.join(":");
+            return $.ajax(baseurl + "getPrivateEventInfo&args=" + eventIDs + "&token=" + token, {
+                dataType: 'json',
+                success: function (data) {
+                    return data;
+                },
+                error: function (e) {
+                    if (eventIDs == "") console.log("privateEventIDs must be called before privateEvents!");
+                    events.error(e, "private");
+                }
             });
-        }
+        },
+        error: function (e, type) {
+            //            clearEvents();
+            console.log("Errror loading cards");
+            genCustCard("Sorry!", "We were unable to get the " + type + " events. If this problem continues, please let us know! ", "red darken-2");
+            genCustCard("For Our Hard-working Devs:", e, "blue-grey darken-2");
+            $('#preloader-indef').fadeOut(350);
+        },
+        pubIDs: [],
+        privIDs: []
     };
 
-    
+
 
     $('#preloader-indef').fadeIn(350);
-    
+
     // Promises
-    
-    var promisePub = events.publicEvents().done(function (eventInfo) {
-        clearEvents();
-        genEvents(eventInfo, "Public");
-    });
-    promisePub.fail(function(error) {
-        clearEvents();
-        genCustCard("Sorry!", "We were unable to get the public events. Try refreshing the page or contact us. ", "red darken-2");
-        genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
-        $('#preloader-indef').fadeOut(350);
-    });
-    
-    // clearEvents is inside the promise to prevent race conditions from not clearing the markers if the discover event button is spammed
+
+    var xhrPrivID, xhrPub;
+
+    // First gets private event IDs, then public IDs
     if (logged_in) {
-        var promisePriv = events.privateEvents().done(function (eventInfo) {
-//            clearEvents();
-            genEvents(eventInfo, "Private");
+        xhrPrivID = events.privateEventIDs();
+    }
+    events.publicEventIDs().done(function (eventID) {
+
+        // Finishes publicEvens first, then private events (which hopefully finished getting IDs)
+        xhrPub = events.publicEvents().done(function (eventInfo) {
+            genEvents(eventInfo, "Public");
         });
-        
-        promisePriv.fail(function(error) {
-            clearEvents();
-            genCustCard("Sorry!", "We were unable to get the private events. Try refreshing the page or contact us. ", "red darken-2");
-            genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
-            $('#preloader-indef').fadeOut(350);
-        });
-        
-        Promise.all([promisePub, promisePriv]).then(eventInfo => {
+
+        if (logged_in) {
+            xhrPrivID.done(function (eventInfo) {
+                events.privateEvents().done(function (eventInfo) {
+                    genEvents(eventInfo, "Private");
+                });
+            });
+        }
+
+        Promise.all([xhrPrivID, xhrPub]).then(eventInfo => {
             genClusters();
             genDynHandlers();
-        }, function(reason) {
-            console.log(reason);
+        }, function (err) {
+            console.log(err);
         });
-    }
-    else {
-        promisePub.done(function () {
-            genClusters();
-            genDynHandlers();
-        });
-    }
+
+    });
+
+
+
+
+    /* var promisePub = events.publicEvents().done(function (eventInfo) {
+         clearEvents();
+         genEvents(eventInfo, "Public");
+     });
+     promisePub.fail(function(error) {
+         clearEvents();
+         genCustCard("Sorry!", "We were unable to get the public events. Try refreshing the page or contact us. ", "red darken-2");
+         genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
+         $('#preloader-indef').fadeOut(350);
+     });
+
+     // clearEvents is inside the promise to prevent race conditions from not clearing the markers if the discover event button is spammed
+     if (logged_in) {
+         var promisePriv = events.privateEvents().done(function (eventInfo) {
+             //            clearEvents();
+             genEvents(eventInfo, "Private");
+         });
+
+         promisePriv.fail(function(error) {
+             clearEvents();
+             genCustCard("Sorry!", "We were unable to get the private events. Try refreshing the page or contact us. ", "red darken-2");
+             genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
+             $('#preloader-indef').fadeOut(350);
+         });
+
+         Promise.all([promisePub, promisePriv]).then(eventInfo => {
+             genClusters();
+             genDynHandlers();
+         }, function(reason) {
+             console.log(reason);
+         });
+     }
+     else {
+         promisePub.done(function () {
+             genClusters();
+             genDynHandlers();
+         });
+     }*/
 
 }
 
 function genCustCard(title, body, bgcolor) {
     $('#event-panel').append(
-        '<div class="row"><div class="col 12"><div class="card ' + bgcolor + '"><div class="card-content white-text"><span class="card-title">'+ title +'</span><p class="insert">'+ body  +'</p></div></div></div></div>'
+        '<div class="row"><div class="col 12"><div class="card ' + bgcolor + '"><div class="card-content white-text"><span class="card-title">' + title + '</span><p class="insert">' + body + '</p></div></div></div></div>'
     );
 }
 
@@ -382,31 +435,31 @@ function genClusters() {
     };
     markerCluster = new MarkerClusterer(map, markers, options);
 
-    
+
     var infoWindow = new google.maps.InfoWindow({
         maxWidth: 300,
     });
-    
-    google.maps.event.addListener(infoWindow, 'domready', function() {
+
+    google.maps.event.addListener(infoWindow, 'domready', function () {
         styleInfoWin(infoWindow);
     });
-    
-    google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
-        
-        var m = cluster.getMarkers(); 
+
+    google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
+
+        var m = cluster.getMarkers();
         var eventTitle = [];
 
         for (i = 0; i < m.length; i++) {
-            
-            eventTitle.push("<span class='add-cursor' onclick='centerMap(" + m[i].position.lat() + ", "+ m[i].position.lng() + ")'><strong>" + m[i].getTitle() + "</strong></span>" + '<br>');
+
+            eventTitle.push("<span class='add-cursor' onclick='centerMap(" + m[i].position.lat() + ", " + m[i].position.lng() + ")'><strong>" + m[i].getTitle() + "</strong></span>" + '<br>');
         }
         if (map.getZoom() <= markerCluster.getMaxZoom()) {
-//            infoWindow.setContent('<div class="row customInfoWin"><div class="col 12"><div class="card"><div class="card-content blue-grey-text text-darken-2"><span class="card-title">'+ m.length +'</span><p class="insert">'+ eventTitle.join("") +'</p></div></div></div></div>');
-            infoWindow.setContent('<div class="row customInfoWin"><div class="col 12"><div class="card"><div class="card-content blue-grey-text text-darken-2"><span class="card-title">'+ m.length +' Events</span><p>'+ eventTitle.join("") +'</p></div></div></div></div>');
-//            infoWindow.setContent("<strong>" + m.length + " Events</strong><br>" + eventTitle.join(""));
+            //            infoWindow.setContent('<div class="row customInfoWin"><div class="col 12"><div class="card"><div class="card-content blue-grey-text text-darken-2"><span class="card-title">'+ m.length +'</span><p class="insert">'+ eventTitle.join("") +'</p></div></div></div></div>');
+            infoWindow.setContent('<div class="row customInfoWin"><div class="col 12"><div class="card"><div class="card-content blue-grey-text text-darken-2"><span class="card-title">' + m.length + ' Events</span><p>' + eventTitle.join("") + '</p></div></div></div></div>');
+            //            infoWindow.setContent("<strong>" + m.length + " Events</strong><br>" + eventTitle.join(""));
             infoWindow.setPosition(cluster.getCenter());
             infoWindow.open(map);
-        } 
+        }
     });
 
     setTimeout(function () {
@@ -416,17 +469,18 @@ function genClusters() {
 }
 
 function genDynHandlers() {
-    
+
     $('#preloader-indef').fadeOut(350);
-    
+
     foldableInit();
     btnRequestInit();
-    
+    cleanTags();
+
     // Allow cards to open
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
-    
+
     // Delete Card
     $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
         deleteCard(this);
@@ -451,13 +505,12 @@ function genDynHandlers() {
 
 // Runs for each type of event (public/private events)
 function genEvents(eventInfo, type) {
-    eventInfo.reverse();
     genCards(eventInfo, type);
     genMarkers(eventInfo, type);
 }
 
 function genCards(eventInfo, type) {
-    
+
     if (!logged_in) {
         $('#event-panel').append(
             '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
@@ -473,72 +526,71 @@ function genCards(eventInfo, type) {
         var past;
         if (eventInfo[i].time.diff(moment()) < 0) {
             past = true;
-        }
-        else {
+        } else {
             past = false;
         }
-        
-        var cardContent = '<div class="col s12">'+
-            '<div class="card" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', \'' + type + '\' )">'+
-            '<div class="img-wrapper">'+
-            '<img class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx" alt="">'+
-            '</div>'+
-            '<div class="card-content">'+
-            '<div class="row">'+
-            '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\''+ eventInfo[i].time.valueOf() +'\')" title="'+ eventInfo[i].time.toString() +'">'+
-            '<div class="day">'+ eventInfo[i].time.format("ddd") +'</div>'+
-            '<div class="day-num">'+ eventInfo[i].time.format("D") +'</div>'+
-            '<div class="month">'+ eventInfo[i].time.format("MMM") +'</div>'+
-            '<div class="context">' + eventInfo[i].time.fromNow() + '</div>'+
-            '</div>'+
-            '<div class="col m9 l8 offset-l1">'+
-            '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a></div>'+
-            '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</div>'+
-            '<div class="small-details">'+ eventInfo[i].address +'</div>'+
-            '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>'+ eventInfo[i].time.format("h:mm A") +'</div>'+
-            '</div>'+
-            '</div>'+
-            '<div class="row">'+
-            '<div class="center-align">'+
-            '<a href="#" class="grey-text">'+eventInfo[i].hostName+'</a> created this meet up.'+
-            '</div>'+
-            '</div>'+
-            
-            '<div class="fold-body hidden">'+
-            '<div class="row row-tight">'+
-            '<div class="span-padded center">'+ (type == "Public" ? '<i title="public" class="material-icons tiny">public</i><span>Public</span>' : '<i title="private" class="material-icons tiny">group</i><span>'+ type +'</span>') + '<span>'+
-            '8 Friends — 13 Total Going'+
-            '</span>'+
-            '</div>'+
-            '<div class="row row-tight">'+
-            '<p class="col s12">'+
-            eventInfo[i].description +
-            '</p>'+
-            '</div>'+
-            '<div class="divider"></div>'+
-            '<div class="row flex-container">'+
-            '<a href="#" class="chip">'+eventInfo[i].tag1+'</a>'+
-            '<a href="#" class="chip">'+eventInfo[i].tag2+'</a>'+
-            '<a href="#" class="chip">'+eventInfo[i].tag3+'</a>'+
-            '<a href="#" class="chip">'+eventInfo[i].tag4+'</a>'+
-            '</div>'+
-            '</div>'+
 
-            '</div>'+
-            '</div>'+
-            '<div class="card-action center-align expand-fold">'+
-            '<div class="col s6 pre-btn left-align"><a href="#" class="fold-label">More</a><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i></div>'+
-            '<div class="col s6 right right-align"><a href="#" class="btn-go waves-effect waves-light '+ (past ? "disabled dirty\">Passed</a>" : "\">GO</a>") +'</div>'+
-            '</div>'+
-            '</div>'+
-            '</div>'+
+        var cardContent = '<div class="col s12">' +
+            '<div class="card" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', \'' + type + '\' )">' +
+            '<div class="img-wrapper">' +
+            '<img class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx" alt="">' +
+            '</div>' +
+            '<div class="card-content">' +
+            '<div class="row">' +
+            '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo[i].time.valueOf() + '\')" title="' + eventInfo[i].time.toString() + '">' +
+            '<div class="day">' + eventInfo[i].time.format("ddd") + '</div>' +
+            '<div class="day-num">' + eventInfo[i].time.format("D") + '</div>' +
+            '<div class="month">' + eventInfo[i].time.format("MMM") + '</div>' +
+            '<div class="context">' + eventInfo[i].time.fromNow() + '</div>' +
+            '</div>' +
+            '<div class="col m9 l8 offset-l1">' +
+            '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a></div>' +
+            '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</div>' +
+            '<div class="small-details">' + eventInfo[i].address + '</div>' +
+            '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("h:mm A") + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="center-align">' +
+            '<a href="#" class="grey-text">' + eventInfo[i].hostName + '</a> created this meet up.' +
+            '</div>' +
+            '</div>' +
+
+            '<div class="fold-body hidden">' +
+            '<div class="row row-tight">' +
+            '<div class="span-padded center">' + (type == "Public" ? '<i title="public" class="material-icons tiny">public</i><span>Public</span>' : '<i title="private" class="material-icons tiny">group</i><span>' + type + '</span>') + '<span>' +
+            '8 Friends — 13 Total Going' +
+            '</span>' +
+            '</div>' +
+            '<div class="row row-tight">' +
+            '<p class="col s12">' +
+            eventInfo[i].description +
+            '</p>' +
+            '</div>' +
+            '<div class="divider"></div>' +
+            '<div class="flex-container tags">' +
+            '<a href="#" class="chip">#' + eventInfo[i].tag1 + '</a>' +
+            '<a href="#" class="chip">#' + eventInfo[i].tag2 + '</a>' +
+            '<a href="#" class="chip">#' + eventInfo[i].tag3 + '</a>' +
+            '<a href="#" class="chip">#' + eventInfo[i].tag4 + '</a>' +
+            '</div>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '<div class="card-action center-align expand-fold">' +
+            '<div class="col s6 pre-btn left-align"><a href="#" class="fold-label">More</a><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i></div>' +
+            '<div class="col s6 right right-align"><a href="#" class="btn-go waves-effect waves-light ' + (past ? "disabled dirty\">Passed</a>" : "\">GO</a>") + '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
             '</div>';
-        
+
         $('#event-panel').append(
-//            '<div class="row"><div class="col s12"><div class="card white hoverable" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + '\'public\'' + ' )"><div class="card-content blue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>'+ type +' Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</span><p>' + eventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' + eventInfo[i].tag1 + '</div><div class="chip">' + eventInfo[i].tag2 + '</div></div></li></ul></div></div></div></div>'
-        
-        cardContent
-            
+            //            '<div class="row"><div class="col s12"><div class="card white hoverable" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + '\'public\'' + ' )"><div class="card-content blue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>'+ type +' Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</span><p>' + eventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' + eventInfo[i].tag1 + '</div><div class="chip">' + eventInfo[i].tag2 + '</div></div></li></ul></div></div></div></div>'
+
+            cardContent
+
         );
         numEvents++;
     }
@@ -552,12 +604,12 @@ function genMarkers(eventInfo, type) {
             icon: markerIcons(type),
             title: eventInfo[i].name
         });
-        
-//        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-//            return function () {
-//                infowindow.open(map, marker);
-//            }
-//        })(marker, i));
+
+        //        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+        //            return function () {
+        //                infowindow.open(map, marker);
+        //            }
+        //        })(marker, i));
 
         markers.push(marker);
 
@@ -565,10 +617,10 @@ function genMarkers(eventInfo, type) {
             maxWidth: 250
         });
 
-        google.maps.event.addListener(infowindow, 'domready', function() {
+        google.maps.event.addListener(infowindow, 'domready', function () {
             styleInfoWin(infowindow);
         });
-        
+
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
                 var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo[i].time + "</br><strong>Location: </strong>" + eventInfo[i].locationDescription + "</br></br>" + eventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
@@ -581,8 +633,8 @@ function genMarkers(eventInfo, type) {
 }
 
 function styleInfoWin(infowindow) {
-    
-    google.maps.event.addListener(map, 'click', function() {
+
+    google.maps.event.addListener(map, 'click', function () {
         infowindow.close();
     });
 
@@ -592,23 +644,35 @@ function styleInfoWin(infowindow) {
     /* Since this div is in a position prior to .gm-div style-iw.
      * We use jQuery and create a iwBackground variable,
      * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
-    */
+     */
     var iwBackground = iwOuter.prev();
 
     // Removes background shadow DIV
-    iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+    iwBackground.children(':nth-child(2)').css({
+        'display': 'none'
+    });
 
     // Removes white background DIV
-    iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+    iwBackground.children(':nth-child(4)').css({
+        'display': 'none'
+    });
 
     // Moves the infowindow 115px to the right.
-    iwOuter.parent().parent().css({left: '10px'});
+    iwOuter.parent().parent().css({
+        left: '10px'
+    });
     // Moves the infowindow 115px to the right.
-    iwOuter.parent().parent().css({top: '60px'});
+    iwOuter.parent().parent().css({
+        top: '60px'
+    });
 
     // Moves the shadow of the arrow 76px to the left margin.
-    iwBackground.children(':nth-child(1)').css({'display' : 'none'});
-    iwBackground.children(':nth-child(3)').css({'display' : 'none'});
+    iwBackground.children(':nth-child(1)').css({
+        'display': 'none'
+    });
+    iwBackground.children(':nth-child(3)').css({
+        'display': 'none'
+    });
     //
     ////             Moves the arrow 76px to the left margin.
     //            iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 110px !important;'});
@@ -621,16 +685,26 @@ function styleInfoWin(infowindow) {
     var iwCloseBtn = iwOuter.next();
 
     // Apply the desired effect to the close button
-    iwCloseBtn.css({opacity: '1', right: '55px', top: '23px', border: '0px solid #48b5e9', 'border-radius': '13px'});
+    iwCloseBtn.css({
+        opacity: '1',
+        right: '55px',
+        top: '23px',
+        border: '0px solid #48b5e9',
+        'border-radius': '13px'
+    });
 
     // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
-    if($('.iw-content').height() < 140){
-        $('.iw-bottom-gradient').css({display: 'none'});
+    if ($('.iw-content').height() < 140) {
+        $('.iw-bottom-gradient').css({
+            display: 'none'
+        });
     }
 
     // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
-    iwCloseBtn.mouseout(function(){
-        $(this).css({opacity: '1'});
+    iwCloseBtn.mouseout(function () {
+        $(this).css({
+            opacity: '1'
+        });
     });
 }
 
@@ -641,6 +715,12 @@ function getAttendingEvents() {
         '<div class="row"><div class="col 12"><div class="card  grey lighten-3"><div class="card-content"><span class="card-title">😞 No Upcoming Events!</span><p class="insert grey-text text-darken-2">This is hard coded! Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
     );
 
+}
+
+function cleanTags() {
+    $('.tags .chip').each(function (i) {
+        if ($(this).text() == "#") $(this).remove()
+    });
 }
 
 function generateEventDetails(event) {
@@ -669,8 +749,8 @@ function generateEventDetails(event) {
     $('.dyn_event-desc').text(event.description);
     $('.dyn_tag1').text(event.tag1);
     $('.dyn_tag2').text(event.tag2);
-    
-    if(event.private) $('.dyn_privacy').text("group");
+
+    if (event.private) $('.dyn_privacy').text("group");
 
     $('.dyn_gcal-export').attr("href", "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + event.name + "&dates=20160127T224000Z/20160320T221500Z&details=Location Details: " + event.locationDescription + " //  Event Details: " + event.description + "&location=" + event.latitude + ", " + event.longitude + "&sf=true&output=xml#eventpage_6");
 }
@@ -678,11 +758,11 @@ function generateEventDetails(event) {
 
 function clearEvents() {
     if (typeof markerCluster !== 'undefined') {
-            markerCluster.clearMarkers();
-            markers = [];
-            numEvents = 0;
+        markerCluster.clearMarkers();
+        markers = [];
+        numEvents = 0;
     }
-    
+
     $('#event-panel').children().remove();
 
 }
@@ -754,8 +834,8 @@ function viewCal(event, date) {
     event.stopPropagation();
 }
 
-function foldableInit () {
-    $('.expand-fold').on('click', function() {
+function foldableInit() {
+    $('.expand-fold').on('click', function () {
         var $this = $(this).find('.fold-label');
         // If closed, expand fold
         var folded = $this.closest('.card').find('.fold-body');
@@ -763,49 +843,66 @@ function foldableInit () {
         //        folded.stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('display', 'block');}
         if ($this.text() == "More") {
             $this.addClass('opened');
-            folded.stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('height', '')}});
-            $this.fadeOut(125, function() { $this.text("Less").fadeIn(125); });
-        }
-        else {
+            folded.stop(true, false).slideDown({
+                duration: 350,
+                easing: "easeOutQuart",
+                queue: false,
+                complete: function () {
+                    folded.css('height', '')
+                }
+            });
+            $this.fadeOut(125, function () {
+                $this.text("Less").fadeIn(125);
+            });
+        } else {
             $this.removeClass('opened');
-            folded.stop(true,false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {folded.css('height', '')}});
-            $this.fadeOut(125, function() { $this.text("More").fadeIn(125); });
+            folded.stop(true, false).slideUp({
+                duration: 350,
+                easing: "easeOutQuart",
+                queue: false,
+                complete: function () {
+                    folded.css('height', '')
+                }
+            });
+            $this.fadeOut(125, function () {
+                $this.text("More").fadeIn(125);
+            });
         }
     });
 }
 
 function btnRequestInit() {
-    $('.btn-go').on('click', function(event) {
+    $('.btn-go').on('click', function (event) {
         event.stopPropagation();
         var $this = $(this);
-        
+
         if ($this.hasClass("disabled")) return;
         if ($this.hasClass("dirty")) return;
-        
+
         $this.text("");
         $this.addClass("dirty");
         $this.css('width', '3.5em');
 
 
-        setTimeout(function() {
+        setTimeout(function () {
             $this.before('<div class="preloader-wrapper active"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>');
             $this.fadeTo(100, .1);
-            
+
             // Call server here
             // Call server here
-            
-            setTimeout(function() {
+
+            setTimeout(function () {
                 $this.closest('.preloader-wrapper').remove();
                 $this.fadeTo(100, 1);
 
                 btnSuccessful($this);
-//                btnFailure($this);
+                //                btnFailure($this);
                 $this.css('width', 'auto');
-                
+
             }, 500);
         }, 400);
 
-    });   
+    });
 }
 
 function btnSuccessful(button) {

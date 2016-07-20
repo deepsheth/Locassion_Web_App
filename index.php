@@ -118,55 +118,54 @@ if (!isset($_SESSION['token'])) {
                                 <li><a href="/webpages/events_hist.php">Event History</a></li>
                                 <li><a href="#!">Account Settings</a></li>
                                 <li class="divider"></li>                               
-                                <li><a onclick="logOut()">Logout</a></li>
+                                <li><a class="grey-text" onclick="logOut()">Logout</a></li>
                             </ul>
 
                         ');
                     }
                     else{
-                        echo('<button data-target="modal-small" class="waves-effect btn btn-flat modal-trigger">Login</button>');
+                        echo('<button data-target="modal-login" class="waves-effect btn btn-flat modal-trigger">Login</button>');
                         echo('<a href="/webpages/sign_up.php"><button class="waves-effect waves-blue btn">Sign Up</button></a>');
                     }
             ?>
-
-
-                        <!-- Login Popup -->
-                        <form action="" method="post">
-                            <div id="modal-small" class="modal blue-grey-text text-darken-2">
-                                <div class="modal-padding">
-                                    <h3>Login</h3>
-                                    <br>
-                                    <div class="input-field">
-                                        <i class="material-icons prefix ">account_circle</i>
-                                        <input id="icon_username" name="email" type="text" required>
-                                        <label for="icon_username">Email</label>
-                                    </div>
-                                    <div class="input-field">
-                                        <i class="material-icons prefix">https</i>
-                                        <input id="icon_password" name="password" type="password" required>
-                                        <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div>
-                                    </div>
-
-                                    <div class="center-align">
-                                        <div class="row">
-                                            <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue darken-1 white-text">Login with Facebook</a>
-                                        </div>
-                                        <div class="row">
-                                            <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
-                                        </div>
-                                        <div class="row center"><small>We won't post anything without asking!</small></div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer grey lighten-2 blue-grey-text text-darken-2">
-                                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
-                                    <strong><input name="submit" type="submit" value="login" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
-                                </div>
-                            </div>
-                        </form>
                 </div>
             </ul>
         </header>
 
+        <!-- Login Popup -->
+        <form action="" method="post">
+            <div id="modal-login" class="modal modal-small blue-grey-text text-darken-2">
+                <div class="modal-padding">
+                    <h3>Login</h3>
+                    <br>
+                    <div class="input-field">
+                        <i class="material-icons prefix ">account_circle</i>
+                        <input id="input_username" name="email" type="text" required>
+                        <label for="input_username">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">https</i>
+                        <input id="input_password" name="password" type="password" required>
+                        <label for="input_password">Password</label>
+                        <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div>
+                    </div>
+
+                    <div class="center-align">
+                        <div class="row">
+                            <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue-text text-darken-1 white">Login with Facebook</a>
+                        </div>
+                        <div class="row">
+                            <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
+                        </div>
+                        <div class="center"><small>We won't post anything without asking.</small></div>
+                    </div>
+                </div>
+                <div class="modal-footer grey lighten-2 blue-grey-text text-darken-2">
+                    <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
+                    <a href="#"><input name="submit" type="submit" value="login" id="btn-login" class="modal-action btn-flat blue-text"></a>
+                </div>
+            </div>
+        </form>
 
         <div id="main-container">
             <div class="row">

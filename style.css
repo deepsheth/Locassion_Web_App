@@ -18,6 +18,8 @@ header.row .col {
 
 .dropdown-content li > a {
     color: #2196F3;
+    font-weight: normal;
+    font-family: rubik, sans-serif;
 }
 
 h1 {
@@ -150,7 +152,11 @@ h3 {
     text-align: center;
 }
 
-#modal-small {
+.modal-footer {
+    font-weight: bold;    
+}
+
+.modal-small {
     max-width: 25em;
 }
 
@@ -285,18 +291,24 @@ h3 {
     color: #48A64C;
 }
 
-.card a {
+.card a:not(.chip) {
     font-weight: 700;
 }
 
 .card .flex-container {
     justify-content: space-between;
+    margin: .25em 0;
+}
+
+.card .divider {
+    opacity: .5;    
 }
 
 #side-bar .card .card-action {
     overflow: hidden;
     height: 6.25em;
     background: #F5F5F5;
+    border-width: 2px;
 }
 
 #side-bar .pre-btn {
@@ -354,6 +366,7 @@ h3 {
     color: #FFF;
     background: #D3D3D3; 
     border-color: #D3D3D3;
+    font-weight: 400;
 }
 
 #main-container .btn-go:not(.dirty):hover, #main-container .btn-go.success {
@@ -808,12 +821,12 @@ button.picker__close:focus {
 
 header .flex-container {
     justify-content: flex-end;
+    font-weight: bold;
 }
 
 .flex-container .btn {
     background: #FFFFFF;
     color: #2196F3;
-    font-weight: 700;
 }
 
 header .hamburger-menu {

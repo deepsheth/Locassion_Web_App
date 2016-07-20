@@ -1,7 +1,8 @@
 <?php
 
 $error = "";
-var_dump($_POST);
+
+
 if (isset($_POST['email'])){
     $response = file_get_contents("https://meet-up-1097.appspot.com/?command=resetPassword&args=".$_POST['email']."&token=none");
     $error = "Please check you email and open the password reset link to continue.";

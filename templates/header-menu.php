@@ -33,17 +33,16 @@ if (session_status() == PHP_SESSION_NONE) {
     else{
         echo('</ul></header><div id="main-container" class="center"> 
             <div class="container section">
-                <h3 class="red-text">This feature is only available for logged in users.</h3><h4>Sorry!</h4>
+                <h3 class="green-text">Please login!</h3><h5>Sorry, but you must log in to continue.</h5>
             </div>
             <div class="row center">
                 <div class="row">
-                    <a href="/webpages/sign_up.php" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a>
-                </div>
-                <div class="row">
-                    <a href="/webpages/log_in.php" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a>
+                    <a href="/webpages/sign_up.php?redirect='.$_SERVER['REQUEST_URI']  . '" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a>
+                    <a href="/webpages/log_in.php?redirect='.$_SERVER['REQUEST_URI']. '" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a>
                 </div>
             </div>
         </div>');
+        
         exit();
     }
 

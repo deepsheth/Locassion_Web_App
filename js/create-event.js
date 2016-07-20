@@ -124,6 +124,8 @@ function validateMaxLen() {
 
     startTime = $('#start_time').timepicker('getTime').toString().slice(16, 24);
     endTime = $('#end_time').timepicker('getTime').toString().slice(16, 24);
+    
+    console.log(endTime);
 
 
     $.each($('#tag-row input'), function (index) {
