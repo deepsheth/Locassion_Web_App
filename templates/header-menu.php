@@ -20,12 +20,12 @@ if (session_status() == PHP_SESSION_NONE) {
 
             <!-- Dropdown Structure -->
             <ul id="acct-settings" class="dropdown-content">
-            <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
-            <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
-            <li><a href="/webpages/events_hist.php">Event History</a></li>
-            <li><a href="#!">Account Settings</a></li>
-            <li class="divider"></li>
-            <li><a onclick="logOut()">Logout</a></li>
+                <li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li>
+                <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
+                <li><a href="/webpages/events_hist.php">Event History</a></li>
+                <li><a href="#!">Account Settings</a></li>
+                <li class="divider"></li>                               
+                <li><a class="grey-text" onclick="logOut()">Logout</a></li>
             </ul>
 
         ');

@@ -27,7 +27,7 @@ if (!isset($_SESSION['token'])) {
 	================================================== -->
         <!--       Todo: combine Dosis and all fonts into one link (for all webpages!!!) -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-        <link href='https://fonts.googleapis.com/css?family=Dosis:700|Raleway:600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis:700|Raleway:400,600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
         <!--    <link rel="stylesheet" href="cobblestone.css">-->
         <link rel="stylesheet" href="/style.css">
 
@@ -162,7 +162,9 @@ if (!isset($_SESSION['token'])) {
                 </div>
                 <div class="modal-footer grey lighten-2 blue-grey-text text-darken-2">
                     <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
-                    <a href="#"><input name="submit" type="submit" value="login" id="btn-login" class="modal-action btn-flat blue-text"></a>
+                    <a href="#">
+                        <input name="submit" type="submit" value="login" id="btn-login" class="modal-action btn-flat blue-text">
+                    </a>
                 </div>
             </div>
         </form>
@@ -171,32 +173,31 @@ if (!isset($_SESSION['token'])) {
             <div class="row">
                 <div id="map-panel" class="col m6 l8 hide-on-small-only">
 
-                    <div id="filters" class="flex-container">
-                        <!--                        <h5>Filters</h5>-->
-
-
-                        <h6>Events this</h6>
-                        <div>
-                            <a href="" class="chip">Week</a>
-                            <a href="" class="chip">Weekend</a>
-                            <a href="" class="chip">Month</a>
+                    <div class="container">
+                        <div id="filters" class="flex-container">
+                            <h6>Events this</h6>
+                            <div>
+                                <a href="" class="chip">Week</a>
+                                <a href="" class="chip">Weekend</a>
+                                <a href="" class="chip">Month</a>
+                            </div>
+                            <input id="edit_location" type="text" placeholder="18015" title="Zip Code" class="modal-trigger add-cursor" data-target="filter-events" readonly>
+                            <!--                   <input type="date" class="datepicker"><i class="material-icons">date_range</i>-->
+                            <p class="range-field">
+                                <input type="range" id="test5" min="1" max="15" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
+                            </p>
+<!--
+                            <p>
+                                <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
+                                <label for="public_box">Public</label>
+                            </p>
+                            <p>
+                                <input type="checkbox" class="filled-in" id="private_box" checked="checked" />
+                                <label for="private_box">Private</label>
+                            </p>
+-->
+                            <a href="/" class="waves-effect waves-blue btn btn-flat refresh"><i class="material-icons">refresh</i></a>
                         </div>
-                        <input id="edit_location" type="text" placeholder="18015" title="Zip Code" class="modal-trigger add-cursor" data-target="filter-events" readonly>
-                        <!--                   <input type="date" class="datepicker"><i class="material-icons">date_range</i>-->
-                        <p class="range-field">
-                            <input type="range" id="test5" min="1" max="15" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
-                        </p>
-                        <p>
-                            <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
-                            <label for="public_box">Public</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" class="filled-in" id="private_box" checked="checked" />
-                            <label for="private_box">Private</label>
-                        </p>
-                        <a href="/" class="waves-effect waves-blue btn btn-flat refresh"><i class="material-icons">refresh</i></a>
-
-
                     </div>
 
                     <div id="filter-events" class="modal">
@@ -237,7 +238,7 @@ if (!isset($_SESSION['token'])) {
 -->
                         <div id="map"></div>
                         <footer>
-<!--                           IMPORTANT -- TODO Prevent scrolling when calendar is open-->
+                            <!--                           IMPORTANT -- TODO Prevent scrolling when calendar is open-->
                             <input type="hidden" class="datepicker" id="hidden">
                             <div class="footer-copyright">
                                 <small> <b>
@@ -276,9 +277,9 @@ if (!isset($_SESSION['token'])) {
                             </ul>
                         </div>
                     </div>
-                        
+
                     <div id="event-panel">
-<!--
+                        <!--
                         <div class="row">
                             <div class="col s12">
                                 <div class="card">

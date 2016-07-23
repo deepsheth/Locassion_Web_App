@@ -17,8 +17,8 @@
         <!-- CSS
 	================================================== -->
         <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-        <link href='https://fonts.googleapis.com/css?family=Raleway:600|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../css/jquery.timepicker.css">
         <link rel="stylesheet" href="../style.css">
 
@@ -535,9 +535,9 @@
                         </div>
 
 
-                        <div class="blue inverted-footer">
-                            <button class="btn waves-effect waves-light btn btn-flat white" type="submit" name="action" onclick="eventCreation()">Submit
-                                <i class="material-icons right">send</i>
+                        <div class="blue inverted-footer center">
+                            <button class="btn waves-effect waves-green btn btn-flat white" type="submit" name="action" onclick="eventCreation()">Create Event
+                                <i class="material-icons right">event_available</i>
                             </button>
 
                             <div id="submission">
