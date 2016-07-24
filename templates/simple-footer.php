@@ -49,9 +49,9 @@
                 <h5>Help</h5>
                 <ul>
                     <li><a data-target="modal-bug-report" class="modal-trigger add-cursor deep-orange-text text-accent-4">REPORT BUG</a></li>
-                    <li><a class=" " href="./faq.html" title="Frequently Asked Questions">FAQ</a></li>
-                    <li><a class=" " href="./privacy.html">Privacy Policy</a></li>
-                    <li><a class=" " href="./tos.html">Terms of Service</a></li>
+                    <li><a class=" " href="./faq.php" title="Frequently Asked Questions">FAQ</a></li>
+                    <li><a class=" " href="./privacy.php">Privacy Policy</a></li>
+                    <li><a class=" " href="./tos.php">Terms of Service</a></li>
                 </ul>
             </div>
         </div>

@@ -166,7 +166,7 @@ if (isset($_POST['submit'])) {
 
                     </div>
                     <div class="modal-footer blue-grey lighten-5">
-                        <a href="/webpages/faq.html#faq_friend_list" class="left modal-action modal-close waves-effect waves-blue btn-flat"><i class="material-icons left">info</i>Help</a>
+                        <a href="/webpages/faq.php#faq_friend_list" class="left modal-action modal-close waves-effect waves-blue btn-flat"><i class="material-icons left">info</i>Help</a>
                          <a href="#" class="right modal-action modal-close waves-effect waves-blue btn-flat"><i class="blue-text material-icons left">add</i><strong class="blue-text">Add</strong></a>
                     </div>
                 </div>
@@ -404,9 +404,9 @@ if (isset($_POST['submit'])) {
             <div class="container">
 
                 <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
-                <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
-                <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
-                <a class="right blue-grey-text" href="./faq.html">FAQ</a>
+                <a class="right blue-grey-text" href="./tos.php">Terms of Service</a>
+                <a class="right blue-grey-text" href="./privacy.php">Privacy Policy</a>
+                <a class="right blue-grey-text" href="./faq.php">FAQ</a>
             </div>
         </div>
     </footer>

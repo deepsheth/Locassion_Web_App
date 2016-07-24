@@ -1,4 +1,4 @@
-html,
+    html,
 body {
     height: 100%;
     margin: 0;
@@ -26,6 +26,7 @@ h1 {
     font-size: 2.5em;
     margin: 0;
     letter-spacing: 1px;
+    display: inline-block;
     padding-top: 0.375em !important;
 }
 
@@ -39,10 +40,10 @@ button,
     font-family: "Raleway", "Roboto", sans-serif;
 }
 
-button[type="submit"] {
+button[type="submit"],
+a[type="submit"] {
     font-weight: bold;
 }
-
 
 h2,
 h3,
@@ -63,7 +64,9 @@ h6,
     background: rgb(194, 218, 158);
 }
 
-.light-green.darken-2,
+.btn-flat:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 
 .primary-green {
     background: #48A64C !important;
@@ -75,10 +78,10 @@ h6,
 }
 
 .bg {
-    min-height: 90vh;    
+    min-height: 90vh;
 }
 
-.bg .container > .row{
+.bg .container > .row {
     margin-bottom: 0;
 }
 
@@ -162,7 +165,7 @@ h3 {
 }
 
 .modal-footer {
-    font-weight: bold;    
+    font-weight: bold;
 }
 
 .modal-small {
@@ -229,8 +232,7 @@ h3 {
     font-size: 1.25em;
 }
 
-.mini-cal .month {
-}
+.mini-cal .month {}
 
 .mini-cal .context {
     font-family: roboto, sans-serif;
@@ -255,7 +257,7 @@ h3 {
 
 .icon-hoverable:hover i {
     width: 22px;
-    margin-right: 10px;    
+    margin-right: 10px;
     opacity: 1;
 }
 
@@ -267,6 +269,7 @@ h3 {
     position: relative;
     top: 3px;
 }
+
 .vertical-align {
     vertical-align: middle;
 }
@@ -280,7 +283,7 @@ h3 {
 }
 
 .fold-body a {
-    color: #969696;    
+    color: #969696;
 }
 
 #side-bar .card p {
@@ -292,7 +295,6 @@ h3 {
 
 #side-bar .chip {
     background: #FFF;
-    
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
@@ -313,7 +315,7 @@ h3 {
 }
 
 .card .divider {
-    opacity: .5;    
+    opacity: .5;
 }
 
 #side-bar .card .card-action {
@@ -333,8 +335,9 @@ h3 {
 
 .hidden {
     display: none;
-
 }
+
+
 /*
 .more-wrapper {
     position: relative;
@@ -366,8 +369,6 @@ h3 {
     text-align: center;
     vertical-align: top;
     display: inline-block;
-   
-    
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
@@ -376,12 +377,13 @@ h3 {
 
 #main-container .btn-go.disabled {
     color: #FFF;
-    background: #D3D3D3; 
+    background: #D3D3D3;
     border-color: #D3D3D3;
     font-weight: 400;
 }
 
-#main-container .btn-go:not(.dirty):hover, #main-container .btn-go.success {
+#main-container .btn-go:not(.dirty):hover,
+#main-container .btn-go.success {
     color: #FFF;
     background: #2196F3;
 }
@@ -406,6 +408,7 @@ h3 {
     width: 3.5em;
     height: 3.5em;
 }
+
 .card-selected {
     background: #2196F3;
     color: #FFF;
@@ -444,34 +447,67 @@ h3 {
 
 
 /* label color */
+
+
 /*
 .input-field label {
     color: #48A64C;
 }
 */
 
+
 /* label focus color */
+
 .input-field input[type=text]:focus + label {
     color: #2196F3;
 }
+
+
 /* label underline focus color */
+
 .input-field input[type=text]:focus {
     border-bottom: 1px solid #2196F3;
     box-shadow: 0 1px 0 0 #2196F3;
 }
 
+
 /* icon prefix focus color */
+
 .input-field .prefix.active {
     color: #2196F3;
 }
 
-input:focus:not([type]):not([readonly]) + label, input[type="text"]:focus:not([readonly]) + label, input[type="password"]:focus:not([readonly]) + label, input[type="email"]:focus:not([readonly]) + label, input[type="url"]:focus:not([readonly]) + label, input[type="time"]:focus:not([readonly]) + label, input[type="date"]:focus:not([readonly]) + label, input[type="datetime"]:focus:not([readonly]) + label, input[type="datetime-local"]:focus:not([readonly]) + label, input[type="tel"]:focus:not([readonly]) + label, input[type="number"]:focus:not([readonly]) + label, input[type="search"]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+input:focus:not([type]):not([readonly]) + label,
+input[type="text"]:focus:not([readonly]) + label,
+input[type="password"]:focus:not([readonly]) + label,
+input[type="email"]:focus:not([readonly]) + label,
+input[type="url"]:focus:not([readonly]) + label,
+input[type="time"]:focus:not([readonly]) + label,
+input[type="date"]:focus:not([readonly]) + label,
+input[type="datetime"]:focus:not([readonly]) + label,
+input[type="datetime-local"]:focus:not([readonly]) + label,
+input[type="tel"]:focus:not([readonly]) + label,
+input[type="number"]:focus:not([readonly]) + label,
+input[type="search"]:focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
     color: #2196F3;
 }
 
-input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+input:not([type]):focus:not([readonly]),
+input[type=text]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]),
+input[type=email]:focus:not([readonly]),
+input[type=url]:focus:not([readonly]),
+input[type=time]:focus:not([readonly]),
+input[type=date]:focus:not([readonly]),
+input[type=datetime]:focus:not([readonly]),
+input[type=datetime-local]:focus:not([readonly]),
+input[type=tel]:focus:not([readonly]),
+input[type=number]:focus:not([readonly]),
+input[type=search]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #2196F3;
-    box-shadow: 0 1px 0 0 #2196F3;    
+    box-shadow: 0 1px 0 0 #2196F3;
 }
 
 .icons-inline {
@@ -505,7 +541,7 @@ footer img {
 
 footer.page-footer a {
     font-family: "Roboto", sans-serif;
-    color: #9e9e9e;    
+    color: #9e9e9e;
 }
 
 #home footer a {
@@ -637,7 +673,6 @@ p.reading {
     display: inline-block;
 }
 
-
 #event-dashboard header,
 #friend-dashboard header {
     margin-bottom: 5em;
@@ -651,9 +686,13 @@ p.reading {
     color: #607D8B;
 }
 
-#registration form h2,h3,h4,h5 {
+#registration form h2,
+h3,
+h4,
+h5 {
     color: #455A64;
 }
+
 
 /*
 #registration {
@@ -853,9 +892,22 @@ header .flex-container {
     font-weight: bold;
 }
 
-.flex-container .btn {
+header .btn-flat {
     background: #FFFFFF;
     color: #2196F3;
+}
+
+header .btn-flat:hover {
+    background: #F5FFF2;
+}
+
+header .btn {
+    background: #FFF;
+    color: #2196F3;
+}
+
+header .btn:hover {
+    background: #F5FFF2;
 }
 
 header .hamburger-menu {
@@ -880,14 +932,15 @@ header .hamburger-menu {
 
 #filters * {
     display: inline-block;
-    
 }
 
-#filters, #filters a {
+#filters,
+#filters a {
     color: #CFD8DC;
 }
 
-#filters a, input[type="range"] + .thumb {
+#filters a,
+input[type="range"] + .thumb {
     background-color: #37474F;
 }
 
@@ -903,8 +956,6 @@ header .hamburger-menu {
     background: #37474F;
     border-radius: 2px;
 }
-
-
 
 #filters .chip {
     background-color: #37474F;
@@ -929,7 +980,6 @@ header .hamburger-menu {
 .active.highlight {
     background: #47A24B;
     color: #FFF;
-    
 }
 
 .filled-in[type="checkbox"]:checked + label::after {
@@ -949,7 +999,7 @@ input[type="range"] {
 }
 
 input[type="range"]:active::-moz-range-thumb {
-    background-color: #48A64C;    
+    background-color: #48A64C;
 }
 
 input[type=range]:-moz-focusring {
@@ -977,31 +1027,26 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 input[type=range]:active::-webkit-slider-thumb {
-    background-color: #48A64C;  
+    background-color: #48A64C;
 }
 
 @media only screen and (max-width:600px) {
     header {
         font-size: .9em;
     }
-    
     h1 {
         display: block;
         text-align: center;
     }
-    
     .flex-container {
         justify-content: center;
     }
-    
     #side-bar {
         position: initial;
     }
-    
     .btn-wide {
         height: auto;
     }
-    
     #side-bar .card .card-action {
         height: auto;
         overflow: auto;

@@ -502,9 +502,9 @@
             <div class="footer-copyright">
 
                 <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
-                <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
-                <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
-                <a class="right blue-grey-text" href="./faq.html">FAQ</a>
+                <a class="right blue-grey-text" href="./tos.php">Terms of Service</a>
+                <a class="right blue-grey-text" href="./privacy.php">Privacy Policy</a>
+                <a class="right blue-grey-text" href="./faq.php">FAQ</a>
             </div>
         </div>
     </footer>

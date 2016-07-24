@@ -67,7 +67,7 @@ if (!isset($_SESSION['token'])) {
                 ?>
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
         <script src="/js/markerclusterer.js"></script>
         <script src="/js/script.js"></script>
@@ -124,7 +124,7 @@ if (!isset($_SESSION['token'])) {
                         ');
                     }
                     else{
-                        echo('<button data-target="modal-login" class="waves-effect btn btn-flat modal-trigger">Login</button>');
+                        echo('<button data-target="modal-login" class="waves-effect waves-blue btn btn-flat modal-trigger">Login</button>');
                         echo('<a href="/webpages/sign_up.php"><button class="waves-effect waves-blue btn">Sign Up</button></a>');
                     }
             ?>
@@ -152,7 +152,7 @@ if (!isset($_SESSION['token'])) {
 
                     <div class="center-align">
                         <div class="row">
-                            <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue-text text-darken-1 white">Login with Facebook</a>
+                            <a href="/php/facebookLogin.php" class="btn-flat waves-effect blue-text text-darken-1">Login with Facebook</a>
                         </div>
                         <div class="row">
                             <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
@@ -244,9 +244,9 @@ if (!isset($_SESSION['token'])) {
                                 <small> <b>
                                 <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="/meta/index.html">© 2015-2016 LeavittInnovations.</a>
 
-                                <a class="right white-text btn-flat" href="/webpages/tos.html" target="_blank">Terms of Service</a>
-                                <a class="right white-text btn-flat" href="/webpages/privacy.html" target="_blank">Privacy Policy</a>
-                                <a class="right white-text btn-flat" href="/webpages/faq.html" target="_blank">FAQ</a>
+                                <a class="right white-text btn-flat" href="/webpages/tos.php" target="_blank">Terms of Service</a>
+                                <a class="right white-text btn-flat" href="/webpages/privacy.php" target="_blank">Privacy Policy</a>
+                                <a class="right white-text btn-flat" href="/webpages/faq.php" target="_blank">FAQ</a>
                                 </b>
                             </small>
                             </div>

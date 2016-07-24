@@ -554,7 +554,7 @@
                                 </p>
                             </div>
                             <div class="card-action red darken-4">
-                                <a href="#" class="amber-text">Report Bug</a>
+                                <a data-target="modal-bug-report" class="modal-trigger add-cursor amber-text">REPORT BUG</a>
                             </div>
                         </div>
                     </div>

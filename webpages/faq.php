@@ -15,8 +15,7 @@
     <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--    <link rel="stylesheet" href="cobblestone.css">-->
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/style.css">
 
     <!-- Favicons
 	================================================== -->
@@ -34,6 +33,14 @@
 	================================================== -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script>
+        
+        $(document).ready(function() {
+            $('.modal-trigger').leanModal();
+            console.log("???");
+        });
+        
+    </script>
 
 </head>
 
@@ -47,6 +54,7 @@
 
     </header>
 
+    
     <div class="container">
         <div class="row blue-text text-darken-2">
             <h2 class="center-align"> Frequently Asked Questions</h2>
@@ -194,37 +202,14 @@
             </li>
         </ul>
 
-
-
-
         <p class="center-align blue-text text-darken-2 pad-up">Have a question or encounter a bug? Please contact the team at <b>loccasion@lehigh.edu</b></p>
 
-        </b>
     </div>
 
-    <footer class="grey lighten-3 grey-text">
-        <div class="container">
-
-            <div class="footer-head row center-align">
-                <div class="col s4">
-                    <h6> Download Android App</h6>
-                </div>
-                <div class="col s4">
-                    <h6> Download iOS App</h6>
-                </div>
-                <div class="col s4">
-                    <h6> Keep in Touch</h6>
-                </div>
-            </div>
-            <div class="footer-copyright">
-
-                <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
-                <a class="right blue-grey-text" href="./tos.html">Terms of Service</a>
-                <a class="right blue-grey-text" href="./privacy.html">Privacy Policy</a>
-                <a class="right blue-grey-text" href="./faq.html">FAQ</a>
-            </div>
-        </div>
-    </footer>
+   
+    
+    <?php include_once(dirname(dirname(__FILE__)) . '/templates/simple-footer.php'); ?>
+    
 </body>
 
 </html>
