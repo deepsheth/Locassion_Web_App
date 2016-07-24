@@ -149,7 +149,7 @@
                 <a href="#" class="secondary-content chip red lighten-2 white-text" title="Attendees"><i class="material-icons">group</i>15</a>
             </li>
             <li class="collection-item avatar row">
-                <i class="material-icons circle light-green darken-2">group</i>
+                <i class="material-icons circle primary-green">group</i>
                 <div class="col s9">
                     <span class="title grey-text text-darken-3">DaceFest</span>
                     <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 23, 2016

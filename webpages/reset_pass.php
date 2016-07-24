@@ -78,7 +78,7 @@ else{
     </head>
 
     <body id="registration">
-        <header class="light-green darken-2 white-text row">
+        <header class="primary-green row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
             

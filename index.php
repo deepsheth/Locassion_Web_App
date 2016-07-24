@@ -87,11 +87,16 @@ if (!isset($_SESSION['token'])) {
                 <li><a href="mobile.html">Login</a></li>
                 <li class="divider"></li>
                 <li><a href="mobile.html">Download App</a></li>
+                <div class="flex-container">
+                    <img src="/img/splash/app-store-badge.svg" alt="We're on the App Store">
+                    <img src="/img/splash/google-play-badge.png" alt="We're on the Play Store">
+                </div>
             </ul>
-            <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
+            <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
+            
             <!-- Menu Buttons
         ================================================== -->
             <ul class="col s12 m8 l10">
@@ -124,7 +129,7 @@ if (!isset($_SESSION['token'])) {
                         ');
                     }
                     else{
-                        echo('<button data-target="modal-login" class="waves-effect waves-blue btn btn-flat modal-trigger">Login</button>');
+                        echo('<a data-target="modal-login" class="waves-effect waves-blue btn btn-flat modal-trigger">Login</a>');
                         echo('<a href="/webpages/sign_up.php"><button class="waves-effect waves-blue btn">Sign Up</button></a>');
                     }
             ?>
@@ -169,6 +174,26 @@ if (!isset($_SESSION['token'])) {
             </div>
         </form>
 
+        <!--   Custom Modal    -->
+        <!--   Used for URL Share     -->
+
+        <div id="dyn_modal" class="modal">
+            <div class="modal-padding center center-align">
+                <div class="row">
+                    <h4>Copy Event Link</h4>
+                    <br>
+
+                    <input type="text" name="url" value="http://www.adamknucky.com/webpages/eventinfo.php?id=3" readonly>
+                    <br>
+                </div>
+
+                <div class="modal-footer primary-green blue-grey-text text-darken-2">
+                    <a class="right modal-action modal-close waves-effect waves-blue btn-flat ">Close</a>
+                </div>
+            </div>
+        </div>
+
+
         <div id="main-container">
             <div class="row">
                 <div id="map-panel" class="col m6 l8 hide-on-small-only">
@@ -186,7 +211,7 @@ if (!isset($_SESSION['token'])) {
                             <p class="range-field">
                                 <input type="range" id="test5" min="1" max="15" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
                             </p>
-<!--
+                            <!--
                             <p>
                                 <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
                                 <label for="public_box">Public</label>

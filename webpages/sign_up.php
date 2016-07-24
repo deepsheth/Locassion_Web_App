@@ -37,13 +37,20 @@ include('../php/signUp.php');
 	================================================== -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script>
+
+            $(document).ready(function() {
+                $('.modal-trigger').leanModal();
+                console.log("???");
+            });
+
+        </script>
 
 
     </head>
 
     <body id="registration">
-        <header class="light-green darken-2 white-text row">
+        <header class="primary-green row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
             <ul class="col s12 m8 l10">
@@ -119,7 +126,7 @@ include('../php/signUp.php');
                             </div>
                             
 
-                            <button class="waves-effect waves-light light-green darken-2 btn-large" type="submit" name="signup"><i class="material-icons right">send</i>Submit</button>
+                            <button class="waves-effect waves-light primary-green btn-large" type="submit" name="signup"><i class="material-icons right">send</i>Submit</button>
                         </form>
                     </div>
                 </div>

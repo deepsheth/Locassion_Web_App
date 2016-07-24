@@ -306,6 +306,10 @@ h3 {
     color: #48A64C;
 }
 
+#side-bar .card.dyn .card-action {
+    max-height: 6.25em;
+}
+
 .card a:not(.chip) {
     font-weight: 700;
 }
@@ -320,9 +324,7 @@ h3 {
 
 #side-bar .card .card-action {
     overflow: hidden;
-    height: 6.25em;
     background: #F5F5F5;
-    border-width: 2px;
 }
 
 #side-bar .pre-btn {
@@ -889,6 +891,9 @@ button.picker__close:focus {
 
 header .flex-container {
     justify-content: flex-end;
+}
+
+header a {
     font-weight: bold;
 }
 
