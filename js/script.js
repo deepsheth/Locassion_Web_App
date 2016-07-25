@@ -512,24 +512,7 @@ function genEvents(eventInfo, type) {
 function genCards(eventInfo, type) {
 
     if (!logged_in) {
-        var content = 
-            '<div class="card horizontal">' +
-            '<div class="card-image">' +
-            '<img src="/img/create_acct.jpg">' +
-            '</div>' +
-            '<div class="card-stacked">' +
-            '<div class="card-content">' +
-            '<span class="card-title">Meet up with friends.</span>' +
-            '<p>Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p>' +
-            '</div>' +
-            '<div class="card-action">' +
-            '<a href="#">This is a link</a>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-        
-        $('#event-panel').append(
-            content + 
+        $('#event-panel').append( 
             '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
         );
     } else if (eventInfo.length == 0) {
@@ -560,7 +543,7 @@ function genCards(eventInfo, type) {
             '<div class="month">' + eventInfo[i].time.format("MMM") + '</div>' +
             '<div class="context">' + eventInfo[i].time.fromNow() + '</div>' +
             '</div>' +
-            '<div class="col m9 l8 offset-l1">' +
+            '<div class="col m9 l8 offset-l1 side-info">' +
             '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a></div>' +
             '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</div>' +
             '<div class="small-details">' + eventInfo[i].address + '</div>' +
@@ -569,7 +552,7 @@ function genCards(eventInfo, type) {
             '</div>' +
             '<div class="row">' +
             '<div class="center-align">' +
-            '<a href="#" class="grey-text">' + eventInfo[i].hostName + '</a> created this meet up.' +
+            '<a href="#" class="grey-text text-darken-1">' + eventInfo[i].hostName + '</a> created this meet up.' +
             '</div>' +
             '</div>' +
 
@@ -597,7 +580,7 @@ function genCards(eventInfo, type) {
             '</div>' +
             '<div class="card-action center-align expand-fold">' +
             '<div class="col s6 pre-btn left-align">' +
-            '<a href="#" class="fold-label">More</a><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i>'+
+            '<a href="#" class="fold-label">More</a><i class="material-icons left" title="Event Details">info</i>'+
             '</div>' +
             '<div class="col s6 right right-align"><a href="#" class="btn-go waves-effect waves-light ' + (past ? "disabled dirty\">Passed</a>" : "\">GO</a>") + '</div>' +
             '</div>' +
@@ -845,12 +828,14 @@ function markerIcons(type) {
 
 // Date is UNIX Timestamp in Milliseconds
 function viewCal(event, date) {
+    event.stopPropagation();
     var $input = $('.datepicker').pickadate();
     var picker = $input.pickadate('picker');
     console.log(date);
-    picker.set('select', date);
+    console.log(event);
+    console.log(picker);
+    picker.set('select', parseInt(date));
     picker.open();
-    event.stopPropagation();
 }
 
 function foldableInit() {

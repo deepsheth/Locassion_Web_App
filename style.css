@@ -1,4 +1,4 @@
-    html,
+html,
 body {
     height: 100%;
     margin: 0;
@@ -7,7 +7,7 @@ body {
 
 header {
     min-height: 5em;
-    padding: 0em 6em;
+    padding: 0 6em;
 }
 
 header.row,
@@ -31,7 +31,7 @@ h1 {
 }
 
 h1 a {
-    font-family: Dosis !important;
+    font-family: Dosis;
 }
 
 a,
@@ -62,10 +62,6 @@ h6,
 ::-moz-selection {
     color: #000;
     background: rgb(194, 218, 158);
-}
-
-.btn-flat:hover {
-    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .primary-green {
@@ -190,7 +186,7 @@ h3 {
 
 .card {
     overflow: auto;
-    color: #78909C;
+    color: #757575;
 }
 
 .card .img-wrapper {
@@ -202,8 +198,11 @@ h3 {
     word-wrap: break-word;
     margin-bottom: 10px;
     padding-left: 0;
-    font-size: 1.5em;
-    line-height: 1.3em !important;
+    font-size: 1.75em;
+}
+
+.card .card-title a {
+    font-size: .8em;
 }
 
 .title {
@@ -278,14 +277,6 @@ h3 {
     padding-bottom: 0;
 }
 
-.fold-body {
-    color: #A1A1A1;
-}
-
-.fold-body a {
-    color: #969696;
-}
-
 #side-bar .card p {
     max-height: 10em;
     overflow-y: auto;
@@ -308,6 +299,14 @@ h3 {
 
 #side-bar .card.dyn .card-action {
     max-height: 6.25em;
+}
+
+#side-bar .card.dyn .card-title {
+    line-height: 26px;
+}
+
+.side-info {
+    color: #424242;
 }
 
 .card a:not(.chip) {
@@ -753,10 +752,7 @@ h5 {
     background-color: #bf360c;
 }
 
-.picker__box {
-    border: 5px solid #bf360c;
-}
-
+.picker__day--selected, .picker__day--selected:hover,
 .picker__date-display,
 .picker--focused .picker__day--selected {
     background-color: #d84315;
@@ -1056,3 +1052,4 @@ input[type=range]:active::-webkit-slider-thumb {
         height: auto;
         overflow: auto;
     }
+}
