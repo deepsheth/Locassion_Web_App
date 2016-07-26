@@ -13,7 +13,7 @@ var eventTitle,
     groupInvites, individualInvites;
 
 $(document).ready(function () {
-
+    
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 5, // Creates a dropdown of 5 years to control year
@@ -207,7 +207,8 @@ function initMap() {
             lat: 40.6072,
             lng: -75.3790
         },
-        zoom: 13
+        zoom: 13,
+        clickableIcons: false
     });
     var input = /** @type {!HTMLInputElement} */ (
         document.getElementById('pac-input'));
@@ -225,11 +226,12 @@ function initMap() {
         map: map,
         anchorPoint: new google.maps.Point(0, -29)
     });
-
+    
     autocomplete.addListener('place_changed', function () {
         infowindow.close();
         marker.setVisible(false);
         var place = autocomplete.getPlace();
+
         if (!place.geometry) {
             Materialize.toast('Sorry, we cannot find this location.', 7000);
             $('#map input[type="text"]').css("border", "2px solid #FFC02A");
@@ -279,38 +281,61 @@ function initMap() {
     });
 
 
+    // BY CLICKING THE MAP
     // Allows user to select location by marker
     var marker;
+        var geocoder = new google.maps.Geocoder;
     google.maps.event.addListener(map, "click", function (event) {
-        address_coordinates.latitude = event.latLng.lat();
-        address_coordinates.longitude = event.latLng.lng();
-        // populate yor box/field with lat, lng
-        Materialize.toast('Got it! Event location set.', 3000);
-        $('#map input[type="text"]').css("border", "2px solid #2196F3");
-        $('#map input[type="text"]').css("color", "#2196F3");
+        
+        // Address is string when valid, boolean when error
+        var result_addr = geocodeLatLng(geocoder, map, event.latLng, infowindow, function(result_addr) {
+            address_coordinates.latitude = event.latLng.lat();
+            address_coordinates.longitude = event.latLng.lng();
 
-        marker.setMap(null); //clears previous marker -- allows only 1 marker on map
-        marker = new google.maps.Marker({
-            position: event.latLng,
-            map: map,
-            title: 'Event Coordinates'
+            // populate yor box/field with lat, lng
+            $('#map input[type="text"]').css("border", "2px solid #2196F3");
+            $('#map input[type="text"]').css("color", "#2196F3");
+
+            marker.setMap(null); //clears previous marker -- allows only 1 marker on map
+            marker = new google.maps.Marker({
+                position: event.latLng,
+                map: map,
+                title: 'Meet Up Coordinates'
+            });
+
+            infowindow.setContent('<div><strong>' + result_addr + '</strong></div>');
+            $('#pac-input').val(result_addr);
+            infowindow.open(map, marker);
         });
+       
+        
 
-        infowindow.setContent('<div><strong>Location Set! </strong><br> Latitude: ' + Number((address_coordinates.latitude).toFixed(3)) + '<br>Longitude: ' + Number((address_coordinates.longitude).toFixed(3)));
-        $('#pac-input').val('Latitude: ' + Number((address_coordinates.latitude).toFixed(3)) + ', Longitude: ' + Number((address_coordinates.longitude).toFixed(3)));
-        infowindow.open(map, marker);
 
     });
 
-    /*   $("#map").hover(
-           function () {
-               console.log($(this).height(500));
-           },
-           function () {
-               console.log($(this).height(225));
-           }
-       );*/
+}
 
+function geocodeLatLng(geocoder, map, latlng, infowindow, callback) {
+//    var input = document.getElementById('latlng').value;
+//    var latlngStr = input.split(',', 2);
+//    var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+    var addr;
+    geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                Materialize.toast('Got it! Event location set.', 3000);
+                callback(results[1].formatted_address);
+            } else {
+                Materialize.toast('No Result Found', 5000);
+                callback("error");
+            }
+        } else {
+            Materialize.toast('Address not found due to: '+ status, 15000);
+            addr = "error";
+        }
+    });
+    console.log(addr);
+    return addr;
 }
 
 function selectCard(card, numberSelected) {

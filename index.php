@@ -29,7 +29,6 @@ if (!isset($_SESSION['token'])) {
         <!--       Todo: combine Dosis and all fonts into one link (for all webpages!!!) -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
         <link href='https://fonts.googleapis.com/css?family=Dosis:700|Raleway:400,600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
-        <!--    <link rel="stylesheet" href="cobblestone.css">-->
         <link rel="stylesheet" href="/style.css">
 
         <!-- Favicons
@@ -67,7 +66,7 @@ if (!isset($_SESSION['token'])) {
                 }
                 ?>
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
         <script src="/js/markerclusterer.js"></script>
@@ -97,7 +96,7 @@ if (!isset($_SESSION['token'])) {
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
             <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
-            
+
             <!-- Menu Buttons
         ================================================== -->
             <ul class="col s12 m8 l10">
@@ -144,12 +143,14 @@ if (!isset($_SESSION['token'])) {
                 <div class="modal-padding">
                     <h3>Login</h3>
                     <br>
-                    <div class="input-field">
-                        <i class="material-icons prefix ">account_circle</i>
-                        <input id="input_username" name="email" type="text" required>
-                        <label for="input_username">Email</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix ">account_circle</i>
+                            <input id="input_username" name="email" type="text" required>
+                            <label for="input_username">Email</label>
+                        </div>
                     </div>
-                    <div class="input-field">
+                    <div class="input-field col s12">
                         <i class="material-icons prefix">https</i>
                         <input id="input_password" name="password" type="password" required>
                         <label for="input_password">Password</label>
@@ -163,10 +164,9 @@ if (!isset($_SESSION['token'])) {
                         <div class="row">
                             <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
                         </div>
-                        <div class="center"><small>We won't post anything without asking.</small></div>
                     </div>
                 </div>
-                <div class="modal-footer grey lighten-2 blue-grey-text text-darken-2">
+                <div class="modal-footer blue-grey-text text-darken-2">
                     <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a>
                     <a href="#">
                         <input name="submit" type="submit" value="login" id="btn-login" class="modal-action btn-flat blue-text">

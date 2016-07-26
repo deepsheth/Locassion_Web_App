@@ -1,21 +1,19 @@
 <?php
-
-
 ?>
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
 
     <head>
 
         <!-- Basic Page Needs
-	================================================== -->
+================================================== -->
         <meta charset="utf-8">
         <title>Loccasion | Create Event</title>
         <meta name="description" content="Loccasion: Web App">
         <meta name="author" content="Deep Sheth">
 
         <!-- CSS
-	================================================== -->
+================================================== -->
         <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
@@ -23,36 +21,36 @@
         <link rel="stylesheet" href="../style.css">
 
         <!-- Favicons
-	================================================== -->
+================================================== -->
         <link rel="icon" type="image/png" href="/favicon.png" />
 
         <!-- Mobile Specific Metas
-	================================================== -->
+================================================== -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
         <!-- Analytics
-	================================================== -->
+================================================== -->
 
 
         <!-- Page Specific Styles and Scripts
-	================================================== -->
+================================================== -->
         <script>
             var logged_in = <?php
-                    if (isset($_SESSION['token'])) {
-                        echo('true;');
-                    } else {
-                        echo('false;');
-                    }
+                if (isset($_SESSION['token'])) {
+                    echo('true;');
+                } else {
+                    echo('false;');
+                }
                 ?>
-            var token = <?php
+                var token = <?php
                     if (isset($_SESSION['token'])) {
                         echo('"'.$_SESSION['token'].'";');
                     } else {
                         echo('"";');
                     }
-                ?>
+                    ?>
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <script src="../js/jquery.timepicker.min.js"></script>
         <script src="../js/create-event.js"></script>
@@ -65,29 +63,29 @@
         <header class="primary-green row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
-            
+
             <ul class="col s12 m8 l10">
                 <div class="flex-container">
 
-                <a data-target="confirm_prompt" class="waves-effect waves-light btn modal-trigger ">Events Dashboard</a>
+                    <a data-target="confirm_prompt" class="waves-effect waves-light btn modal-trigger ">Events Dashboard</a>
 
-                <div id="confirm_prompt" class="modal modal-fixed-footer">
-                    <div class="modal-content black-text">
-                        <div class="modal-padding center">
-                            <h3>Are you sure?</h3>
-                            <p>Everything you have filled in on this page will be discarded.</p>
+                    <div id="confirm_prompt" class="modal modal-fixed-footer">
+                        <div class="modal-content black-text">
+                            <div class="modal-padding center">
+                                <h3>Are you sure?</h3>
+                                <p>Everything you have filled in on this page will be discarded.</p>
+                            </div>
                         </div>
-                    </div>
                         <div class="modal-footer blue-grey lighten-5">
                             <a href="/webpages/events_dashboard.php" class="left modal-action modal-close waves-effect waves-blue btn-flat right deep-orange-text text-lighten-1">Yes</a><a href="#" class="left modal-action modal-close waves-effect waves-blue btn-flat left">Cancel</a>
                         </div>
-                </div>
+                    </div>
 
-               <?php
+                    <?php
                     define('__ROOT__', dirname(dirname(__FILE__)));
                     include_once(__ROOT__.'/templates/header-menu.php'); 
-                ?>
-                
+                    ?>
+
                 </div>
             </ul>
         </header>
@@ -139,10 +137,10 @@
 
                             <div class="col s4">
                                 <!--
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="chk_all_day" checked="checked" name="all_day" />
-                                    <label for="chk_all_day">All Day Event</label>
-                                </p>
+<p>
+<input type="checkbox" class="filled-in" id="chk_all_day" checked="checked" name="all_day" />
+<label for="chk_all_day">All Day Event</label>
+</p>
 -->
                                 <p class="checkbox-align">
                                     <i class="material-icons left prefix">group</i>
@@ -159,13 +157,13 @@
                         <div class="row">
 
                             <!--
-                            <div class="switch col s6">
-                                <label>
-                                    Private
-                                    <input type="checkbox" id="privacy_type">
-                                    <span class="lever"></span> Public
-                                </label>
-                            </div>
+<div class="switch col s6">
+<label>
+Private
+<input type="checkbox" id="privacy_type">
+<span class="lever"></span> Public
+</label>
+</div>
 -->
                         </div>
 
@@ -566,7 +564,7 @@
         <?php
         include_once(__ROOT__.'/templates/simple-footer.php'); 
         ?>
-        
+
     </body>
 
-    </html>
+</html>
