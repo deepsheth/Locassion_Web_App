@@ -215,21 +215,14 @@ if (!isset($_SESSION['token'])) {
             <div class="row">
                 <div id="map-panel" class="col m6 l8 hide-on-small-only">
 
-                    <div class="container">
-                        <div id="filters" class="flex-container">
+                    <div class="container center">
+                        <div id="filters">
                             <h6>Events this</h6>
                             <div>
                                 <a href="" class="chip">Week</a>
                                 <a href="" class="chip">Weekend</a>
                                 <a href="" class="chip">Month</a>
                             </div>
-                            <input id="edit_location" type="text" placeholder="18015" title="Zip Code" class="modal-trigger add-cursor" data-target="filter-events" readonly>
-                            <!--                   <input type="date" class="datepicker"><i class="material-icons">date_range</i>-->
-                            <p class="range-field">
-                                <input type="range" id="test5" min="1" max="15" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
-                            </p>
-
-                            <a href="/" class="waves-effect waves-blue btn btn-flat refresh"><i class="material-icons">refresh</i></a>
                         </div>
 
 
@@ -260,9 +253,23 @@ if (!isset($_SESSION['token'])) {
                 </div>
                 <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
-                    <div class="row row-tight white-text">
-                        <i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i><i class="material-icons left add-cursor side-bar-right" title="Filter Events" data-activates="filter-side-bar">tune</i>
-                        <h5 class="center-align white-text">Event Stream</h5>
+                    <div class="row row-tight white-text header">
+                       
+                        <!--  text centers better with s11 to offset icons -->
+                        <div class="col s11 m8">
+                            <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i><i class="material-icons left add-cursor side-bar-right" title="Filter Events" data-activates="filter-side-bar">tune</i>Event Stream</h5>
+                        </div>
+                        
+                        <div class="input-field col m4 hide-on-small-only" title="View Events This...">
+                            <select class="dark">
+                                <option value="Month" selected>Month</option>
+                                <option value="Week">Week</option>
+                                <option value="Weekend">Weekend</option>
+                                <option value="Today">Today</option>
+                            </select>
+                        </div>
+                        
+                        
                     </div>
 
                     <div id="filter-side-bar" class="side-nav">
@@ -350,6 +357,7 @@ if (!isset($_SESSION['token'])) {
                     </div>
 
                     <div id="event-panel">
+                       
                         <!--
                         <div class="row">
                             <div class="col s12">

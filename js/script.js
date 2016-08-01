@@ -25,6 +25,10 @@ $(document).ready(function () {
         menuWidth: '25em',
         edge: 'right'
     });
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+    
 
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
@@ -863,7 +867,6 @@ function validateChips() {
                 var first4Chips = $('.chips .chip').slice(0,4);
                 first4Chips.each(function(index) {
                     var containsSpace = chipCheck.noSpaces($('.chips .chip'), index);
-                    console.log(containsSpace);
                     if (!containsSpace ) {
                         var chip = chips.eq( index );
                         chip.css('background-color', '#F4F4F4');
