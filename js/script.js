@@ -34,41 +34,7 @@ $(document).ready(function () {
         placeholder: '+Tags',
     });
     
-    $('.chips').on('chip.add', function(e, chip){
-        var chips = $('.chips .chip');
-        if (chips.length > 4) {
-            var currentChip = $('.chips .chip').eq(chips.length-1);
-            currentChip.css('background-color', '#ff5252' );
-            Materialize.toast("Limit to 4 Tags.", 6000);
-        }
-        
-        if (/\s/.test(chip.tag)) {
-            var chip = $('.chips .chip').eq(chips.length-1);
-            chip.css('background-color', '#ff5252' );
-            Materialize.toast("Tags cannot have spaces.", 6000);
-        }
-        else {
-            console.log(chip.tag);
-        }
-        
-    });
-    
-    $('.chips').on('chip.delete', function(e, chip){
-        var chips = $('.chips .chip');
-        if (chips.length >= 4) {
-            var first4Chips = $('.chips .chip').slice(0,4);
-            first4Chips.each(function() {
-                var innterText = $(this).text();
-                if (/\s/.test( innterText )) {
-                    $(this).css('background-color', '#ff5252' );
-                    Materialize.toast("Tags cannot have spaces.", 6000);
-                }
-                else {
-                    $(this).css('background-color', '#F4F4F4');
-                }
-            });
-        }
-    });
+    validateChips();
 
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
@@ -855,6 +821,60 @@ function btnRequestInit() {
         }, 400);
 
     });
+}
+
+function validateChips() {
+    $('.chips').on('chip.add', function(e, chip){
+        var chips = $('.chips .chip');
+        chipCheck.limitFour( chips );
+        chipCheck.noSpaces( chips , chips.length-1);
+    });
+
+    $('.chips').on('chip.delete', function(e, chip){
+        chipCheck.checkFirst4($('.chips .chip'), chip.tag);
+        
+    });
+    
+    var chipCheck = {
+        // Takes array of chips
+        limitFour: function(chips) {
+            if (chips.length > 4) {
+                var currentChip = $('.chips .chip').eq(chips.length-1);
+                currentChip.css('background-color', '#ff5252' );
+                Materialize.toast("Limit to 4 Tags.", 6000);
+            }    
+        },
+        noSpaces: function(chips, currentIndex) {
+
+            var chip = chips.eq( currentIndex );
+            
+            if (/\s/.test(chip.text())) {
+                chip.css('background-color', '#ff5252' );
+                Materialize.toast("Tags cannot have spaces.", 6000);
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        
+        checkFirst4: function(chips, currentChipText) {
+            if (chips.length >= 4) {
+                var first4Chips = $('.chips .chip').slice(0,4);
+                first4Chips.each(function(index) {
+                    var containsSpace = chipCheck.noSpaces($('.chips .chip'), index);
+                    console.log(containsSpace);
+                    if (!containsSpace ) {
+                        var chip = chips.eq( index );
+                        chip.css('background-color', '#F4F4F4');
+                    }
+                    else {
+                        // error message
+                    }
+                });
+            }
+        }
+    }
 }
 
 function btnSuccessful(button) {
