@@ -10,6 +10,10 @@ var filters = {
         lng: -75.375634
     },
     radius: 2,
+    load: {
+        public: true,
+        private: true
+    },
     date_start: moment().subtract(1, 'year'),
     date_end: moment().add(3, 'months')
 };
@@ -17,12 +21,54 @@ var filters = {
 $(document).ready(function () {
 
     $(".hamburger-menu").sideNav();
+    $(".side-bar-right").sideNav({
+        menuWidth: '25em',
+        edge: 'right'
+    });
 
     $('.collapsible').collapsible({
         accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
 
-    $('#hidden').hide();
+    $('.category-chip').material_chip({
+        placeholder: '+Tags',
+    });
+    
+    $('.chips').on('chip.add', function(e, chip){
+        var chips = $('.chips .chip');
+        if (chips.length > 4) {
+            var currentChip = $('.chips .chip').eq(chips.length-1);
+            currentChip.css('background-color', '#ff5252' );
+            Materialize.toast("Limit to 4 Tags.", 6000);
+        }
+        
+        if (/\s/.test(chip.tag)) {
+            var chip = $('.chips .chip').eq(chips.length-1);
+            chip.css('background-color', '#ff5252' );
+            Materialize.toast("Tags cannot have spaces.", 6000);
+        }
+        else {
+            console.log(chip.tag);
+        }
+        
+    });
+    
+    $('.chips').on('chip.delete', function(e, chip){
+        var chips = $('.chips .chip');
+        if (chips.length >= 4) {
+            var first4Chips = $('.chips .chip').slice(0,4);
+            first4Chips.each(function() {
+                var innterText = $(this).text();
+                if (/\s/.test( innterText )) {
+                    $(this).css('background-color', '#ff5252' );
+                    Materialize.toast("Tags cannot have spaces.", 6000);
+                }
+                else {
+                    $(this).css('background-color', '#F4F4F4');
+                }
+            });
+        }
+    });
 
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
@@ -99,110 +145,13 @@ function initMap() {
 
 
     // Gets all events
-    getEvents();
+//    getEvents();
 
 
     $('.determinate').width('10%');
 
-    // Blue Gray Theme
-    var style = [
-        {
-            "featureType": "water",
-            "stylers": [
-                {
-                    "visibility": "on"
-            },
-                {
-                    "color": "#b5cbe4"
-            }
-        ]
-    },
-        {
-            "featureType": "landscape",
-            "stylers": [
-                {
-                    "color": "#efefef"
-            }
-        ]
-    },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#83a5b0"
-            }
-        ]
-    },
-        {
-            "featureType": "road.arterial",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#bdcdd3"
-            }
-        ]
-    },
-        {
-            "featureType": "road.local",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#ffffff"
-            }
-        ]
-    },
-        {
-            "featureType": "poi.park",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#e3eed3"
-            }
-        ]
-    },
-        {
-            "featureType": "administrative",
-            "stylers": [
-                {
-                    "visibility": "on"
-            },
-                {
-                    "lightness": 33
-            }
-        ]
-    },
-        {
-            "featureType": "road"
-    },
-        {
-            "featureType": "poi.park",
-            "elementType": "labels",
-            "stylers": [
-                {
-                    "visibility": "on"
-            },
-                {
-                    "lightness": 20
-            }
-        ]
-    },
-        {},
-        {
-            "featureType": "road",
-            "stylers": [
-                {
-                    "lightness": 20
-            }
-        ]
-    }
-];
 
     $('.determinate').width('40%');
-
-    var map_options = {
-        styles: style
-    }
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -210,7 +159,6 @@ function initMap() {
             lng: -75.3778
         },
         zoom: 16,
-        styles: style
     });
 
     geoLocator();

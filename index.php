@@ -47,7 +47,6 @@ if (!isset($_SESSION['token'])) {
         <!-- Analytics
 	================================================== -->
 
-
         <!-- Page Specific Styles and Scripts
 	================================================== -->
         <script>
@@ -67,12 +66,29 @@ if (!isset($_SESSION['token'])) {
                 ?>
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
         <script src="/js/markerclusterer.js"></script>
         <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&&callback=initMap" async defer></script>
 
+
+        <script type="text/javascript">
+            window.heap = window.heap || [], heap.load = function (e, t) {
+                window.heap.appid = e, window.heap.config = t = t || {};
+                var r = t.forceSSL || "https:" === document.location.protocol,
+                    a = document.createElement("script");
+                a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") + "//cdn.heapanalytics.com/js/heap-" + e + ".js";
+                var n = document.getElementsByTagName("script")[0];
+                n.parentNode.insertBefore(a, n);
+                for (var o = function (e) {
+                        return function () {
+                            heap.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                        }
+                    }, p = ["addEventProperties", "addUserProperties", "clearEventProperties", "identify", "removeEventProperty", "setEventProperties", "track", "unsetEventProperty"], c = 0; c < p.length; c++) heap[p[c]] = o(p[c])
+            };
+            heap.load("1918988559");
+        </script>
 
     </head>
 
@@ -82,7 +98,7 @@ if (!isset($_SESSION['token'])) {
             <!-- Navigation Drawer
         ================================================== -->
             <ul class="side-nav" id="mobile-menu">
-                <li><a href="sass.html">View Map</a></li>
+                <li><a href="sass.html">View Event Map</a></li>
                 <li><a href="badges.html">Create Event</a></li>
                 <li><a href="mobile.html">Login</a></li>
                 <li class="divider"></li>
@@ -212,49 +228,12 @@ if (!isset($_SESSION['token'])) {
                             <p class="range-field">
                                 <input type="range" id="test5" min="1" max="15" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
                             </p>
-                            <!--
-                            <p>
-                                <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
-                                <label for="public_box">Public</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" class="filled-in" id="private_box" checked="checked" />
-                                <label for="private_box">Private</label>
-                            </p>
--->
+
                             <a href="/" class="waves-effect waves-blue btn btn-flat refresh"><i class="material-icons">refresh</i></a>
                         </div>
-                    </div>
 
-                    <div id="filter-events" class="modal">
-                        <form action="" method="post">
-                            <div class="blue-grey-text text-darken-2">
-                                <div class="modal-padding center center-align">
-                                    <div class="row">
-                                        <h3>Filter Events</h3>
-                                        <br>
-                                        <div>
-                                            <a href="" class="chip">Week</a>
-                                            <a href="" class="chip">Weekend</a>
-                                            <a href="" class="chip">Month</a>
-                                        </div>
-                                    </div>
-                                    <p class="range-field">
-                                        <input type="range" id="test5" min="1" max="50" class="tooltipped" data-delay="0" data-position="bottom" data-tooltip="Radius" />
-                                    </p>
-                                    <input type="checkbox" class="filled-in" id="public_box" checked="checked" />
-                                    <label for="public_box">Public</label>
-                                    <input type="checkbox" class="filled-in" id="private_box" checked="checked" />
-                                    <label for="private_box">Private</label>
-                                </div>
-                                <div class="modal-footer primary-green blue-grey-text text-darken-2">
-                                    <a class="left modal-action modal-close waves-effect waves-blue btn-flat ">Cancel</a>
-                                    <strong><input name="submit" type="submit" value="Filter" class="modal-action waves-effect waves-blue btn-flat blue-text"></strong>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
+                    </div>
 
                     <div class="map-container">
                         <!--
@@ -281,7 +260,73 @@ if (!isset($_SESSION['token'])) {
                 </div>
                 <div id="side-bar" class="blue-grey darken-3 col s12 m6 l4">
 
-                    <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i>Event Stream<i class="material-icons left add-cursor modal-trigger" data-target="filter-events" title="Filter Events">filter_list</i></h5>
+                    <div class="row row-tight white-text">
+                        <i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i><i class="material-icons left add-cursor side-bar-right" title="Filter Events" data-activates="filter-side-bar">tune</i>
+                        <h5 class="center-align white-text">Event Stream</h5>
+                    </div>
+
+                    <div id="filter-side-bar" class="side-nav">
+
+                        <h4 class="center">Filters</h4>
+
+                        <div class="section">
+
+                            <div class="row hide-on-med-and-up">
+                                <p>
+                                    <label>Events this...</label>
+                                </p>
+                                <div class="center">
+                                    <span href="" class="chip add-cursor">Week</span>
+                                    <span href="" class="chip add-cursor">Weekend</span>
+                                    <span href="" class="chip month add-cursor">Month</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="edit_location" class="border-thick" type="text" value="Lehigh University" title="Address">
+                                    <label for="edit_location">Address</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    <label for="r-pick">Radius (miles)</label>
+                                    <p class="range-field">
+                                        <input type="range" id="r-pick" min="1" max="100" />
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class=" row col s12">
+                                    <label>Privacy Type</label>
+                                </div>
+                                <div class="section">
+                                    <div class="col s12 m6">
+                                        <input type="checkbox" class="filled-in" id="public_box" />
+                                        <label for="public_box">Hide Public</label>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <input type="checkbox" class="filled-in" id="private_box" />
+                                        <label for="private_box">Hide Private</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="section">
+                                <label>Tags</label>
+                                <div class="chips category-chip border-thick"></div>
+                            </div>
+
+                            <div class="section center">
+                                <button class="waves-effect waves-light btn blue icon-hoverable" type="submit"><i class="material-icons left">check</i>Apply Filters</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                     <div class="row">
                         <div class="col s12">
                             <div id="preloader-indef" class="progress green lighten-3">

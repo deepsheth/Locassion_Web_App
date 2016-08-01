@@ -534,7 +534,7 @@ Private
 
 
                         <div class="blue inverted-footer center">
-                            <button class="btn waves-effect waves-green btn btn-flat white" type="submit" name="action" onclick="eventCreation()">Create Event
+                            <button class="waves-effect waves-green btn btn-flat white" type="submit" name="action" onclick="eventCreation()">Create Event
                                 <i class="material-icons right">event_available</i>
                             </button>
 
