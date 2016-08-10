@@ -715,23 +715,8 @@ h5 {
     color: #455A64;
 }
 
-
-/*
-#registration {
-    background: #4687F2;
-}
-*/
-
 #registration form {
     padding: 2em 3em 3em;
-}
-
-#registration form .input-field {
-    margin: 2em 0;
-}
-
-#registration form button {
-    margin: 2em 0 0;
 }
 
 .collection .collection-item.avatar .title {

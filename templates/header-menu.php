@@ -24,14 +24,14 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li><a href="/webpages/friends_dashboard.php">Friends</a></li>
                 <li><a href="/webpages/events_hist.php">Event History</a></li>
                 <li><a href="#!">Account Settings</a></li>
-                <li class="divider"></li>                               
-                <li><a class="grey-text" onclick="logOut()">Logout</a></li>
+                <li class="divider"></li>
+                <li><a class="grey-text" onclick="mainLogout()">Logout</a></li>
             </ul>
 
         ');
     }
     else{
-        echo('</ul></header><div id="main-container" class="center"> 
+        echo('</ul></header><div id="main-container" class="center">
             <div class="container section">
                 <h3 class="green-text">Please login!</h3><h5>Sorry, but you must log in to continue.</h5>
             </div>
@@ -42,7 +42,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </div>
             </div>
         </div>');
-        
+
         exit();
     }
 

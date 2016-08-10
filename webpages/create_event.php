@@ -1,5 +1,4 @@
-<?php
-?>
+
 <!DOCTYPE html>
 <html>
 
@@ -34,40 +33,34 @@
 
         <!-- Page Specific Styles and Scripts
 ================================================== -->
-        <script>
-            var logged_in = <?php
-                if (isset($_SESSION['token'])) {
-                    echo('true;');
-                } else {
-                    echo('false;');
-                }
-                ?>
-                var token = <?php
-                    if (isset($_SESSION['token'])) {
-                        echo('"'.$_SESSION['token'].'";');
-                    } else {
-                        echo('"";');
-                    }
-                    ?>
-        </script>
+        <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="../js/jquery.timepicker.min.js"></script>
-        <script src="../js/create-event.js"></script>
+        <script src="/js/jquery.timepicker.min.js"></script>
+        <script src="/js/create-event.js"></script>
+        <script src="/js/script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&libraries=places&callback=initMap" async defer></script>
 
 
     </head>
 
     <body id="create-event">
+
         <header class="primary-green row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
             <ul class="col s12 m8 l10">
-                <div class="flex-container">
+                <div class="flex-container menu-buttons">
 
-                    <a data-target="confirm_prompt" class="waves-effect waves-light btn modal-trigger ">Events Dashboard</a>
+                    <script>
+                        addMenuButton("events_dashboard");
+                    </script>
 
                     <div id="confirm_prompt" class="modal modal-fixed-footer">
                         <div class="modal-content black-text">
@@ -89,6 +82,8 @@
                 </div>
             </ul>
         </header>
+
+        <script> requireLogin(); </script>
 
         <div class="container">
             <div class="row grey-text text-darken-2">

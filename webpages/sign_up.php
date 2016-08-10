@@ -1,5 +1,5 @@
 <?php
-include('../php/signUp.php');
+// include('../php/signUp.php');
 ?>
     <!DOCTYPE html>
     <html>
@@ -32,23 +32,51 @@ include('../php/signUp.php');
         <!-- Analytics
 	================================================== -->
         <script type="text/javascript">
-            window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+            window.heap = window.heap || [], heap.load = function (e, t) {
+                window.heap.appid = e, window.heap.config = t = t || {};
+                var r = t.forceSSL || "https:" === document.location.protocol,
+                    a = document.createElement("script");
+                a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") + "//cdn.heapanalytics.com/js/heap-" + e + ".js";
+                var n = document.getElementsByTagName("script")[0];
+                n.parentNode.insertBefore(a, n);
+                for (var o = function (e) {
+                        return function () {
+                            heap.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                        }
+                    }, p = ["addEventProperties", "addUserProperties", "clearEventProperties", "identify", "removeEventProperty", "setEventProperties", "track", "unsetEventProperty"], c = 0; c < p.length; c++) heap[p[c]] = o(p[c])
+            };
             heap.load("414125220");
         </script>
 
         <!-- Page Specific Styles and Scripts
 	================================================== -->
+        <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM",
+                authDomain: "meet-up-8d278.firebaseapp.com",
+                databaseURL: "https://meet-up-8d278.firebaseio.com",
+                storageBucket: "meet-up-8d278.appspot.com",
+            };
+            firebase.initializeApp(config);
+
+            // Check if user is logged in
+            var user = firebase.auth().currentUser;
+
+            if (user) {
+                var logged_in = true;
+            } else {
+                var logged_in = false;
+            }
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script>
-
-            $(document).ready(function() {
-                $('.modal-trigger').leanModal();
-                console.log("???");
-            });
-
-        </script>
-
+        <script src="/js/script.js"></script>
 
     </head>
 
@@ -59,23 +87,30 @@ include('../php/signUp.php');
             <ul class="col s12 m8 l10">
                 <div class="flex-container">
 
-                    <a href="/webpages/reset_pass_email.php" class="btn waves-effect lighten-3 blue-text white">Forgot Password</a>
-                    <a href="/webpages/log_in.php" class="btn waves-effect lighten-3 blue-text white">Login</a>
-
-                    <!-- Dropdown Structure -->
-                    <ul id='acct-settings' class='dropdown-content'>
-                        <li><a href="#!">Account Settings</a></li>
-                        <li><a href="#!">Upcoming Events</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">Log Out</a></li>
-                    </ul>
+                <script>
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        clearMenu();
+                        if (user) {
+                            // signed in.
+                            console.log("Please Sign Out");
+                            window.location.pathname = '/';
+                        } else {
+                            // NOT signed in.
+                            console.log("Create account");
+                            addMenuButton("forgot_password");
+                            addMenuButton("login");
+                            addMenuButton("sign_up");
+                        }
+                    });
+                </script>
+                    
                 </div>
             </ul>
         </header>
 
         <div class="bold-blue bg">
             <div class="container">
-                <div class="row">
+                <form class="row">
 
 
                     <div class="col hide-on-small-only m4 l5 center">
@@ -84,65 +119,74 @@ include('../php/signUp.php');
                     </div>
 
 
-                    <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
-                        <form action="" method="post">
+                    <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1">
+                        <div class="modal-padding">
                             <h3 class="blue-grey-text text-darken-2">Sign Up</h3>
 
                             <!-- fake fields bypass browser autocomplete -->
                             <input style="visibility:hidden; height: 0px" type="password" />
 
 
-                            <div class="input-field">
-                                <i class="material-icons prefix blue-grey-text">account_circle</i>
-                                <input id="icon_username" name="username" type="text" required>
-                                <label for="icon_username">Name</label>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="input_name" name="username" type="text" required>
+                                <label for="input_name">Name</label>
                             </div>
-                            <div class="input-field">
-                                <i class="material-icons prefix blue-grey-text">email</i>
-                                <input id="icon_email" name="email" type="email" class="validate" required>
-                                <label for="icon_email">Email</label>
-                            </div>
-
-                            <div class="input-field">
-                                <i class="material-icons prefix blue-grey-text">map</i>
-                                <input id="icon_location" name="location" type="number" min="10000" max="99999" class="validate">
-                                <label for="icon_location">Default Zipcode (optional)</label>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="input_username" name="email" type="email" class="validate" required>
+                                <label for="input_username">Email</label>
                             </div>
 
-                            <div class="input-field">
-                                <i class="material-icons prefix blue-grey-text">https</i>
-                                <input id="icon_password" name="password" type="password" required>
-                                <label for="icon_password">Password</label>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">map</i>
+                                <input id="input_zipcode" name="location" type="number" min="10000" max="99999" class="validate">
+                                <label for="input_zipcode">Default Zipcode (optional)</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">https</i>
+                                <input id="input_password" name="password" type="password" required>
+                                <label for="input_password">Password</label>
                             </div>
 
                             <!-- fake fields bypass browser autocomplete -->
                             <input style="visibility:hidden; height: 0px" type="password" />
-                            
-                            <div class="center-align">
-                                <div class="row">
-                                    <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue darken-1 white-text">Login with Facebook</a>
-                                </div>
-                                <div class="row">
-                                    <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a>
-                                </div>
-                                <div class="row center"><small>We won't post anything without asking!</small></div>
-                            </div>
-                            
 
-                            <button class="waves-effect waves-light primary-green btn-large" type="submit" name="signup"><i class="material-icons right">send</i>Submit</button>
-                        </form>
+                            <div class="row center-align">
+                                <button class="waves-effect waves-light primary-green btn-large" id="btn-create-acct"><i class="material-icons right">send</i>Create Account</button>
+                            </div>
+
+                            <div class="section center-align">
+
+                                <div class="row">
+                                    <hr>
+
+                                </div>
+
+                                <div class="row">
+                                    <small>You may also sign up with:</small>
+                                </div>
+                                <div class="row">
+                                    <a href="/php/facebookLogin.php" class="btn btn-flat waves-effect blue-text">Facebook</a>
+                                    <a href="#" class="btn btn-flat waves-effect deep-orange-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Google</a>
+                                </div>
+                                <div class="row"><small>Don't worry, we won't post anything without asking!</small></div>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
- 
+
         <?php
         define('__ROOT__', dirname(dirname(__FILE__)));
         include_once(__ROOT__.'/templates/simple-footer.php'); 
         ?>
 
-        
+
     </body>
 
     </html>
