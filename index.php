@@ -94,22 +94,7 @@
         ================================================== -->
         <ul class="col s12 m8 l10">
             <div class="flex-container hide-on-small-only menu-buttons">
-                
-                <script>
-                    firebase.auth().onAuthStateChanged(function (user) {
-                        clearMenu();
-                        if (user) {
-                            // signed in.
-                            addMenuButton("create_event");
-                            addMenuButton("dropdown");
-                        } else {
-                            // No user is signed in.
-                            addMenuButton("create_event_disabled");
-                            addMenuButton("login_modal");
-                            addMenuButton("sign_up");
-                        }
-                    });
-                </script>
+                <!-- Menu buttons are inserted here -->
             </div>
         </ul>
     </header>

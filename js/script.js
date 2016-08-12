@@ -9,9 +9,13 @@
         firebase.initializeApp(config);
 
 $(document).ready(function () {
-    
-    $('form').click(function (e) {
+
+    $('form button').click(function (e) {
         e.preventDefault();
+    });
+
+    $('#btn-login').on('click', function() {
+        mainLogin(document.getElementById('input_username').value,document.getElementById('input_password').value);
     });
 
     $('.enterable').keypress(function (e) {
@@ -34,7 +38,6 @@ $(document).ready(function () {
         count2 = selectCard(this, count2);
     });
 
-
 });
 
 function selectCard(card, numberSelected) {
@@ -51,20 +54,19 @@ function selectCard(card, numberSelected) {
 }
 
 function requireLogin() {
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function(user) {
         if (!user) {
             clearMenu();
-            addMenuButton("login_modal");
+            addMenuButton("login");
+            addMenuButton("full_login_modal");
             addMenuButton("sign_up");
             $(document).ready(function() {
-                console.log("here");
                 clearBelowHeader();
-                // var content = '<div class="container section center-align grey-text"><h3>Please login.</h3><p>Sorry, this feature requires an account.</p></div>';
-                // content += '<div class="row center"><div class="row"> <a href="/webpages/sign_up.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a> <a href="/webpages/log_in.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a></div></div>';
-                // $('header').after(content);
-
+                var content = '<div class="container section center-align grey-text"><h3>Please login.</h3><p>Sorry, this feature requires an account.</p></div>';
+                content += '<div class="row center"><div class="row"> <a href="/webpages/sign_up.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a> <a href="/webpages/log_in.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a></div></div>';
+                $('header').after(content);
             });
-            window.stop();
+            // window.stop();
         }
     });
 }
@@ -73,19 +75,35 @@ function requireLogout() {
 
 }
 
+function userInfo() {
+
+    var user = firebase.auth().currentUser;
+    if (user == null) {
+        return null;
+    }
+
+    var userInfo = {
+        name: user.displayName,
+        email: user.email,
+        user_id: user.uid,
+    }
+
+    return userInfo;
+}
+
 function clearMenu() {
     $('.menu-buttons').html("");
 }
 
 function clearBelowHeader() {
-    $('.container').html("");
+    $('header ~').html("");
 }
 
 function addMenuButton(btn) {
 
     switch (btn) {
     case "create_event":
-        $('.menu-buttons').append('<a href="./webpages/create_event.php" class="waves-effect btn btn-wide">Create Event</a>');
+        $('.menu-buttons').append('<a href="./webpages/create_event.php" class="waves-effect btn btn-flat">Create Event</a>');
         return;
     case "create_event_disabled":
         $('.menu-buttons').append('<a href="/webpages/sign_up.php" class="waves-effect waves-light btn disabled tooltipped" data-delay="100" data-position="left" data-tooltip="Please log in.">Create Event</a>');
@@ -94,9 +112,12 @@ function addMenuButton(btn) {
         $('.menu-buttons').append('<a data-target="confirm_prompt" class="waves-effect waves-blue btn btn-flat modal-trigger">Events Dashboard</a>');
         $('.modal-trigger').leanModal();
         return;
-    case "login_modal":
+    case "login": //login button with trigger
         $('.menu-buttons').append('<a data-target="modal-login" class="waves-effect waves-blue btn btn-flat modal-trigger">Login</a>');
         $('.modal-trigger').leanModal();
+        return;
+    case "full_login_modal": // full modal contents for signing in
+        $('header').before('<form> <div id="modal-login" class="modal modal-small blue-grey-text text-darken-2"> <div class="modal-padding"> <div class="row"><h3>Login</h3></div> <div class="row"> <div class="input-field col s12"> <i class="material-icons prefix ">account_circle</i> <input id="input_username" name="email" type="text" placeholder="" required> <label for="input_username">Email</label> </div> <div class="input-field col s12"> <i class="material-icons prefix">https</i> <input id="input_password" name="password" type="password" placeholder="" class="enterable" required> <label for="input_password">Password</label> <div class="row center"><small><a href="/webpages/reset_pass_email.php" class="blue-grey-text text-darken-4">Forgot Password?</a></small></div> </div> </div> <div class="center-align"> <div class="row"> <a href="/php/facebookLogin.php" class="btn-flat waves-effect blue-text text-darken-1">Login with Facebook</a> </div> <div class="row"> <a href="#" class="btn btn-flat waves-effect deep-orange white-text disabled tooltipped" data-tooltip="Get pumped... this is coming soon!">Login with Google</a> </div> </div> </div> <div class="modal-footer blue-grey-text text-darken-2"> <a href="/webpages/sign_up.php" class="left modal-action modal-close waves-effect waves-blue btn-flat ">Sign Up</a> <button id="btn-login" class="right waves-effect waves-blue btn-flat blue-text submit">Login</button> </div> </div> </form>');
         return;
     case "login":
         $('.menu-buttons').append('<a href="/webpages/login.php"><button class="waves-effect waves-blue btn">Sign Up</button></a>');
@@ -120,6 +141,9 @@ function addMenuButton(btn) {
 function mainLogin(email, password) {
 
     firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
+        if (window.location.pathname != '/') {
+            location.reload();
+        }
         $('#modal-login').closeModal();
     }, function (error) {
         switch (error.code) {
@@ -136,11 +160,10 @@ function mainLogin(email, password) {
 
 function mainLogout() {
     firebase.auth().signOut().then(function () {
-        alert(window.location.pathname);
         if (window.location.pathname != '/') {
             window.location.href = '/';
         }
-        Materialize.toast("Successfully logged out. Please visit us again! :)", 1000);
+        Materialize.toast("Successfully logged out. Please visit us again! :)", 4500);
     }, function (error) {
         alert(error.message);
     });

@@ -60,6 +60,8 @@
 
                     <script>
                         addMenuButton("events_dashboard");
+                        addMenuButton("dropdown");
+                        requireLogin();
                     </script>
 
                     <div id="confirm_prompt" class="modal modal-fixed-footer">
@@ -74,16 +76,9 @@
                         </div>
                     </div>
 
-                    <?php
-                    define('__ROOT__', dirname(dirname(__FILE__)));
-                    include_once(__ROOT__.'/templates/header-menu.php'); 
-                    ?>
-
                 </div>
             </ul>
         </header>
-
-        <script> requireLogin(); </script>
 
         <div class="container">
             <div class="row grey-text text-darken-2">
@@ -529,7 +524,7 @@ Private
 
 
                         <div class="blue inverted-footer center">
-                            <button class="waves-effect waves-green btn btn-flat white" type="submit" name="action" onclick="eventCreation()">Create Event
+                            <button class="waves-effect waves-green btn btn-flat white" type="submit" name="action" onclick="makeEvent()">Create Event
                                 <i class="material-icons right">event_available</i>
                             </button>
 
@@ -557,7 +552,7 @@ Private
         </div>
 
         <?php
-        include_once(__ROOT__.'/templates/simple-footer.php'); 
+        include_once(dirname(dirname(__FILE__)).'/templates/simple-footer.php'); 
         ?>
 
     </body>

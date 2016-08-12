@@ -8,12 +8,12 @@ var eventTitle,
     isPrivate = true,
     startDate, endDate,
     startTime, endTime,
-    tags = [],
+    tags = ["","","",""],
     locationDetails, eventDetails,
     groupInvites, individualInvites;
 
 $(document).ready(function () {
-    
+
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 5, // Creates a dropdown of 5 years to control year
@@ -21,7 +21,7 @@ $(document).ready(function () {
         hiddenName: true, //submits formatSubmit in POST
         closeOnSelect: true
     });
-    
+
     // Disables dates prior to today
     var startDatePicker = $('#start_date').pickadate().pickadate('picker');
     startDatePicker.set({
@@ -33,7 +33,7 @@ $(document).ready(function () {
     });
 
     startDate = startDatePicker.get('select', 'yyyy-mm-dd');
-    
+
 
     // Time picker has 15 minute intervals
     $('#start_time').timepicker({
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     $("input").change(function () {
         validateMaxLen();
-        
+
         // End date is set to start date after start date is picked
         var endDatePicker = $('#end_date').pickadate().pickadate('picker');
         endDate = endDatePicker.get('select', 'yyyy-mm-dd');
@@ -85,7 +85,7 @@ $(document).ready(function () {
                 'min': new Date(begDate.substr(0, 4) + "," + begDate.substr(5, 2) + "," + begDate.substr(8, 2))
             });
         }
-        
+
     });
 
     $('.modal-trigger').leanModal();
@@ -106,25 +106,25 @@ function validateMaxLen() {
 
     var error_exists = false;
     var error_content = "";
-    
+
     //$('#event_title').change(function () {
     if ($('#event_title').val().length > TITLE_LENGTH) {
         error_exists = true;
         error_content += "<p>Please shorten event title. <b>" + $('#event_title').val().length + "/" + TITLE_LENGTH + " </b>characters used. </p> <br>";
     }
 
-   
+
 
     if ($('#private_true').is(':checked')) {
         isPrivate = 1;
     } else {
         isPrivate = 0;
     }
- 
+
 
     startTime = $('#start_time').timepicker('getTime').toString().slice(16, 24);
     endTime = $('#end_time').timepicker('getTime').toString().slice(16, 24);
-    
+
     console.log(endTime);
 
 
@@ -142,8 +142,7 @@ function validateMaxLen() {
         $('#error-checking').fadeIn();
         $('#error-checking .insert').html(error_content);
         return false;
-    }
-    else {
+    } else {
         $('#error-checking').fadeOut();
         return true;
     }
@@ -152,33 +151,33 @@ function validateMaxLen() {
 function validateRequired() {
     var error_exists = false;
     var error_content = "";
-    
-    
+
+
     if ($('#event_title').val().length == 0) {
         error_exists = true;
         error_content += "<p>Event Title is required.</p>";
     }
-    
+
     if ($('#start_date').val() == "") {
         error_exists = true;
         error_content += "<p>Start Date is required</p>"
     }
-    
-    if (! $('#start_time').val().match("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9](am|pm)$")){
+
+    if (!$('#start_time').val().match("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9](am|pm)$")) {
         error_exists = true;
         error_content += "<p>Start Time is in invalid format</p>"
     }
 
     $.each($('#tag-row input'), function (index) {
-        
+
         // Index off by 1, only 2 tags required
         if (index > 1) return;
-        
+
         if ($('#tag-row input').eq(index).val().length == "") {
             error_exists = true;
-            error_content += error_content = "<p>Tag "+ (index + 1) + " is required</p>";
+            error_content += error_content = "<p>Tag " + (index + 1) + " is required</p>";
         }
-        
+
         tags[index] = $('#tag-row input').eq(index).val();
     });
 
@@ -187,13 +186,12 @@ function validateRequired() {
         error_content += "<p> We couldn't determine the event location. Try clicking the map. </p>";
     }
 
-    
+
     if (error_exists) {
         $('#error-checking').fadeIn();
         $('#error-checking .insert').html(error_content);
         return false;
-    }
-    else {
+    } else {
         $('#error-checking').fadeOut();
         return true;
     }
@@ -226,7 +224,7 @@ function initMap() {
         map: map,
         anchorPoint: new google.maps.Point(0, -29)
     });
-    
+
     autocomplete.addListener('place_changed', function () {
         infowindow.close();
         marker.setVisible(false);
@@ -284,11 +282,11 @@ function initMap() {
     // BY CLICKING THE MAP
     // Allows user to select location by marker
     var marker;
-        var geocoder = new google.maps.Geocoder;
+    var geocoder = new google.maps.Geocoder;
     google.maps.event.addListener(map, "click", function (event) {
-        
+
         // Address is string when valid, boolean when error
-        var result_addr = geocodeLatLng(geocoder, map, event.latLng, infowindow, function(result_addr) {
+        var result_addr = geocodeLatLng(geocoder, map, event.latLng, infowindow, function (result_addr) {
             address_coordinates.latitude = event.latLng.lat();
             address_coordinates.longitude = event.latLng.lng();
 
@@ -307,8 +305,8 @@ function initMap() {
             $('#pac-input').val(result_addr);
             infowindow.open(map, marker);
         });
-       
-        
+
+
 
 
     });
@@ -316,11 +314,13 @@ function initMap() {
 }
 
 function geocodeLatLng(geocoder, map, latlng, infowindow, callback) {
-//    var input = document.getElementById('latlng').value;
-//    var latlngStr = input.split(',', 2);
-//    var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+    //    var input = document.getElementById('latlng').value;
+    //    var latlngStr = input.split(',', 2);
+    //    var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
     var addr;
-    geocoder.geocode({'location': latlng}, function(results, status) {
+    geocoder.geocode({
+        'location': latlng
+    }, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
                 Materialize.toast('Got it! Event location set.', 3000);
@@ -330,7 +330,7 @@ function geocodeLatLng(geocoder, map, latlng, infowindow, callback) {
                 callback("error");
             }
         } else {
-            Materialize.toast('Address not found due to: '+ status, 15000);
+            Materialize.toast('Address not found due to: ' + status, 15000);
             addr = "error";
         }
     });
@@ -358,10 +358,9 @@ function eventCreation() {
     groupInvites = $('input.select-dropdown').eq(0).val();
     individualInvites = $('input.select-dropdown').eq(1).val();
 
-    
+
     if (validateMaxLen() && validateRequired()) {
-        var promiseEvent = window.eventReq().done(function (result) {
-        });
+        var promiseEvent = window.eventReq().done(function (result) {});
     }
 }
 
@@ -388,12 +387,44 @@ var eventReq = function () {
             end_time: endTime,
             address: "Hardcoded address"
         },
-    }) .fail(function(xhr){
+    }).fail(function (xhr) {
         console.log("ERROR");
         $('#error-checking').fadeIn();
         $('#error-checking .insert').html("Event could not be created. Here's the error " + xhr.responseText);
         console.log(xhr.responseText);
-    }) .done(function (eventID) {
+    }).done(function (eventID) {
         window.location.replace("/webpages/event_details.php?eventid=" + eventID.eventID);
     });
+}
+
+function makeEvent() {
+    // getHostID
+
+    if (endDate == "") endDate = startDate;
+
+    var eventInfo = {
+        host_id: userInfo().user_id,
+        name: $('#event_title').val(),
+        description: $('#event_details').val(),
+        start_time: startDate + " " + startTime,
+        end_time: endDate + " " + endTime,
+        private: isPrivate,
+        tags: {
+            tag1: tags[0],
+            tag2: tags[1],
+            tag3: tags[2],
+            tag4: tags[3],
+        },
+        latitude: address_coordinates.latitude,
+        longitude: address_coordinates.longitude,
+        address: null,
+        location_description: $('#location_details').val(),
+    }
+
+    console.log(JSON.stringify(eventInfo));
+    console.table(eventInfo);
+
+
+    var newEventKey = firebase.database().ref('/events/').push(JSON.stringify(eventInfo));
+
 }

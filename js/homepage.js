@@ -28,9 +28,7 @@ $(document).ready(function () {
         placeholder: '+Tags',
     });
 
-    document.getElementById("btn-login").addEventListener("click", function() {
-        mainLogin(document.getElementById('input_username').value,document.getElementById('input_password').value);
-    }, false);
+    
 
     validateChips();
 
@@ -82,15 +80,29 @@ var markerCluster;
 
 function initMap() {
 
+    $('#preloader-indef').fadeIn(350);
 
-    // Gets all events
-//    getEvents();
+    firebase.auth().onAuthStateChanged(function (user) {
+        clearMenu();
+        if (user) {
+            // signed in.
+            addMenuButton("create_event");
+            addMenuButton("dropdown");
 
+        } else {
+            // No user is signed in.
+            addMenuButton("create_event_disabled");
+            addMenuButton("login");
+            addMenuButton("sign_up");
 
-    $('.determinate').width('10%');
+            // Card that asks user to sign up
+            $('#event-panel').append('<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>');
+        }
+        
+        // Gets all events
+        getEvents();
 
-
-    $('.determinate').width('40%');
+    });
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -101,8 +113,6 @@ function initMap() {
     });
 
     geoLocator();
-
-    $('.determinate').width('70%');
 
     //    google.maps.event.addListener(map, 'idle', reRender);
 
@@ -157,151 +167,22 @@ function geoLocator() {
 function getEvents() {
 
     // REMEMBER LONGITUDE AND LATITUDE ARE REVERSED
-    var baseurl = "https://meet-up-1097.appspot.com/?command=";
-    var params = "" + filters.pos.lng + ";" + filters.pos.lat + ";" + filters.radius + ";" + filters.date_start.format("YYYY-MM-DD") + "%20" + filters.date_start.format("HH:mm:ss") + ";" + filters.date_end.format("YYYY-MM-DD") + "%" + filters.date_end.format("HH:mm:ss") + ";:::&token=";
-    //    console.log(url);
+    clearEvents();
+    var numEvents = 0;
+    var events = firebase.database().ref("/events/");
 
-    var events = {
-        publicEventIDs: function () {
-            return $.ajax(baseurl + "publicEvents&args=" + params, {
-                dataType: 'json',
-                success: function (data) {
-                    events.pubIDs = data;
-                    return data;
-                },
-                error: function (e) {
-                    events.error(e, "ID of public");
-                }
-            });
-        },
-        publicEvents: function () {
-
-            var eventIDs = events.pubIDs.events.join(":");
-            return $.ajax(baseurl + "getPublicEventInfo&args=" + eventIDs + "&token=", {
-                dataType: 'json',
-                success: function (data) {
-                    return data;
-                },
-                error: function (e) {
-                    if (eventIDs == "") console.log("publicEventIDs must be called before publicEvents!");
-                    events.error(e, "public");
-                }
-            });
-        },
-        privateEventIDs: function () {
-            return $.ajax(baseurl + "privateEvents&args=" + params + ";:::&token=" + token, {
-                dataType: 'json',
-                success: function (data) {
-                    events.privIDs = data;
-                    return data;
-                },
-                error: function (e) {
-                    events.error(e, "ID of private");
-                }
-            });
-        },
-        privateEvents: function () {
-            var eventIDs = events.privIDs.events.join(":");
-            return $.ajax(baseurl + "getPrivateEventInfo&args=" + eventIDs + "&token=" + token, {
-                dataType: 'json',
-                success: function (data) {
-                    return data;
-                },
-                error: function (e) {
-                    if (eventIDs == "") console.log("privateEventIDs must be called before privateEvents!");
-                    events.error(e, "private");
-                }
-            });
-        },
-        error: function (e, type) {
-            //            clearEvents();
-            console.log("Errror loading cards");
-            genCustCard("Sorry!", "We were unable to get the " + type + " events. If this problem continues, please let us know! ", "red darken-2");
-            genCustCard("For Our Hard-working Devs:", e, "blue-grey darken-2");
-            $('#preloader-indef').fadeOut(350);
-        },
-        pubIDs: [],
-        privIDs: []
-    };
-
-
-
-    $('#preloader-indef').fadeIn(350);
-
-    // Promises
-
-    var xhrPrivID, xhrPub;
-
-    // First gets private event IDs, then public IDs
-    if (logged_in) {
-        xhrPrivID = events.privateEventIDs();
-    }
-    events.publicEventIDs().done(function (eventID) {
-
-        // Finishes publicEvens first, then private events (which hopefully finished getting IDs)
-        xhrPub = events.publicEvents().done(function (eventInfo) {
-            genEvents(eventInfo, "Public");
-        });
-
-        if (logged_in) {
-            xhrPrivID.done(function (eventInfo) {
-                events.privateEvents().done(function (eventInfo) {
-                    genEvents(eventInfo, "Private");
-                });
-            });
+    events.on('child_added', function(snapshot) {
+        var eventInfo = snapshot.val();
+        var type = eventInfo.private ? "private" : "public";
+        genEventCard(eventInfo, type, numEvents++);
+        genMarker(eventInfo, type);
+    }, function(error) {
+        switch(error.code) {
+            case "PERMISSION_DENIED": genCustCard("Permission Denied.", "Error: We had trouble getting the list of events. Our servers might be undergoing updates and improvements, so sit tight and try again shortly!", "orange accent-3");
+            break;
+            default: genCustCard(error.code, error.message, amber);
         }
-
-        Promise.all([xhrPrivID, xhrPub]).then(eventInfo => {
-            genClusters();
-            genDynHandlers();
-        }, function (err) {
-            console.log(err);
-        });
-
     });
-
-
-
-
-    /* var promisePub = events.publicEvents().done(function (eventInfo) {
-         clearEvents();
-         genEvents(eventInfo, "Public");
-     });
-     promisePub.fail(function(error) {
-         clearEvents();
-         genCustCard("Sorry!", "We were unable to get the public events. Try refreshing the page or contact us. ", "red darken-2");
-         genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
-         $('#preloader-indef').fadeOut(350);
-     });
-
-     // clearEvents is inside the promise to prevent race conditions from not clearing the markers if the discover event button is spammed
-     if (logged_in) {
-         var promisePriv = events.privateEvents().done(function (eventInfo) {
-             //            clearEvents();
-             genEvents(eventInfo, "Private");
-         });
-
-         promisePriv.fail(function(error) {
-             clearEvents();
-             genCustCard("Sorry!", "We were unable to get the private events. Try refreshing the page or contact us. ", "red darken-2");
-             genCustCard("For Our Hard-working Devs:", error.responseText, "blue-grey darken-2");
-             $('#preloader-indef').fadeOut(350);
-         });
-
-         Promise.all([promisePub, promisePriv]).then(eventInfo => {
-             genClusters();
-             genDynHandlers();
-         }, function(reason) {
-             console.log(reason);
-         });
-     }
-     else {
-         promisePub.done(function () {
-             genClusters();
-             genDynHandlers();
-         });
-     }*/
-
 }
 
 function genCustCard(title, body, bgcolor) {
@@ -312,8 +193,6 @@ function genCustCard(title, body, bgcolor) {
 
 function genClusters() {
     // Markers are no longer put on map, until MarkerClusterer is called since map: map property of markers is removed
-
-    $('.determinate').width('100%');
 
     var options = {
         imagePath: '/img/markers/m',
@@ -348,11 +227,6 @@ function genClusters() {
             infoWindow.open(map);
         }
     });
-
-    setTimeout(function () {
-        $('.determinate').fadeOut(350);
-    }, 350);
-
 }
 
 function genDynHandlers() {
@@ -390,134 +264,108 @@ function genDynHandlers() {
     });
 }
 
-// Runs for each type of event (public/private events)
-function genEvents(eventInfo, type) {
-    genCards(eventInfo, type);
-    genMarkers(eventInfo, type);
+function genEventCard(eventInfo, type, eventNum) {
+    eventInfo.time = moment(eventInfo.time, "YYYY-MM-DD HH:mm:ss");
+    var past = eventInfo.time.diff(moment()) < 0 ? true : false;
+
+    var cardContent = '<div class="col s12">' +
+        '<div class="card dyn" onmouseenter="highlight_marker(' + eventNum + ')" onmouseleave="restore_marker(' + eventNum + ', \'' + type + '\' )">' +
+        '<div class="img-wrapper">' +
+        '<img class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx" alt="">' +
+        '</div>' +
+        '<div class="card-content">' +
+        '<div class="row">' +
+        '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo.time.valueOf() + '\')" title="' + eventInfo.time.toString() + '">' +
+        '<div class="day">' + eventInfo.time.format("ddd") + '</div>' +
+        '<div class="day-num">' + eventInfo.time.format("D") + '</div>' +
+        '<div class="month">' + eventInfo.time.format("MMM") + '</div>' +
+        '<div class="context">' + eventInfo.time.fromNow() + '</div>' +
+        '</div>' +
+        '<div class="col m9 l8 offset-l1 side-info">' +
+        '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">' + eventInfo.name + '</a></div>' +
+        '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo.latitude + ',' + eventInfo.longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo.locationDescription + '</div>' +
+        '<div class="small-details">' + eventInfo.address + '</div>' +
+        '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo.time.format("h:mm A") + '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="row">' +
+        '<div class="center-align">' +
+        '<a href="#" class="grey-text text-darken-1">' + eventInfo.hostName + '</a> created this meet up.' +
+        '</div>' +
+        '</div>' +
+
+        '<div class="fold-body hidden">' +
+        '<div class="row row-tight">' +
+        '<div class="span-padded center">' + (eventInfo.private ?  '<i title="private" class="material-icons tiny">group</i><span>' : '<i title="public" class="material-icons tiny">public</i><span>Public</span>' + "Public" + '</span>') + '<span>' +
+        '8 Friends — 13 Total Going' +
+        '</span>' +
+        '</div>' +
+        '<div class="row row-tight">' +
+        '<p class="col s12">' +
+        eventInfo.description +
+        '</p>' +
+        '</div>' +
+        '<div class="divider"></div>' +
+        '<div class="flex-container tags">' +
+        '<a href="#" class="chip">#' + eventInfo.tag1 + '</a>' +
+        '<a href="#" class="chip">#' + eventInfo.tag2 + '</a>' +
+        '<a href="#" class="chip">#' + eventInfo.tag3 + '</a>' +
+        '<a href="#" class="chip">#' + eventInfo.tag4 + '</a>' +
+        '</div>' +
+        '</div>' +
+
+        '</div>' +
+        '</div>' +
+        '<div class="card-action center-align expand-fold">' +
+        '<div class="col s6 pre-btn left-align">' +
+        '<a href="#" class="fold-label">More</a><i class="material-icons left" title="Event Details">info</i>'+
+        '</div>' +
+        '<div class="col s6 right right-align"><a href="#" class="btn-go waves-effect waves-light ' + (past ? "disabled dirty\">Passed</a>" : "\">GO</a>") + '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+
+    $('#event-panel').append( cardContent );
 }
 
-function genCards(eventInfo, type) {
+function genCards(eventInfo) {
 
-    if (!logged_in) {
-        $('#event-panel').append( 
-            '<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>'
-        );
-    } else if (eventInfo.length == 0) {
+console.log(eventInfo);
+
+    if (eventInfo.length == 0) {
         $('#event-panel').append(
-            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No ' + type + ' Events!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
+            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No Events Found!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
         );
     }
+}
 
-    for (var i = 0; i < eventInfo.length; i++) {
-        eventInfo[i].time = moment(eventInfo[i].time, "YYYY-MM-DD HH:mm:ss");
-        var past;
-        if (eventInfo[i].time.diff(moment()) < 0) {
-            past = true;
-        } else {
-            past = false;
+function genMarker(eventInfo, type) {
+
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(eventInfo.latitude, eventInfo.longitude),
+        icon: type,
+        title: eventInfo.name
+    });
+
+    // Adds to the markers array, which is necessary for clustering
+    markers.push(marker);
+
+    var infowindow = new google.maps.InfoWindow({
+        maxWidth: 250
+    });
+
+    google.maps.event.addListener(infowindow, 'domready', function () {
+        styleInfoWin(infowindow);
+    });
+
+    google.maps.event.addListener(marker, 'click', (function (marker) {
+        return function () {
+            var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo.name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo.time + "</br><strong>Location: </strong>" + eventInfo.locationDescription + "</br></br>" + eventInfo.description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">Event Page</a></div></div></div></div>';
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
         }
-
-        var cardContent = '<div class="col s12">' +
-            '<div class="card dyn" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', \'' + type + '\' )">' +
-            '<div class="img-wrapper">' +
-            '<img class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx" alt="">' +
-            '</div>' +
-            '<div class="card-content">' +
-            '<div class="row">' +
-            '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo[i].time.valueOf() + '\')" title="' + eventInfo[i].time.toString() + '">' +
-            '<div class="day">' + eventInfo[i].time.format("ddd") + '</div>' +
-            '<div class="day-num">' + eventInfo[i].time.format("D") + '</div>' +
-            '<div class="month">' + eventInfo[i].time.format("MMM") + '</div>' +
-            '<div class="context">' + eventInfo[i].time.fromNow() + '</div>' +
-            '</div>' +
-            '<div class="col m9 l8 offset-l1 side-info">' +
-            '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a></div>' +
-            '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</div>' +
-            '<div class="small-details">' + eventInfo[i].address + '</div>' +
-            '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("h:mm A") + '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="center-align">' +
-            '<a href="#" class="grey-text text-darken-1">' + eventInfo[i].hostName + '</a> created this meet up.' +
-            '</div>' +
-            '</div>' +
-
-            '<div class="fold-body hidden">' +
-            '<div class="row row-tight">' +
-            '<div class="span-padded center">' + (type == "Public" ? '<i title="public" class="material-icons tiny">public</i><span>Public</span>' : '<i title="private" class="material-icons tiny">group</i><span>' + type + '</span>') + '<span>' +
-            '8 Friends — 13 Total Going' +
-            '</span>' +
-            '</div>' +
-            '<div class="row row-tight">' +
-            '<p class="col s12">' +
-            eventInfo[i].description +
-            '</p>' +
-            '</div>' +
-            '<div class="divider"></div>' +
-            '<div class="flex-container tags">' +
-            '<a href="#" class="chip">#' + eventInfo[i].tag1 + '</a>' +
-            '<a href="#" class="chip">#' + eventInfo[i].tag2 + '</a>' +
-            '<a href="#" class="chip">#' + eventInfo[i].tag3 + '</a>' +
-            '<a href="#" class="chip">#' + eventInfo[i].tag4 + '</a>' +
-            '</div>' +
-            '</div>' +
-
-            '</div>' +
-            '</div>' +
-            '<div class="card-action center-align expand-fold">' +
-            '<div class="col s6 pre-btn left-align">' +
-            '<a href="#" class="fold-label">More</a><i class="material-icons left" title="Event Details">info</i>'+
-            '</div>' +
-            '<div class="col s6 right right-align"><a href="#" class="btn-go waves-effect waves-light ' + (past ? "disabled dirty\">Passed</a>" : "\">GO</a>") + '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-
-        $('#event-panel').append(
-            //            '<div class="row"><div class="col s12"><div class="card white hoverable" onmouseenter="highlight_marker(' + numEvents + ')" onmouseleave="restore_marker(' + numEvents + ', ' + '\'public\'' + ' )"><div class="card-content blue-grey-text text-lighten-1"><div class="card-title col s12"><a href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">' + eventInfo[i].name + '</a><i title="Close" class="material-icons right close">close</i></div><div><i class="material-icons icons-inline left">public</i>'+ type +' Event</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.format("dddd, MMMM Do YYYY, h:mm a") + '</div><div><i  title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo[i].time.fromNow() + '</div><span class="add-cursor" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')"><i  title="Location" class="material-icons icons-inline left">place</i>' + eventInfo[i].locationDescription + '</span><p>' + eventInfo[i].description + '</p></div><div class="card-action grey lighten-3"><ul class="collapsible z-depth-1" data-collapsible="accordion"><li><div class="collapsible-header grey lighten-3"><i class="material-icons left grey-text text-darken-2" title="Event Details">info</i><i class="material-icons left grey-text text-darken-2  hide-on-small-only" title="Map Event\'s Location" onclick="centerMap(' + eventInfo[i].latitude + ',' + eventInfo[i].longitude + ')">place</i><a href="#" class="blue-text right" onclick="toastDismiss(' + i + ')">Dismiss</a><a href="#" class="blue-text right" onclick="toastGoing(' + i + ')">Going</a></div><div class="collapsible-body"><div class="friends-attending grey-text text-darken-2">FRIENDS ATTENDING:<div class="attendees-preview"><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66782?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63884?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/66750?v=3&s=400" alt=""><img class="user-thumb circle" src="https://avatars2.githubusercontent.com/u/63882?v=3&s=400" alt=""><span class="user-thumb circle grey darken-2 num-count grey-text text-lighten-4">+3</span></div></div><div class="chip chip-margin-right">' + eventInfo[i].tag1 + '</div><div class="chip">' + eventInfo[i].tag2 + '</div></div></li></ul></div></div></div></div>'
-
-            cardContent
-
-        );
-        numEvents++;
-    }
-}
-
-function genMarkers(eventInfo, type) {
-    for (var i = 0; i < eventInfo.length; i++) {
-
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(eventInfo[i].latitude, eventInfo[i].longitude),
-            icon: markerIcons(type),
-            title: eventInfo[i].name
-        });
-
-        //        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-        //            return function () {
-        //                infowindow.open(map, marker);
-        //            }
-        //        })(marker, i));
-
-        markers.push(marker);
-
-        var infowindow = new google.maps.InfoWindow({
-            maxWidth: 250
-        });
-
-        google.maps.event.addListener(infowindow, 'domready', function () {
-            styleInfoWin(infowindow);
-        });
-
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo[i].name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo[i].time + "</br><strong>Location: </strong>" + eventInfo[i].locationDescription + "</br></br>" + eventInfo[i].description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo[i].eventid + '">Event Page</a></div></div></div></div>';
-                infowindow.setContent(contentString);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-    }
+    })(marker));
 
 }
 
@@ -661,14 +509,6 @@ function deleteCard(currentElement) {
     $(currentElement).parentsUntil($("#event-panel")).slideUp("fast", function () {
         $(currentElement).remove();
     });
-}
-
-function toastGoing(cardIndex) {
-    Materialize.toast('Going to event ' + cardIndex, 4000);
-}
-
-function toastDismiss(cardIndex) {
-    Materialize.toast('NOT going to event ' + cardIndex, 4000);
 }
 
 function centerMap(latitude, longitude) {
@@ -858,3 +698,4 @@ function btnFailure(button) {
     button.text("Try Again");
     button.addClass("failure");
 }
+
