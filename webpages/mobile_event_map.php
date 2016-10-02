@@ -6,8 +6,8 @@
         <!-- Basic Page Needs
 ================================================== -->
         <meta charset="utf-8">
-        <title>locassion</title>
-        <meta name="description" content="locassion: Web App">
+        <title>Locassion</title>
+        <meta name="description" content="Locassion: Web App">
         <meta name="author" content="Deep Sheth">
 
         <!-- CSS

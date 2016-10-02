@@ -6,8 +6,8 @@
     <!-- Basic Page Needs
 	================================================== -->
     <meta charset="utf-8">
-    <title>locassion</title>
-    <meta name="description" content="locassion: Web App">
+    <title>Locassion</title>
+    <meta name="description" content="Locassion: Web App">
     <meta name="author" content="Deep Sheth">
 
     <!-- CSS
@@ -85,7 +85,7 @@
             </div>
         </ul>
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">locassion</a></h1>
+        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
 
         <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 

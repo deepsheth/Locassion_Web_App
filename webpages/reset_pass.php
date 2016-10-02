@@ -47,8 +47,8 @@ else{
         <!-- Basic Page Needs
 ================================================== -->
         <meta charset="utf-8">
-        <title>locassion | Reset Password</title>
-        <meta name="description" content="locassion: Web App">
+        <title>Locassion | Reset Password</title>
+        <meta name="description" content="Locassion: Web App">
         <meta name="author" content="Deep Sheth">
 
         <!-- CSS
@@ -80,7 +80,7 @@ else{
     <body id="registration">
         <header class="primary-green row">
 
-            <h1 class="col s12 m4 l2"><a href="/" class="white-text">locassion</a></h1>
+            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
             
         </header>
 

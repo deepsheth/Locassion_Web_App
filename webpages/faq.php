@@ -6,8 +6,8 @@
     <!-- Basic Page Needs
 	================================================== -->
     <meta charset="utf-8">
-    <title>locassion</title>
-    <meta name="description" content="locassion: Web App">
+    <title>Locassion</title>
+    <meta name="description" content="Locassion: Web App">
     <meta name="author" content="Deep Sheth">
 
     <!-- CSS
@@ -47,7 +47,7 @@
 <body id="faq">
     <header class="grey lighten-4 grey-text">
 
-        <h1><a href="/" class="grey-text">locassion</a></h1>
+        <h1><a href="/" class="grey-text">Locassion</a></h1>
         <ul >
             <i class="material-icons col s2 grey-text large-icon">help</i>
         </ul>
@@ -63,15 +63,15 @@
 
         <ul class="collapsible" data-collapsible="expandable">
             <li>
-                <div class="collapsible-header">Why the name locassion?
+                <div class="collapsible-header">Why the name Locassion?
                 </div>
                 <div class="collapsible-body">
-                    <p> locassion helps you manage locations - for your occasions! With this app, you can set up events at any waypoint, by simply dropping a pin on the map or entering an address. When you create an account, you’ll be able to add friends and share events with whomever you select. You can give information about each event for anyone invited to view. Once you select a location, your friends can RSVP and obtain directions. You can even let your friends add more guests to the event! Events can be private or public; see below to learn more about these, and the types of events you might create.
+                    <p> Locassion helps you manage locations - for your occasions! With this app, you can set up events at any waypoint, by simply dropping a pin on the map or entering an address. When you create an account, you’ll be able to add friends and share events with whomever you select. You can give information about each event for anyone invited to view. Once you select a location, your friends can RSVP and obtain directions. You can even let your friends add more guests to the event! Events can be private or public; see below to learn more about these, and the types of events you might create.
                     </p>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header">What is locassion? </div>
+                <div class="collapsible-header">What is Locassion? </div>
                 <div class="collapsible-body">
                     <p>Private events are the typical event created by a user. These events can only be viewed by the friends you invite. The possibilities for this type of event are endless! Class field trips, study sessions, business meetings, a date at a restaurant, or a bangin’ party - the list goes on! Going out with some friends and want to meet back at the car? Simply set up a location in the parking lot! You even have a saved history of events, which can come in handy. Want to park at the same meter as before? Put the meter price in the event description and save it for future events!
                     </p>
@@ -149,7 +149,7 @@
                 <div class="collapsible-header">My account got banned, why?</div>
                 <div class="collapsible-body">
                     <p>
-                        In the case of a banned account, you were most likely found by an administrator to be botting or spamming, two actions that game the system and create an undesirable experience for our other users. Please refer to the Terms of Service for more details. If you feel you have been unjustly banned, send a support ticket to the team at locassion@lehigh.edu
+                        In the case of a banned account, you were most likely found by an administrator to be botting or spamming, two actions that game the system and create an undesirable experience for our other users. Please refer to the Terms of Service for more details. If you feel you have been unjustly banned, send a support ticket to the team at Locassion@lehigh.edu
 
                     </p>
                 </div>
@@ -192,7 +192,7 @@
             </li>
 
             <li>
-                <div class="collapsible-header">Who created locassion?</div>
+                <div class="collapsible-header">Who created Locassion?</div>
                 <div class="collapsible-body">
                     <p>
                         This app was created by Leavitt Innovations, 4 students in Lehigh University’s class of 2018 - Corey Caplan, Lucas Dittman, Adam Knuckey, and Deep Sheth. We will continue to develop this project and expand it to the constantly growing needs of today’s user base!
@@ -202,7 +202,7 @@
             </li>
         </ul>
 
-        <p class="center-align blue-text text-darken-2 pad-up">Have a question or encounter a bug? Please contact the team at <b>locassion@lehigh.edu</b></p>
+        <p class="center-align blue-text text-darken-2 pad-up">Have a question or encounter a bug? Please contact the team at <b>Locassion@lehigh.edu</b></p>
 
     </div>
 
