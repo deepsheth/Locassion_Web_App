@@ -6,8 +6,8 @@
     <!-- Basic Page Needs
 ================================================== -->
     <meta charset="utf-8">
-    <title>Loccasion | Create Event</title>
-    <meta name="description" content="Loccasion: Web App">
+    <title>locassion | Create Event</title>
+    <meta name="description" content="locassion: Web App">
     <meta name="author" content="Deep Sheth">
 
     <!-- CSS
@@ -52,7 +52,7 @@
 
     <header class="primary-green row">
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+        <h1 class="col s12 m4 l2"><a href="/" class="white-text">locassion</a></h1>
 
         <ul class="col s12 m8 l10">
             <div class="flex-container menu-buttons">

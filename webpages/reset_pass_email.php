@@ -6,8 +6,8 @@
     <!-- Basic Page Needs
 ================================================== -->
     <meta charset="utf-8">
-    <title>Loccasion | Reset Password</title>
-    <meta name="description" content="Loccasion: Web App">
+    <title>locassion | Reset Password</title>
+    <meta name="description" content="locassion: Web App">
     <meta name="author" content="Deep Sheth">
 
     <!-- CSS
@@ -57,7 +57,7 @@
 <body id="registration">
     <header class="light-green darken-2 white-text row">
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
+        <h1 class="col s12 m4 l2"><a href="/" class="white-text">locassion</a></h1>
         <ul class="col s12 m8 l10">
             <div class="flex-container">
 

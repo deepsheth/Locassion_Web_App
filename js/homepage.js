@@ -312,8 +312,8 @@ function genEventCard(eventInfo, event_id, type, eventNum) {
         '</div>' +
         '<div class="col m9 l8 offset-l1 side-info">' +
         '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">' + eventInfo.name + '</a></div>' +
-        '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo.latitude + ',' + eventInfo.longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo.locationDescription + '</div>' +
-        '<div class="small-details">' + eventInfo.address + '</div>' +
+        '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo.latitude + ',' + eventInfo.longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo.address + '</div>' +
+        '<div class="small-details">' + eventInfo["location description"] + '</div>' +
         '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo.time.format("h:mm A") + '</div>' +
         '</div>' +
         '</div>' +
@@ -390,7 +390,7 @@ function genMarker(eventInfo, type) {
 
     google.maps.event.addListener(marker, 'click', (function (marker) {
         return function () {
-            var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo.name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo.time + "</br><strong>Location: </strong>" + eventInfo.locationDescription + "</br></br>" + eventInfo.description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">Event Page</a></div></div></div></div>';
+            var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo.name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo.time + "</br><strong>Location: </strong>" + eventInfo["location description"] + "</br></br>" + eventInfo.description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">Event Page</a></div></div></div></div>';
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
         }
