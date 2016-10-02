@@ -44,12 +44,16 @@ $(document).ready(function () {
         'step': 30
     });
 
+    $('.end-row').hide();
+    $('#btn-end').on('click', function() {
+        $(this).fadeOut(function() {
+            $('.end-row').fadeIn();
+        });
+    });
     /* $('#pick-start-time').focusout(function() {
          var startTime = $('#pick-start-time').val();
          console.log(startTime);
          $('#pick-end-time').val(startTime);
-         
-         
      });*/
 
     // Prevents submission of form on map autocomplete
@@ -125,14 +129,15 @@ function validateMaxLen() {
     startTime = $('#start_time').timepicker('getTime').toString().slice(16, 24);
     endTime = $('#end_time').timepicker('getTime').toString().slice(16, 24);
 
-    console.log(endTime);
-
 
     $.each($('#tag-row input'), function (index) {
         if ($('#tag-row input').eq(index).val().length > TAG_LENGTH) {
             error_exists = true;
             error_content += "<p>Please shorten tag " + (index + 1) + ". <b>" + $('#tag-row input').eq(index).val().length + "/" + TAG_LENGTH + " </b>characters used. </p> <br>"
         }
+        
+        tags[index] = $('#tag-row input').eq(index).val();
+        
     });
 
 
@@ -403,28 +408,29 @@ function makeEvent() {
     if (endDate == "") endDate = startDate;
 
     var eventInfo = {
-        host_id: userInfo().user_id,
-        name: $('#event_title').val(),
-        description: $('#event_details').val(),
-        start_time: startDate + " " + startTime,
-        end_time: endDate + " " + endTime,
-        private: isPrivate,
-        tags: {
-            tag1: tags[0],
-            tag2: tags[1],
-            tag3: tags[2],
-            tag4: tags[3],
+        'host id': userInfo().user_id,
+        'name': $('#event_title').val(),
+        'description': $('#event_details').val(),
+        'start time': startDate + " " + startTime,
+        'end time': endDate + " " + endTime,
+        'private': isPrivate,
+        'tags': {
+            'tag1': tags[0],
+            'tag2': tags[1],
+            'tag3': tags[2],
+            'tag4': tags[3],
         },
-        latitude: address_coordinates.latitude,
-        longitude: address_coordinates.longitude,
-        address: null,
-        location_description: $('#location_details').val(),
-    }
+        'latitude': address_coordinates.latitude,
+        'longitude': address_coordinates.longitude,
+        'address': "Hardcoded",
+        'location description': $('#location_details').val()
+    };
 
-    console.log(JSON.stringify(eventInfo));
     console.table(eventInfo);
 
+    var newEventKey = firebase.database().ref('/events/public').push();
+    var eventKey = newEventKey.key;
 
-    var newEventKey = firebase.database().ref('/events/').push(JSON.stringify(eventInfo));
-
+//    firebase.database().ref('/events/public/').set(null);
+    firebase.database().ref('/events/public/' + eventKey).set(eventInfo);
 }

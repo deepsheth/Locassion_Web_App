@@ -49,7 +49,7 @@
             ?>
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="/js/script.js"></script>
 
 
@@ -122,7 +122,7 @@
                 });
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM&callback=initMap" async defer></script>
 
         <ul class="collection z-depth-1 grey-text text-darken-2">
             <li class="collection-item avatar row">

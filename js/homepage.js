@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
 
     $('#filters .chip').click(function (e) {
-        e.preventDefault();
+//        e.preventDefault();
         var chips = $('#filters .chip');
         chips.removeClass('active invert');
 
@@ -164,27 +164,47 @@ function geoLocator() {
     }
 }
 
+
+
 function getEvents() {
 
     // REMEMBER LONGITUDE AND LATITUDE ARE REVERSED
     clearEvents();
     var numEvents = 0;
-    var events = firebase.database().ref("/events/");
+    
+    getSpecificEvents("/events/public", "public");
+    
+    if (firebase.auth().currentUser != null) {
+        getSpecificEvents("/events/private", "private");
+    }
+    genDynHandlers();
+}
+
+function getSpecificEvents(ref, icon) {
+    var events = firebase.database().ref(ref);
 
     events.on('child_added', function(snapshot) {
         var eventInfo = snapshot.val();
-        var type = eventInfo.private ? "private" : "public";
-        genEventCard(eventInfo, type, numEvents++);
-        genMarker(eventInfo, type);
+        var cardGenerated = genEventCard(eventInfo, snapshot.key, icon, numEvents);
+        numEvents++;
+        foldableInit(cardGenerated);
+        btnRequestInit();
+        cleanTags();
+        genMarker(eventInfo, icon);
     }, function(error) {
         switch(error.code) {
-            case "PERMISSION_DENIED": genCustCard("Permission Denied.", "Error: We had trouble getting the list of events. Our servers might be undergoing updates and improvements, so sit tight and try again shortly!", "orange accent-3");
-            break;
-            default: genCustCard(error.code, error.message, amber);
+            case "PERMISSION_DENIED": 
+                if (firebase.auth().currentUser != null) {
+                    genCustCard("Permission Denied.", "Error: We had trouble getting the list of private events. Our servers might be undergoing updates and improvements, so sit tight and try again shortly!", "orange accent-3");
+                    console.log(error);
+                }
+                break;
+            default: genCustCard(error.code, error.message, "amber");
         }
     });
 }
 
+// Icon is optional
 function genCustCard(title, body, bgcolor) {
     $('#event-panel').append(
         '<div class="row"><div class="col 12"><div class="card ' + bgcolor + '"><div class="card-content white-text"><span class="card-title">' + title + '</span><p class="insert">' + body + '</p></div></div></div></div>'
@@ -233,9 +253,6 @@ function genDynHandlers() {
 
     $('#preloader-indef').fadeOut(350);
 
-    foldableInit();
-    btnRequestInit();
-    cleanTags();
 
     // Allow cards to open
     $('.collapsible').collapsible({
@@ -243,6 +260,7 @@ function genDynHandlers() {
     });
 
     // Delete Card
+    console.log($("#event-panel .collapsible a:nth-of-type(1)"));
     $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
         deleteCard(this);
     });
@@ -262,10 +280,21 @@ function genDynHandlers() {
     $("#event-panel .close").click(function () {
         deleteCard(this);
     });
+    
+//    foldableInit();
+//    btnRequestInit();
+//    cleanTags();
 }
 
-function genEventCard(eventInfo, type, eventNum) {
-    eventInfo.time = moment(eventInfo.time, "YYYY-MM-DD HH:mm:ss");
+function genEventCard(eventInfo, event_id, type, eventNum) {
+    
+    var ref = firebase.database().ref("attending/"+ event_id);
+    ref.once("value").then(function(snapshot) {
+        console.log(snapshot);
+        var a = snapshot.numChildren();
+    });
+    
+    eventInfo.time = moment(eventInfo["start time"], "YYYY-MM-DD HH:mm:ss");
     var past = eventInfo.time.diff(moment()) < 0 ? true : false;
 
     var cardContent = '<div class="col s12">' +
@@ -296,9 +325,8 @@ function genEventCard(eventInfo, type, eventNum) {
 
         '<div class="fold-body hidden">' +
         '<div class="row row-tight">' +
-        '<div class="span-padded center">' + (eventInfo.private ?  '<i title="private" class="material-icons tiny">group</i><span>' : '<i title="public" class="material-icons tiny">public</i><span>Public</span>' + "Public" + '</span>') + '<span>' +
-        '8 Friends — 13 Total Going' +
-        '</span>' +
+        '<div class="span-padded center">' + (eventInfo.private ?  '<i title="private" class="material-icons tiny">group</i><span>Private</span>' : '<i title="public" class="material-icons tiny">public</i><span>Public</span>') + 
+        '<span>' + '8 Friends — 13 Total Going' + '</span>' +
         '</div>' +
         '<div class="row row-tight">' +
         '<p class="col s12">' +
@@ -307,10 +335,10 @@ function genEventCard(eventInfo, type, eventNum) {
         '</div>' +
         '<div class="divider"></div>' +
         '<div class="flex-container tags">' +
-        '<a href="#" class="chip">#' + eventInfo.tag1 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tag2 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tag3 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tag4 + '</a>' +
+        '<a href="#" class="chip">#' + eventInfo.tags.tag1 + '</a>' +
+        '<a href="#" class="chip">#' + eventInfo.tags.tag2 + '</a>' +
+        '<a href="#" class="chip">#' + eventInfo.tags.tag3 + '</a>' +
+        '<a href="#" class="chip">#' + eventInfo.tags.tag4 + '</a>' +
         '</div>' +
         '</div>' +
 
@@ -327,18 +355,19 @@ function genEventCard(eventInfo, type, eventNum) {
         '</div>';
 
     $('#event-panel').append( cardContent );
+    return $('.card.dyn').eq(numEvents);
 }
 
-function genCards(eventInfo) {
-
-console.log(eventInfo);
-
-    if (eventInfo.length == 0) {
-        $('#event-panel').append(
-            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No Events Found!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
-        );
-    }
-}
+//function genCards(eventInfo) {
+//
+//console.log(eventInfo);
+//
+//    if (eventInfo.length == 0) {
+//        $('#event-panel').append(
+//            '<div class="row"><div class="col 12"><div class="card white"><div class="card-content"><span class="card-title">😞 No Events Found!</span><p class="insert grey-text text-darken-2">Discover events that interest you. We\'ll keep track of the events you\'re going to.</p></div></div></div></div>'
+//        );
+//    }
+//}
 
 function genMarker(eventInfo, type) {
 
@@ -558,16 +587,25 @@ function viewCal(event, date) {
     event.stopPropagation();
     var $input = $('.datepicker').pickadate();
     var picker = $input.pickadate('picker');
-    console.log(date);
-    console.log(event);
-    console.log(picker);
     picker.set('select', parseInt(date));
     picker.open();
 }
 
-function foldableInit() {
-    $('.expand-fold').on('click', function () {
+function foldableInit(card) {
+
+    // Initializes cards to be collapsed
+    card.find('.fold-label').closest('.card').find('.fold-body').stop(true, false).slideUp({
+        duration: 350,
+        easing: "easeOutQuart",
+        queue: false,
+        complete: function () {
+            $(this).css('height', '')
+        }
+    });
+    
+    card.find('.expand-fold').on('click', function () {
         var $this = $(this).find('.fold-label');
+       
         // If closed, expand fold
         var folded = $this.closest('.card').find('.fold-body');
 
@@ -579,7 +617,7 @@ function foldableInit() {
                 easing: "easeOutQuart",
                 queue: false,
                 complete: function () {
-                    folded.css('height', '')
+                    $(this).css('height', '')
                 }
             });
             $this.fadeOut(125, function () {
@@ -592,7 +630,7 @@ function foldableInit() {
                 easing: "easeOutQuart",
                 queue: false,
                 complete: function () {
-                    folded.css('height', '')
+                    $(this).css('height', '')
                 }
             });
             $this.fadeOut(125, function () {

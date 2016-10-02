@@ -46,13 +46,12 @@
     <script src="/js/markerclusterer.js"></script>
     <script src="/js/homepage.js"></script>
     <script src="/js/script.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM&callback=initMap" async defer></script>
 
 
     <!-- 
         <script type="text/javascript">
             window.heap = window.heap || [], heap.load = function (e, t) {
-                window.heap.appid = e, window.heap.config = t = t || {};
                 var r = t.forceSSL || "https:" === document.location.protocol,
                     a = document.createElement("script");
                 a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") + "//cdn.heapanalytics.com/js/heap-" + e + ".js";
@@ -86,7 +85,7 @@
             </div>
         </ul>
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">test</a></h1>
+        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
         <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 

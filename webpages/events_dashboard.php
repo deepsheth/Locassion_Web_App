@@ -31,46 +31,30 @@
 
     <!-- Page Specific Styles and Scripts
 	================================================== -->
-
-    <script>
-        var logged_in = <?php
-                if (isset($_SESSION['token'])) {
-                    echo('true;');
-                } else {
-                    echo('false;');
-                }
-            ?>
-        var token = <?php
-                if (isset($_SESSION['token'])) {
-                    echo('"'.$_SESSION['token'].'";');
-                } else {
-                    echo('"";');
-                }
-            ?>
-    </script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="/js/script.js"></script>
 
 
 </head>
 
 <body id="event-dashboard">
-    <header class="light-green darken-2 white-text row">
+      <header class="primary-green row">
 
         <h1 class="col s12 m4 l2"><a href="/" class="white-text">Loccasion</a></h1>
 
         <ul class="col s12 m8 l10">
-            <div class="flex-container">
+            <div class="flex-container menu-buttons">
 
-
-                <a href="/webpages/create_event.php" class="btn waves-effect">Create Event</a>
-                <a href="/webpages/events_hist.php" class="btn waves-effect">Events Attended</a>
-
-                <?php
-            define('__ROOT__', dirname(dirname(__FILE__)));
-            include_once(__ROOT__.'/templates/header-menu.php'); 
-            ?>
+            <script>
+                addMenuButton("dropdown");
+                requireLogin();
+            </script>
 
                     <form action="" method="post">
                         <div id="modal2" class="modal blue-grey-text darken-4-text">
@@ -122,7 +106,7 @@
                 });
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH1nGIwaTrYIGLgKZpv_sQ4aV7xUUygDM&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM&callback=initMap" async defer></script>
 
         <ul class="collection z-depth-1 grey-text text-darken-2">
             <li class="collection-item avatar row">
@@ -184,19 +168,11 @@
             <a href="#!" class="collection-item">See More</a>
         </ul>
     </div>
-    <footer class="grey lighten-3 grey-text">
-        <div class="footer-copyright">
-            <div class="container">
+    
 
-                <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
-                <a class="right blue-grey-text" href="./tos.php">Terms of Service</a>
-                <a class="right blue-grey-text" href="./privacy.php">Privacy Policy</a>
-                <a class="right blue-grey-text" href="./faq.php">FAQ</a>
-            </div>
-        </div>
-    </footer>
-
-
+    <?php
+        include_once(dirname(dirname(__FILE__)).'/templates/simple-footer.php'); 
+        ?>
 
 </body>
 

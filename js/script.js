@@ -103,7 +103,7 @@ function addMenuButton(btn) {
 
     switch (btn) {
     case "create_event":
-        $('.menu-buttons').append('<a href="./webpages/create_event.php" class="waves-effect btn btn-flat">Create Event</a>');
+        $('.menu-buttons').append('<a href="./webpages/create_event.php" class="waves-effect waves-bblue btn btn-flat">Create Event</a>');
         return;
     case "create_event_disabled":
         $('.menu-buttons').append('<a href="/webpages/sign_up.php" class="waves-effect waves-light btn disabled tooltipped" data-delay="100" data-position="left" data-tooltip="Please log in.">Create Event</a>');
