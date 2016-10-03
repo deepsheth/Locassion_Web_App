@@ -70,7 +70,7 @@ def create_page(path,line,baseNode,depth):
 
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/API_style.css">
 </head>
 
 <div id="top-bar">
@@ -127,7 +127,7 @@ def create_index_page(baseNode):
 
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/API_style.css">
 </head>
 
 <div id="top-bar">

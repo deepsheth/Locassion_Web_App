@@ -70,11 +70,11 @@ def create_page(path,line,baseNode,depth):
 
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/API_style.css">
 </head>
 
 <div id="top-bar">
-<h1><a href="/index.html">Loccasion API</a></h1>
+<h1><a href="/developer/API/index.html">Loccasion API</a></h1>
 <div id="navigation-bar">
 <div id="full-path">'''+full_html_path+'''</div></br>
 </div>
@@ -127,11 +127,11 @@ def create_index_page(baseNode):
 
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/style.css">
+<link rel="stylesheet" type="text/css" href="/API_style.css">
 </head>
 
 <div id="top-bar">
-<h1><a href="/index.html">Loccasion API</a></h1>
+<h1><a href="/developer/API/index.html">Loccasion API</a></h1>
 </div>
 <div id="content-wrapper">
 <div id="sidebar">
