@@ -1,0 +1,43 @@
+
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<div id="top-bar">
+<h1><a href="/index.html">Loccasion API</a></h1>
+<div id="navigation-bar">
+<div id="full-path"><a href="/API/attending.html" class="path-link">attending</a>-><a href="/API/attending/event_id.html" class="path-link">$event_id</a></div></br>
+</div>
+</div>
+<div id="content-wrapper">
+<div id="sidebar">
+<ul>
+
+<li><b>$event_id</b></li>
+<li style="list-style-type:none; opacity: 1 !important;">
+  <ul>
+  <a href="./event_id/user_id.html"><li>$user_id</li></a>
+  </ul>
+</li>
+
+</ul>
+</div>
+<div id="main-content">
+<h2>$event_id</h2></br>
+<div id="description"><span id="description-text">A list of all the users that are attending the event. Users can write to here since their id needs to be added to the list to be counted as attending, but only the host will be able to see those attending</span></div>
+<div id="descriptors">
+<div id="read">Read: <span id="read-text">the event host</span> can read this location</div>
+<div id="write">Write: <span id="write-text">anyone</span> can write to this location</div>
+<div id="requirements">This field requires that <span id="requirements-text">doesn't contain a value, just children</span></div>
+</div>
+<div id="example">
+<textarea style="width:100%">https://meet-up-8d278.firebaseio.com/attending/event_id.json?print=pretty</textarea>
+</div>
+</div>
+</div>
+
+
+</html>
+		

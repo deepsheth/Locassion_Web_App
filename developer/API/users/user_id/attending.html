@@ -1,0 +1,43 @@
+
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<div id="top-bar">
+<h1><a href="/index.html">Loccasion API</a></h1>
+<div id="navigation-bar">
+<div id="full-path"><a href="/API/users.html" class="path-link">users</a>-><a href="/API/users/user_id.html" class="path-link">$user_id</a>-><a href="/API/users/user_id/attending.html" class="path-link">attending</a></div></br>
+</div>
+</div>
+<div id="content-wrapper">
+<div id="sidebar">
+<ul>
+<a href="public_info.html"><li>public_info</li></a><a href="administrating.html"><li>administrating</li></a><a href="invited_to.html"><li>invited_to</li></a><a href="friends.html"><li>friends</li></a><a href="subscriptions.html"><li>subscriptions</li></a>
+<li><b>attending</b></li>
+<li style="list-style-type:none; opacity: 1 !important;">
+  <ul>
+  <a href="./attending/event_id.html"><li>$event_id</li></a>
+  </ul>
+</li>
+<a href="friend_groups.html"><li>friend_groups</li></a><a href="blocking.html"><li>blocking</li></a>
+</ul>
+</div>
+<div id="main-content">
+<h2>attending</h2></br>
+<div id="description"><span id="description-text">don't write here, write directly to the child. Contains all the <a href="subscriptions/event_id.html">$event_id</a>s that the user has marked as attending</span></div>
+<div id="descriptors">
+<div id="read">Read: <span id="read-text">the user</span> can read this location</div>
+<div id="write">Write: <span id="write-text">no one</span> can write to this location</div>
+<div id="requirements">This field requires that <span id="requirements-text">N/A</span></div>
+</div>
+<div id="example">
+<textarea style="width:100%">https://meet-up-8d278.firebaseio.com/users/user_id/attending.json?print=pretty</textarea>
+</div>
+</div>
+</div>
+
+
+</html>
+		

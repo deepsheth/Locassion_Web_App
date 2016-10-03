@@ -1,0 +1,43 @@
+
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<div id="top-bar">
+<h1><a href="/index.html">Loccasion API</a></h1>
+<div id="navigation-bar">
+<div id="full-path"><a href="/API/users.html" class="path-link">users</a>-><a href="/API/users/user_id.html" class="path-link">$user_id</a>-><a href="/API/users/user_id/invited_to.html" class="path-link">invited_to</a></div></br>
+</div>
+</div>
+<div id="content-wrapper">
+<div id="sidebar">
+<ul>
+<a href="public_info.html"><li>public_info</li></a><a href="administrating.html"><li>administrating</li></a>
+<li><b>invited_to</b></li>
+<li style="list-style-type:none; opacity: 1 !important;">
+  <ul>
+  <a href="./invited_to/event_id.html"><li>$event_id</li></a>
+  </ul>
+</li>
+<a href="friends.html"><li>friends</li></a><a href="subscriptions.html"><li>subscriptions</li></a><a href="attending.html"><li>attending</li></a><a href="friend_groups.html"><li>friend_groups</li></a><a href="blocking.html"><li>blocking</li></a>
+</ul>
+</div>
+<div id="main-content">
+<h2>invited_to</h2></br>
+<div id="description"><span id="description-text">don't write here, write directly to the child. Contains all the <a href="invited_to/event_id.html">$event_id</a>s that the user is invited to</span></div>
+<div id="descriptors">
+<div id="read">Read: <span id="read-text">the user</span> can read this location</div>
+<div id="write">Write: <span id="write-text">no one</span> can write to this location</div>
+<div id="requirements">This field requires that <span id="requirements-text">N/A</span></div>
+</div>
+<div id="example">
+<textarea style="width:100%">https://meet-up-8d278.firebaseio.com/users/user_id/invited_to.json?print=pretty</textarea>
+</div>
+</div>
+</div>
+
+
+</html>
+		

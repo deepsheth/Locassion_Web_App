@@ -1,0 +1,43 @@
+
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<div id="top-bar">
+<h1><a href="/index.html">Loccasion API</a></h1>
+<div id="navigation-bar">
+<div id="full-path"><a href="/API/users.html" class="path-link">users</a>-><a href="/API/users/user_id.html" class="path-link">$user_id</a>-><a href="/API/users/user_id/attending.html" class="path-link">attending</a>-><a href="/API/users/user_id/attending/event_id.html" class="path-link">$event_id</a></div></br>
+</div>
+</div>
+<div id="content-wrapper">
+<div id="sidebar">
+<ul>
+
+<li><b>$event_id</b></li>
+<li style="list-style-type:none; opacity: 1 !important;">
+  <ul>
+  
+  </ul>
+</li>
+
+</ul>
+</div>
+<div id="main-content">
+<h2>$event_id</h2></br>
+<div id="description"><span id="description-text">an event id that the user has marked as attending</span></div>
+<div id="descriptors">
+<div id="read">Read: <span id="read-text">the user</span> can read this location</div>
+<div id="write">Write: <span id="write-text">the user</span> can write to this location</div>
+<div id="requirements">This field requires that <span id="requirements-text">it is an event that exists and if the event is private the user is already inserted as invited in the <a href="../../../invites.html">invites</a> table</span></div>
+</div>
+<div id="example">
+<textarea style="width:100%">https://meet-up-8d278.firebaseio.com/users/user_id/attending/event_id.json?print=pretty</textarea>
+</div>
+</div>
+</div>
+
+
+</html>
+		

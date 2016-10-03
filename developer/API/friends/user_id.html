@@ -1,0 +1,43 @@
+
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<div id="top-bar">
+<h1><a href="/index.html">Loccasion API</a></h1>
+<div id="navigation-bar">
+<div id="full-path"><a href="/API/friends.html" class="path-link">friends</a>-><a href="/API/friends/user_id.html" class="path-link">$user_id</a></div></br>
+</div>
+</div>
+<div id="content-wrapper">
+<div id="sidebar">
+<ul>
+
+<li><b>$user_id</b></li>
+<li style="list-style-type:none; opacity: 1 !important;">
+  <ul>
+  <a href="./user_id/friend_id.html"><li>$friend_id</li></a>
+  </ul>
+</li>
+
+</ul>
+</div>
+<div id="main-content">
+<h2>$user_id</h2></br>
+<div id="description"><span id="description-text">A list of all the users who added this user_id as a friend</span></div>
+<div id="descriptors">
+<div id="read">Read: <span id="read-text">no one</span> can read this location</div>
+<div id="write">Write: <span id="write-text">anyone</span> can write to this location</div>
+<div id="requirements">This field requires that <span id="requirements-text">doesn't contain a value, just has a child</span></div>
+</div>
+<div id="example">
+<textarea style="width:100%">https://meet-up-8d278.firebaseio.com/friends/user_id.json?print=pretty</textarea>
+</div>
+</div>
+</div>
+
+
+</html>
+		
