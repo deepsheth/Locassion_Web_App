@@ -55,25 +55,6 @@
         <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM",
-                authDomain: "meet-up-8d278.firebaseapp.com",
-                databaseURL: "https://meet-up-8d278.firebaseio.com",
-                storageBucket: "meet-up-8d278.appspot.com",
-            };
-            firebase.initializeApp(config);
-
-            // Check if user is logged in
-            var user = firebase.auth().currentUser;
-
-            if (user) {
-                var logged_in = true;
-            } else {
-                var logged_in = false;
-            }
-        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
         <script src="/js/script.js"></script>
@@ -84,26 +65,24 @@
         <header class="primary-green row">
 
             <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
-            <ul class="col s12 m8 l10">
-                <div class="flex-container">
 
-                <script>
-                    firebase.auth().onAuthStateChanged(function (user) {
-                        clearMenu();
-                        if (user) {
-                            // signed in.
-                            console.log("Please Sign Out");
-                            window.location.pathname = '/';
-                        } else {
-                            // NOT signed in.
-                            console.log("Create account");
-                            addMenuButton("forgot_password");
-                            addMenuButton("login");
-                            addMenuButton("sign_up");
-                        }
-                    });
-                </script>
-                    
+            <ul class="col s12 m8 l10">
+                <div class="flex-container hide-on-small-only menu-buttons">
+                    <script>
+                        var user = firebase.auth().currentUser;
+                            clearMenu();
+                            if (user) {
+                                // if signed in, you cannot create a new account
+//                                if (window.location.pathname != "/webpages/sign_up.php?new_account=valid")
+//                                    window.location.pathname = '/';
+                            } else {
+                                // NOT signed in.
+                                addMenuButton("forgot_password");
+                                addMenuButton("login");
+                            }
+                        });
+                    </script>
+
                 </div>
             </ul>
         </header>
@@ -154,7 +133,7 @@
                             <input style="visibility:hidden; height: 0px" type="password" />
 
                             <div class="row center-align">
-                                <button class="waves-effect waves-light primary-green btn-large" id="btn-create-acct"><i class="material-icons right">send</i>Create Account</button>
+                                <button class="waves-effect waves-light primary-green btn-large" id="btn-create-acct"><i class="material-icons right">send</i>Get Started</button>
                             </div>
 
                             <div class="section center-align">
