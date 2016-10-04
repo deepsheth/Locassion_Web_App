@@ -1,0 +1,43 @@
+
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/API_style.css">
+</head>
+
+<div id="top-bar">
+<h1><a href="/developer/API/index.html">Loccasion API</a></h1>
+<div id="navigation-bar">
+<div id="full-path"><a href="/API/users.html" class="path-link">users</a>-><a href="/API/users/user_id.html" class="path-link">$user_id</a>-><a href="/API/users/user_id/public_info.html" class="path-link">public_info</a>-><a href="/API/users/user_id/public_info/usertype.html" class="path-link">usertype</a></div></br>
+</div>
+</div>
+<div id="content-wrapper">
+<div id="sidebar">
+<ul>
+<a href="name.html"><li>name</li></a><a href="image.html"><li>image</li></a>
+<li><b>usertype</b></li>
+<li style="list-style-type:none; opacity: 1 !important;">
+  <ul>
+  
+  </ul>
+</li>
+
+</ul>
+</div>
+<div id="main-content">
+<h2>usertype</h2></br>
+<div id="description"><span id="description-text">current list of usertypes contains user, organization, and admin, although no one can set themselves as admin, it must be done from the firebase console</span></div>
+<div id="descriptors">
+<div id="read">Read: <span id="read-text">anyone</span> can read this location</div>
+<div id="write">Write: <span id="write-text">the user</span> can write to this location</div>
+<div id="requirements">This field requires that <span id="requirements-text">it is a usertype from the stored list of user types</span></div>
+</div>
+<div id="example">
+<textarea style="width:100%">https://meet-up-8d278.firebaseio.com/users/user_id/public_info/usertype.json?print=pretty</textarea>
+</div>
+</div>
+</div>
+
+
+</html>
+		
