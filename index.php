@@ -283,18 +283,7 @@
                             <div class="indeterminate primary-green"></div>
                         </div>
                         <ul class="tabs">
-
-                            <?php
-                            if(!isset($_SESSION['token'])){
-                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
-                            }
-                            else{
-                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
-                            }
-                            ?>
-
+                                <!-- Tabs inserted here -->
                         </ul>
                     </div>
                 </div>

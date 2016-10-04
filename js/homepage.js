@@ -52,7 +52,7 @@ $(document).ready(function () {
         }
         $(this).addClass('active invert');
 
-        getEvents();
+        getEvents(true);
 
     });
 
@@ -88,6 +88,9 @@ function initMap() {
             // signed in.
             addMenuButton("create_event");
             addMenuButton("dropdown");
+            
+            $('.tabs').html('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents(true)">Discover</a></li><li class="tab col s3 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
+            $('.tabs').tabs()
 
         } else {
             // No user is signed in.
@@ -95,12 +98,16 @@ function initMap() {
             addMenuButton("login");
             addMenuButton("sign_up");
 
+            $('.tabs').html('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents(true)">Discover</a></li><li class="tab col s3 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
+            $('.tabs').tabs()
+            
+            
             // Card that asks user to sign up
             $('#event-panel').append('<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>');
         }
         
         // Gets all events
-        getEvents();
+        getEvents(false);
 
     });
 
@@ -124,7 +131,7 @@ function reRender() {
     filters.pos.lng = (map.getBounds().getNorthEast().lng() + map.getBounds().getSouthWest().lng()) / 2;
 
     markerCluster.clearMarkers();
-    getEvents();
+    getEvents(true);
 }
 
 function geoLocator() {
@@ -166,10 +173,10 @@ function geoLocator() {
 
 
 
-function getEvents() {
+function getEvents(clearCardsFirst) {
 
     // REMEMBER LONGITUDE AND LATITUDE ARE REVERSED
-    clearEvents();
+    if (clearCardsFirst) clearEvents();
     var numEvents = 0;
     
     getSpecificEvents("/events/public", "public");
@@ -189,8 +196,8 @@ function getSpecificEvents(ref, icon) {
         numEvents++;
         foldableInit(cardGenerated);
         btnRequestInit();
-        cleanTags();
-        genMarker(eventInfo, icon);
+        
+        genMarker(eventInfo, markerIcons(icon));
     }, function(error) {
         switch(error.code) {
             case "PERMISSION_DENIED": 
@@ -201,6 +208,14 @@ function getSpecificEvents(ref, icon) {
                 break;
             default: genCustCard(error.code, error.message, "amber");
         }
+    });
+    
+    // Once finished loading initial data
+    events.once('value', function(snapshot) {
+        genClusters();
+        cleanTags();
+    }, function(error) {
+        console.log(error);
     });
 }
 
@@ -288,11 +303,11 @@ function genDynHandlers() {
 
 function genEventCard(eventInfo, event_id, type, eventNum) {
     
-    var ref = firebase.database().ref("attending/"+ event_id);
-    ref.once("value").then(function(snapshot) {
-        console.log(snapshot);
-        var a = snapshot.numChildren();
-    });
+//    var ref = firebase.database().ref("attending/"+ event_id);
+//    ref.once("value").then(function(snapshot) {
+//        console.log(snapshot);
+//        var a = snapshot.numChildren();
+//    });
     
     eventInfo.time = moment(eventInfo["start time"], "YYYY-MM-DD HH:mm:ss");
     var past = eventInfo.time.diff(moment()) < 0 ? true : false;
