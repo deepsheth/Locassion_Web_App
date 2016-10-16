@@ -119,6 +119,13 @@ function initMap() {
         zoom: 16,
     });
 
+    var options = {
+        imagePath: '/img/markers/m',
+        maxZoom: 16,
+        zoomOnClick: false
+    };
+    markerCluster = new MarkerClusterer(map, [], options);
+
     geoLocator();
 
     //    google.maps.event.addListener(map, 'idle', reRender);
@@ -185,21 +192,40 @@ function getEvents(clearCardsFirst) {
         getSpecificEvents("/events/private");
     }
     genDynHandlers();
+    genClusters();
 }
 
 function getSpecificEvents(ref) {
     var events = firebase.database().ref(ref);
+    var p_all;
 
-    events.on('child_added', function(snapshot) {
+
+    events.on('child_added', function (snapshot) {
         var eventInfo = snapshot.val();
-        console.log(events.key);
         
         try {
-        var cardGenerated = genEventCard(eventInfo, snapshot.key, events.key, numEvents);
-        numEvents++;
-        foldableInit(cardGenerated);
-        btnRequestInit();
-        genMarker(eventInfo, markerIcons(events.key));
+        
+        var total_attending;
+        var attending_ref = firebase.database().ref("attending/"+ snapshot.key);
+        var p_attending = attending_ref.once("value").then(function ( attending_snap ) {
+           total_attending = attending_snap.numChildren();
+        });
+
+        // var host_name;
+        // var hosting_ref = firebase.database().ref("users/" + eventInfo.host_id + "/public_info/name");
+        // var p_hosting = hosting_ref.once("value").then(function (hosting_snap) {
+        //     host_name = hosting_snap.
+        // });
+
+        p_all = Promise.all([ p_attending ]).then(function (results) {
+            var cardGenerated = genEventCard(eventInfo, snapshot.key, events.key, numEvents, total_attending);
+            numEvents++;
+            foldableInit(cardGenerated);
+            btnRequestInit();
+            var m = genMarker(eventInfo, markerIcons(events.key));
+            markerCluster.addMarker(m, false);
+        })
+
         }
         catch (e) {
             genCustCard("Invalid Event Format", e, "grey");
@@ -218,14 +244,6 @@ function getSpecificEvents(ref) {
             default: genCustCard(error.code, error.message, "amber");
         }
     });
-    
-    // Once finished loading initial data
-    events.once('value', function(snapshot) {
-        genClusters();
-        cleanTags();
-    }, function(error) {
-        console.log(error);
-    });
 }
 
 // Icon is optional
@@ -238,12 +256,7 @@ function genCustCard(title, body, bgcolor) {
 function genClusters() {
     // Markers are no longer put on map, until MarkerClusterer is called since map: map property of markers is removed
 
-    var options = {
-        imagePath: '/img/markers/m',
-        maxZoom: 16,
-        zoomOnClick: false
-    };
-    markerCluster = new MarkerClusterer(map, markers, options);
+    
 
 
     var infoWindow = new google.maps.InfoWindow({
@@ -310,14 +323,8 @@ function genDynHandlers() {
 //    cleanTags();
 }
 
-function genEventCard(eventInfo, event_id, type, eventNum) {
-    
-//    var ref = firebase.database().ref("attending/"+ event_id);
-//    ref.once("value").then(function(snapshot) {
-//        console.log(snapshot);
-//        var a = snapshot.numChildren();
-//    });
-    
+function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
+   
     eventInfo.time = moment(eventInfo["start time"], "YYYY-MM-DD HH:mm:ss");
     var past = eventInfo.time.diff(moment()) < 0 ? true : false;
 
@@ -350,7 +357,7 @@ function genEventCard(eventInfo, event_id, type, eventNum) {
         '<div class="fold-body hidden">' +
         '<div class="row row-tight">' +
         '<div class="span-padded center">' + (eventInfo.private ?  '<i title="private" class="material-icons tiny">group</i><span>Private</span>' : '<i title="public" class="material-icons tiny">public</i><span>Public</span>') + 
-        '<span>' + '8 Friends — 13 Total Going' + '</span>' +
+        '<span>' + '8 Friends — '+ total_attending +' Total Going' + '</span>' +
         '</div>' +
         '<div class="row row-tight">' +
         '<p class="col s12">' +
@@ -358,11 +365,12 @@ function genEventCard(eventInfo, event_id, type, eventNum) {
         '</p>' +
         '</div>' +
         '<div class="divider"></div>' +
-        '<div class="flex-container tags">' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag1 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag2 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag3 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag4 + '</a>' +
+        '<div class="flex-container tags">';
+        eventInfo.tags.tag1 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag1 + '</a>' : "" ;
+        eventInfo.tags.tag2 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag2 + '</a>' : "" ;
+        eventInfo.tags.tag3 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag3 + '</a>' : "" ;
+        eventInfo.tags.tag4 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag4 + '</a>' : "" ;
+        cardContent +=
         '</div>' +
         '</div>' +
 
@@ -420,6 +428,7 @@ function genMarker(eventInfo, type) {
         }
     })(marker));
 
+    return marker;
 }
 
 function styleInfoWin(infowindow) {
@@ -575,10 +584,14 @@ function centerMap(latitude, longitude) {
 
 function highlight_marker(index) {
     markers[index].setIcon(markerIcons('highlight'));
+    markers[index].setMap(map);
 }
 
 function restore_marker(index, type) {
+    markers[index].setMap(null);
     markers[index].setIcon(markerIcons(type));
+    markerCluster.resetViewport();
+    markerCluster.redraw();
 }
 
 function markerIcons(type) {
