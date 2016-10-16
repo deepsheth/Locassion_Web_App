@@ -85,7 +85,6 @@
             <div id="event-container" class="container z-depth-1">
 
                 <form name="create_event">
-                    <!--<form action="../php/eventCreation.php" method="post" name="create_event">-->
                     <div id="event-title" class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix blue-text text-lighten-5">event</i>

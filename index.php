@@ -188,6 +188,7 @@
                                 <a class="right white-text btn-flat" href="/webpages/tos.php" target="_blank">Terms of Service</a>
                                 <a class="right white-text btn-flat" href="/webpages/privacy.php" target="_blank">Privacy Policy</a>
                                 <a class="right white-text btn-flat" href="/webpages/faq.php" target="_blank">FAQ</a>
+                                <a class="right white-text btn-flat" href="https://meet-up-8d278.firebaseapp.com/" target="_blank">Developer</a>
                                 </b>
                             </small>
                         </div>

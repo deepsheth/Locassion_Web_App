@@ -179,25 +179,34 @@ function getEvents(clearCardsFirst) {
     if (clearCardsFirst) clearEvents();
     var numEvents = 0;
     
-    getSpecificEvents("/events/public", "public");
+    getSpecificEvents("/events/public");
     
     if (firebase.auth().currentUser != null) {
-        getSpecificEvents("/events/private", "private");
+        getSpecificEvents("/events/private");
     }
     genDynHandlers();
 }
 
-function getSpecificEvents(ref, icon) {
+function getSpecificEvents(ref) {
     var events = firebase.database().ref(ref);
 
     events.on('child_added', function(snapshot) {
         var eventInfo = snapshot.val();
-        var cardGenerated = genEventCard(eventInfo, snapshot.key, icon, numEvents);
+        console.log(events.key);
+        
+        try {
+        var cardGenerated = genEventCard(eventInfo, snapshot.key, events.key, numEvents);
         numEvents++;
         foldableInit(cardGenerated);
         btnRequestInit();
+        genMarker(eventInfo, markerIcons(events.key));
+        }
+        catch (e) {
+            genCustCard("Invalid Event Format", e, "grey");
+            console.log(e);
+        }
         
-        genMarker(eventInfo, markerIcons(icon));
+        
     }, function(error) {
         switch(error.code) {
             case "PERMISSION_DENIED": 
@@ -275,7 +284,7 @@ function genDynHandlers() {
     });
 
     // Delete Card
-    console.log($("#event-panel .collapsible a:nth-of-type(1)"));
+    // console.log($("#event-panel .collapsible a:nth-of-type(1)"));
     $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
         deleteCard(this);
     });
