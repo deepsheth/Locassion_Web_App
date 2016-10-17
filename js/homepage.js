@@ -335,14 +335,14 @@ function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
         '</div>' +
         '<div class="card-content">' +
         '<div class="row">' +
-        '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo.time.valueOf() + '\')" title="' + eventInfo.time.toString() + '">' +
+        '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo.time.valueOf() + '\')" title="' + eventInfo.time.format("llll") + '">' +
         '<div class="day">' + eventInfo.time.format("ddd") + '</div>' +
         '<div class="day-num">' + eventInfo.time.format("D") + '</div>' +
         '<div class="month">' + eventInfo.time.format("MMM") + '</div>' +
         '<div class="context">' + eventInfo.time.fromNow() + '</div>' +
         '</div>' +
         '<div class="col m9 l8 offset-l1 side-info">' +
-        '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">' + eventInfo.name + '</a></div>' +
+        '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + event_id + '">' + eventInfo.name + '</a></div>' +
         '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo.latitude + ',' + eventInfo.longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo.address + '</div>' +
         '<div class="small-details">' + eventInfo["location description"] + '</div>' +
         '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo.time.format("h:mm A") + '</div>' +
@@ -521,39 +521,6 @@ function cleanTags() {
         if ($(this).text() == "#") $(this).remove()
     });
 }
-
-function generateEventDetails(event) {
-
-    var date = moment(event.time);
-
-    var picker = $('.dyn_event-time').pickadate().pickadate('picker');
-    picker.set('highlight', date.toDate());
-
-
-    moment.locale('en', {
-        calendar: {
-            lastDay: '[Yesterday at] LT',
-            sameDay: '[Today at] LT',
-            nextDay: '[Tomorrow at] LT',
-            lastWeek: '[last] dddd [at] LT',
-            nextWeek: 'dddd [at] LT',
-            sameElse: 'MMMM Do YYYY'
-        }
-    });
-
-    $('.dyn_event-name').text(event.name);
-    $('.dyn_host-name').text(event.hostName);
-    $('.dyn_event-location').text(event.locationDescription);
-    $('.dyn_event-time').text(moment(event.time, "YYYY-MM-DD HH:mm:ss a").calendar());
-    $('.dyn_event-desc').text(event.description);
-    $('.dyn_tag1').text(event.tag1);
-    $('.dyn_tag2').text(event.tag2);
-
-    if (event.private) $('.dyn_privacy').text("group");
-
-    $('.dyn_gcal-export').attr("href", "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + event.name + "&dates=20160127T224000Z/20160320T221500Z&details=Location Details: " + event.locationDescription + " //  Event Details: " + event.description + "&location=" + event.latitude + ", " + event.longitude + "&sf=true&output=xml#eventpage_6");
-}
-
 
 function clearEvents() {
     if (typeof markerCluster !== 'undefined') {

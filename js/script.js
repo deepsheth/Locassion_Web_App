@@ -1,12 +1,11 @@
-
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM",
-            authDomain: "meet-up-8d278.firebaseapp.com",
-            databaseURL: "https://meet-up-8d278.firebaseio.com",
-            storageBucket: "meet-up-8d278.appspot.com",
-        };
-        firebase.initializeApp(config);
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM",
+    authDomain: "meet-up-8d278.firebaseapp.com",
+    databaseURL: "https://meet-up-8d278.firebaseio.com",
+    storageBucket: "meet-up-8d278.appspot.com",
+};
+firebase.initializeApp(config);
 
 $(document).ready(function () {
 
@@ -14,8 +13,8 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $('#btn-login').on('click', function() {
-        mainLogin(document.getElementById('input_username').value,document.getElementById('input_password').value);
+    $('#btn-login').on('click', function () {
+        mainLogin(document.getElementById('input_username').value, document.getElementById('input_password').value);
     });
 
     $('.enterable').keypress(function (e) {
@@ -54,13 +53,13 @@ function selectCard(card, numberSelected) {
 }
 
 function requireLogin() {
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
             clearMenu();
             addMenuButton("login");
             addMenuButton("full_login_modal");
             addMenuButton("sign_up");
-            $(document).ready(function() {
+            $(document).ready(function () {
                 clearBelowHeader();
                 var content = '<div class="container section center-align grey-text"><h3>Please login.</h3><p>Sorry, this feature requires an account.</p></div>';
                 content += '<div class="row center"><div class="row"> <a href="/webpages/sign_up.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a> <a href="/webpages/log_in.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a></div></div>';
@@ -128,14 +127,16 @@ function addMenuButton(btn) {
     case "forgot_password":
         $('.menu-buttons').append('<a href="/webpages/reset_pass_email.php" class="btn waves-effect  waves-blue btn">Forgot Password</a>');
     case "dropdown":
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                $('.menu-buttons').append('.<a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons left">account_circle</i>'+user.displayName+'</a>');
+                $('.menu-buttons').append('.<a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons left">account_circle</i>' + user.displayName + '</a>');
                 $('.menu-buttons').append('<ul id="acct-settings" class="dropdown-content"><li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li><li><a href="/webpages/friends_dashboard.php">Friends</a></li><li><a href="/webpages/events_hist.php">Event History</a></li><li><a href="#!">Account Settings</a></li><li class="divider"></li><li><a class="grey-text" id="btn-logout">Logout</a></li></ul>');
                 $('#btn-logout').on('click', function () {
                     mainLogout()
                 });
                 $('.dropdown-button').dropdown();
+                console.log("CREATING NEW DROPDOWN: ");
+                console.log(moment().toString());
             }
         });
         return;
@@ -174,19 +175,19 @@ function mainLogout() {
 }
 
 function signUp(email, password) {
-    
+
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
         var user = firebase.auth().currentUser;
 
         // Saves the user's name
         user.updateProfile({
             displayName: $('#input_name').val()
-        }).then(function(){
+        }).then(function () {
             // Redirects to the homepage
             window.location.href = '/';
         }, function (error) {
             $('#input_password').after("<p class='red-text'>" + error.message + "</p>");
-            console.log(error);    
+            console.log(error);
         });
     }, function (error) {
         $('#input_password').after("<p class='red-text'>" + error.message + "</p>");
@@ -205,4 +206,90 @@ function reauth() {
     }, function (error) {
         // An error happened.
     });
+}
+
+/* Event Details */
+function initSimpleMap() {
+    
+    
+
+}
+
+function getFullEventDetails() {
+
+    var query = location.search.substr(1);
+    query = query.split("=");
+    if (query[0] != "eventid") return null;
+
+    var e_ref = firebase.database().ref("events/public/" + query[1]);
+    e_ref.once('value').then(function (eventInfo) {
+        
+        var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: {lat: eventInfo.val().latitude, lng: eventInfo.val().longitude}
+
+        });
+
+        new google.maps.Marker({
+            position: {lat: eventInfo.val().latitude, lng: eventInfo.val().longitude},
+            icon: '/img/markers/private_event_marker.png',
+            map: map
+        });
+        
+        renderEventPage(eventInfo.val());
+    });
+    
+}
+
+function renderEventPage(event) {
+    var start_date = moment(event["start time"], "YYYY-MM-DD HH:mm:ss a");
+    
+    var end_date = moment(event["end time"], "YYYY-MM-DD HH:mm:ss a");
+
+    var picker = $('.mini-cal').pickadate().pickadate('picker');
+    picker.set('highlight', start_date.toDate());
+
+    
+    $('.dyn_event-name').text(event.name);
+    $('.dyn_event-location').text(event["location description"]);
+    $('.dyn_event-time').text(moment(event["start time"]).calendar());
+    $('.dyn_event-desc').text(event.description);
+    $('.dyn_location').html("<strong>" + event.address + "</strong> • " + event["location description"]);
+    $('.dyn_details').text(event.description);
+    $('.dyn_tag1').text(event.tags.tag1);
+    $('.dyn_tag2').text(event.tags.tag2);
+    $('.dyn_tag3').text(event.tags.tag2);
+    $('.dyn_tag4').text(event.tags.tag2);
+    $('.day').text(start_date.format("ddd"));
+    $('.day-num').text(start_date.format("D"));
+    $('.month').text(start_date.format("MMMM"));
+    $('.context').html(momentContext(start_date));
+
+    var past = start_date.diff(moment()) < 0 ? true : false;
+    $('.dyn_btn').html('<a href="#" class="btn-go waves-effect waves-light ' + (past ? 'disabled dirty">Passed</a>' : '\">GO</a>'));
+    
+    $('.dyn_gcal-export').attr("href", "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + event.name + "&dates=" + moment(event["start time"]).format("YYYYMMDD") + "T" + moment(event["start time"]).format("HHmmss") + "Z/" + moment(event["end time"]).format("YYYYMMDD") + "T" + moment(event["end time"]).format("HHmmss") + "Z&details=Location Details: " + event["location description"] + " //  Event Details: " + event.description + "&location=" + event.latitude + ", " + event.longitude + "&sf=true&output=xml#eventpage_6");
+
+    $('#preloader-indef').fadeOut(350);
+}
+
+function momentContext(date) {
+    return date.calendar(null, {
+        lastDay: '[Yesterday at] LT',
+        sameDay: function (now) {
+            if (this.isBefore(now)) {
+                return '[Happening Today at] LT';
+            } else {
+                return '[Happened Today] at LT';
+            }
+        },
+        nextDay: '[Tomorrow at] LT',
+        lastWeek: '[last] dddd [at] LT',
+        nextWeek: 'dddd [at] LT',
+        sameElse: function (now) {
+            var fromNow = this.fromNow();
+            return 'MMMM Do [at] LT' + "[<br>] [" + fromNow + "]";   
+        }
+
+    }); 
 }
