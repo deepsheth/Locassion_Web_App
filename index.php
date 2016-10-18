@@ -188,6 +188,7 @@
                                 <a class="right white-text btn-flat" href="/webpages/tos.php" target="_blank">Terms of Service</a>
                                 <a class="right white-text btn-flat" href="/webpages/privacy.php" target="_blank">Privacy Policy</a>
                                 <a class="right white-text btn-flat" href="/webpages/faq.php" target="_blank">FAQ</a>
+				<a class="right white-text btn-flat" href="developer/API/index.html">Developer</a>
                                 </b>
                             </small>
                         </div>

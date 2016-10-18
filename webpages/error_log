@@ -1,0 +1,12 @@
+[03-Oct-2016 19:46:31 UTC] PHP Warning:  file_get_contents(https://meet-up-1097.appspot.com/?command=getPublicEventInfo&amp;args=undefined&amp;token=): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/cmjfvcos/public_html/webpages/event_details.php on line 65
+[04-Oct-2016 02:28:15 UTC] PHP Warning:  file_get_contents(https://meet-up-1097.appspot.com/?command=getPublicEventInfo&amp;args=undefined&amp;token=): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/cmjfvcos/public_html/webpages/event_details.php on line 65
+[16-Oct-2016 03:02:11 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/cmjfvcos/public_html/webpages/events_hist.php:36) in /home/cmjfvcos/public_html/templates/header-menu.php on line 8
+[16-Oct-2016 03:02:11 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/cmjfvcos/public_html/webpages/events_hist.php:36) in /home/cmjfvcos/public_html/templates/header-menu.php on line 8
+[17-Oct-2016 22:00:42 UTC] PHP Warning:  file_get_contents(https://meet-up-1097.appspot.com/?command=getPublicEventInfo&amp;args=undefined&amp;token=): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/cmjfvcos/public_html/webpages/event_details.php on line 65
+[17-Oct-2016 22:02:03 UTC] PHP Warning:  file_get_contents(https://meet-up-1097.appspot.com/?command=getPublicEventInfo&amp;args=undefined&amp;token=): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/cmjfvcos/public_html/webpages/event_details.php on line 65
+[18-Oct-2016 01:57:25 UTC] PHP Warning:  file_get_contents(https://meet-up-1097.appspot.com/?command=getPublicEventInfo&amp;args=undefined&amp;token=): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/cmjfvcos/public_html/webpages/event_details.php on line 65
