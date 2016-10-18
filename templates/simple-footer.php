@@ -7,7 +7,7 @@
             </div>
             
             <div class="row">
-                <div class="input-field">
+                <div class="input-field col s12">
                     <i class="material-icons prefix">message</i>
                     <textarea id="bug-rep-details" name="bug_details" class="materialize-textarea"></textarea>
                     <label for="bug-rep-details">What would you like to see improve?</label>
@@ -16,7 +16,7 @@
 
             <p>If you want to be contacted about this issue, leave us your email.</p>
             <div class="row">
-                <div class="input-field">
+                <div class="input-field col s12">
                     <i class="material-icons prefix ">mail_outline</i>
                     <input id="icon_username" name="email" type="text">
                     <label for="icon_username">Email - Optional</label>

@@ -52,7 +52,7 @@ $(document).ready(function () {
         }
         $(this).addClass('active invert');
 
-        getEvents();
+        getEvents(true);
 
     });
 
@@ -88,6 +88,9 @@ function initMap() {
             // signed in.
             addMenuButton("create_event");
             addMenuButton("dropdown");
+            
+            $('.tabs').html('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents(true)">Discover</a></li><li class="tab col s3 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
+            $('.tabs').tabs()
 
         } else {
             // No user is signed in.
@@ -95,12 +98,16 @@ function initMap() {
             addMenuButton("login");
             addMenuButton("sign_up");
 
+            $('.tabs').html('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents(true)">Discover</a></li><li class="tab col s3 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
+            $('.tabs').tabs()
+            
+            
             // Card that asks user to sign up
             $('#event-panel').append('<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>');
         }
         
         // Gets all events
-        getEvents();
+        getEvents(false);
 
     });
 
@@ -111,6 +118,13 @@ function initMap() {
         },
         zoom: 16,
     });
+
+    var options = {
+        imagePath: '/img/markers/m',
+        maxZoom: 16,
+        zoomOnClick: false
+    };
+    markerCluster = new MarkerClusterer(map, [], options);
 
     geoLocator();
 
@@ -124,7 +138,7 @@ function reRender() {
     filters.pos.lng = (map.getBounds().getNorthEast().lng() + map.getBounds().getSouthWest().lng()) / 2;
 
     markerCluster.clearMarkers();
-    getEvents();
+    getEvents(true);
 }
 
 function geoLocator() {
@@ -166,31 +180,59 @@ function geoLocator() {
 
 
 
-function getEvents() {
+function getEvents(clearCardsFirst) {
 
     // REMEMBER LONGITUDE AND LATITUDE ARE REVERSED
-    clearEvents();
+    if (clearCardsFirst) clearEvents();
     var numEvents = 0;
     
-    getSpecificEvents("/events/public", "public");
+    getSpecificEvents("/events/public");
     
     if (firebase.auth().currentUser != null) {
-        getSpecificEvents("/events/private", "private");
+        getSpecificEvents("/events/private");
     }
     genDynHandlers();
+    genClusters();
 }
 
-function getSpecificEvents(ref, icon) {
+function getSpecificEvents(ref) {
     var events = firebase.database().ref(ref);
+    var p_all;
 
-    events.on('child_added', function(snapshot) {
+
+    events.on('child_added', function (snapshot) {
         var eventInfo = snapshot.val();
-        var cardGenerated = genEventCard(eventInfo, snapshot.key, icon, numEvents);
-        numEvents++;
-        foldableInit(cardGenerated);
-        btnRequestInit();
-        cleanTags();
-        genMarker(eventInfo, icon);
+        
+        try {
+        
+        var total_attending;
+        var attending_ref = firebase.database().ref("attending/"+ snapshot.key);
+        var p_attending = attending_ref.once("value").then(function ( attending_snap ) {
+           total_attending = attending_snap.numChildren();
+        });
+
+        // var host_name;
+        // var hosting_ref = firebase.database().ref("users/" + eventInfo.host_id + "/public_info/name");
+        // var p_hosting = hosting_ref.once("value").then(function (hosting_snap) {
+        //     host_name = hosting_snap.
+        // });
+
+        p_all = Promise.all([ p_attending ]).then(function (results) {
+            var cardGenerated = genEventCard(eventInfo, snapshot.key, events.key, numEvents, total_attending);
+            numEvents++;
+            foldableInit(cardGenerated);
+            btnRequestInit();
+            var m = genMarker(eventInfo, markerIcons(events.key));
+            markerCluster.addMarker(m, false);
+        })
+
+        }
+        catch (e) {
+            genCustCard("Invalid Event Format", e, "grey");
+            console.log(e);
+        }
+        
+        
     }, function(error) {
         switch(error.code) {
             case "PERMISSION_DENIED": 
@@ -214,12 +256,7 @@ function genCustCard(title, body, bgcolor) {
 function genClusters() {
     // Markers are no longer put on map, until MarkerClusterer is called since map: map property of markers is removed
 
-    var options = {
-        imagePath: '/img/markers/m',
-        maxZoom: 16,
-        zoomOnClick: false
-    };
-    markerCluster = new MarkerClusterer(map, markers, options);
+    
 
 
     var infoWindow = new google.maps.InfoWindow({
@@ -260,7 +297,7 @@ function genDynHandlers() {
     });
 
     // Delete Card
-    console.log($("#event-panel .collapsible a:nth-of-type(1)"));
+    // console.log($("#event-panel .collapsible a:nth-of-type(1)"));
     $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
         deleteCard(this);
     });
@@ -286,14 +323,8 @@ function genDynHandlers() {
 //    cleanTags();
 }
 
-function genEventCard(eventInfo, event_id, type, eventNum) {
-    
-    var ref = firebase.database().ref("attending/"+ event_id);
-    ref.once("value").then(function(snapshot) {
-        console.log(snapshot);
-        var a = snapshot.numChildren();
-    });
-    
+function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
+   
     eventInfo.time = moment(eventInfo["start time"], "YYYY-MM-DD HH:mm:ss");
     var past = eventInfo.time.diff(moment()) < 0 ? true : false;
 
@@ -304,14 +335,14 @@ function genEventCard(eventInfo, event_id, type, eventNum) {
         '</div>' +
         '<div class="card-content">' +
         '<div class="row">' +
-        '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo.time.valueOf() + '\')" title="' + eventInfo.time.toString() + '">' +
+        '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo.time.valueOf() + '\')" title="' + eventInfo.time.format("llll") + '">' +
         '<div class="day">' + eventInfo.time.format("ddd") + '</div>' +
         '<div class="day-num">' + eventInfo.time.format("D") + '</div>' +
         '<div class="month">' + eventInfo.time.format("MMM") + '</div>' +
         '<div class="context">' + eventInfo.time.fromNow() + '</div>' +
         '</div>' +
         '<div class="col m9 l8 offset-l1 side-info">' +
-        '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">' + eventInfo.name + '</a></div>' +
+        '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + event_id + '">' + eventInfo.name + '</a></div>' +
         '<div class="icon-hoverable add-cursor" onclick="centerMap(' + eventInfo.latitude + ',' + eventInfo.longitude + ')"><i title="Location" class="material-icons icons-inline left">place</i>' + eventInfo.address + '</div>' +
         '<div class="small-details">' + eventInfo["location description"] + '</div>' +
         '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo.time.format("h:mm A") + '</div>' +
@@ -326,7 +357,7 @@ function genEventCard(eventInfo, event_id, type, eventNum) {
         '<div class="fold-body hidden">' +
         '<div class="row row-tight">' +
         '<div class="span-padded center">' + (eventInfo.private ?  '<i title="private" class="material-icons tiny">group</i><span>Private</span>' : '<i title="public" class="material-icons tiny">public</i><span>Public</span>') + 
-        '<span>' + '8 Friends — 13 Total Going' + '</span>' +
+        '<span>' + '8 Friends — '+ total_attending +' Total Going' + '</span>' +
         '</div>' +
         '<div class="row row-tight">' +
         '<p class="col s12">' +
@@ -334,11 +365,12 @@ function genEventCard(eventInfo, event_id, type, eventNum) {
         '</p>' +
         '</div>' +
         '<div class="divider"></div>' +
-        '<div class="flex-container tags">' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag1 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag2 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag3 + '</a>' +
-        '<a href="#" class="chip">#' + eventInfo.tags.tag4 + '</a>' +
+        '<div class="flex-container tags">';
+        eventInfo.tags.tag1 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag1 + '</a>' : "" ;
+        eventInfo.tags.tag2 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag2 + '</a>' : "" ;
+        eventInfo.tags.tag3 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag3 + '</a>' : "" ;
+        eventInfo.tags.tag4 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag4 + '</a>' : "" ;
+        cardContent +=
         '</div>' +
         '</div>' +
 
@@ -396,6 +428,7 @@ function genMarker(eventInfo, type) {
         }
     })(marker));
 
+    return marker;
 }
 
 function styleInfoWin(infowindow) {
@@ -489,39 +522,6 @@ function cleanTags() {
     });
 }
 
-function generateEventDetails(event) {
-
-    var date = moment(event.time);
-
-    var picker = $('.dyn_event-time').pickadate().pickadate('picker');
-    picker.set('highlight', date.toDate());
-
-
-    moment.locale('en', {
-        calendar: {
-            lastDay: '[Yesterday at] LT',
-            sameDay: '[Today at] LT',
-            nextDay: '[Tomorrow at] LT',
-            lastWeek: '[last] dddd [at] LT',
-            nextWeek: 'dddd [at] LT',
-            sameElse: 'MMMM Do YYYY'
-        }
-    });
-
-    $('.dyn_event-name').text(event.name);
-    $('.dyn_host-name').text(event.hostName);
-    $('.dyn_event-location').text(event.locationDescription);
-    $('.dyn_event-time').text(moment(event.time, "YYYY-MM-DD HH:mm:ss a").calendar());
-    $('.dyn_event-desc').text(event.description);
-    $('.dyn_tag1').text(event.tag1);
-    $('.dyn_tag2').text(event.tag2);
-
-    if (event.private) $('.dyn_privacy').text("group");
-
-    $('.dyn_gcal-export').attr("href", "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + event.name + "&dates=20160127T224000Z/20160320T221500Z&details=Location Details: " + event.locationDescription + " //  Event Details: " + event.description + "&location=" + event.latitude + ", " + event.longitude + "&sf=true&output=xml#eventpage_6");
-}
-
-
 function clearEvents() {
     if (typeof markerCluster !== 'undefined') {
         markerCluster.clearMarkers();
@@ -551,10 +551,14 @@ function centerMap(latitude, longitude) {
 
 function highlight_marker(index) {
     markers[index].setIcon(markerIcons('highlight'));
+    markers[index].setMap(map);
 }
 
 function restore_marker(index, type) {
+    markers[index].setMap(null);
     markers[index].setIcon(markerIcons(type));
+    markerCluster.resetViewport();
+    markerCluster.redraw();
 }
 
 function markerIcons(type) {

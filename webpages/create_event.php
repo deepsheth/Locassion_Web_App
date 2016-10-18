@@ -15,8 +15,8 @@
     <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../css/jquery.timepicker.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/style.css">
 
     <!-- Favicons
 ================================================== -->
@@ -85,7 +85,6 @@
             <div id="event-container" class="container z-depth-1">
 
                 <form name="create_event">
-                    <!--<form action="../php/eventCreation.php" method="post" name="create_event">-->
                     <div id="event-title" class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix blue-text text-lighten-5">event</i>

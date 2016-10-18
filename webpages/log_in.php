@@ -37,6 +37,15 @@ include('../php/login.php');
 ================================================== -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+        <script src="/js/script.js"></script>
 
 
     </head>
@@ -44,11 +53,44 @@ include('../php/login.php');
     <body id="registration">
         <header class="primary-green row">
 
-            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
-            <ul class="col s12 m8 l10">
+            <!-- Navigation Drawer
+================================================== -->
+            <ul class="side-nav" id="mobile-menu">
+                <li><a href="sass.html">View Event Map</a></li>
+                <li><a href="badges.html">Create Event</a></li>
+                <li><a href="mobile.html">Login</a></li>
+                <li class="divider"></li>
+                <li><a href="mobile.html">Download App</a></li>
                 <div class="flex-container">
-                    <a href="/webpages/reset_pass_email.php" class="btn waves-effect">Reset Password</a>
-                    <a href="/webpages/sign_up.php" class="btn waves-effect">Sign Up</a>
+                    <img src="/img/splash/app-store-badge.svg" alt="We're on the App Store">
+                    <img src="/img/splash/google-play-badge.png" alt="We're on the Play Store">
+                </div>
+            </ul>
+
+            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+
+            <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
+
+            <!-- Menu Buttons
+================================================== -->
+            <ul class="col s12 m8 l10">
+                <div class="flex-container hide-on-small-only menu-buttons">
+
+                    <script>
+                        addMenuButton("forgot_password");
+                        addMenuButton("sign_up");
+                        
+                        firebase.auth().onAuthStateChanged(function(user) {
+                            if (user) {
+                                var redirect = window.location.search.substring(1);
+                                var newURL = redirect.split("=");
+                                if (newURL[0] == "redirect") {
+                                    window.location.pathname = newURL[1];
+                                }
+                            }
+                        });
+                    </script>
+
                 </div>
             </ul>
         </header>
@@ -80,21 +122,21 @@ include('../php/login.php');
                             ?>
 
                                 <br>
-                                <div class="input-field">
+                                <div class="input-field col s12">
                                     <i class="material-icons prefix ">account_circle</i>
-                                    <input id="icon_username" name="email" type="text">
-                                    <label for="icon_username">Email</label>
+                                    <input id="input_username" name="email" type="text">
+                                    <label for="input_username">Email</label>
                                 </div>
-                                <div class="input-field">
+                                <div class="input-field col s12">
                                     <i class="material-icons prefix">https</i>
-                                    <input id="icon_password" name="password" type="password">
-                                    <label for="icon_password">Password</label>
+                                    <input id="input_password" name="password" type="password">
+                                    <label for="input_password">Password</label>
                                     <a href="/webpages/reset_pass_email.php" class="right">Forgot Password?</a>
                                 </div>
 
 
 
-                                <button class="waves-effect waves-light primary-green btn-large" type="submit" name="submit"><i class="material-icons right">send</i>Submit</button>
+                                <button class="waves-effect waves-light primary-green btn-large" id="btn-login" type="submit" name="submit"><i class="material-icons right">send</i>Log In</button>
                         </form>
                     </div>
                 </div>
