@@ -1,0 +1,2 @@
+[16-Oct-2016 02:59:24 UTC] PHP Warning:  file_get_contents(https://meet-up-1097.appspot.com/?command=makeEvent&amp;args=%3B%3B%3B+%3B%3B%3B+%3B+%3B%3B1970-01-01+%3B+%3B+++%3B&amp;token=): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /home/cmjfvcos/public_html/php/eventCreation.php on line 18

@@ -42,7 +42,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="/js/markerclusterer.js"></script>
     <script src="/js/homepage.js"></script>
     <script src="/js/script.js"></script>
@@ -188,7 +188,7 @@
                                 <a class="right white-text btn-flat" href="/webpages/tos.php" target="_blank">Terms of Service</a>
                                 <a class="right white-text btn-flat" href="/webpages/privacy.php" target="_blank">Privacy Policy</a>
                                 <a class="right white-text btn-flat" href="/webpages/faq.php" target="_blank">FAQ</a>
-                                <a class="right white-text btn-flat" href="https://meet-up-8d278.firebaseapp.com/" target="_blank">Developer</a>
+				<a class="right white-text btn-flat" href="developer/API/index.html">Developer</a>
                                 </b>
                             </small>
                         </div>
@@ -266,7 +266,7 @@
                         </div>
 
                         <div class="section">
-                            <label>Tags (Enter to separate)</label>
+                            <label>Tags</label>
                             <div class="chips category-chip border-thick"></div>
                         </div>
 
@@ -284,7 +284,18 @@
                             <div class="indeterminate primary-green"></div>
                         </div>
                         <ul class="tabs">
-                                <!-- Tabs inserted here -->
+
+                            <?php
+                            if(!isset($_SESSION['token'])){
+                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
+                            }
+                            else{
+                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents()">Discover</a></li>');
+                                echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
+                            }
+                            ?>
+
                         </ul>
                     </div>
                 </div>
