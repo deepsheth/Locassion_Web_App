@@ -344,6 +344,30 @@ h3 {
     color: #61617A;
 }
 
+#dyn_modal .dyn_avatar {
+    border: .3em solid #DDD;
+}
+
+#dyn_modal .dyn_avatar.selected {
+    border: .3em solid #2196F3;
+}
+
+.dyn_avatar {
+    background: url('https://avatars3.githubusercontent.com/u/8071305?v=3&s=460');
+    border-radius: 50%;
+    height: 3.5em;
+    width: 3.5em;
+    background-size: cover;
+    margin: 1.5em auto;
+}
+
+.dyn_avatar > .material-icons {
+    position: relative;
+    bottom: 0;
+    top: 2.5em;
+    left: 2.4em;
+    padding: 0.2em;
+}
 
 /*
 .more-wrapper {

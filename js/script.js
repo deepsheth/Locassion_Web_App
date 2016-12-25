@@ -37,6 +37,8 @@ $(document).ready(function () {
         count2 = selectCard(this, count2);
     });
 
+    // $('.modal').leanModal();
+    $('.modal-trigger').leanModal();
 });
 
 function selectCard(card, numberSelected) {

@@ -100,7 +100,7 @@
 
     <!-- Login Popup -->
     <form>
-        <div id="modal-login" class="modal modal-small blue-grey-text text-darken-2">
+        <div id="modal-login" class="modal modal-small modal-fixed-footer blue-grey-text text-darken-2">
             <div class="modal-padding">
                 <div class="row"><h3>Login</h3></div>
                 <div class="row">
@@ -137,19 +137,14 @@
     <!--   Custom Modal    -->
 
     <!--   Used for URL Share     -->
-    <div id="dyn_modal" class="modal">
+    <div id="dyn_modal" class="modal modal-small modal-fixed-footer">
         <div class="modal-padding center center-align">
-            <div class="row">
-                <h4>Copy Event Link</h4>
-                <br>
+            <h4>Share this Event</h4>
+        </div>
 
-                <input type="text" name="url" value="http://www.adamknucky.com/webpages/eventinfo.php?id=3" readonly>
-                <br>
-            </div>
-
-            <div class="modal-footer primary-green blue-grey-text text-darken-2">
-                <a class="right modal-action modal-close waves-effect waves-blue btn-flat ">Close</a>
-            </div>
+        <div class="modal-footer blue-grey lighten-5">
+            <a class="left modal-action modal-close waves-effect waves-blue btn-flat">Close</a>
+            <a class="right modal-action modal-close waves-effect waves-blue btn-flat disabled">Send Invites</a>
         </div>
     </div>
 
@@ -284,18 +279,6 @@
                             <div class="indeterminate primary-green"></div>
                         </div>
                         <ul class="tabs">
-
-                            <?php
-                            if(!isset($_SESSION['token'])){
-                                echo('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
-                            }
-                            else{
-                                echo('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents()">Discover</a></li>');
-                                echo('<li class="tab col s3 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
-                            }
-                            ?>
-
                         </ul>
                     </div>
                 </div>

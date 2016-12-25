@@ -89,7 +89,7 @@ function initMap() {
             addMenuButton("create_event");
             addMenuButton("dropdown");
             
-            $('.tabs').html('<li class="tab col s3 "><a href="#" class="active blue-text" onclick="getEvents(true)">Discover</a></li><li class="tab col s3 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
+            $('.tabs').html('<li class="tab col s6 "><a href="#" class="active blue-text" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
             $('.tabs').tabs()
 
         } else {
@@ -98,7 +98,7 @@ function initMap() {
             addMenuButton("login");
             addMenuButton("sign_up");
 
-            $('.tabs').html('<li class="tab col s3 "><a class="blue-text active" href="#" onclick="getEvents(true)">Discover</a></li><li class="tab col s3 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
+            $('.tabs').html('<li class="tab col s6 "><a class="blue-text active" href="#" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
             $('.tabs').tabs()
             
             
@@ -335,11 +335,16 @@ function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
         '</div>' +
         '<div class="card-content">' +
         '<div class="row">' +
-        '<div class="col s3 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo.time.valueOf() + '\')" title="' + eventInfo.time.format("llll") + '">' +
+        '<div class="col s3 no-pad">' +
+        '<div class="row">' +
+        '<div class="col s12 center-align mini-cal add-cursor" onclick="viewCal(event,\'' + eventInfo.time.valueOf() + '\')" title="' + eventInfo.time.format("llll") + '">' +
         '<div class="day">' + eventInfo.time.format("ddd") + '</div>' +
         '<div class="day-num">' + eventInfo.time.format("D") + '</div>' +
         '<div class="month">' + eventInfo.time.format("MMM") + '</div>' +
         '<div class="context">' + eventInfo.time.fromNow() + '</div>' +
+        '</div>' +
+        '<div class="col s12"><div class="dyn_avatar" title="Host"><i class="material-icons tiny-icon circle tiny white icon '+ (eventInfo.private ? 'blue-text" title="Private Event"' : 'green-text" title="Public Event"') +'>'+ (eventInfo.private ? 'secure' : 'public') + '</i></div></div>' +
+        '</div>' +
         '</div>' +
         '<div class="col m9 l8 offset-l1 side-info">' +
         '<div class="card-title"><a href="/webpages/event_details.php?eventid=' + event_id + '">' + eventInfo.name + '</a></div>' +
@@ -348,15 +353,10 @@ function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
         '<div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>' + eventInfo.time.format("h:mm A") + '</div>' +
         '</div>' +
         '</div>' +
-        '<div class="row">' +
-        '<div class="center-align">' +
-        '<a href="#" class="grey-text text-darken-1">' + eventInfo.hostName + '</a> created this meet up.' +
-        '</div>' +
-        '</div>' +
 
         '<div class="fold-body hidden">' +
         '<div class="row row-tight">' +
-        '<div class="span-padded center">' + (eventInfo.private ?  '<i title="private" class="material-icons tiny">group</i><span>Private</span>' : '<i title="public" class="material-icons tiny">public</i><span>Public</span>') + 
+        '<div class="span-padded center"><span data-target="dyn_modal" onclick="shareLink(\''+ event_id +'\')" class="add-cursor"><i class="material-icons">link</i></span>'+
         '<span>' + '8 Friends — '+ total_attending +' Total Going' + '</span>' +
         '</div>' +
         '<div class="row row-tight">' +
@@ -366,10 +366,12 @@ function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
         '</div>' +
         '<div class="divider"></div>' +
         '<div class="flex-container tags">';
+
         eventInfo.tags.tag1 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag1 + '</a>' : "" ;
         eventInfo.tags.tag2 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag2 + '</a>' : "" ;
         eventInfo.tags.tag3 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag3 + '</a>' : "" ;
         eventInfo.tags.tag4 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag4 + '</a>' : "" ;
+        
         cardContent +=
         '</div>' +
         '</div>' +
@@ -642,6 +644,47 @@ function foldableInit(card) {
             });
         }
     });
+}
+
+function shareLink(event_id) {
+    var content = 
+    '<div class="section">' +
+        '<p><strong>Share this event\'s link:</strong></p>' +
+        '<div class="row">' +
+            '<input class="col s10 copytextarea" type="text" name="url" value="GoLocassion.com/' + event_id +'" readonly onClick="this.setSelectionRange(0, this.value.length)">' +
+            '<button class="btn btn-flat col s2 green-text tooltipped" data-position="top" data-delay="0" data-tooltip="Copy to Clipboard"><i class="material-icons medium">content_copy</i></button>' +
+            '</div>' +
+        '</div>' +
+        '<div>' +
+            '<p><strong>Invite your groups to this event.</strong></p>' +
+            '<div class="flex-container">' +
+                '<div class="dyn_avatar add-cursor" title=""></div>' +
+                '<div class="dyn_avatar add-cursor" title=""></div>' +
+                '<div class="dyn_avatar add-cursor" title=""></div>' +
+            '</div>' +
+        '</div>';
+
+    $('#dyn_modal h4').after(content);
+    
+    $('#dyn_modal .tooltipped').tooltip();
+    $('#dyn_modal .dyn_avatar').on('click', function() {
+        $(this).toggleClass("selected");
+    });
+    $('#dyn_modal button').on('click', function() {
+        var copyTextarea = document.querySelector('.copytextarea');
+        copyTextarea.select();
+
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'Link copied!' : 'Copying failed. :(';
+            Materialize.toast(msg);
+        } catch (err) {
+            Materialize.toast('Oops, unable to copy');
+        }
+    });
+
+    $('#dyn_modal').openModal();
+
 }
 
 function btnRequestInit() {

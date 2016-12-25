@@ -5,7 +5,7 @@ var address_coordinates = {
 
 var eventTitle,
     isAllDay = false,
-    isPrivate = 1,
+    isPrivate = 0,
     startDate = "", endDate = "",
     startTime = "", endTime = "",
     tags = ["","","",""],
@@ -99,7 +99,6 @@ $(document).ready(function () {
     $('#invite_modal .card-panel').click(function () {
         count2 = selectCard(this, count2);
     });
-
 
 });
 
@@ -374,6 +373,7 @@ function makeEvent() {
         'location description': $('#location_details').val()
     };
 
+    console.log(eventInfo);
     console.table(eventInfo);
 
     var newEventKey;
@@ -392,3 +392,65 @@ function makeEvent() {
 
     firebase.database().ref(reference + "/" + eventKey).set(eventInfo);
 }
+
+function makeEvent_JSON(eventInfo) {
+    
+    var reference = "/events/public";
+    // if (isPrivate){
+    //     reference = "/events/private"; 
+    //     console.log("private");
+    // }
+    // else {
+    //     reference = "/events/public";
+    //     console.log("public");
+    // }
+
+    eventInfo.forEach(function(element) {
+        console.log("Pushing JSON to firebase...");
+        var newEventKey = firebase.database().ref(reference).push();
+        var eventKey = newEventKey.key;
+        firebase.database().ref(reference + "/" + eventKey).set(element);
+    });
+
+}
+
+function removeEvent(eventKey) {
+    var reference = "/events/public";
+    firebase.database().ref(reference + "/" + eventKey).remove();
+}
+
+function removeAllEvents() {
+    firebase.database().ref("/events/public/").remove();   
+}
+
+/*
+
+RANDOMLY GENERATE EVENTS
+[
+  {
+    'repeat(100, 100)': {
+      "address": '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+      "description": '{{lorem(1, "sentences")}}',
+      "end time": '{{moment().format("YYYY-MM-DD HH:mm:ss")}}',
+      "host id": "f0yoxQWiNCQyjkMsg5lES4Z4Ki92",
+      "latitude": function() {
+        return Math.random() * (40.65 - 40.55) + 40.55;
+      },
+      "location description": '{{lorem(1, "sentences")}}',
+      "longitude":  function() {
+        return Math.random() * (-75.35 - -75.400001) + -75.400001;
+      },
+      "name": '{{lorem(5, "words")}}',
+      "private":0,
+      "start time": '{{moment().add(4, "hours").format("YYYY-MM-DD HH:mm:ss")}}',
+      "tags": {
+        "tag1": '{{lorem(1, "words")}}',
+        "tag2": '{{lorem(1, "words")}}',
+        "tag3": '{{lorem(1, "words")}}',
+        "tag4": '{{lorem(1, "words")}}'
+      }
+    }
+  }
+]
+*/
+
