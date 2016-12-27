@@ -113,10 +113,50 @@ header ul {
     height: inherit;
 }
 
-#event-dashboard #map {
-    width: 45%;
+#event-dashboard #map,  #event-hist #map {
+    width: 100%;
     display: inline-block;
-    height: 40em;
+    height: 80vh;
+}
+
+.cust-collection {
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.cust-collection .collection-item {
+    display: flex;
+    margin-bottom: 0;
+}
+
+.cust-collection .info {
+    border-top: 1px solid #EEE;
+    border-bottom: 1px solid #EEE;
+    padding: 1em 2em;
+}
+
+.info a {
+    font-weight: bold;
+}
+
+.dyn_attendees {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #37474F;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.cust-collection .collection-item:first-child:before {
+    content: "Attendees";
+    position: absolute;
+    padding: .4em .5em;
+    background: #263238;
+    color: #FFF;
+    
 }
 
 #event-details #map {
@@ -298,6 +338,7 @@ h3 {
 
 
 /* For autocomplete chip arrow navigation */
+
 #side-bar .chip.selected {
     background: #48A64C;
 }
@@ -306,7 +347,8 @@ h3 {
     background: #F4F4F4;
 }
 
-#side-bar .chip:hover, .side-nav .chip:hover {
+#side-bar .chip:hover,
+.side-nav .chip:hover {
     background: #F4F4F4;
     color: #48A64C;
 }
@@ -372,6 +414,7 @@ h3 {
     left: 2.4em;
     padding: 0.2em;
 }
+
 .sm-circle {
     border-radius: 50%;
     font-size: 1.75em;
@@ -380,6 +423,7 @@ h3 {
     top: .1em;
     right: .1em;
 }
+
 
 /*
 .more-wrapper {
@@ -432,7 +476,7 @@ h3 {
     background: #2196F3 !important;
 }
 
- .btn-go.failure {
+.btn-go.failure {
     background: #D32F2F !important;
     border-color: #D32F2F !important;
     color: #F9C107 !important;
@@ -575,7 +619,6 @@ i.add-cursor:hover {
     -moz-transform: scale(1.1, 1.1);
     -o-transform: scale(1.1, 1.1);
     -ms-transform: scale(1.1, 1.1);
-    
     color: #FFC02A;
 }
 
@@ -600,9 +643,11 @@ footer.page-footer a {
     color: #9e9e9e;
 }
 
+
 /* Necessary to show footer links on front page.
 Otherwise, the datepicker will display as a block since js runs first
 Don't use .hide class! -- Doesn't work */
+
 #hidden {
     display: none;
 }
@@ -731,6 +776,7 @@ p.reading {
 }
 
 #event-dashboard header,
+#event-hist header ,
 #friend-dashboard header {
     margin-bottom: 5em;
 }
@@ -758,6 +804,10 @@ h5 {
     background: #f5f5f5;
 }
 
+.collection-item:hover .dyn_attendees {
+    background: #263238;
+}
+
 [type="radio"]:checked + label::after {
     border: 2px solid #2196F3;
     background-color: #2196F3;
@@ -783,7 +833,8 @@ h5 {
     background-color: #bf360c;
 }
 
-.picker__day--selected, .picker__day--selected:hover,
+.picker__day--selected,
+.picker__day--selected:hover,
 .picker__date-display,
 .picker--focused .picker__day--selected {
     background-color: #d84315;
@@ -848,7 +899,7 @@ button.picker__close:focus {
     max-height: 20em;
     height: auto;
     overflow: hidden;
-     text-shadow: 0px 3px 8px rgba(00, 00, 0, .75);
+    text-shadow: 0px 3px 8px rgba(00, 00, 0, .75);
 }
 
 .hero img {
@@ -873,7 +924,7 @@ button.picker__close:focus {
 }
 
 #event-details .card-title {
-    margin: 0px 0 15px;   
+    margin: 0px 0 15px;
 }
 
 #event-details .card-title a {
@@ -881,8 +932,8 @@ button.picker__close:focus {
 }
 
 .soft-border {
-    border-top: 1px solid rgba(160,160,160,0.2);    
-    border-bottom: 1px solid rgba(160,160,160,0.2);
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    border-bottom: 1px solid rgba(160, 160, 160, 0.2);
 }
 
 .info-bar {
@@ -963,12 +1014,16 @@ header .hamburger-menu {
     padding: 1em 2.5em;
 }
 
+
 /* For sidebar address */
-input.border-thick, .border-thick {
+
+input.border-thick,
+.border-thick {
     border-bottom: 3px solid #E4E4E4;
 }
 
-.border-thick:focus:not([readonly]), .chips.focus {
+.border-thick:focus:not([readonly]),
+.chips.focus {
     border-bottom: 3px solid #2196F3;
     box-shadow: none;
 }
@@ -1093,14 +1148,15 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .dark .dropdown-content li > span {
-    color: rgba(255,255,255, .70);
+    color: rgba(255, 255, 255, .70);
 }
 
 .dark .dropdown-content li:hover {
-    background: rgba(255,255,255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.dark .dropdown-content li.active, .dark .dropdown-content li.selected {
+.dark .dropdown-content li.active,
+.dark .dropdown-content li.selected {
     background: #48A64C;
     color: #FFF;
 }
@@ -1142,6 +1198,4 @@ input[type=range]::-webkit-slider-runnable-track {
     #filter-side-bar {
         width: 275px !important;
     }
-    
 }
-

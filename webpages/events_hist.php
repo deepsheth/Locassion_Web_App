@@ -41,12 +41,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
     <script src="/js/markerclusterer.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/js/mini-map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM&callback=initMap" async defer></script>
 
 
 </head>
 
-<body id="event-dashboard">
+<body id="event-hist">
     <header class="primary-green row">
 
         <!-- Navigation Drawer
@@ -83,84 +84,73 @@
     </header>
     <div class="container">
 
+        
         <div class="row">
-
-            <h3 class="grey-text text-darken-2"><span class="title blue-text">45</span> Events Attended</h3>
+            <h3 class="grey-text text-darken-2"><span class="title blue-text">7</span> Events Attended</h3>
         </div>
-        <div id="map"></div>
-        <script>
-            var map;
-
-            function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: {
-                        lat: 40.605,
-                        lng: -75.375
-                    },
-                    zoom: 13
-                });
-            }
-        </script>
-
-        <ul class="collection z-depth-1 grey-text text-darken-2">
-            <li class="collection-item avatar row">
-                <i class="material-icons circle light-green darken-1">group</i>
-                <div class="col s9">
-                    <span class="title grey-text text-darken-3">FundRager</span>
-                    <p>
-                        <i class="material-icons tiny grey-text text-lighten-1">event</i> Jan. 1, 2016
-                        <br> <i class="material-icons tiny grey-text text-lighten-1">access_time</i> 7:00PM - 8:00PM
-                        <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> Psi Upsilon
-                    </p>
-                </div>
-                <a class="secondary-content chip red lighten-2 white-text" title="Attendees"><i class="material-icons">group</i>2</a>
-            </li>
-            <li class="collection-item avatar row">
-                <i class="material-icons circle blue">group</i>
-                <div class="col s9">
-                    <span class="title grey-text text-darken-3">Cars and Coffee</span>
-                    <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 5, 2016
-                        <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 7:00AM - 12:00PM
-                        <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> Steel Stacks
-                    </p>
-                </div>
-                <a href="#" class="secondary-content chip red lighten-2 white-text" title="Attendees"><i class="material-icons">group</i>15</a>
-            </li>
-            <li class="collection-item avatar row">
-                <i class="material-icons circle primary-green">group</i>
-                <div class="col s9">
-                    <span class="title grey-text text-darken-3">DaceFest</span>
-                    <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 23, 2016
-                        <br> <i class="material-icons tiny grey-text text-lighten-1">access_time</i>6:00PM - 8:00PM
-                        <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> Zollner Arts Center
-                    </p>
-                </div>
-                <a href="#" class="secondary-content chip red lighten-2 white-text" title="Attendees"><i class="material-icons">public</i>69</a>
-            </li>
-            <li class="collection-item avatar row">
-                <i class="material-icons circle red darken-2">play_arrow</i>
-                <div class="col s9">
-                    <span class="title grey-text text-darken-3">Party!!!!!</span>
-                    <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 18, 2016
-                        <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 10:00PM - 1:00AM
-                        <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> 413 E Fifth
-                    </p>
-                </div>
-                <a href="#!" class="secondary-content chip red lighten-2 white-text" title="Attendees"><i class="material-icons">public</i>185</a>
-            </li>
-            <li class="collection-item avatar row">
-                <i class="material-icons circle red darken-2">play_arrow</i>
-                <div class="col s9">
-                    <span class="title grey-text text-darken-3">Party!!!!!</span>
-                    <p><i class="material-icons tiny grey-text text-lighten-1">event</i> Feb. 18, 2016
-                        <br><i class="material-icons tiny grey-text text-lighten-1">access_time</i> 10:00PM - 1:00AM
-                        <br> <i class="material-icons tiny grey-text text-lighten-1">place</i> 413 E Fifth
-                    </p>
-                </div>
-                <a href="#!" class="secondary-content chip red lighten-2 white-text" title="Attendees"><i class="material-icons">public</i>185</a>
-            </li>
-            <a href="#!" class="collection-item">See More</a>
-        </ul>
+        <div class="row">
+            <div class="col s12 m6">
+                <div id="map"></div>
+            </div>
+            <div class="col s12 m6 cust-collection z-depth-1">
+                <ul class=" no-mar">
+                    <li class="row collection-item">
+                        <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s10 info grey-text text-darken-1">
+                            <h5><a href=>Psi Soupsilon</a></h5>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">place</i>Psi Upsilon</p>
+                        </div>
+                    </li>
+                    
+                    <li class="row collection-item">
+                        <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s10 info grey-text text-darken-1">
+                            <h5><a href="">Psi Soupsilon</a></h5>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">place</i>Psi Upsilon</p>
+                        </div>
+                    </li>
+                    
+                    <li class="row collection-item">
+                        <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s10 info grey-text text-darken-1">
+                            <h5><a href="">Psi Soupsilon</a></h5>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">place</i>Psi Upsilon</p>
+                        </div>
+                    </li>
+                    
+                    <li class="row collection-item">
+                        <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s10 info grey-text text-darken-1">
+                            <h5><a href="">Psi Soupsilon</a></h5>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">place</i>Psi Upsilon</p>
+                        </div>
+                    </li>
+                    
+                    <li class="row collection-item">
+                       <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s10 info grey-text text-darken-1">
+                            <h5><a href="">Psi Soupsilon</a></h5>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">place</i>Psi Upsilon</p>
+                        </div>
+                    </li>
+                    
+                    <li class="row collection-item">
+                       <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s10 info grey-text text-darken-1">
+                            <h5><a href="">Psi Soupsilon</a></h5>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">place</i>Psi Upsilon</p>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
     </div>
     <footer class="grey lighten-3 grey-text">
         <div class="footer-copyright">

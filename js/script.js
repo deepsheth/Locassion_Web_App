@@ -161,7 +161,7 @@ function addMenuButton(btn) {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 $('.menu-buttons').append('.<a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons left">account_circle</i>' + user.displayName + '</a>');
-                $('.menu-buttons').append('<ul id="acct-settings" class="dropdown-content"><li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li><li><a href="/webpages/friends_dashboard.php">Friends & Groups</a></li><li><a href="/webpages/events_hist.php">Event History</a></li><li><a href="#!">Account Settings</a></li><li class="divider"></li><li><a class="grey-text" id="btn-logout">Logout</a></li></ul>');
+                $('.menu-buttons').append('<ul id="acct-settings" class="dropdown-content"><li><a href="/webpages/events_dashboard.php"><i class="material-icons left">view_list</i>Event Dashboard</a></li><li><a href="/webpages/friends_dashboard.php"><i class="material-icons left">group</i>Friends & Groups</a></li><li><a href="/webpages/events_hist.php"><i class="material-icons left">history</i>Event History</a></li><li><a href="#!"><i class="material-icons left">settings</i>Account Settings</a></li><li class="divider"></li><li><a class="grey-text" id="btn-logout">Logout</a></li></ul>');
                 $('#btn-logout').on('click', function () {
                     mainLogout()
                 });

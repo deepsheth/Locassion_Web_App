@@ -675,6 +675,10 @@ function shareLink(event_id) {
 
     $('#dyn_modal').html(content);
     
+    $('.dyn_avatar').on('click', function() {
+        $(this).toggleClass("selected");
+    });
+    
     $('#dyn_modal .tooltipped').tooltip();
     
     $('#dyn_modal button').on('click', function() {
