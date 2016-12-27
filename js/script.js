@@ -23,13 +23,26 @@ $(document).ready(function () {
         }
     });
 
+    $('.dyn_avatar').on('click', function() {
+        $(this).toggleClass("selected");
+    });
+
     $('#btn-create-acct').on('click', function () {
         signUp(document.getElementById('input_username').value, document.getElementById('input_password').value);
     });
 
     var count1 = 0;
+    var selected_friends= [];
     $('#friend-dashboard .friend-list-cards .card-panel').click(function () {
-        count1 = selectCard(this, count1);
+        count1 = selectCard(this, count1, selected_friends);
+    });
+
+    $('.btn-group').on('click', function() {
+        $('.dyn_selected').html(selected_friends.join(", "));
+    });
+
+    $('.btn-delete').on('click', function() {
+        $('.dyn_selected').html(selected_friends.join(", "));
     });
 
     var count2 = 0;
@@ -41,16 +54,32 @@ $(document).ready(function () {
     $('.modal-trigger').leanModal();
 });
 
-function selectCard(card, numberSelected) {
+function selectCard(card, numberSelected, selected_friends) {
     $(card).toggleClass('card-selected');
 
     if ($(card).is('.card-selected')) {
         numberSelected++;
         $('.num-selected').text(numberSelected);
+        selected_friends.push($(card).find("span.title").text());
     } else {
         numberSelected--;
         $('.num-selected').text(numberSelected);
+        var ind = selected_friends.indexOf($(card).find("span.title").text());
+        if (ind != -1) selected_friends.splice(ind, 1);
     }
+    console.log(selected_friends);
+
+    // Disables toolbar if nothing is selected
+    if (numberSelected == 0 ) {
+        $('.helper').slideDown();
+
+        $('.btn-toolbar .btn').addClass("disabled");
+    }
+    else {
+        $('.helper').slideUp();
+        $('.btn-toolbar .btn').removeClass("disabled");
+    }
+
     return numberSelected;
 }
 
@@ -132,12 +161,12 @@ function addMenuButton(btn) {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 $('.menu-buttons').append('.<a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons left">account_circle</i>' + user.displayName + '</a>');
-                $('.menu-buttons').append('<ul id="acct-settings" class="dropdown-content"><li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li><li><a href="/webpages/friends_dashboard.php">Friends</a></li><li><a href="/webpages/events_hist.php">Event History</a></li><li><a href="#!">Account Settings</a></li><li class="divider"></li><li><a class="grey-text" id="btn-logout">Logout</a></li></ul>');
+                $('.menu-buttons').append('<ul id="acct-settings" class="dropdown-content"><li><a href="/webpages/events_dashboard.php">Event Dashboard</a></li><li><a href="/webpages/friends_dashboard.php">Friends & Groups</a></li><li><a href="/webpages/events_hist.php">Event History</a></li><li><a href="#!">Account Settings</a></li><li class="divider"></li><li><a class="grey-text" id="btn-logout">Logout</a></li></ul>');
                 $('#btn-logout').on('click', function () {
                     mainLogout()
                 });
                 $('.dropdown-button').dropdown();
-                console.log("CREATING NEW DROPDOWN: ");
+                console.log("CREATING NEW DROPDOWN at: ");
                 console.log(moment().toString());
             }
         });
@@ -294,4 +323,9 @@ function momentContext(date) {
         }
 
     }); 
+}
+
+// For deleting groups
+function displayGroupEdit(index, id) {
+    $('.collection-item i').toggleClass('icon-hidden');
 }

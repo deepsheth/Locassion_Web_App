@@ -260,6 +260,10 @@ h3 {
     opacity: 1;
 }
 
+.icon-hidden {
+    visibility: hidden;
+}
+
 .span-padded span {
     padding: 0 .75em;
 }
@@ -344,11 +348,11 @@ h3 {
     color: #61617A;
 }
 
-#dyn_modal .dyn_avatar {
+.modal .dyn_avatar {
     border: .3em solid #DDD;
 }
 
-#dyn_modal .dyn_avatar.selected {
+.modal .dyn_avatar.selected {
     border: .3em solid #2196F3;
 }
 
@@ -367,6 +371,14 @@ h3 {
     top: 2.5em;
     left: 2.4em;
     padding: 0.2em;
+}
+.sm-circle {
+    border-radius: 50%;
+    font-size: 1.75em;
+    line-height: 1.1;
+    position: absolute;
+    top: .1em;
+    right: .1em;
 }
 
 /*
@@ -651,12 +663,6 @@ Don't use .hide class! -- Doesn't work */
     margin-right: 1em;
 }
 
-.collection .collection-item.avatar .secondary-content {
-    position: unset;
-    top: 0;
-    right: 0;
-}
-
 p.reading {
     line-height: 1.75em;
 }
@@ -746,16 +752,6 @@ h5 {
 
 #registration form {
     padding: 2em 3em 3em;
-}
-
-.collection .collection-item.avatar .title {
-    font-size: 1.3em;
-}
-
-.collection .collection-item.avatar {
-    padding-top: 1.75em;
-    padding-bottom: 1.75em;
-    margin: 0.25em 1.25em;
 }
 
 .collection-item:hover {
@@ -1118,6 +1114,9 @@ input[type=range]::-webkit-slider-runnable-track {
     min-height: auto;
 }
 
+.btn-toolbar .chip {
+    margin: 0;
+}
 
 @media only screen and (max-width:600px) {
     header {

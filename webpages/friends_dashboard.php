@@ -1,33 +1,3 @@
-<?php
-session_start(); // Starting Session
-$error=' '; // Variable To Store Error Message
-if (isset($_POST['submit'])) {
-    if (empty($_POST['email'])) {
-        $error = "please enter the friend's email";
-    }
-    else
-    {
-        $url = 'https://meet-up-1097.appspot.com/?command=getID&args='.$_POST['email'].'&token='.$_SESSION['token'];
-        if (strpos(get_headers($url)[0],'200') != false){
-            $jsonResponse = json_decode(file_get_contents($url),true);
-        }
-        else{
-            print_r(get_headers($url));
-        }
-        $friendID = $jsonResponse['userid'];
-        $url = 'https://meet-up-1097.appspot.com/?command=addFriend&args='.$friendID.'&token='.$_SESSION['token'];
-        if (strpos(get_headers($url)[0],'200') != false){
-            $jsonResponse = json_decode(file_get_contents($url),true);
-            $error = "friend added!";
-        }
-        else{
-            print_r(get_headers($url));
-        }
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -40,43 +10,34 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="Locassion: Web App">
     <meta name="author" content="Deep Sheth">
 
-    <!-- CSS
-	================================================== -->
+      <!-- CSS
+================================================== -->
     <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,700|Rubik:400|Material+Icons' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/style.css">
 
     <!-- Favicons
-	================================================== -->
-    <link rel="icon" href="" />
+================================================== -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
 
     <!-- Mobile Specific Metas
-	================================================== -->
+================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- Analytics
-	================================================== -->
+================================================== -->
 
 
     <!-- Page Specific Styles and Scripts
-	================================================== -->
-    <script>
-        var logged_in = <?php
-                if (isset($_SESSION['token'])) {
-                    echo('true;');
-                } else {
-                    echo('false;');
-                }
-            ?>
-        var token = <?php
-                if (isset($_SESSION['token'])) {
-                    echo('"'.$_SESSION['token'].'";');
-                } else {
-                    echo('"";');
-                }
-            ?>
-    </script>
+================================================== -->
+    <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="/js/script.js"></script>
@@ -84,82 +45,111 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body id="friend-dashboard">
-    <header class="light-green darken-2 row">
+    <header class="primary-green row">
 
         <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+
         <ul class="col s12 m8 l10">
-            <div class="flex-container">
+            <div class="flex-container menu-buttons">
 
-            <button data-target="modal-small" class="btn modal-trigger">Add Friend</button>
-
-            <?php
-            define('__ROOT__', dirname(dirname(__FILE__)));
-            include_once(__ROOT__.'/templates/header-menu.php'); 
-            ?>
-            
+                <script>
+                    addMenuButton("events_dashboard");
+                    addMenuButton("dropdown");
+                    requireLogin();
+                </script>
             </div>
         </ul>
-        <form action="" method="post">
-            <div id="modal-small" class="modal blue-grey-text text-darken-2">
-                <div class="modal-padding">
-                    <form>
-                        <div class="row">
-                            <h3>Add Friend</h3>
-                            <br>
-                            <div class="input-field">
-                                <i class="material-icons prefix ">account_circle</i>
-                                <input id="icon_username" name="email" type="text">
-                                <label for="icon_username">Email</label>
-                            </div>
+    </header>
 
-                            <?php 
-                        echo('<p class="red-text">');
-                        echo($error);
-                        echo ('</p>');
-                        ?>
-                        </div>
-                    </form>
+
+    <div class="container">
+        <div class="row">
+            <div class="col l3 m6 s12">
+                <div class="row">
+                    <h3 class="grey-text text-darken-2"><span class="title blue-text">4</span> Groups</h3>
                 </div>
-                <div class="modal-footer blue-grey lighten-5">
-                    <strong><input name="submit" type="submit" value="add" class="modal-action modal-close waves-effect waves-blue light-blue-text text-darken-3 btn-flat"></strong>
+                <div class="row center">
+                    <button class="waves-effect waves-light btn-flat btn center" onClick="displayGroupEdit()"><i class="material-icons left">mode_edit</i>Edit List</button>
+                </div>
+                <div class="row">
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <i class="material-icons red-text sm-circle add-cursor icon-hidden">remove_circle</i>
+                            <img src="https://github.com/identicons/hacker.png" alt="" class="circle">
+                            <a href="#"><span class="title">LU Clubs</span></a>
+                            <p class="grey-text text-darken-1">5,348 Followers</p>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons red-text sm-circle add-cursor icon-hidden">remove_circle</i>
+                            <img src="https://github.com/identicons/leet.png" alt="" class="circle">
+                            <a href="#"><span class="title">Lehigh After Dark</span></a>
+                            <p class="grey-text text-darken-1">3 Followers</p>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons red-text sm-circle add-cursor icon-hidden">remove_circle</i>
+                            <img src="https://github.com/identicons/boss.png" alt="" class="circle">
+                            <a href=""><span class="title">CSE 303 Study Group</span></a>
+                            <p class="grey-text text-darken-1">23 Followers</p>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons red-text sm-circle add-cursor icon-hidden">remove_circle</i>
+                            <img src="https://github.com/identicons/top.png" alt="" class="circle">
+                            <a href=""><span class="title">Steel Stacks</span></a>
+                            <p class="grey-text text-darken-1">23,580 Followers</p>
+                        </li>
+
+                    </ul>
                 </div>
             </div>
-        </form>
-    </header>
-    <div class="container">
-
-
-
-        <div class="row">
-            <div class="col s8 friend-list-cards">
+            <div class="col l8 m6 s12 offset-l1 friend-list-cards">
                 <div class="row">
                     <h3 class="grey-text text-darken-2"><span class="title blue-text">12</span> Friends</h3>
                 </div>
 
-                <div class="row">
-                    <a data-target="list_modal" class="waves-effect waves-light blue btn modal-trigger tooltipped" data-position="bottom" data-delay="0" data-tooltip="Group friends into a  List"><i class="material-icons left">playlist_add</i>Add to List</a>
-                    <a data-target="delete_modal" class="waves-effect waves-light blue btn modal-trigger" data-position="bottom" data-delay="0" data-tooltip="Remove friends"><i class="material-icons">delete_sweep</i></a>
-                    <a href="/edit_friends.php" class="waves-effect waves-light blue btn tooltipped" data-position="bottom" data-delay="0" data-tooltip="Search friends to add/remove"><i class="material-icons">search</i></a>
+                
+                <div class="row btn-toolbar">
+                    <div class="col s12">
+                    <a data-target="create_group_modal" class="btn-group waves-effect waves-light blue btn modal-trigger tooltipped disabled" data-position="bottom" data-delay="0" data-tooltip="Group friends into a  List"><i class="material-icons left">playlist_add</i>Group</a>
+                    <a data-target="delete_modal" class="btn-delete waves-effect waves-light btn btn-flat modal-trigger tooltipped" data-position="bottom" data-delay="0" data-tooltip="Remove friends"><i class="material-icons">delete_sweep</i></a>
+                    <a href="/edit_friends.php" class="waves-effect waves-light btn btn-flat tooltipped" data-position="bottom" data-delay="0" data-tooltip="Search friends to add/remove"><i class="material-icons">search</i></a>
                     <p class="chip right title">
                         <span class="num-selected">0</span> Friends Selected
                     </p>
+                    </div>
                 </div>
 
+                <p class='helper'>Select friends to batch edit them.</p>
 
-                <div id="list_modal" class="modal blue-grey-text text-darken-2">
+                <div id="create_group_modal" class="modal blue-grey-text text-darken-2">
                     <div class="modal-padding">
                         <form>
-                            <div class="row">
-                                <h3>Create Friends List</h3>
-                                <p class="center"><span class="title num-selected">8</span> friends will be grouped into this list.</p>
+                            <div class="row section">
                                 <div class="container">
-                                   <br>
-                                    <div class="input-field">
-                                        <i class="material-icons prefix ">group</i>
-                                        <input id="icon_username" name="email" type="text">
-                                        <label for="icon_username">Name this List</label>
+                                <h3>Group Friends</h3>
+                                <div class="row">
+                                    <p class="center"><span class="title num-selected">8</span> friends will be added to this group.</br><small><span class="dyn_selected grey-text"></span></small></p>
+                                </div>
+                                <div class="section">
+                                    <div class="row">
+                                        
+                                        <div class="col s12 m8 offset-m2">
+                                                <div class="input-field col s12">
+                                                <i class="material-icons prefix ">group</i>
+                                                <input id="input_username" name="email" type="text" placeholder="" required>
+                                                <label for="input_username">New Group Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s8 offset-s2">
+                                        <p class="center"><strong>Or add your friends to existing group</strong></p>
+                                        <div class="flex-container">
+                                            <div class="dyn_avatar add-cursor" title=""></div>
+                                            <div class="dyn_avatar add-cursor" title=""></div>
+                                            <div class="dyn_avatar add-cursor" title=""></div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </form>
 
@@ -174,16 +164,14 @@ if (isset($_POST['submit'])) {
                 <div id="delete_modal" class="modal blue-grey-text text-darken-2">
                     <div class="modal-padding">
                         <form>
-                            <div class="row">
-                                <h3>Remove <span class="title num-selected">8</span>  Friends?</h3>
-                                <p class="center">Are you really sure?</p>
+                            <div class="container">
+                                <h3>Remove <span class="title num-selected red-text">8</span>  Friends?</h3>
+                                <p><span class="dyn_selected"></span></p>
                             </div>
                         </form>
-
-
                     </div>
-                    <div class="modal-footer blue-grey lighten-5">
-                         <a href="#" class="right modal-action modal-close waves-effect waves-blue btn-flat"><strong class="blue-text">Yes</strong></a>
+                    <div class="modal-footer orange lighten-4">
+                        <a class="right modal-action modal-close waves-effect red-blue btn-flat red-text">Yes, remove friends.</a>
                         <a class="left modal-action modal-close waves-effect waves-blue btn-flat">Cancel</a>
                     </div>
                 </div>
@@ -355,64 +343,13 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="col s3 offset-s1">
-                <div class="row">
-                    <h3 class="grey-text text-darken-2"><span class="title blue-text">4</span> Subscriptions</h3>
-                    <a href="/edit_friends.php" class="waves-effect waves-light blue btn">Edit Subscription List</a>
-
-                </div>
-                <div class="row">
-                    <ul class="collection">
-                        <li class="collection-item avatar">
-                            <img src="https://github.com/identicons/hacker.png" alt="" class="circle">
-                            <span class="title">LU Clubs</span>
-                            <p>5,348 Followers</p>
-                            <a href="#!" class="secondary-content"><i class="material-icons red-text text-darken-2">remove_circle</i></a>
-                        </li>
-                        <li class="collection-item avatar">
-                            <img src="https://github.com/identicons/leet.png" alt="" class="circle">
-                            <span class="title">Lehigh After Dark</span>
-                            <p>3 Followers</p>
-                            <a href="#!" class="secondary-content"><i class="material-icons red-text text-darken-2">remove_circle</i></a>
-                        </li>
-                        <li class="collection-item avatar">
-                            <img src="https://github.com/identicons/boss.png" alt="" class="circle">
-                            <span class="title">CSE 303 Study Group</span>
-                            <p>23 Followers</p>
-                            <a href="#!" class="secondary-content"><i class="material-icons red-text text-darken-2">remove_circle</i></a>
-                        </li>
-                        <li class="collection-item avatar">
-                            <img src="https://github.com/identicons/top.png" alt="" class="circle">
-                            <span class="title">Steel Stacks</span>
-                            <p>23,580 Followers</p>
-                            <a href="#!" class="secondary-content"><i class="material-icons red-text text-darken-2">remove_circle</i></a>
-                        </li>
-
-                    </ul>
-                </div>
             </div>
         </div>
-
-
-
     </div>
-    <footer class="grey lighten-3 grey-text">
-        <div class="footer-copyright">
-            <div class="container">
-
-                <a class="blue-grey-text" href="#!">© 2015-2016 LeavittInnovations.</a>
-                <a class="right blue-grey-text" href="./tos.php">Terms of Service</a>
-                <a class="right blue-grey-text" href="./privacy.php">Privacy Policy</a>
-                <a class="right blue-grey-text" href="./faq.php">FAQ</a>
-            </div>
-        </div>
-    </footer>
-
-
-
+    
+    <?php
+        include_once(dirname(dirname(__FILE__)).'/templates/simple-footer.php'); 
+    ?>
 </body>
 
 </html>

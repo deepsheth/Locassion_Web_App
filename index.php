@@ -138,14 +138,9 @@
 
     <!--   Used for URL Share     -->
     <div id="dyn_modal" class="modal modal-small modal-fixed-footer">
-        <div class="modal-padding center center-align">
-            <h4>Share this Event</h4>
-        </div>
+        
 
-        <div class="modal-footer blue-grey lighten-5">
-            <a class="left modal-action modal-close waves-effect waves-blue btn-flat">Close</a>
-            <a class="right modal-action modal-close waves-effect waves-blue btn-flat disabled">Send Invites</a>
-        </div>
+        
     </div>
 
 
@@ -178,7 +173,7 @@
                         <input type="hidden" class="datepicker" id="hidden">
                         <div class="footer-copyright">
                             <small> <b>
-                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan, and Luke Dittman." href="/meta/index.html">© 2015-2016 LeavittInnovations.</a>
+                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan" href="/meta/index.html">© 2015-2016 LeavittInnovations.</a>
 
                                 <a class="right white-text btn-flat" href="/webpages/tos.php" target="_blank">Terms of Service</a>
                                 <a class="right white-text btn-flat" href="/webpages/privacy.php" target="_blank">Privacy Policy</a>

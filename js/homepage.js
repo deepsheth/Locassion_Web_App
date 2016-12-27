@@ -648,10 +648,13 @@ function foldableInit(card) {
 
 function shareLink(event_id) {
     var content = 
+    '<div class="modal-padding center center-align">' +
+         '   <h4>Share Event</h4>' +
+        
     '<div class="section">' +
         '<p><strong>Share this event\'s link:</strong></p>' +
         '<div class="row">' +
-            '<input class="col s10 copytextarea" type="text" name="url" value="GoLocassion.com/' + event_id +'" readonly onClick="this.setSelectionRange(0, this.value.length)">' +
+            '<input class="col s10 copytextarea" type="text" name="url" value="GoLocassion.com/webpages/event_details.php?eventid=' + event_id +'" readonly onClick="this.setSelectionRange(0, this.value.length)">' +
             '<button class="btn btn-flat col s2 green-text tooltipped" data-position="top" data-delay="0" data-tooltip="Copy to Clipboard"><i class="material-icons medium">content_copy</i></button>' +
             '</div>' +
         '</div>' +
@@ -662,14 +665,18 @@ function shareLink(event_id) {
                 '<div class="dyn_avatar add-cursor" title=""></div>' +
                 '<div class="dyn_avatar add-cursor" title=""></div>' +
             '</div>' +
-        '</div>';
+        '</div>'+
+        '</div>' +
+        '<div class="modal-footer blue-grey lighten-5">'+
+            '<a class="left modal-action modal-close waves-effect waves-blue btn-flat">Close</a>'+
+            '<a class="right modal-action modal-close waves-effect waves-blue btn-flat disabled">Send Invites</a>'+
+        '</div>'
+        ;
 
-    $('#dyn_modal h4').after(content);
+    $('#dyn_modal').html(content);
     
     $('#dyn_modal .tooltipped').tooltip();
-    $('#dyn_modal .dyn_avatar').on('click', function() {
-        $(this).toggleClass("selected");
-    });
+    
     $('#dyn_modal button').on('click', function() {
         var copyTextarea = document.querySelector('.copytextarea');
         copyTextarea.select();
@@ -677,7 +684,7 @@ function shareLink(event_id) {
         try {
             var successful = document.execCommand('copy');
             var msg = successful ? 'Link copied!' : 'Copying failed. :(';
-            Materialize.toast(msg);
+            Materialize.toast(msg, 3000);
         } catch (err) {
             Materialize.toast('Oops, unable to copy');
         }

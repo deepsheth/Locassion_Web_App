@@ -534,8 +534,7 @@
 
     <?php
         include_once(dirname(dirname(__FILE__)).'/templates/simple-footer.php'); 
-        ?>
-
+    ?>
 </body>
 
 </html>
