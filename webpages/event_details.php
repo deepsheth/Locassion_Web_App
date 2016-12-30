@@ -112,10 +112,10 @@
                         <p class="dyn_details"></p>
                     </div>
                     <div class="card-action">
-                        <a href="#">Tag1</a>
-                        <a href="#">Tag2</a>
-                        <a href="#">Tag3</a>
-                        <a href="#">Tag4</a>
+                        <a href="#" class="dyn_tag1">Tag1</a>
+                        <a href="#" class="dyn_tag2">Tag2</a>
+                        <a href="#" class="dyn_tag3">Tag3</a>
+                        <a href="#" class="dyn_tag4">Tag4</a>
                         
 
                     </div>

@@ -32,22 +32,6 @@
 
     <!-- Page Specific Styles and Scripts
 ================================================== -->
-     <script>
-        var logged_in = <?php
-                if (isset($_SESSION['token'])) {
-                    echo('true;');
-                } else {
-                    echo('false;');
-                }
-            ?>
-        var token = <?php
-                if (isset($_SESSION['token'])) {
-                    echo('"'.$_SESSION['token'].'";');
-                } else {
-                    echo('"";');
-                }
-            ?>
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
@@ -61,7 +45,7 @@
         <ul class="col s12 m8 l10">
             <div class="flex-container">
 
-                <a href="/webpages/log_in.php" class="btn waves-effect">Login</a>
+                <a href="/webpages/log_in.php" class="btn btn-flat waves-effect">Login</a>
 
                 <!-- Dropdown Structure -->
                 <ul id='acct-settings' class='dropdown-content'>
@@ -88,7 +72,7 @@
                     <form action="./reset_pass.php" method="post">
                         <h3 class="">Reset Password</h3>
                         <p class="center">What's the email you registered with?</p>
-                        <div class="input-field">
+                        <div class="input-field col s12">
                             <i class="material-icons prefix">fiber_new</i>
                             <input id="email" name="email" type="text" required>
                             <label for="email">Email</label>

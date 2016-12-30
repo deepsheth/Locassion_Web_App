@@ -130,7 +130,6 @@ function clearBelowHeader() {
 }
 
 function addMenuButton(btn) {
-
     switch (btn) {
     case "create_event":
         $('.menu-buttons').append('<a href="./webpages/create_event.php" class="waves-effect waves-bblue btn btn-flat">Create Event</a>');
@@ -158,16 +157,26 @@ function addMenuButton(btn) {
     case "forgot_password":
         $('.menu-buttons').append('<a href="/webpages/reset_pass_email.php" class="btn waves-effect  waves-blue btn">Forgot Password</a>');
     case "dropdown":
+        
         firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
+            console.trace();
+            console.log("auth state changed.");
+            console.log(user);
+            if (user != null) {
                 $('.menu-buttons').append('.<a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons left">account_circle</i>' + user.displayName + '</a>');
                 $('.menu-buttons').append('<ul id="acct-settings" class="dropdown-content"><li><a href="/webpages/events_dashboard.php"><i class="material-icons left">view_list</i>Event Dashboard</a></li><li><a href="/webpages/friends_dashboard.php"><i class="material-icons left">group</i>Friends & Groups</a></li><li><a href="/webpages/events_hist.php"><i class="material-icons left">history</i>Event History</a></li><li><a href="#!"><i class="material-icons left">settings</i>Account Settings</a></li><li class="divider"></li><li><a class="grey-text" id="btn-logout">Logout</a></li></ul>');
                 $('#btn-logout').on('click', function () {
-                    mainLogout()
+                    clearMenu();
+                    mainLogout();
                 });
                 $('.dropdown-button').dropdown();
-                console.log("CREATING NEW DROPDOWN at: ");
-                console.log(moment().toString());
+//                console.log("CREATING NEW DROPDOWN at: ");
+//                console.log(moment().toString());
+            }
+            else {
+//                clearMenu();
+                addMenuButton("login");
+                addMenuButton("sign_up");
             }
         });
         return;
@@ -287,10 +296,14 @@ function renderEventPage(event) {
     $('.dyn_event-desc').text(event.description);
     $('.dyn_location').html("<strong>" + event.address + "</strong> • " + event["location description"]);
     $('.dyn_details').text(event.description);
-    $('.dyn_tag1').text(event.tags.tag1);
-    $('.dyn_tag2').text(event.tags.tag2);
-    $('.dyn_tag3').text(event.tags.tag2);
-    $('.dyn_tag4').text(event.tags.tag2);
+    $('.dyn_tag1').text("#"+event.tags.tag1);
+    $('.dyn_tag2').text("#"+event.tags.tag2);
+    $('.dyn_tag3').text("#"+event.tags.tag3);
+    $('.dyn_tag4').text("#"+event.tags.tag4);
+    $('.dyn_tag1').attr("href", "/webpages/search.php?tag&q="+event.tags.tag1);
+    $('.dyn_tag2').attr("href", "/webpages/search.php?tag&q="+event.tags.tag2);
+    $('.dyn_tag3').attr("href", "/webpages/search.php?tag&q="+event.tags.tag3);
+    $('.dyn_tag4').attr("href", "/webpages/search.php?tag&q="+event.tags.tag4);
     $('.day').text(start_date.format("ddd"));
     $('.day-num').text(start_date.format("D"));
     $('.month').text(start_date.format("MMMM"));
@@ -323,6 +336,32 @@ function momentContext(date) {
         }
 
     }); 
+}
+
+function getSearchQuery() {
+    
+    //  /search.php?username&q=text
+    var query_type = location.search.substr(1);
+    query_type = query_type.split("&");
+    var query = query_type[1].split("=");
+    
+    // query[0] equals "q", query [1] = "what to search"
+    if (query_type[0] == "username"){
+        $('ul.tabs').tabs('select_tab', 't_username');
+        $('#f_username').val(query[1]);
+    }
+    else if (query_type[0] == "tag"){
+        $('ul.tabs').tabs('select_tab', 't_tag');
+        $('#f_tag').val(query[1]);
+        
+    }
+    else if (query_type[0] == "event"){
+        $('ul.tabs').tabs('select_tab', 't_event');
+        $('#f_event').val(query[1]);
+        
+    }
+    
+    Materialize.updateTextFields();
 }
 
 // For deleting groups

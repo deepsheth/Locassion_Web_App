@@ -111,7 +111,7 @@
                     <div class="col s12">
                     <a data-target="create_group_modal" class="btn-group waves-effect waves-light blue btn modal-trigger tooltipped disabled" data-position="bottom" data-delay="0" data-tooltip="Group friends into a  List"><i class="material-icons left">playlist_add</i>Group</a>
                     <a data-target="delete_modal" class="btn-delete waves-effect waves-light btn btn-flat modal-trigger tooltipped" data-position="bottom" data-delay="0" data-tooltip="Remove friends"><i class="material-icons">delete_sweep</i></a>
-                    <a href="/edit_friends.php" class="waves-effect waves-light btn btn-flat tooltipped" data-position="bottom" data-delay="0" data-tooltip="Search friends to add/remove"><i class="material-icons">search</i></a>
+                    <a href="/webpages/search.php" class="waves-effect waves-light btn btn-flat tooltipped" data-position="bottom" data-delay="0" data-tooltip="Search friends to add/remove"><i class="material-icons">search</i></a>
                     <p class="chip right title">
                         <span class="num-selected">0</span> Friends Selected
                     </p>

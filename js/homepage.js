@@ -82,34 +82,36 @@ function initMap() {
 
     $('#preloader-indef').fadeIn(350);
 
+
+    
     firebase.auth().onAuthStateChanged(function (user) {
-        clearMenu();
+        clearEvents();
         if (user) {
-            // signed in.
+            clearMenu();
             addMenuButton("create_event");
-            addMenuButton("dropdown");
+            
             
             $('.tabs').html('<li class="tab col s6 "><a href="#" class="active blue-text" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
-            $('.tabs').tabs()
-
+            $('.tabs').tabs();
         } else {
-            // No user is signed in.
+            clearMenu();
             addMenuButton("create_event_disabled");
-            addMenuButton("login");
-            addMenuButton("sign_up");
 
             $('.tabs').html('<li class="tab col s6 "><a class="blue-text active" href="#" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
             $('.tabs').tabs()
             
             
-            // Card that asks user to sign up
-            $('#event-panel').append('<div class="row"><div class="col 12"><div class="card red darken-2"><div class="card-content white-text"><span class="card-title">Meet up with friends.</span><p class="insert">Create an account to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div><div class="card-action red darken-4 center"><a href="/webpages/sign_up.php" class="amber-text title btn-flat waves-effect waves-white">Sign Up</a></div></div></div></div>');
+//            // Card that asks user to sign up
+            $('#event-panel').append('<div class="row sign-up-card simple-hide"><div class="col 12"><div class="card"><div class="green card-content white-text"><span class="card-title">Meet up with friends.</span><p class="green-text text-lighten-5"><a href="/webpages/sign_up.php" class="white-text">Create an account</a> to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div></div></div></div>');
+            $('.sign-up-card').slideDown(600);
         }
         
         // Gets all events
         getEvents(false);
 
     });
+    
+    addMenuButton("dropdown");
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -367,10 +369,10 @@ function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
         '<div class="divider"></div>' +
         '<div class="flex-container tags">';
 
-        eventInfo.tags.tag1 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag1 + '</a>' : "" ;
-        eventInfo.tags.tag2 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag2 + '</a>' : "" ;
-        eventInfo.tags.tag3 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag3 + '</a>' : "" ;
-        eventInfo.tags.tag4 ? cardContent += '<a href="#" class="chip">#' + eventInfo.tags.tag4 + '</a>' : "" ;
+        eventInfo.tags.tag1 ? cardContent += '<a target="_blank" href="/webpages/search.php?tag&q=' + eventInfo.tags.tag1 + '" class="chip">#' + eventInfo.tags.tag1 + '</a>' : "" ;
+        eventInfo.tags.tag2 ? cardContent += '<a target="_blank" href="/webpages/search.php?tag&q=' + eventInfo.tags.tag2 + '" class="chip">#' + eventInfo.tags.tag2 + '</a>' : "" ;
+        eventInfo.tags.tag3 ? cardContent += '<a target="_blank" href="/webpages/search.php?tag&q=' + eventInfo.tags.tag3 + '" class="chip">#' + eventInfo.tags.tag3 + '</a>' : "" ;
+        eventInfo.tags.tag4 ? cardContent += '<a target="_blank" href="/webpages/search.php?tag&q=' + eventInfo.tags.tag4 + '" class="chip">#' + eventInfo.tags.tag4 + '</a>' : "" ;
         
         cardContent +=
         '</div>' +

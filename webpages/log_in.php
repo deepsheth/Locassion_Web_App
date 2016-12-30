@@ -103,24 +103,7 @@ include('../php/login.php');
                     </div>
                     <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
                         <form method="post">
-
-
-                            <?php
-                            if (isset($_SESSION['userID'])) {
-                                echo ("
-                                    <h3 class='light-green-text text-darken-2'>Account Created!</h3>
-                                    <p class='center'>Last step, please log in.</p>
-                                ");
-                            }
-                            else {
-                                echo ("<h3>Please Login</h3>");
-                            }
-                            
-                            if (isset($_GET['error'])) echo ("<p class='red-text center'>Invalid username or password.</p>");
-                            else if (isset($_GET['newpass'])) echo ("<strong><p class='green-text center'>Yay, last step! Please login with your new password.</p></strong>");
-                            
-                            ?>
-
+                            <h3>Please Login</h3>
                                 <br>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix ">account_circle</i>
@@ -131,7 +114,7 @@ include('../php/login.php');
                                     <i class="material-icons prefix">https</i>
                                     <input id="input_password" name="password" type="password">
                                     <label for="input_password">Password</label>
-                                    <a href="/webpages/reset_pass_email.php" class="right">Forgot Password?</a>
+                                    <small><a href="/webpages/reset_pass_email.php" class="right">Forgot Password?</a></small>
                                 </div>
 
 

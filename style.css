@@ -89,6 +89,14 @@ header ul {
     display: inline-block;
 }
 
+
+/* Allows jQuery animations like .slideDown which require element to be hidden,
+but Materialize .hide will not work since it has !important which will prevent .slideDown from working */
+
+.simple-hide {
+    display: none;
+}
+
 .large-icon {
     font-size: 3em;
 }
@@ -113,7 +121,8 @@ header ul {
     height: inherit;
 }
 
-#event-dashboard #map,  #event-hist #map {
+#event-dashboard #map,
+#event-hist #map {
     width: 100%;
     display: inline-block;
     height: 80vh;
@@ -148,6 +157,8 @@ header ul {
     color: #FFF;
     font-weight: bold;
     font-size: 1.5em;
+    border-top: 1px solid #455a64;
+    border-bottom: 1px solid #455a64;
 }
 
 .cust-collection .collection-item:first-child:before {
@@ -156,7 +167,6 @@ header ul {
     padding: .4em .5em;
     background: #263238;
     color: #FFF;
-    
 }
 
 #event-details #map {
@@ -186,7 +196,7 @@ header ul {
     padding: .1em 0;
 }
 
-#side-bar .tabs .indicator {
+.tabs .indicator {
     background: #2196F3;
     height: 0.375em;
 }
@@ -317,18 +327,19 @@ h3 {
     vertical-align: middle;
 }
 
-#side-bar .card-content {
+#side-bar .card.dyn .card-content {
     padding-bottom: 0;
 }
 
-#side-bar .card p {
+.card.dyn p {
     max-height: 10em;
     overflow-y: auto;
     line-height: 1.75;
     margin: 1em 0;
 }
 
-#side-bar .chip {
+#side-bar .chip,
+#search-result .chip {
     background: #FFF;
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
@@ -348,7 +359,7 @@ h3 {
 }
 
 #side-bar .chip:hover,
-.side-nav .chip:hover {
+.side-nav .chip:hover, {
     background: #F4F4F4;
     color: #48A64C;
 }
@@ -357,7 +368,7 @@ h3 {
     max-height: 6.25em;
 }
 
-#side-bar .card.dyn .card-title {
+.card.dyn .card-title {
     line-height: 26px;
 }
 
@@ -776,7 +787,7 @@ p.reading {
 }
 
 #event-dashboard header,
-#event-hist header ,
+#event-hist header,
 #friend-dashboard header {
     margin-bottom: 5em;
 }
@@ -1172,6 +1183,20 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .btn-toolbar .chip {
     margin: 0;
+}
+
+#search .btn-search {
+    margin-top: 1.5em;
+    display: inline-block;
+}
+
+#search .chip {
+    font-family: "Roboto";
+}
+
+#search .chip:hover {
+    background: #D3D3D3;
+    color: #000;
 }
 
 @media only screen and (max-width:600px) {
