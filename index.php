@@ -85,13 +85,17 @@
             </div>
         </ul>
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+        <div class="logo-container col s12 m3 l4">
+            <a href="/" class="white-text hide-on-med-only"><div class="logo-img"></div></a>
+            <h1><a href="/" class="white-text">Locassion</a></h1>    
+        </div>
+        
 
         <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 
         <!-- Menu Buttons
         ================================================== -->
-        <ul class="col s12 m8 l10">
+        <ul class="col s12 m9 l8">
             <div class="flex-container hide-on-small-only menu-buttons">
                 <!-- Menu buttons are inserted here -->
             </div>
@@ -102,7 +106,8 @@
     <form>
         <div id="modal-login" class="modal modal-small modal-fixed-footer blue-grey-text text-darken-2">
             <div class="modal-padding">
-                <div class="row"><h3>Login</h3></div>
+                <div class="row">
+                    <h3>Login</h3></div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix ">account_circle</i>
@@ -138,9 +143,9 @@
 
     <!--   Used for URL Share     -->
     <div id="dyn_modal" class="modal modal-small modal-fixed-footer">
-        
 
-        
+
+
     </div>
 
 
@@ -173,7 +178,7 @@
                         <input type="hidden" class="datepicker" id="hidden">
                         <div class="footer-copyright">
                             <small> <b>
-                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan" href="/meta/index.html">© 2015-2016 LeavittInnovations.</a>
+                                <a class="left white-text btn-flat tooltipped" data-delay="0" data-position="top" data-tooltip="Deep Sheth, Adam Knuckey, Corey Caplan" href="/meta/index.html">© 2015-2017 LeavittInnovations.</a>
 
                                 <a class="right white-text btn-flat" href="/webpages/tos.php" target="_blank">Terms of Service</a>
                                 <a class="right white-text btn-flat" href="/webpages/privacy.php" target="_blank">Privacy Policy</a>

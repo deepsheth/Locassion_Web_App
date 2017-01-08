@@ -27,7 +27,6 @@ h1 {
     margin: 0;
     letter-spacing: 1px;
     display: inline-block;
-    padding-top: 0.375em !important;
 }
 
 h1 a {
@@ -120,6 +119,19 @@ but Materialize .hide will not work since it has !important which will prevent .
 
 #main-container > .row {
     margin: 0;
+}
+
+.logo-container {
+    padding-top: 1em !important;
+}
+
+.logo-img {
+    background: url('/img/white_logo_med.png') no-repeat top center;
+    background-size: contain;
+    height: 3em;
+    width: 3em;
+    display: inline-block;
+    vertical-align: bottom;
 }
 
 #map-panel {
@@ -1213,12 +1225,14 @@ input[type=range]::-webkit-slider-runnable-track {
     header {
         font-size: .9em;
     }
-    h1 {
-        display: block;
+    .logo-container {
         text-align: center;
     }
     .flex-container {
         justify-content: center;
+    }
+    .flex-container img {
+        max-height: 3.25em;
     }
     #side-bar {
         position: initial;

@@ -58,7 +58,7 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            <a href="/meta/team.html">© 2015-2016 LeavittInnovations.</a>
+            <a href="/meta/team.html">© 2015-2017 LeavittInnovations.</a>
             <span class="right">All Rights Reserved.</span>
         </div>
     </div>

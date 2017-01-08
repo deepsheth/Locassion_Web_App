@@ -35,7 +35,7 @@ h2, h3, h4, h5 {
 }
 
 .logo {
-    background: url('/img/logo_large_white2.png') no-repeat top center;
+    background: url('/img/white_logo_med.png') no-repeat top center;
     background-size: contain;
     background-repeat: none;
     height: 5em;
@@ -118,14 +118,36 @@ a:hover .btn.white-text {
 
 #team .panel-item img {
     width: 13.5em;
+    border: .4em solid #DDD;
+    border-radius: 50%;
+}
+
+#team .panel-item img {
+    width: 13.5em;
+    border: .4em solid #DDD;
+    border-radius: 50%;
+    
+     transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+}
+
+#team .panel-item img:hover {
+    border: .4em solid #2196F3;    
 }
 
 #team .panel-item {
     margin: 3em 0;
 }
 
-#team .panel-item * {
-    margin: 15px;
+#team .panel-item h5 {
+    font-variant: small-caps;
+    color: #37474F;
+}
+
+#team .panel-item span {
+    font-weight: normal;
 }
 
 ::-moz-selection { /* Code for Firefox */
@@ -155,7 +177,7 @@ strong {
 }
 
 .hand {
-    background: url('/img/Android_Hand.jpg') no-repeat left -10%;
+    background: url('/img/splash/Android_Hand.jpg') no-repeat left -10%;
     min-height: 40em;
     background-size: cover;
 }
