@@ -589,16 +589,6 @@ function markerIcons(type) {
     }
 }
 
-
-// Date is UNIX Timestamp in Milliseconds
-function viewCal(event, date) {
-    event.stopPropagation();
-    var $input = $('.datepicker').pickadate();
-    var picker = $input.pickadate('picker');
-    picker.set('select', parseInt(date));
-    picker.open();
-}
-
 function foldableInit(card) {
 
     // Initializes cards to be collapsed

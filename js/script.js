@@ -23,7 +23,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.dyn_avatar').on('click', function() {
+    $('.dyn_avatar').on('click', function () {
         $(this).toggleClass("selected");
     });
 
@@ -32,16 +32,16 @@ $(document).ready(function () {
     });
 
     var count1 = 0;
-    var selected_friends= [];
+    var selected_friends = [];
     $('#friend-dashboard .friend-list-cards .card-panel').click(function () {
         count1 = selectCard(this, count1, selected_friends);
     });
 
-    $('.btn-group').on('click', function() {
+    $('.btn-group').on('click', function () {
         $('.dyn_selected').html(selected_friends.join(", "));
     });
 
-    $('.btn-delete').on('click', function() {
+    $('.btn-delete').on('click', function () {
         $('.dyn_selected').html(selected_friends.join(", "));
     });
 
@@ -70,12 +70,11 @@ function selectCard(card, numberSelected, selected_friends) {
     console.log(selected_friends);
 
     // Disables toolbar if nothing is selected
-    if (numberSelected == 0 ) {
+    if (numberSelected == 0) {
         $('.helper').slideDown();
 
         $('.btn-toolbar .btn').addClass("disabled");
-    }
-    else {
+    } else {
         $('.helper').slideUp();
         $('.btn-toolbar .btn').removeClass("disabled");
     }
@@ -132,12 +131,15 @@ function clearBelowHeader() {
 function addMenuButton(btn) {
     switch (btn) {
     case "create_event":
-        $('.menu-buttons').append('<a href="./webpages/create_event.php" class="waves-effect waves-bblue btn btn-flat">Create Event</a>');
+        $('.menu-buttons').append('<a href="./webpages/create_event.php" class="waves-effect waves-blue btn btn-flat">Create Event</a>');
         return;
     case "create_event_disabled":
         $('.menu-buttons').append('<a href="/webpages/sign_up.php" class="waves-effect waves-light btn disabled tooltipped" data-delay="100" data-position="left" data-tooltip="Please log in.">Create Event</a>');
         return;
     case "events_dashboard":
+        $('.menu-buttons').append('<a class="waves-effect waves-blue btn btn-flat">Events Dashboard</a>');
+        return;
+    case "events_dashboard_prompt":
         $('.menu-buttons').append('<a data-target="confirm_prompt" class="waves-effect waves-blue btn btn-flat modal-trigger">Events Dashboard</a>');
         $('.modal-trigger').leanModal();
         return;
@@ -156,12 +158,42 @@ function addMenuButton(btn) {
         return;
     case "forgot_password":
         $('.menu-buttons').append('<a href="/webpages/reset_pass_email.php" class="btn waves-effect  waves-blue btn">Forgot Password</a>');
-    case "dropdown":
-        
+        return;
+    case "edit_event":
         firebase.auth().onAuthStateChanged(function (user) {
-            console.trace();
-            console.log("auth state changed.");
-            console.log(user);
+
+            var eventID = location.search.substr(1);
+            eventID = eventID.split("=")[1];
+
+            if (user != null && eventID !== undefined) {
+                var is_public = firebase.database().ref("events/public/" + eventID).once('value').then(function (r) {
+
+                    if (r.val() == null) {
+                        var is_private = firebase.database().ref("events/private/" + eventID).once('value').then(function (r2) {
+                            if (r2.val() == null) {
+                                Materialize.toast("<strong>Error: Event ID does not exist.</strong>");
+                                return;
+                            } else {
+
+                                // Edit Private Event
+                                $('.menu-buttons').append('<a data-target="edit_event_prompt" class="waves-effect waves-orange btn btn-flat modal-trigger icon-hoverable">Edit Event</a>');
+                                $('.modal-trigger').leanModal();
+
+                            }
+                        });
+                    } else {
+
+                        // Edit Public Event
+                        $('.menu-buttons').append('<a data-target="edit_event_prompt" class="waves-effect waves-orange btn btn-flat modal-trigger icon-hoverable">Edit Event</a>');
+                        $('.modal-trigger').leanModal();
+                    }
+                });
+            }
+        });
+        return;
+    case "dropdown":
+
+        firebase.auth().onAuthStateChanged(function (user) {
             if (user != null) {
                 $('.menu-buttons').append('.<a class="dropdown-button btn btn-flat grey-text" href="#" data-activates="acct-settings" data-alignment="right" data-hover="true" data-constrainwidth="false"><i class="material-icons left">account_circle</i>' + user.displayName + '</a>');
                 $('.menu-buttons').append('<ul id="acct-settings" class="dropdown-content"><li><a href="/webpages/events_dashboard.php"><i class="material-icons left">view_list</i>Event Dashboard</a></li><li><a href="/webpages/friends_dashboard.php"><i class="material-icons left">group</i>Friends & Groups</a></li><li><a href="/webpages/events_hist.php"><i class="material-icons left">history</i>Event History</a></li><li><a href="#!"><i class="material-icons left">settings</i>Account Settings</a></li><li class="divider"></li><li><a class="grey-text" id="btn-logout">Logout</a></li></ul>');
@@ -170,11 +202,10 @@ function addMenuButton(btn) {
                     mainLogout();
                 });
                 $('.dropdown-button').dropdown();
-//                console.log("CREATING NEW DROPDOWN at: ");
-//                console.log(moment().toString());
-            }
-            else {
-//                clearMenu();
+                //                console.log("CREATING NEW DROPDOWN at: ");
+                //                console.log(moment().toString());
+            } else {
+                //                clearMenu();
                 addMenuButton("login");
                 addMenuButton("sign_up");
             }
@@ -250,68 +281,97 @@ function reauth() {
 
 /* Event Details */
 function initSimpleMap() {
-    
-    
+
+
 
 }
 
 function getFullEventDetails() {
 
-    var query = location.search.substr(1);
-    query = query.split("=");
-    if (query[0] != "eventid") return null;
 
-    var e_ref = firebase.database().ref("events/public/" + query[1]);
-    e_ref.once('value').then(function (eventInfo) {
-        
-        var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: {lat: eventInfo.val().latitude, lng: eventInfo.val().longitude}
+    var eventID = location.search.substr(1);
+    eventID = eventID.split("=")[1];
+    if (eventID === null) {
+        return;
+    }
 
-        });
+    var is_public = firebase.database().ref("events/public/" + eventID).once('value').then(function (r) {
 
-        new google.maps.Marker({
-            position: {lat: eventInfo.val().latitude, lng: eventInfo.val().longitude},
-            icon: '/img/markers/private_event_marker.png',
-            map: map
-        });
-        
-        renderEventPage(eventInfo.val());
+        if (r.val() == null) {
+            var is_private = firebase.database().ref("events/private/" + eventID).once('value').then(function (r2) {
+                if (r2.val() == null) {
+                    console.log("Try again!");
+                    return;
+                } else {
+
+                    // Private Event
+                    var e_ref = firebase.database().ref("events/private/" + eventID).once('value').then(function (eventInfo) {
+                        renderEventPage(eventInfo.val());
+                    });
+                }
+            });
+        } else {
+
+            // Public Event
+            var e_ref = firebase.database().ref("events/public/" + eventID).once('value').then(function (eventInfo) {
+                renderEventPage(eventInfo.val());
+            });
+        }
     });
-    
+
+
+
 }
 
 function renderEventPage(event) {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: {
+            lat: event.latitude,
+            lng: event.longitude
+        }
+
+    });
+
+    new google.maps.Marker({
+        position: {
+            lat: event.latitude,
+            lng: event.longitude
+        },
+        icon: '/img/markers/private_event_marker.png',
+        map: map
+    });
+
     var start_date = moment(event["start time"], "YYYY-MM-DD HH:mm:ss a");
-    
+
     var end_date = moment(event["end time"], "YYYY-MM-DD HH:mm:ss a");
 
     var picker = $('.mini-cal').pickadate().pickadate('picker');
     picker.set('highlight', start_date.toDate());
 
-    
+
     $('.dyn_event-name').text(event.name);
     $('.dyn_event-location').text(event["location description"]);
     $('.dyn_event-time').text(moment(event["start time"]).calendar());
     $('.dyn_event-desc').text(event.description);
     $('.dyn_location').html("<strong>" + event.address + "</strong> • " + event["location description"]);
     $('.dyn_details').text(event.description);
-    $('.dyn_tag1').text("#"+event.tags.tag1);
-    $('.dyn_tag2').text("#"+event.tags.tag2);
-    $('.dyn_tag3').text("#"+event.tags.tag3);
-    $('.dyn_tag4').text("#"+event.tags.tag4);
-    $('.dyn_tag1').attr("href", "/webpages/search.php?tag&q="+event.tags.tag1);
-    $('.dyn_tag2').attr("href", "/webpages/search.php?tag&q="+event.tags.tag2);
-    $('.dyn_tag3').attr("href", "/webpages/search.php?tag&q="+event.tags.tag3);
-    $('.dyn_tag4').attr("href", "/webpages/search.php?tag&q="+event.tags.tag4);
+    $('.dyn_tag1').text("#" + event.tags.tag1);
+    $('.dyn_tag2').text("#" + event.tags.tag2);
+    $('.dyn_tag3').text("#" + event.tags.tag3);
+    $('.dyn_tag4').text("#" + event.tags.tag4);
+    $('.dyn_tag1').attr("href", "/webpages/search.php?tag&q=" + event.tags.tag1);
+    $('.dyn_tag2').attr("href", "/webpages/search.php?tag&q=" + event.tags.tag2);
+    $('.dyn_tag3').attr("href", "/webpages/search.php?tag&q=" + event.tags.tag3);
+    $('.dyn_tag4').attr("href", "/webpages/search.php?tag&q=" + event.tags.tag4);
     $('.day').text(start_date.format("ddd"));
     $('.day-num').text(start_date.format("D"));
     $('.month').text(start_date.format("MMMM"));
     $('.context').html(momentContext(start_date));
 
     var past = start_date.diff(moment()) < 0 ? true : false;
-    $('.dyn_btn').html('<a href="#" class="btn-go waves-effect waves-light ' + (past ? 'disabled dirty">Passed</a>' : '\">GO</a>'));
-    
+    $('.dyn_btn').html('<a href="#" class="btn-go waves-effect waves-light ' + (past ? 'disabled dirty">Passed</a>' : '">GO</a>'));
+
     $('.dyn_gcal-export').attr("href", "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + event.name + "&dates=" + moment(event["start time"]).format("YYYYMMDD") + "T" + moment(event["start time"]).format("HHmmss") + "Z/" + moment(event["end time"]).format("YYYYMMDD") + "T" + moment(event["end time"]).format("HHmmss") + "Z&details=Location Details: " + event["location description"] + " //  Event Details: " + event.description + "&location=" + event.latitude + ", " + event.longitude + "&sf=true&output=xml#eventpage_6");
 
     $('#preloader-indef').fadeOut(350);
@@ -332,35 +392,43 @@ function momentContext(date) {
         nextWeek: 'dddd [at] LT',
         sameElse: function (now) {
             var fromNow = this.fromNow();
-            return 'MMMM Do [at] LT' + "[<br>] [" + fromNow + "]";   
+            return 'MMMM Do [at] LT' + "[<br>] [" + fromNow + "]";
         }
 
-    }); 
+    });
+}
+
+// Date is UNIX Timestamp in Milliseconds
+function viewCal(event, date) {
+    event.stopPropagation();
+    var $input = $('.datepicker').pickadate();
+    var picker = $input.pickadate('picker');
+    picker.set('select', parseInt(date));
+    picker.open();
 }
 
 function getSearchQuery() {
-    
+
     //  /search.php?username&q=text
     var query_type = location.search.substr(1);
     query_type = query_type.split("&");
     var query = query_type[1].split("=");
-    
+
     // query[0] equals "q", query [1] = "what to search"
-    if (query_type[0] == "username"){
+    if (query_type[0] == "username") {
         $('ul.tabs').tabs('select_tab', 't_username');
         $('#f_username').val(query[1]);
-    }
-    else if (query_type[0] == "tag"){
+    } else if (query_type[0] == "tag") {
         $('ul.tabs').tabs('select_tab', 't_tag');
         $('#f_tag').val(query[1]);
-        
-    }
-    else if (query_type[0] == "event"){
+
+    } else if (query_type[0] == "event") {
         $('ul.tabs').tabs('select_tab', 't_event');
         $('#f_event').val(query[1]);
-        
+        Materialize.updateTextFields();
+
     }
-    
+
     Materialize.updateTextFields();
 }
 

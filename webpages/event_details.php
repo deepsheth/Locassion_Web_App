@@ -60,6 +60,7 @@
             <div class="flex-container menu-buttons">
 
                 <script>
+                    addMenuButton("edit_event");
                     addMenuButton("events_dashboard");
                     addMenuButton("dropdown");
                     requireLogin();
@@ -72,6 +73,82 @@
         <div id="preloader-indef" class="progress green lighten-3">
             <div class="indeterminate primary-green"></div>
         </div>
+
+        <div id="edit_event_prompt" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="modal-padding">
+                   <div class="row">
+                        <h3>Edit Event Details</h3>
+                   </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <i class="material-icons left prefix">date_range</i>
+                            <input type="text" id="start_date" placeholder="MM/DD/YYYY" name="start_date">
+                            <label for="start_date">Start Date</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <i class="material-icons left prefix">schedule</i>
+                            <input id="start_time" type="text" placeholder="HH:MM am" name="start_time">
+                            <label for="start_time">Start Time</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <i class="material-icons left prefix">date_range</i>
+                            <input type="text" id="end_date" placeholder="MM/DD/YYYY" name="end_date">
+                            <label for="end_date">Start Date</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <i class="material-icons left prefix">schedule</i>
+                            <input id="end_time" type="text" placeholder="HH:MM am" name="end_time">
+                            <label for="end_time">End Time</label>
+                        </div>
+                    </div>
+                    <div class="row" id="tag-row">
+                        <div class="input-field col s6 m3">
+                            <i class="material-icons prefix">local_offer</i>
+                            <input id="tag1_label" type="text">
+                            <label for="tag1_label" class="dyn_tag1">Tag 1</label>
+                        </div>
+
+                        <div class="input-field col s6 m3">
+                            <input id="tag2_label" type="text">
+                            <label for="tag2_label" class="dyn_tag2">Tag 2</label>
+                        </div>
+
+                        <div class="input-field col s6 m3">
+                            <input id="tag3_label" type="text">
+                            <label for="tag3_label" class="dyn_tag3">Tag 3</label>
+                        </div>
+                        <div class="input-field col s6 m3">
+                            <input id="tag4_label" type="text">
+                            <label for="tag4_label" class="dyn_tag4">Tag 4</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">place</i>
+                            <input id="location_details" name="location_details" type="text">
+                            <label for="location_details">Location Details</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">event_note</i>
+                            <textarea id="event_details" name="event_details" class="materialize-textarea"></textarea>
+                            <label for="event_details">Event Details</label>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer blue-grey lighten-5">
+                <a onclick="deleteEvent()" class="left waves-effect waves-red btn-flat left red-text">Delete</a>
+                <a onclick="updateEvent()" class="left modal-action modal-close waves-effect waves-blue btn-flat right">Update</a>
+            </div>
+        </div>
+
         <div class="container info-bar">
             <div class="row">
                 <div class="card">
@@ -93,18 +170,18 @@
                 <div class="card col s12 m5">
                     <div class="card-content">
                         <div class="card-title">
-                            <a href="" class="dyn_event-name">Event Name</a>
+                            <a href="" class="dyn_event-name"></a>
                         </div>
 
                         <div class="row">
                             <div class="col s12">
                                 <div class="col s4 m3 center-align mini-cal add-cursor" onclick="viewCal(event,'1475874000000')" title="Fri Oct 07 2016 17:00:00 GMT-0400">
-                                    <div class="day">Fri</div>
-                                    <div class="day-num">7</div>
-                                    <div class="month">Oct</div>
+                                    <div class="day"></div>
+                                    <div class="day-num"></div>
+                                    <div class="month"></div>
                                 </div>
                                 <div class="col s8 m9">
-                                    <p class="context">In...</p>
+                                    <p class="context"></p>
                                 </div>
                             </div>
                         </div>
@@ -112,11 +189,11 @@
                         <p class="dyn_details"></p>
                     </div>
                     <div class="card-action">
-                        <a href="#" class="dyn_tag1">Tag1</a>
-                        <a href="#" class="dyn_tag2">Tag2</a>
-                        <a href="#" class="dyn_tag3">Tag3</a>
-                        <a href="#" class="dyn_tag4">Tag4</a>
-                        
+                        <a href="#" class="dyn_tag1"></a>
+                        <a href="#" class="dyn_tag2"></a>
+                        <a href="#" class="dyn_tag3"></a>
+                        <a href="#" class="dyn_tag4"></a>
+
 
                     </div>
                 </div>
@@ -441,7 +518,7 @@
 
                     </div>
                 </div>
-        
+
                 <div class="row">
                     <p class="title">Who's Going?</p>
                     <div class="row">
@@ -468,7 +545,7 @@
     <?php
         include_once(dirname(dirname(__FILE__)).'/templates/simple-footer.php'); 
     ?>
-    
+
 </body>
 
 </html>

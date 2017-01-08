@@ -58,28 +58,31 @@
             <div class="flex-container menu-buttons">
 
                 <script>
-                    addMenuButton("events_dashboard");
+                    addMenuButton("events_dashboard_prompt");
                     addMenuButton("dropdown");
                     requireLogin();
                 </script>
 
-                <div id="confirm_prompt" class="modal modal-fixed-footer">
-                    <div class="modal-content black-text">
-                        <div class="modal-padding center">
-                            <h3>Are you sure?</h3>
-                            <p>Everything you have filled in on this page will be discarded.</p>
-                        </div>
-                    </div>
-                    <div class="modal-footer blue-grey lighten-5">
-                        <a href="/webpages/events_dashboard.php" class="left modal-action modal-close waves-effect waves-blue btn-flat right deep-orange-text text-lighten-1">Yes</a><a href="#" class="left modal-action modal-close waves-effect waves-blue btn-flat left">Cancel</a>
-                    </div>
-                </div>
+
 
             </div>
         </ul>
     </header>
 
     <div class="container">
+
+        <div id="confirm_prompt" class="modal modal-small modal-fixed-footer">
+            <div class="modal-content black-text">
+                <div class="modal-padding center">
+                    <h5>Are you sure?</h5>
+                    <p>Everything you have filled in on this page will be discarded.</p>
+                </div>
+            </div>
+            <div class="modal-footer blue-grey lighten-5">
+                <a href="/webpages/events_dashboard.php" class="left modal-action modal-close waves-effect waves-blue btn-flat right blue-text">Yes</a><a href="#" class="left modal-action modal-close waves-effect waves-blue btn-flat left">Cancel</a>
+            </div>
+        </div>
+
         <div class="row grey-text text-darken-2">
             <h2 class="center-align grey-text">Create An Event</h2>
             <div id="event-container" class="container z-depth-1">

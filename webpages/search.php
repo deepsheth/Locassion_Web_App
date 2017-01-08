@@ -152,9 +152,9 @@
                                         <div class="row no-mar">
                                             <div class="col s12 center-align mini-cal" title="Sat, Dec 24, 2016 9:56 AM">
                                                 <div class="day">Sat</div>
-                                                <div class="day-num">24</div>
+                                                <div class="day-num">1</div>
                                                 <div class="month">Dec</div>
-                                                <div class="context">6 days ago</div>
+                                                <div class="context">Context</div>
                                             </div>
                                             <div class="col s12">
                                                 <div class="dyn_avatar" title="Host"><i class="material-icons tiny-icon circle tiny white icon green-text" title="Public Event">public</i></div>
@@ -162,16 +162,16 @@
                                         </div>
                                     </div>
                                     <div class="col m9 l8 offset-l1 side-info">
-                                        <div class="card-title"><a href="/webpages/event_details.php?eventid=-KZjP6C7sPmMA9CnEwQW">nulla cupidatat deserunt esse nulla</a></div>
-                                        <div class="icon-hoverable add-cursor"><i title="Location" class="material-icons icons-inline left">place</i>457 Driggs Avenue, Fowlerville, Marshall Islands, 4427</div>
-                                        <div class="small-details">Aliquip reprehenderit dolor cupidatat enim amet est pariatur nostrud aute cupidatat.</div>
-                                        <div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>9:56 AM</div>
+                                        <div class="card-title"><a href="/webpages/event_details.php">Sample Event</a></div>
+                                        <div class="icon-hoverable add-cursor"><i title="Location" class="material-icons icons-inline left">place</i>Address</div>
+                                        <div class="small-details">Address Details</div>
+                                        <div class="icon-hoverable"><i title="Time" class="material-icons icons-inline left">access_time</i>9:00 AM</div>
                                     </div>
                                 </div>
                                 <div class="row no-mar">
                                     <div class="span-padded center"><span data-target="dyn_modal" onclick="shareLink('-KZjP6C7sPmMA9CnEwQW')" class="add-cursor"><i class="material-icons">link</i></span><span>8 Friends — 0 Total Going</span></div>
                                     <div class="row row-tight">
-                                        <p class="col s12">Id ullamco proident adipisicing esse eiusmod amet veniam.</p>
+                                        <p class="col s12">Description.</p>
                                     </div>
                                     <div class="divider"></div>
                                     <div class="flex-container tags"><a href="#" class="chip">#ipsum</a><a href="#" class="chip">#proident</a><a href="#" class="chip">#ullamco</a><a href="#" class="chip">#cupidatat</a></div>

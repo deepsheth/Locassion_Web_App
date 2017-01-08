@@ -64,6 +64,19 @@ h6,
     background: rgb(194, 218, 158);
 }
 
+:-ms-input-placeholder {
+     color: rgba(0,0,0, .75);
+}
+::-webkit-input-placeholder {
+     color: rgba(0,0,0, .75);
+}
+:-moz-placeholder {
+     color: rgba(0,0,0, .75);
+}
+::-moz-placeholder {
+    color: rgba(0,0,0, .75);
+}
+
 .primary-green {
     background: #48A64C !important;
 }
@@ -338,30 +351,26 @@ h3 {
     margin: 1em 0;
 }
 
+#side-bar a.chip:hover,
+.side-nav a.chip:hover {
+    color: #48A64C;
+}
+
+
 #side-bar .chip,
 #search-result .chip {
-    background: #FFF;
-    transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    -webkit-transition: all 0.25s ease-in-out;
+    background: #EFEFEF;
+    transition: background 0.25s ease-in-out;
+    -moz-transition: background 0.25s ease-in-out;
+    -o-transition: background 0.25s ease-in-out;
+    -webkit-transition: background 0.25s ease-in-out;
 }
 
 
 /* For autocomplete chip arrow navigation */
 
-#side-bar .chip.selected {
-    background: #48A64C;
-}
-
-#filter-side-bar .chip {
-    background: #F4F4F4;
-}
-
-#side-bar .chip:hover,
-.side-nav .chip:hover, {
-    background: #F4F4F4;
-    color: #48A64C;
+#side-bar .chip:focus {
+    background: #B9EABA;
 }
 
 #side-bar .card.dyn .card-action {
@@ -410,7 +419,8 @@ h3 {
 }
 
 .dyn_avatar {
-    background: url('https://avatars3.githubusercontent.com/u/8071305?v=3&s=460');
+/*    background: url('https://avatars3.githubusercontent.com/u/8071305?v=3&s=460');*/
+    background: #EFEFEF;
     border-radius: 50%;
     height: 3.5em;
     width: 3.5em;
