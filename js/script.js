@@ -92,7 +92,7 @@ function requireLogin() {
             $(document).ready(function () {
                 clearBelowHeader();
                 var content = '<div class="container section center-align grey-text"><h3>Please login.</h3><p>Sorry, this feature requires an account.</p></div>';
-                content += '<div class="row center"><div class="row"> <a href="/webpages/sign_up.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a> <a href="/webpages/log_in.php?redirect=' + window.location.pathname + '" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a></div></div>';
+                content += '<div class="row center"><div class="row"> <a href="/webpages/sign_up.php?redirect=' + location.href.split(location.host)[1] + '" class="white-text"><button class="waves-effect blue btn btn-large">Sign Up</button></a> <a href="/webpages/log_in.php?redirect=' + location.href.split(location.host)[1] + '" class="white-text"><button class="waves-effect blue btn btn-large">Login</button></a></div></div>';
                 $('header').after(content);
             });
             // window.stop();

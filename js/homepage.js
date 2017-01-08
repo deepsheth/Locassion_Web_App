@@ -102,7 +102,7 @@ function initMap() {
             
             
 //            // Card that asks user to sign up
-            $('#event-panel').append('<div class="row sign-up-card simple-hide"><div class="col 12"><div class="card"><div class="green card-content white-text"><span class="card-title">Meet up with friends.</span><p class="green-text text-lighten-5"><a href="/webpages/sign_up.php" class="white-text">Create an account</a> to tell your friends which events you will attend. Also check out which events they\'re hosting for you.</p></div></div></div></div>');
+            $('#event-panel').append('<div class="row sign-up-card simple-hide"><div class="col 12"><div class="card"><div class="green card-content white-text"><span class="card-title">Meet up with friends.</span><p class="green-text text-lighten-5"><a href="/webpages/sign_up.php" target="_blank" class="white-text">Create an account</a> to tell your friends which events you will attend. Also check out which events they\'re hosting for you. <a href="/meta/index.html" target="_blank" class="white-text">Not convinced yet? Learn More.</a></p></div></div></div></div>');
             $('.sign-up-card').slideDown(600);
         }
         

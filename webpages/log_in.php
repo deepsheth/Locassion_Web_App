@@ -84,8 +84,9 @@ include('../php/login.php');
                             if (user) {
                                 var redirect = window.location.search.substring(1);
                                 var newURL = redirect.split("=");
+                                // Checks if redirect is first param
                                 if (newURL[0] == "redirect") {
-                                    window.location.pathname = newURL[1];
+                                    window.location.pathname = window.location.search.substring(1).split("redirect=")[1];
                                 }
                             }
                         });
