@@ -32,20 +32,19 @@
             </a>
         </div>
     </div>
-<footer class="page-footer grey lighten-2">
+<footer class="page-footer grey lighten-3">
     <div class="container">
         <div class="row">
-            <div class="col l3 s12">
+            <div class="col m4 s12">
                 <h5>Download Our App</h5>
-                <div class="row">
+                <div class="section">
                     <div class="flex-container">
                         <img src="/img/splash/app-store-badge.svg" alt="We're on the App Store">
                         <img src="/img/splash/google-play-badge.png" alt="We're on the Play Store">
-
                     </div>
                 </div>
             </div>
-            <div class="col l3 offset-l6 s12">
+            <div class="col offset-m5 m3 s12">
                 <h5>Help</h5>
                 <ul>
                     <li><a data-target="modal-bug-report" class="modal-trigger add-cursor deep-orange-text text-accent-4">REPORT BUG</a></li>
@@ -56,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-copyright">
+    <div class="footer-copyright grey lighten-2 grey-text">
         <div class="container">
             <a href="/meta/team.html">© 2015-2017 LeavittInnovations.</a>
             <span class="right">All Rights Reserved.</span>

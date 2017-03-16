@@ -41,8 +41,13 @@
 <body id="registration">
     <header class="light-green darken-2 white-text row">
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
-        <ul class="col s12 m8 l10">
+        <div class="logo-container col s12 m3 l4">
+            <a href="/" class="white-text hide-on-med-only">
+                <div class="logo-img"></div>
+            </a>
+            <h1><a href="/" class="white-text">Locassion</a></h1>
+        </div>
+        <ul class="col s12 m8 l8">
             <div class="flex-container">
 
                 <a href="/webpages/log_in.php" class="btn btn-flat waves-effect">Login</a>

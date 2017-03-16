@@ -653,6 +653,7 @@ i.add-cursor:hover {
     -o-transform: scale(1.1, 1.1);
     -ms-transform: scale(1.1, 1.1);
     color: #FFC02A;
+    opacity: 1 !important;
 }
 
 #side-bar .collapsible,
@@ -753,6 +754,39 @@ p.reading {
 .add-cursor,
 .close {
     cursor: pointer;
+}
+
+.icon-pulse {
+	-moz-animation: pulse 4s infinite;
+	-o-animation: pulse 4s infinite;
+	-webkit-animation: pulse 4s infinite;
+	animation: pulse 4s infinite;
+}
+
+@-webkit-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: .45; }
+	100% { opacity: 1; }
+}
+@-moz-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: .45; }
+	100% { opacity: 1; }
+}
+@-o-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: .45; }
+	100% { opacity: 1; }
+}
+@-ms-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: .45; }
+	100% { opacity: 1; }
+}
+@keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: .45; }
+	100% { opacity: 1; }
 }
 
 #event-panel .close {

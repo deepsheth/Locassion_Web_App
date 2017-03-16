@@ -67,20 +67,25 @@ include('../php/login.php');
                 </div>
             </ul>
 
-            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+            <div class="logo-container col s12 m3 l4">
+                <a href="/" class="white-text hide-on-med-only">
+                    <div class="logo-img"></div>
+                </a>
+                <h1><a href="/" class="white-text">Locassion</a></h1>
+            </div>
 
             <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 
             <!-- Menu Buttons
 ================================================== -->
-            <ul class="col s12 m8 l10">
+            <ul class="col s12 m8 l8">
                 <div class="flex-container hide-on-small-only menu-buttons">
 
                     <script>
                         addMenuButton("forgot_password");
                         addMenuButton("sign_up");
-                        
-                        firebase.auth().onAuthStateChanged(function(user) {
+
+                        firebase.auth().onAuthStateChanged(function (user) {
                             if (user) {
                                 var redirect = window.location.search.substring(1);
                                 var newURL = redirect.split("=");
@@ -105,35 +110,35 @@ include('../php/login.php');
                     <div class="col s12 m6 offset-m2 l5 offset-l2 white z-depth-1 hoverable">
                         <form method="post">
                             <h3>Please Login</h3>
-                                <br>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix ">account_circle</i>
-                                    <input id="input_username" name="email" type="text">
-                                    <label for="input_username">Email</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">https</i>
-                                    <input id="input_password" name="password" type="password">
-                                    <label for="input_password">Password</label>
-                                    <small><a href="/webpages/reset_pass_email.php" class="right">Forgot Password?</a></small>
-                                </div>
+                            <br>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix ">account_circle</i>
+                                <input id="input_username" name="email" type="text">
+                                <label for="input_username">Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">https</i>
+                                <input id="input_password" name="password" type="password">
+                                <label for="input_password">Password</label>
+                                <small><a href="/webpages/reset_pass_email.php" class="right">Forgot Password?</a></small>
+                            </div>
 
 
 
-                                <button class="waves-effect waves-light primary-green btn-large" id="btn-login" type="submit" name="submit"><i class="material-icons right">send</i>Log In</button>
+                            <button class="waves-effect waves-light primary-green btn-large" id="btn-login" type="submit" name="submit"><i class="material-icons right">send</i>Log In</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-     
+
         <?php
         define('__ROOT__', dirname(dirname(__FILE__)));
         include_once(__ROOT__.'/templates/simple-footer.php'); 
         ?>
 
-   
+
     </body>
 
     </html>

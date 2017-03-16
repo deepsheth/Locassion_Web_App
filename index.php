@@ -42,13 +42,13 @@
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-storage.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="/js/markerclusterer.js"></script>
     <script src="/js/homepage.js"></script>
     <script src="/js/script.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVEtHLKbq5hTQy4VK2jzk8GXBZRR1b4VM&callback=initMap" async defer></script>
-
-
+   
     <!-- 
         <script type="text/javascript">
             window.heap = window.heap || [], heap.load = function (e, t) {
@@ -196,7 +196,7 @@
 
                     <!--  text centers better with s11 to offset icons -->
                     <div class="col s11 m8">
-                        <h5 class="center-align white-text"><i class="material-icons left add-cursor" onclick="geoLocator()" title="Share Location">my_location</i><i class="material-icons left add-cursor side-bar-right" title="Filter Events" data-activates="filter-side-bar">tune</i>Event Stream</h5>
+                        <h5 class="center-align white-text"><i class="material-icons left add-cursor icon-pulse" onclick="geoLocator()" title="Share Location">my_location</i><i class="material-icons left add-cursor side-bar-right" title="Filter Events" data-activates="filter-side-bar">tune</i>Event Stream</h5>
                     </div>
 
                     <div class="input-field col m4 hide-on-small-only" title="View Events This...">

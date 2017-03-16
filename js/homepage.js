@@ -14,6 +14,222 @@ var filters = {
 
 $(document).ready(function () {
 
+    
+    firebase.auth().onAuthStateChanged(function (user) {
+        clearEvents();
+        if (user) {
+            clearMenu();
+            addMenuButton("create_event");
+            
+            
+            $('.tabs').html('<li class="tab col s6 "><a href="#" class="active blue-text" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
+            $('.tabs').tabs();
+        } else {
+            clearMenu();
+            addMenuButton("create_event_disabled");
+
+            $('.tabs').html('<li class="tab col s6 "><a class="blue-text active" href="#" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
+            $('.tabs').tabs()
+            
+            
+//            // Card that asks user to sign up
+            $('#event-panel').append('<div class="row sign-up-card simple-hide"><div class="col 12"><div class="card"><div class="green card-content white-text"><span class="card-title">Meet up with friends.</span><p class="green-text text-lighten-5"><a href="/webpages/sign_up.php" target="_blank" class="white-text">Create an account</a> to tell your friends which events you will attend. Also check out which events they\'re hosting for you. <a href="/meta/index.html" target="_blank" class="white-text">Not convinced yet? Learn More.</a></p></div></div></div></div>');
+            $('.sign-up-card').slideDown(600);
+        }
+        
+        // Gets all events
+        // IMPORTANT:
+        
+        
+        
+        
+        
+        var event_card_template = 
+            `
+        <div class="card dyn" data-eventNum={{eventNum}} >
+		<div class="img-wrapper"><img alt="" class="responsive-img" src="http://www.skiheavenly.com/~/media/heavenly/images/732x260%20header%20images/events-heavenly-header.ashx"></div>
+		<div class="card-content">
+			<div class="row">
+				<div class="col s3 no-pad">
+					<div class="row">
+                        
+                        {{{ cal_picker this.[start time] }}}
+						
+						<div class="col s12">
+							<div class="dyn_avatar" title="Host">
+								<i class="material-icons tiny-icon circle tiny white icon green-text" title="{{eventType}} Event">{{{materialEventIcon eventType}}}</i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col m9 l8 offset-l1 side-info">
+                     <div class="card-title">
+						<a href="/webpages/event_details.php?eventid={{key}}">{{name}}</a>
+					</div>
+					<div class="icon-hoverable add-cursor" onclick="centerMap({{latitude}},{{longitude}})">
+						<i class="material-icons icons-inline left" title="Location">place</i>{{address}}
+					</div>
+					<div class="small-details">
+						Aliquip reprehenderit dolor cupidatat enim amet est pariatur nostrud aute cupidatat.
+					</div>
+					<div class="icon-hoverable" title="{{fullEventDuration this.[start time] this.[end time]}}" >
+						<i class="material-icons icons-inline left" title="Time">access_time</i>{{eventDuration this.[start time] this.[end time]}}
+					</div>
+				</div>
+			</div>
+			<div class="fold-body hidden" style="display: none;">
+				<div class="row row-tight">
+					<div class="span-padded center">
+						<span class="add-cursor" data-target="dyn_modal" onclick="shareLink('-KZjP6C7sPmMA9CnEwQW')"><i class="material-icons">link</i></span><span>8 Friends — 0 Total Going</span>
+					</div>
+					<div class="row row-tight">
+						<p class="col s12">Id ullamco proident adipisicing esse eiusmod amet veniam.</p>
+					</div>
+					<div class="divider"></div>
+					<div class="flex-container tags">
+						<a class="chip" href="/webpages/search.php?tag&amp;q=ipsum" target="_blank">#ipsum</a><a class="chip" href="/webpages/search.php?tag&amp;q=proident" target="_blank">#proident</a><a class="chip" href="/webpages/search.php?tag&amp;q=ullamco" target="_blank">#ullamco</a><a class="chip" href="/webpages/search.php?tag&amp;q=cupidatat" target="_blank">#cupidatat</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-action center-align expand-fold">
+			<div class="col s6 pre-btn left-align">
+				<a class="fold-label" href="#">More</a><i class="material-icons left" title="Event Details">info</i>
+			</div>
+			<div class="col s6 right right-align">
+				<a class="btn-go waves-effect waves-light disabled dirty" href="#">Passed</a>
+			</div>
+		</div>
+	</div>
+            `;
+        var event_card_template_hbs = Handlebars.compile(event_card_template);
+        
+        
+        Handlebars.registerHelper('cal_picker', function(date, options) {
+           
+            var moment_date = moment(date, "YYYY-MM-DD HH:mm:ss");
+            var dateAsString = moment_date.format("dddd, MMMM Do YYYY, h:mm:ss a");
+            var unix_time = moment_date.format("x");
+            
+            var output = `<div class="col s12 center-align mini-cal add-cursor" onclick="viewCal(event,'`+ unix_time +`')" title="`+ dateAsString +`">
+							<div class="day">`
+								+ moment_date.format('ddd') +
+							`</div>
+							<div class="day-num">`
+								+ moment_date.format('D') +
+							`</div>
+							<div class="month">`
+								+ moment_date.format('MMM') +
+							`</div>
+							<div class="context">`
+								+ moment_date.fromNow() +
+							`</div>
+						</div>`
+            return output;
+        });
+        
+        Handlebars.registerHelper('materialEventIcon', function(eventType, options) {
+           if (eventType == "public" ) {
+               return "public";
+           } 
+            else if (eventType == "private") {
+                return "lock";
+            }
+        });
+        
+         Handlebars.registerHelper('eventDuration', function(startDate, endDate, options) {
+
+             var start_m = moment(startDate, "YYYY-MM-DD HH:mm:ss");
+             var end_m = moment(endDate, "YYYY-MM-DD HH:mm:ss");
+             var out = "";
+             if (start_m.diff(end_m, 'days') >= 1) {
+                 out += start_m.format("h:mm A");
+                 out += " → ";
+                 out += end_m.format("MMM D, h:mm A");
+             }
+             else if (start_m.diff(end_m, 'hours') > 12) {
+                 out += out += start_m.format("h:mm A");
+                 out += " → ";
+                 out += end_m.format("h:mm A");
+             }
+             else {
+                 out += out += start_m.format("h:mm A");
+                 out += " - ";
+                 out += end_m.format("h:mm A");
+             }
+             
+             return out;
+         });
+        
+        Handlebars.registerHelper('fullEventDuration', function(startDate, endDate) {
+            return moment(startDate, "YYYY-MM-DD HH:mm:ss").format("MMM D h:mm A") + " - " + moment(endDate, "YYYY-MM-DD HH:mm:ss").format("MMM D h:mm A");
+        });
+        /*
+            eventNum gets injected into the HTML in order to accurately match the card the user hovers over with the marker on the map.
+            Since public and private events are displayed in asyc, cards can interleve. 
+            
+            Use .once on the firebase db references, rather than .on('child_added') since .once returns a promise, it allows a better async model
+            Promise.all() cannot be used if we use .on It is important that we allow the accordians and marker cluster to be instantiaed once we are done retreiving events
+            
+        
+        */
+        var eventNum = 0;
+        
+        var prom_public = firebase.database().ref('events/public').once('value').then(function(snapshot) {
+            snapshot.forEach(function(event){
+                var data = event.val();
+                data["eventType"] = "public";
+                data["key"] = event.key;
+                data["eventNum"] = eventNum;
+
+                $('#event-panel').append(event_card_template_hbs(data));
+
+                var m = genMarker(event.val(), markerIcons(data["eventType"]), eventNum );
+                markerCluster.addMarker(m, false);
+
+                eventNum++;
+                
+            });
+                
+            return snapshot;
+            
+        }, function(error) { 
+        
+        });
+        
+         var prom_private = firebase.database().ref('events/private').once('value').then(function(snapshot) {
+            snapshot.forEach(function(event){
+                var data = event.val();
+                data["eventType"] = "private";
+                data["key"] = event.key;
+                data["eventNum"] = eventNum;
+
+                $('#event-panel').append(event_card_template_hbs(data));
+
+                var m = genMarker(event.val(), markerIcons(data["eventType"]), eventNum );
+                markerCluster.addMarker(m, false);
+
+                eventNum++;
+            });
+             
+             return snapshot;
+             
+        }, function(error) { 
+        
+        });
+        
+        Promise.all([prom_public, prom_private]).then(result => { 
+            genClusters();
+            genDynHandlers();
+            $('#preloader-indef').fadeOut(350);
+        });
+        
+//        getEvents(false);
+
+    });
+    
+   
+    
     $(".hamburger-menu").sideNav();
     $(".side-bar-right").sideNav({
         menuWidth: '25em',
@@ -81,35 +297,6 @@ var markerCluster;
 function initMap() {
 
     $('#preloader-indef').fadeIn(350);
-
-
-    
-    firebase.auth().onAuthStateChanged(function (user) {
-        clearEvents();
-        if (user) {
-            clearMenu();
-            addMenuButton("create_event");
-            
-            
-            $('.tabs').html('<li class="tab col s6 "><a href="#" class="active blue-text" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 "><a href="#" class="blue-text" onclick="getAttendingEvents()">Attending</a></li>');
-            $('.tabs').tabs();
-        } else {
-            clearMenu();
-            addMenuButton("create_event_disabled");
-
-            $('.tabs').html('<li class="tab col s6 "><a class="blue-text active" href="#" onclick="getEvents(true)">Discover</a></li><li class="tab col s6 disabled"><a href="#" class="waves-effect waves-yellow grey-text grey lighten-3 tooltipped" data-delay="0" data-position="left" data-tooltip="Please log in.">Attending</a></li>');
-            $('.tabs').tabs()
-            
-            
-//            // Card that asks user to sign up
-            $('#event-panel').append('<div class="row sign-up-card simple-hide"><div class="col 12"><div class="card"><div class="green card-content white-text"><span class="card-title">Meet up with friends.</span><p class="green-text text-lighten-5"><a href="/webpages/sign_up.php" target="_blank" class="white-text">Create an account</a> to tell your friends which events you will attend. Also check out which events they\'re hosting for you. <a href="/meta/index.html" target="_blank" class="white-text">Not convinced yet? Learn More.</a></p></div></div></div></div>');
-            $('.sign-up-card').slideDown(600);
-        }
-        
-        // Gets all events
-        getEvents(false);
-
-    });
     
     addMenuButton("dropdown");
 
@@ -157,21 +344,22 @@ function geoLocator() {
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(filters.pos.lat, filters.pos.lng),
                 map: map,
-                icon: '/img/markers/pin_current_location_glow.png'
+                icon: '/img/markers/pin_current_location_glow.png' 
 
             });
 
             var contentString = '<div class="row"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><p><strong class="center">Current Location </p></strong><a class="blue-text title btn-flat white waves-effect waves-white" onclick="geoLocator()">Relocate</a></div></div></div></div>';
 
             var infowindow = new google.maps.InfoWindow({
-                maxWidth: 150,
+                maxWidth: 225,
                 content: contentString
             });
 
             marker.addListener('click', function () {
                 infowindow.open(map, marker);
             });
-
+            
+            $('.icon-pulse').removeClass("icon-pulse").css("opacity", .25);
 
         });
     } else {
@@ -226,6 +414,7 @@ function getSpecificEvents(ref) {
             btnRequestInit();
             var m = genMarker(eventInfo, markerIcons(events.key));
             markerCluster.addMarker(m, false);
+            $('#preloader-indef').fadeOut(350);
         })
 
         }
@@ -258,9 +447,6 @@ function genCustCard(title, body, bgcolor) {
 function genClusters() {
     // Markers are no longer put on map, until MarkerClusterer is called since map: map property of markers is removed
 
-    
-
-
     var infoWindow = new google.maps.InfoWindow({
         maxWidth: 300,
     });
@@ -289,21 +475,22 @@ function genClusters() {
 }
 
 function genDynHandlers() {
-
-    $('#preloader-indef').fadeOut(350);
-
-
-    // Allow cards to open
-    $('.collapsible').collapsible({
-        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    
+    
+    // Binds hovering over cards to highlight their pin on the map
+    $('[data-eventnum]').each(function(index){
+    
+        var markerNum = $(this).data('eventnum');
+        var currentMarkerIcon = markers[markerNum].icon.url;
+        $(this).hover(
+            function(){ 
+                highlight_marker(markerNum) 
+            },
+            function() { 
+                restore_marker(markerNum, currentMarkerIcon)
+            });
     });
-
-    // Delete Card
-    // console.log($("#event-panel .collapsible a:nth-of-type(1)"));
-    $("#event-panel .collapsible a:nth-of-type(1)").click(function () {
-        deleteCard(this);
-    });
-
+    
     // Going Card
     $("#event-panel .collapsible a:nth-of-type(2)").click(function () {
         //Replaces Dismiss Button
@@ -320,7 +507,9 @@ function genDynHandlers() {
         deleteCard(this);
     });
     
-//    foldableInit();
+    
+    // Allow cards to open
+    foldableInit();
 //    btnRequestInit();
 //    cleanTags();
 }
@@ -405,12 +594,13 @@ function genEventCard(eventInfo, event_id, type, eventNum, total_attending) {
 //    }
 //}
 
-function genMarker(eventInfo, type) {
+function genMarker(eventInfo, type, eventNum) {
 
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(eventInfo.latitude, eventInfo.longitude),
         icon: type,
-        title: eventInfo.name
+        title: eventInfo.name,
+        markerNum: eventNum
     });
 
     // Adds to the markers array, which is necessary for clustering
@@ -429,6 +619,7 @@ function genMarker(eventInfo, type) {
             var contentString = '<div class="row customInfoWin"><div class="col 12"><div class="card grey lighten-4"><div class="card-content grey-text text-darken-2"><span class="card-title"><a href="#">' + eventInfo.name + '</a></span><p class="insert"><strong>Time:</strong> ' + eventInfo.time + "</br><strong>Location: </strong>" + eventInfo["location description"] + "</br></br>" + eventInfo.description + '</p></div><div class="card-action white center"><a class="blue-text title btn-flat white waves-effect waves-white" href="/webpages/event_details.php?eventid=' + eventInfo.eventid + '">Event Page</a></div></div></div></div>';
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
+            $("[data-eventnum='" + marker.get("markerNum") +"']")[0].scrollIntoView({behavior: "smooth"});
         }
     })(marker));
 
@@ -560,7 +751,7 @@ function highlight_marker(index) {
 
 function restore_marker(index, type) {
     markers[index].setMap(null);
-    markers[index].setIcon(markerIcons(type));
+    markers[index].setIcon(type);
     markerCluster.resetViewport();
     markerCluster.redraw();
 }
@@ -589,19 +780,19 @@ function markerIcons(type) {
     }
 }
 
-function foldableInit(card) {
+function foldableInit() {
 
     // Initializes cards to be collapsed
-    card.find('.fold-label').closest('.card').find('.fold-body').stop(true, false).slideUp({
-        duration: 350,
-        easing: "easeOutQuart",
-        queue: false,
-        complete: function () {
-            $(this).css('height', '')
-        }
-    });
+//    card.find('.fold-label').closest('.card').find('.fold-body').stop(true, false).slideUp({
+//        duration: 350,
+//        easing: "easeOutQuart",
+//        queue: false,
+//        complete: function () {
+//            $(this).css('height', '')
+//        }
+//    });
     
-    card.find('.expand-fold').on('click', function () {
+    $('.expand-fold').on('click', function () {
         var $this = $(this).find('.fold-label');
        
         // If closed, expand fold
@@ -618,7 +809,7 @@ function foldableInit(card) {
                     $(this).css('height', '')
                 }
             });
-            $this.fadeOut(125, function () {
+            $this.fadeOut(75, function () {
                 $this.text("Less").fadeIn(125);
             });
         } else {
@@ -631,7 +822,7 @@ function foldableInit(card) {
                     $(this).css('height', '')
                 }
             });
-            $this.fadeOut(125, function () {
+            $this.fadeOut(75, function () {
                 $this.text("More").fadeIn(125);
             });
         }

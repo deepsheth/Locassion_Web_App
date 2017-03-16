@@ -31,22 +31,8 @@
 
         <!-- Analytics
 	================================================== -->
-        <script type="text/javascript">
-            window.heap = window.heap || [], heap.load = function (e, t) {
-                window.heap.appid = e, window.heap.config = t = t || {};
-                var r = t.forceSSL || "https:" === document.location.protocol,
-                    a = document.createElement("script");
-                a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") + "//cdn.heapanalytics.com/js/heap-" + e + ".js";
-                var n = document.getElementsByTagName("script")[0];
-                n.parentNode.insertBefore(a, n);
-                for (var o = function (e) {
-                        return function () {
-                            heap.push([e].concat(Array.prototype.slice.call(arguments, 0)))
-                        }
-                    }, p = ["addEventProperties", "addUserProperties", "clearEventProperties", "identify", "removeEventProperty", "setEventProperties", "track", "unsetEventProperty"], c = 0; c < p.length; c++) heap[p[c]] = o(p[c])
-            };
-            heap.load("414125220");
-        </script>
+
+
 
         <!-- Page Specific Styles and Scripts
 	================================================== -->
@@ -64,22 +50,27 @@
     <body id="registration">
         <header class="primary-green row">
 
-            <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+            <div class="logo-container col s12 m3 l4">
+                <a href="/" class="white-text hide-on-med-only">
+                    <div class="logo-img"></div>
+                </a>
+                <h1><a href="/" class="white-text">Locassion</a></h1>
+            </div>
 
-            <ul class="col s12 m8 l10">
+            <ul class="col s12 m8 l8">
                 <div class="flex-container hide-on-small-only menu-buttons">
                     <script>
                         var user = firebase.auth().currentUser;
-                            clearMenu();
-                            if (user) {
-                                // if signed in, you cannot create a new account
-//                                if (window.location.pathname != "/webpages/sign_up.php?new_account=valid")
-//                                    window.location.pathname = '/';
-                            } else {
-                                // NOT signed in.
-                                addMenuButton("forgot_password");
-                                addMenuButton("login");
-                            }
+                        clearMenu();
+                        if (user) {
+                            // if signed in, you cannot create a new account
+                            //                                if (window.location.pathname != "/webpages/sign_up.php?new_account=valid")
+                            //                                    window.location.pathname = '/';
+                        } else {
+                            // NOT signed in.
+                            addMenuButton("forgot_password");
+                            addMenuButton("login");
+                        }
                         });
                     </script>
 

@@ -10,7 +10,7 @@
     <meta name="description" content="Locassion: Web App">
     <meta name="author" content="Deep Sheth">
 
-      <!-- CSS
+    <!-- CSS
 ================================================== -->
     <link href='https://fonts.googleapis.com/css?family=Dosis:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -47,9 +47,14 @@
 <body id="friend-dashboard">
     <header class="primary-green row">
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+        <div class="logo-container col s12 m3 l4">
+            <a href="/" class="white-text hide-on-med-only">
+                <div class="logo-img"></div>
+            </a>
+            <h1><a href="/" class="white-text">Locassion</a></h1>
+        </div>
 
-        <ul class="col s12 m8 l10">
+        <ul class="col s12 m9 l8">
             <div class="flex-container menu-buttons">
 
                 <script>
@@ -106,15 +111,15 @@
                     <h3 class="grey-text text-darken-2"><span class="title blue-text">12</span> Friends</h3>
                 </div>
 
-                
+
                 <div class="row btn-toolbar">
                     <div class="col s12">
-                    <a data-target="create_group_modal" class="btn-group waves-effect waves-light blue btn modal-trigger tooltipped disabled" data-position="bottom" data-delay="0" data-tooltip="Group friends into a  List"><i class="material-icons left">playlist_add</i>Group</a>
-                    <a data-target="delete_modal" class="btn-delete waves-effect waves-light btn btn-flat modal-trigger tooltipped" data-position="bottom" data-delay="0" data-tooltip="Remove friends"><i class="material-icons">delete_sweep</i></a>
-                    <a href="/webpages/search.php" class="waves-effect waves-light btn btn-flat tooltipped" data-position="bottom" data-delay="0" data-tooltip="Search friends to add/remove"><i class="material-icons">search</i></a>
-                    <p class="chip right title">
-                        <span class="num-selected">0</span> Friends Selected
-                    </p>
+                        <a data-target="create_group_modal" class="btn-group waves-effect waves-light blue btn modal-trigger tooltipped disabled" data-position="bottom" data-delay="0" data-tooltip="Group friends into a  List"><i class="material-icons left">playlist_add</i>Group</a>
+                        <a data-target="delete_modal" class="btn-delete waves-effect waves-light btn btn-flat modal-trigger tooltipped" data-position="bottom" data-delay="0" data-tooltip="Remove friends"><i class="material-icons">delete_sweep</i></a>
+                        <a href="/webpages/search.php" class="waves-effect waves-light btn btn-flat tooltipped" data-position="bottom" data-delay="0" data-tooltip="Search friends to add/remove"><i class="material-icons">search</i></a>
+                        <p class="chip right title">
+                            <span class="num-selected">0</span> Friends Selected
+                        </p>
                     </div>
                 </div>
 
@@ -125,31 +130,31 @@
                         <form>
                             <div class="row section">
                                 <div class="container">
-                                <h3>Group Friends</h3>
-                                <div class="row">
-                                    <p class="center"><span class="title num-selected">8</span> friends will be added to this group.</br><small><span class="dyn_selected grey-text"></span></small></p>
-                                </div>
-                                <div class="section">
+                                    <h3>Group Friends</h3>
                                     <div class="row">
-                                        
-                                        <div class="col s12 m8 offset-m2">
+                                        <p class="center"><span class="title num-selected">8</span> friends will be added to this group.</br><small><span class="dyn_selected grey-text"></span></small></p>
+                                    </div>
+                                    <div class="section">
+                                        <div class="row">
+
+                                            <div class="col s12 m8 offset-m2">
                                                 <div class="input-field col s12">
-                                                <i class="material-icons prefix ">group</i>
-                                                <input id="input_username" name="email" type="text" placeholder="" required>
-                                                <label for="input_username">New Group Name</label>
+                                                    <i class="material-icons prefix ">group</i>
+                                                    <input id="input_username" name="email" type="text" placeholder="" required>
+                                                    <label for="input_username">New Group Name</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s8 offset-s2">
+                                            <p class="center"><strong>Or add your friends to existing group</strong></p>
+                                            <div class="flex-container">
+                                                <div class="dyn_avatar add-cursor" title=""></div>
+                                                <div class="dyn_avatar add-cursor" title=""></div>
+                                                <div class="dyn_avatar add-cursor" title=""></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col s8 offset-s2">
-                                        <p class="center"><strong>Or add your friends to existing group</strong></p>
-                                        <div class="flex-container">
-                                            <div class="dyn_avatar add-cursor" title=""></div>
-                                            <div class="dyn_avatar add-cursor" title=""></div>
-                                            <div class="dyn_avatar add-cursor" title=""></div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </form>
 
@@ -157,10 +162,10 @@
                     </div>
                     <div class="modal-footer blue-grey lighten-5">
                         <a href="/webpages/faq.php#faq_friend_list" class="left modal-action modal-close waves-effect waves-blue btn-flat"><i class="material-icons left">info</i>Help</a>
-                         <a href="#" class="right modal-action modal-close waves-effect waves-blue btn-flat"><i class="blue-text material-icons left">add</i><strong class="blue-text">Add</strong></a>
+                        <a href="#" class="right modal-action modal-close waves-effect waves-blue btn-flat"><i class="blue-text material-icons left">add</i><strong class="blue-text">Add</strong></a>
                     </div>
                 </div>
-                
+
                 <div id="delete_modal" class="modal blue-grey-text text-darken-2">
                     <div class="modal-padding">
                         <form>
@@ -346,7 +351,7 @@
             </div>
         </div>
     </div>
-    
+
     <?php
         include_once(dirname(dirname(__FILE__)).'/templates/simple-footer.php'); 
     ?>

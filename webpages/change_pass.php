@@ -61,7 +61,12 @@
     <header class="primary-green row">
 
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+        <div class="logo-container col s12 m3 l4">
+                <a href="/" class="white-text hide-on-med-only">
+                    <div class="logo-img"></div>
+                </a>
+                <h1><a href="/" class="white-text">Locassion</a></h1>
+            </div>
         
     </header>
 

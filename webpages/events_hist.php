@@ -64,27 +64,32 @@
             </div>
         </ul>
 
-        <h1 class="col s12 m4 l2"><a href="/" class="white-text">Locassion</a></h1>
+        <div class="logo-container col s12 m3 l4">
+            <a href="/" class="white-text hide-on-med-only">
+                <div class="logo-img"></div>
+            </a>
+            <h1><a href="/" class="white-text">Locassion</a></h1>
+        </div>
 
         <a href="#" data-activates="mobile-menu" class="hide-on-med-and-up hamburger-menu waves-effect btn col s12"><i class="material-icons left">menu</i>Menu</a>
 
         <!-- Menu Buttons
 ================================================== -->
-        <ul class="col s12 m8 l10">
+        <ul class="col s12 m8 l8">
             <div class="flex-container hide-on-small-only menu-buttons">
-                
+
                 <script>
                     addMenuButton("events_dashboard");
                     addMenuButton("dropdown");
                     requireLogin();
                 </script>
-                
+
             </div>
         </ul>
     </header>
     <div class="container">
 
-        
+
         <div class="row">
             <h3 class="grey-text text-darken-2"><span class="title blue-text">7</span> Events Attended</h3>
         </div>
@@ -98,56 +103,68 @@
                         <div class="col s2 dyn_attendees">35</div>
                         <div class="col s10 info grey-text text-darken-1">
                             <h5><a href=>Psi Soupsilon</a></h5>
-                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM
+                                <br>
+                            </p>
                             <p><i class="material-icons left">place</i>Psi Upsilon</p>
                         </div>
                     </li>
-                    
+
                     <li class="row collection-item">
                         <div class="col s2 dyn_attendees">35</div>
                         <div class="col s10 info grey-text text-darken-1">
                             <h5><a href="">Psi Soupsilon</a></h5>
-                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM
+                                <br>
+                            </p>
                             <p><i class="material-icons left">place</i>Psi Upsilon</p>
                         </div>
                     </li>
-                    
+
                     <li class="row collection-item">
                         <div class="col s2 dyn_attendees">35</div>
                         <div class="col s10 info grey-text text-darken-1">
                             <h5><a href="">Psi Soupsilon</a></h5>
-                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM
+                                <br>
+                            </p>
                             <p><i class="material-icons left">place</i>Psi Upsilon</p>
                         </div>
                     </li>
-                    
+
                     <li class="row collection-item">
                         <div class="col s2 dyn_attendees">35</div>
                         <div class="col s10 info grey-text text-darken-1">
                             <h5><a href="">Psi Soupsilon</a></h5>
-                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM
+                                <br>
+                            </p>
                             <p><i class="material-icons left">place</i>Psi Upsilon</p>
                         </div>
                     </li>
-                    
+
                     <li class="row collection-item">
-                       <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s2 dyn_attendees">35</div>
                         <div class="col s10 info grey-text text-darken-1">
                             <h5><a href="">Psi Soupsilon</a></h5>
-                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM
+                                <br>
+                            </p>
                             <p><i class="material-icons left">place</i>Psi Upsilon</p>
                         </div>
                     </li>
-                    
+
                     <li class="row collection-item">
-                       <div class="col s2 dyn_attendees">35</div>
+                        <div class="col s2 dyn_attendees">35</div>
                         <div class="col s10 info grey-text text-darken-1">
                             <h5><a href="">Psi Soupsilon</a></h5>
-                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM <br></p>
+                            <p><i class="material-icons left">access_time</i>Jan 1, 2016 • 7:00PM - 8:00PM
+                                <br>
+                            </p>
                             <p><i class="material-icons left">place</i>Psi Upsilon</p>
                         </div>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
